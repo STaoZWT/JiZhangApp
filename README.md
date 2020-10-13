@@ -1,16 +1,11 @@
-# flutter_jizhangapp
+# JiZhangApp [![MIT license](https://img.shields.io/github/license/STaoZWT/JiZhangApp?style=plastic)](https://github.com/STaoZWT/JiZhangApp/blob/master/LICENSE)    [![GitHub Contributors](https://img.shields.io/github/contributors/STaoZWT/JiZhangApp?style=plastic)](https://github.com/STaoZWT/JiZhangApp/graphs/contributors)    [![GitHub issues](https://img.shields.io/github/issues/STaoZWT/JiZhangApp?style=plastic)](https://GitHub.com/STaoZWT/JiZhangApp/issues/)    [![GitHub pull-requests](https://img.shields.io/github/issues-pr/STaoZWT/JiZhangApp?style=plastic)](https://GitHub.com/STaoZWT/JiZhangApp/pull/)
 
-An account keeping app made by HITSZ Software Engineering (Fall 2020) Group 19
+*HITSZ CS Software Engineering (Fall 2020) Project*
 
-## Getting Started
+[![GitHub stars](https://img.shields.io/github/stars/STaoZWT/JiZhangApp?style=social)](https://github.com/STaoZWT/JiZhangApp/stargazers)
 
-This project is a starting point for a Flutter application.
+## Contributors
 
-A few resources to get you started if this is your first Flutter project:
+**Team Name:** JiZhangApp 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Team Members:** 张文韬、郑哲徽、李伟钦、韩可依、赵昕圆
