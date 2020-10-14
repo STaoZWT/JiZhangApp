@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   //   }
   // }
   void IsNewUser() async {
-    String passwordInSp;
+    //String passwordInSp;
     print('passwordInsp');
     //print(await getPassWord());
     // getPassWord().then((value) {

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'graphical_password_login.dart';
 import '../service/shared_pref.dart';
 import 'package:gesture_recognition/gesture_view.dart';
 

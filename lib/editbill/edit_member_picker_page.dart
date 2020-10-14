@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import '../service/shared_pref.dart';
-import '../const/picker_data.dart';
 import 'package:toast/toast.dart';
 
 class editMemberPicker extends StatefulWidget {
