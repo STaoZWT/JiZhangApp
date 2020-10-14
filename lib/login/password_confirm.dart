@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'password_reset.dart';
-import 'register.dart';
 import '../service/shared_pref.dart';
 
 class PasswordConfirmPage extends StatefulWidget {

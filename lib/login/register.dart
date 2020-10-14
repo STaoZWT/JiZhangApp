@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../homepage.dart';
 import './login.dart';
 import '../service/shared_pref.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -18,7 +17,7 @@ class _RegisterPageState extends State<RegisterPage> {
   var hintTips = TextStyle(fontSize: 15.0, color: Colors.black26);
 
   void IsNewUser() async {
-    String passwordInSp;
+    //String passwordInSp;
     print('passwordInsp');
     getPassWord().then((passwordInSp) {
       print('passwordInsp is');

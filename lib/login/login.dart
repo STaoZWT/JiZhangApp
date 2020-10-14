@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../homepage.dart';
 import 'graphical_password_login.dart';
 import '../service/shared_pref.dart';
-import 'package:groovin_material_icons/groovin_material_icons.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -19,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   var _PassWordController = TextEditingController();
 
   void IsHaveGraphicalPw() async {
-    String GraphicalPasswordInSp;
+    //String GraphicalPasswordInSp;
     print('GraphicalPwInsp');
     getGraphicalPassWord().then((GraphicalPasswordInSp) {
       print('GraphicalPwInsp is');

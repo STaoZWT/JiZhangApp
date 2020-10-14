@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'dart:ffi';
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../const/picker_data.dart';
 import '../service/shared_pref.dart';
 import 'package:toast/toast.dart';
 
@@ -47,26 +46,6 @@ class _editClassPicker extends State<editClassPicker> {
         ? JsonDecoder().convert(args.legacyClassPickerData)
         : classList;
 
-    ///print(classList[0]);
-    // Map map = JsonDecoder().convert(mapClassPickerData);
-    // var shipinList = map['食品酒水'] as List;
-    // print(shipinList);
-    // print(map['食品酒水']);
-    // List<String> category1List = [];
-    // String tempString;
-    // for (var i = 0; i < classList.length; i++) {
-    //   tempString = (classList[i] as Map).keys.toString();
-    //
-    // }
-    //print((classList[0] as Map).keys); //第1个一级分类名
-    Map map1 = classList[0] as Map;
-    //print(map1['食品酒水']);
-    List list2 = map1['食品酒水'] as List; //第1个一级分类下的所有二级分类
-    //print(list2[0]);
-    //print(JsonEncoder().convert(list2));
-
-    //print(JsonDecoder().convert(classList.elementAt(0)));
-    // classPickerData=ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         title: Text("editClassPicker"),

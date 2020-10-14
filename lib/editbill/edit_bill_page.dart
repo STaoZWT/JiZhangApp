@@ -571,7 +571,8 @@ class _CardAddBill extends State<CardAddBill>
       currentbill.category2 = classSelect[1];
       currentbill.member = memberSelect[0];
       currentbill.value100 = moneyInput;
-      var bill = await BillsDatabaseService.db.addBillInDB(currentbill);
+      //var bill =
+      await BillsDatabaseService.db.addBillInDB(currentbill);
       Navigator.of(context).pop();
       Navigator.of(context).push(
           MaterialPageRoute(builder: (BuildContext context) => HomePage()));
