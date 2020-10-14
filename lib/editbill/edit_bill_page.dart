@@ -117,7 +117,7 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
       body: TabBarView(
           controller: _tabController,
           children: tabs.map((Tab tab) {
-            final String tabType = tab.text.toString();
+            //final String tabType = tab.text.toString();
             String accountTitle = accountTitleController(tab.text);
             type = (tab.text=="收入")?1:(tab.text=="支出")?2:3;  //1:收入 2：支出 3：转账
             return AnimatedContainer(
@@ -162,7 +162,7 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
 
                         ),
                         style: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 42.0,
                           fontWeight: FontWeight.w500,
                           color: Colors.black87,
                           //wordSpacing: 1.5,
@@ -173,7 +173,7 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
                         textInputAction: TextInputAction.done,
                         inputFormatters: [
                           MoneyInputFormatter(),
-                          LengthLimitingTextInputFormatter(14)
+                          LengthLimitingTextInputFormatter(11)
                           //WhitelistingTextInputFormatter(),
                           //FilteringTextInputFormatter.allow(RegExp("\^(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?\$"))
                         ],
@@ -217,7 +217,7 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
                               ),
                             ),
                             subtitle: Text(
-                              formatDate(dateSelect, [yyyy,"年",mm,"月",dd,"日  ",hh,":",mm]),
+                              formatDate(dateSelect, [yyyy,"年",m,"月",d,"日  ",H,":",nn]),
                               style: TextStyle(
                                 color: Colors.black87,
                                 fontSize: 24,
@@ -580,7 +580,7 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
       Toast.show("合法！ $moneyInput", context);
       currentbill.title = remark;
       currentbill.date = dateSelect;
-      currentbill.type = currentbill.type;
+      currentbill.type = type;
       currentbill.accountIn = accountSelectIn[0];
       currentbill.accountOut = accountSelectOut[0];
       currentbill.category1 = classSelect[0];

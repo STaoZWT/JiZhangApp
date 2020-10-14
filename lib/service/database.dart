@@ -97,7 +97,7 @@ class BillsDatabaseService {
       );
     });
     newBill.id = id;
-    print('Bill added: ${newBill.title} ${newBill.value100} ${newBill.date}');
+    print('Bill added: ${newBill.title} ${newBill.value100} ${newBill.date} type is: ${newBill.type}');
     return newBill;
   }
 }
