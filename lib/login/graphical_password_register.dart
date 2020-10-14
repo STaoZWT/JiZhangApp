@@ -6,32 +6,36 @@ import 'package:gesture_recognition/gesture_view.dart';
 
 import '../homepage.dart';
 
-class GraphicalPasswordRegisterPage extends StatefulWidget{
+class GraphicalPasswordRegisterPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
     return _GraphicalPasswordRegisterPageState();
   }
-
 }
 
-class _GraphicalPasswordRegisterPageState extends State<GraphicalPasswordRegisterPage>{
+class _GraphicalPasswordRegisterPageState
+    extends State<GraphicalPasswordRegisterPage> {
   List<int> result;
   var leftRightPadding = 30.0;
   var topBottomPadding = 4.0;
-  var textTips = TextStyle(fontSize: 16.0,color: Colors.black);
-  var hintTips = TextStyle(fontSize: 15.0,color: Colors.black26);
+  var textTips = TextStyle(fontSize: 16.0, color: Colors.black);
+  var hintTips = TextStyle(fontSize: 15.0, color: Colors.black26);
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("Setting Gesture",style: TextStyle(color: Colors.black),),
+        title: Text(
+          "Setting Gesture",
+          style: TextStyle(color: Colors.black),
+        ),
         iconTheme: IconThemeData(color: Colors.blue),
         backgroundColor: Colors.blue,
         automaticallyImplyLeading: false,
@@ -43,7 +47,7 @@ class _GraphicalPasswordRegisterPageState extends State<GraphicalPasswordRegiste
             GestureView(
               immediatelyClear: false,
               size: MediaQuery.of(context).size.width,
-              onPanUp: (List<int> items){
+              onPanUp: (List<int> items) {
                 setState(() {
                   result = items;
                   print("result is down");
@@ -53,14 +57,14 @@ class _GraphicalPasswordRegisterPageState extends State<GraphicalPasswordRegiste
             ),
             Container(
               width: 250.0,
-
               margin: EdgeInsets.fromLTRB(10.0, 40.0, 10.0, 0.0),
-              padding: EdgeInsets.fromLTRB(leftRightPadding, topBottomPadding, leftRightPadding, topBottomPadding),
+              padding: EdgeInsets.fromLTRB(leftRightPadding, topBottomPadding,
+                  leftRightPadding, topBottomPadding),
               child: Card(
                 color: Colors.lightBlueAccent,
                 elevation: 6.0,
                 child: FlatButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     print('into dianji');
                     //List <String> resultToSp ;
                     String resultToSp = result.join("");
@@ -71,13 +75,14 @@ class _GraphicalPasswordRegisterPageState extends State<GraphicalPasswordRegiste
                     showDialog<Null>(
                         context: context,
                         barrierDismissible: false,
-                        builder: (BuildContext context){
+                        builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text("Congradulation!"),
                             content: SingleChildScrollView(
                               child: ListBody(
-                                children:<Widget> [
-                                  Text("You have set graphic password successfully"),
+                                children: <Widget>[
+                                  Text(
+                                      "You have set graphic password successfully"),
                                   Text("Now use it to login happily"),
                                 ],
                               ),
@@ -85,27 +90,29 @@ class _GraphicalPasswordRegisterPageState extends State<GraphicalPasswordRegiste
                             actions: <Widget>[
                               FlatButton(
                                 child: Text('confirm'),
-                                onPressed: (){
+                                onPressed: () {
                                   Navigator.of(context).pop();
-                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                      builder: (BuildContext context) => HomePage()));
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              HomePage()));
                                 },
                               )
                             ],
                           );
-                        }
-                    );
+                        });
                   },
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Text("Set",style: TextStyle(color: Colors.black,fontSize: 20.0),),
+                    child: Text(
+                      "Set",
+                      style: TextStyle(color: Colors.black, fontSize: 20.0),
+                    ),
                   ),
                 ),
               ),
             )
-          ]
-      ),
+          ]),
     );
   }
-
 }

@@ -12,7 +12,6 @@ class UnknownPage extends StatefulWidget {
 }
 
 class _UnknownPageState extends State<UnknownPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
