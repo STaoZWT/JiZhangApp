@@ -74,11 +74,11 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
       title: "",
       date: DateTime.now(),
       type: 1,
-      accountIn: 0,
-      accountOut: 0,
-      category1: 0,
-      category2: 0,
-      member: 0
+      accountIn: "现金",
+      accountOut: "现金",
+      category1: "食品酒水",
+      category2: "早午晚餐",
+      member: "本人"
     );
 
 
@@ -119,7 +119,7 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
           children: tabs.map((Tab tab) {
             final String tabType = tab.text.toString();
             String accountTitle = accountTitleController(tab.text);
-            type = (tab.text=="收入")?1:(tab.text=="支出")?2:3;  //1:收入 2：支出 3：转账
+            type = (tab.text=="收入")?0:(tab.text=="支出")?1:2;  //1:收入 2：支出 3：转账
             return AnimatedContainer(
                 duration: Duration(milliseconds: 200),
                 child: ListView(
@@ -505,9 +505,10 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
         onConfirm: (Picker picker, List value) {
           setState(() {  //页面刷新，显示出用户的选项
             classSelect = value;
-            classSelectText = picker.adapter.text;//用户选中的分类
+            classSelectText = removeBrackets(picker.adapter.text);//用户选中的分类
+            print(classSelectText.split(",")[0]);
           });
-          print(JsonDecoder().convert(ClassPickerData));
+          //print(JsonDecoder().convert(ClassPickerData));
           //print(picker.adapter.text);
         }
     ).showModal(this.context); //_scaffoldKey.currentState);
@@ -522,7 +523,7 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
         onConfirm: (Picker picker, List value) {
           setState(() {
             accountSelectOut = value;
-            accountOutSelectText = picker.adapter.text;//用户选中的账户
+            accountOutSelectText = removeBrackets(picker.adapter.text) ;//用户选中的账户
           });
           print(value.toString());
           print(picker.adapter.text);
@@ -540,7 +541,7 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
         onConfirm: (Picker picker, List value) {
           setState(() {
             accountSelectIn = value;
-            accountInSelectText = picker.adapter.text;//用户选中的账户
+            accountInSelectText = removeBrackets(picker.adapter.text);//用户选中的账户
           });
           print(value.toString());
           print(picker.adapter.text);
@@ -558,7 +559,7 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
         onConfirm: (Picker picker, List value) {
           setState(() {
             memberSelect = value;
-            memberSelectText = picker.adapter.text;//用户选中的成员
+            memberSelectText = removeBrackets(picker.adapter.text);//用户选中的成员
           });
           print(value.toString());
           print(picker.adapter.text);
@@ -576,16 +577,19 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
   }
 
   void billConfirm () async {  //点击确认键的逻辑（数据合法性和写入数据库）
+    print("金额：$moneyInput   分类：${classSelectText.split(",")[0]} ${classSelectText.split(",")[1]}");
+    print("账户：$accountOutSelectText $accountInSelectText    成员：$memberSelectText");
+    print("日期：$dateSelect   备注：$remark   记账类型：$type");
     if (moneyInput > 0 && classSelect!=null && accountSelectOut!=null){
       Toast.show("合法！ $moneyInput", context);
       currentbill.title = remark;
       currentbill.date = dateSelect;
       currentbill.type = currentbill.type;
-      currentbill.accountIn = accountSelectIn[0];
-      currentbill.accountOut = accountSelectOut[0];
-      currentbill.category1 = classSelect[0];
-      currentbill.category2 = classSelect[1];
-      currentbill.member = memberSelect[0];
+      currentbill.accountIn = accountInSelectText;
+      currentbill.accountOut = accountOutSelectText;
+      currentbill.category1 = classSelectText.split(",")[0];
+      currentbill.category2 = classSelectText.split(",")[1];
+      currentbill.member = memberSelectText;
       currentbill.value100 = moneyInput;
       var bill = await BillsDatabaseService.db.addBillInDB(currentbill);
       Navigator.of(context).pop();
@@ -595,6 +599,11 @@ class _CardAddBill extends State<CardAddBill> with SingleTickerProviderStateMixi
     else{
       Toast.show("不合法！", context);
     }
+  }
+
+  String removeBrackets(String value) {  //去除字符串两端的括号
+    value = value.substring(1,value.length-1);
+    return value;
   }
 
 
