@@ -1,4 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_string_encryption/flutter_string_encryption.dart';
+
 
 //文本密码和shared preferences 的交互
 Future<String> getPassWord() async {
@@ -7,6 +9,30 @@ Future<String> getPassWord() async {
   print('password in Sp');
   print(pw);
   return sharedPref.getString('mpassWord');
+}
+
+Future<bool> isPasswordSet() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  bool flag = await sharedPref.containsKey('mpassWord');
+  return flag;
+}
+
+Future<Null> setEncryptedPassword(String rawPassword) async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  final cryptor = new PlatformStringCryptor();
+  String salt = await cryptor.generateSalt();
+  await sharedPref.setString('salt', salt);
+  String key = await cryptor.generateKeyFromPassword(rawPassword, salt);
+  await sharedPref.setString('encrypted', key);
+}
+
+Future<bool> isPasswordValid(String rawPassword) async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  final cryptor = new PlatformStringCryptor();
+  String salt = await sharedPref.getString('salt');
+  String key = await cryptor.generateKeyFromPassword(rawPassword, salt);
+  String encryptedPassword = await sharedPref.getString('key');
+  return (key == encryptedPassword);
 }
 
 Future<Null> setPassWord(String val) async {
