@@ -6,6 +6,7 @@ import 'login/login.dart';
 import 'service/shared_pref.dart';
 import 'unknown_page.dart';
 import 'editbill/edit_bill_page.dart';
+import 'login/remove_user_data.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -101,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                     //点击事件
                     Navigator.of(context).pop();
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => LoginPage()));
+                        builder: (BuildContext context) => RemoveUserDataPage()));
                   }),
               Divider(),
               ListTile(
