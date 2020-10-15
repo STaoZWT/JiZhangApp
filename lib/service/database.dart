@@ -28,10 +28,10 @@ class BillsDatabaseService {
 
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-      await db.execute(
-          'CREATE TABLE Bills (_id INTEGER PRIMARY KEY, title TEXT, date TEXT, type INTEGER, accountIn INTEGER, accountOut INTEGER, category1 INTEGER, category2 INTEGER, member INTEGER, value100 INTEGER);');
-      print('New table created at $path');
-    });
+          await db.execute(
+              'CREATE TABLE Bills (_id INTEGER PRIMARY KEY, title TEXT, date INTEGER, type INTEGER, accountIn TEXT, accountOut TEXT, category1 TEXT, category2 TEXT, member TEXT, value100 INTEGER);');
+          print('New table created at $path');
+        });
   }
 
   //获得所有数据
@@ -58,24 +58,145 @@ class BillsDatabaseService {
     return billsList;
   }
 
-  /*
-  //根据账户获得数据
-  Future<List<BillsModel>> getBillsFromDBByCat1(DateTime dayStart, DateTime dayEnd, int type, int account, int category1) async {
+  Future<List<BillsModel>> getBillsFromDBByDate(
+      DateTime dateStart, DateTime dateEnd) async {
     final db = await database;
     List<BillsModel> billsList = [];
-
     List<Map> maps = await db.query('Bills',
-    columns: [
-      '_id', 'title', 'date', 'type', 'accountIn', 'accountOut', 'category1', 'category2', 'hasMember', 'member', 'value100'
-    ],
-      where: '"date" >=  '
-    );
+        columns: [
+          '_id',
+          'title',
+          'date',
+          'type',
+          'accountIn',
+          'accountOut',
+          'category1',
+          'category2',
+          'member',
+          'value100'
+        ],
+        where: 'date >= ? AND date <= ?',
+        whereArgs: [
+          dateStart.millisecondsSinceEpoch,
+          dateEnd.millisecondsSinceEpoch
+        ]);
     if (maps.length > 0) {
       maps.forEach((map) {
         billsList.add(BillsModel.fromMap(map));
       });
+    }
+    return billsList;
   }
-  */
+
+//根据账户筛选账单
+  Future<List<BillsModel>> getBillsFromDBByAccount(
+      String accountIn, String accountOut) async {
+    final db = await database;
+    List<BillsModel> billsList = [];
+    List<Map> maps = await db.query('Bills',
+        columns: [
+          '_id',
+          'title',
+          'date',
+          'type',
+          'accountIn',
+          'accountOut',
+          'category1',
+          'category2',
+          'member',
+          'value100'
+        ],
+        where: 'accountIn = ? AND accountOut = ?',
+        whereArgs: [accountIn, accountOut]);
+    if (maps.length > 0) {
+      maps.forEach((map) {
+        billsList.add(BillsModel.fromMap(map));
+      });
+    }
+    return billsList;
+  }
+
+//根据一级分类筛选
+  Future<List<BillsModel>> getBillsFromDBByCate1(String category1) async {
+    final db = await database;
+    List<BillsModel> billsList = [];
+    List<Map> maps = await db.query('Bills',
+        columns: [
+          '_id',
+          'title',
+          'date',
+          'type',
+          'accountIn',
+          'accountOut',
+          'category1',
+          'category2',
+          'member',
+          'value100'
+        ],
+        where: 'category1 = ?',
+        whereArgs: [category1]);
+    if (maps.length > 0) {
+      maps.forEach((map) {
+        billsList.add(BillsModel.fromMap(map));
+      });
+    }
+    return billsList;
+  }
+
+//根据二级分类筛选
+  Future<List<BillsModel>> getBillsFromDBByCate2(
+      String category1, String category2) async {
+    final db = await database;
+    List<BillsModel> billsList = [];
+    List<Map> maps = await db.query('Bills',
+        columns: [
+          '_id',
+          'title',
+          'date',
+          'type',
+          'accountIn',
+          'accountOut',
+          'category1',
+          'category2',
+          'member',
+          'value100'
+        ],
+        where: 'category1 = ? AND category2 = ?',
+        whereArgs: [category1, category2]);
+    if (maps.length > 0) {
+      maps.forEach((map) {
+        billsList.add(BillsModel.fromMap(map));
+      });
+    }
+    return billsList;
+  }
+
+//根据成员筛选
+  Future<List<BillsModel>> getBillsFromDBByMember(String member) async {
+    final db = await database;
+    List<BillsModel> billsList = [];
+    List<Map> maps = await db.query('Bills',
+        columns: [
+          '_id',
+          'title',
+          'date',
+          'type',
+          'accountIn',
+          'accountOut',
+          'category1',
+          'category2',
+          'member',
+          'value100'
+        ],
+        where: 'member = ?',
+        whereArgs: [member]);
+    if (maps.length > 0) {
+      maps.forEach((map) {
+        billsList.add(BillsModel.fromMap(map));
+      });
+    }
+    return billsList;
+  }
 
   //根据ID更新数据
   updateBillInDB(BillsModel updatedBill) async {
@@ -86,11 +207,26 @@ class BillsDatabaseService {
         'Bill updated: ${updatedBill.title} ${updatedBill.value100} ${updatedBill.date}');
   }
 
-  //根据ID删除数据
+
+  //清空数据
+  deleteBillAllInDB() async {
+    final db = await database;
+    await db.delete('Bills');
+    print('All bills deleted');
+  }
+
+  //根据BillsModel删除数据
   deleteBillInDB(BillsModel billToDelete) async {
     final db = await database;
     await db.delete('Bills', where: '_id = ?', whereArgs: [billToDelete.id]);
-    print('Note deleted');
+    print('Bill deleted');
+  }
+
+  //根据ID删除数据
+  deleteBillIdInDB(int id) async {
+    final db = await database;
+    await db.delete('Bills', where: '_id = ?', whereArgs: [id]);
+    print('Bill deleted');
   }
 
   //添加一条数据
@@ -99,11 +235,15 @@ class BillsDatabaseService {
     if (newBill.title.trim().isEmpty) newBill.title = 'Untitled Bill';
     int id = await db.transaction((transaction) {
       transaction.rawInsert(
-          'INSERT into Bills(title, date, type, accountIn, accountOut, category1, category2, member, value100) VALUES ("${newBill.title}", "${newBill.date.toIso8601String()}", "${newBill.type}", "${newBill.accountIn}", "${newBill.accountOut}", "${newBill.category1}", "${newBill.category2}", "${newBill.member}", "${newBill.value100}");');
+          'INSERT into Bills(title, date, type, accountIn, accountOut, category1, category2, member, value100) VALUES ("${newBill.title}", "${newBill.date.millisecondsSinceEpoch}", "${newBill.type}", "${newBill.accountIn}", "${newBill.accountOut}", "${newBill.category1}", "${newBill.category2}", "${newBill.member}", "${newBill.value100}");');
     });
     newBill.id = id;
     print(
         'Bill added: ${newBill.title} ${newBill.value100} ${newBill.date} type is: ${newBill.type}');
     return newBill;
   }
+
+//根据账户获得数据
+
+
 }

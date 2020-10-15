@@ -5,13 +5,13 @@ class BillsModel {
   int id; //id
   String title; //标题
   DateTime date; //日期
-  int type; //类型（收入: 1/支出: 2/转账: 3）
-  int accountIn; //账户,待改
-  int accountOut;
-  int category1; //一级分类
-  int category2; //二级分类
+  int type; //类型（收入: 0/支出: 1/转账: 2）
+  String accountIn; //账户,待改
+  String accountOut;
+  String category1; //一级分类
+  String category2; //二级分类
   //bool hasMember; //是否有成员
-  int member; //成员，待改
+  String member; //成员，待改
   int value100; //金额
 
   BillsModel(
@@ -30,7 +30,7 @@ class BillsModel {
   BillsModel.fromMap(Map<String, dynamic> map) {
     this.id = map['_id'];
     this.title = map['title'];
-    this.date = DateTime.parse(map['date']);
+    this.date = DateTime.fromMillisecondsSinceEpoch(map['date']);
     this.type = map['type'];
     this.accountIn = map['accountIn'];
     this.accountOut = map['accountOut'];
@@ -46,7 +46,7 @@ class BillsModel {
     return <String, dynamic>{
       '_id': this.id,
       'title': this.title,
-      'date': this.date.toIso8601String(),
+      'date': this.date.millisecondsSinceEpoch,
       'type': this.type,
       'accountIn': this.accountIn,
       'accountOut': this.accountOut,
@@ -61,15 +61,15 @@ class BillsModel {
   //生成随机数据
   BillsModel.random() {
     this.id = Random(10).nextInt(1000) + 1;
-    this.title = 'Bills Test ' * (Random().nextInt(4) + 1);
-    this.date = DateTime.now().add(Duration(hours: Random().nextInt(100)));
+    this.title = 'Bills Test ' + (Random().nextInt(10000) + 1).toString();
+    this.date = DateTime.now().subtract(Duration(hours: Random().nextInt(100)));
     this.type = Random().nextInt(3);
-    this.accountIn = Random().nextInt(3);
-    this.accountOut = Random().nextInt(3);
-    this.category1 = Random().nextInt(3);
-    this.category2 = Random().nextInt(3);
+    this.accountIn = 'accountIn ' + (Random().nextInt(3)).toString();
+    this.accountOut = 'accountOut ' + (Random().nextInt(3)).toString();
+    this.category1 = 'Category1 ' + (Random().nextInt(3)).toString();
+    this.category2 = 'Category2 ' + (Random().nextInt(3)).toString();
     //this.hasMember = Random().nextBool();
-    this.member = Random().nextInt(4) - 1;
+    this.member =  'Member ' + (Random().nextInt(3)).toString();
     this.value100 = Random().nextInt(10000);
   }
 }
