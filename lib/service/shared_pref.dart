@@ -36,6 +36,11 @@ Future<Null> setOldUserFlag() async {
   sharedPref.setString('OldUserFlag', 'Yes');
 }
 
+Future<Null> removeOldUserFlag() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  sharedPref.remove('OldUserFlag');
+}
+
 //all
 Future<String> getPicker(String key) async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
