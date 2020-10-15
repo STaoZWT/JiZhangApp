@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 //账单模板类
@@ -15,9 +14,17 @@ class BillsModel {
   String member; //成员，待改
   int value100; //金额
 
-
-  BillsModel({this.id, this.title, this.date, this.type, this.accountIn, this.accountOut, this.category1, this.category2, this.member, this.value100});
-
+  BillsModel(
+      {this.id,
+      this.title,
+      this.date,
+      this.type,
+      this.accountIn,
+      this.accountOut,
+      this.category1,
+      this.category2,
+      this.member,
+      this.value100});
 
   //从Map读入
   BillsModel.fromMap(Map<String, dynamic> map) {
@@ -32,13 +39,11 @@ class BillsModel {
     //this.hasMember = map['hasMember'] == 1 ? true : false;
     this.member = map['member'];
     this.value100 = map['value100'];
-
   }
-
 
   //输出为Map
   Map<String, dynamic> toMap() {
-    return <String, dynamic> {
+    return <String, dynamic>{
       '_id': this.id,
       'title': this.title,
       'date': this.date.millisecondsSinceEpoch,
@@ -50,7 +55,6 @@ class BillsModel {
       //'hasMember': this.hasMember == true ? 1 : 0,
       'member': this.member,
       'value100': this.value100
-
     };
   }
 

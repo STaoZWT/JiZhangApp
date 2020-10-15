@@ -207,6 +207,7 @@ class BillsDatabaseService {
         'Bill updated: ${updatedBill.title} ${updatedBill.value100} ${updatedBill.date}');
   }
 
+
   //清空数据
   deleteBillAllInDB() async {
     final db = await database;
@@ -237,10 +238,12 @@ class BillsDatabaseService {
           'INSERT into Bills(title, date, type, accountIn, accountOut, category1, category2, member, value100) VALUES ("${newBill.title}", "${newBill.date.millisecondsSinceEpoch}", "${newBill.type}", "${newBill.accountIn}", "${newBill.accountOut}", "${newBill.category1}", "${newBill.category2}", "${newBill.member}", "${newBill.value100}");');
     });
     newBill.id = id;
-    print('Bill added: ${newBill.title} ${newBill.value100} ${newBill.date}');
+    print(
+        'Bill added: ${newBill.title} ${newBill.value100} ${newBill.date} type is: ${newBill.type}');
     return newBill;
   }
 
 //根据账户获得数据
+
 
 }

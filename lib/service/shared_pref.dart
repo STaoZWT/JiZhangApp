@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 //文本密码和shared preferences 的交互
 Future<String> getPassWord() async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
-  String pw =sharedPref.getString('mpassWord');
+  String pw = sharedPref.getString('mpassWord');
   print('password in Sp');
   print(pw);
   return sharedPref.getString('mpassWord');
@@ -35,14 +35,14 @@ Future<Null> setOldUserFlag() async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   sharedPref.setString('OldUserFlag', 'Yes');
 }
+
 //all
 Future<String> getPicker(String key) async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   return sharedPref.getString(key);
 }
 
-Future<Null> setPicker(String key,String val) async {
+Future<Null> setPicker(String key, String val) async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   sharedPref.setString(key, val);
 }
-

@@ -26,10 +26,8 @@ const ClassPickerData = '''
 ]
     ''';
 
-
-
 //账户
-const AccountPickerData ='''
+const AccountPickerData = '''
 [
         "现金账户",
         "信用卡",
@@ -39,7 +37,6 @@ const AccountPickerData ='''
         "微信钱包"
 ]
 ''';
-
 
 const MemberPickerData = '''
 [
