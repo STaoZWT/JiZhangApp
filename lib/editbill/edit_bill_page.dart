@@ -495,10 +495,12 @@ class _CardAddBill extends State<CardAddBill>
   }
 
   accountPickerOut(BuildContext context) {
+    List accountPickerDataTemp = JsonDecoder()
+        .convert(accountPickerData);
+    accountPickerDataTemp.remove(accountInSelectText);
     Picker(
         adapter: PickerDataAdapter<String>(
-            pickerdata: JsonDecoder()
-                .convert(accountPickerData)), //传入可选项，json:string to list
+            pickerdata: accountPickerDataTemp), //传入可选项，json:string to list
         changeToFirst: true,
         hideHeader: false,
         selectedTextStyle: TextStyle(color: Colors.blue),
@@ -514,10 +516,12 @@ class _CardAddBill extends State<CardAddBill>
 
   //选择转入账户
   accountPickerIn(BuildContext context) {
+    List accountPickerDataTemp = JsonDecoder()
+        .convert(accountPickerData);
+    accountPickerDataTemp.remove(accountOutSelectText);
     Picker(
         adapter: PickerDataAdapter<String>(
-            pickerdata: JsonDecoder()
-                .convert(accountPickerData)), //传入可选项，json:string to list
+            pickerdata: accountPickerDataTemp), //传入可选项，json:string to list
         changeToFirst: true,
         hideHeader: false,
         selectedTextStyle: TextStyle(color: Colors.blue),
