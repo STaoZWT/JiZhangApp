@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import './login/graphical_password_register.dart';
 import './login/password_confirm.dart';
 import './login/register.dart';
+import 'chart/Tabs/piechart2/chart_pie.dart';
+import 'chart/select.dart';
 import 'login/login.dart';
 import 'service/shared_pref.dart';
 import 'unknown_page.dart';
@@ -162,8 +164,7 @@ class _HomePageState extends State<HomePage> {
                 //Navigator.of(context).pop();
                 //TODO：待整合记账、统计、图标页面
                 Navigator.of(context).push(MaterialPageRoute(
-                    //builder: (BuildContext context) => PiechartPage()));
-                    builder: (BuildContext context) => UnknownPage()));
+                    builder: (BuildContext context) => SelectPage()));
               } else if (_currentIndex == 1) {
                 //Navigator.of(context).pop();
                 Navigator.of(context).push(MaterialPageRoute(
