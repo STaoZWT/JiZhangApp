@@ -65,10 +65,11 @@ class _CardAddBill extends State<CardAddBill>
     accountOutSelectText = "未选择";
     memberSelectText = "未选择";
     remark = " ";
+    type = 0;
     currentbill = BillsModel(
       title: "",
       date: DateTime.now(),
-      type: 1,
+      type: 0,
       accountIn: "现金",
       accountOut: "现金",
       category1: "食品酒水",
@@ -111,7 +112,20 @@ class _CardAddBill extends State<CardAddBill>
           children: tabs.map((Tab tab) {
             //final String tabType = tab.text.toString();
             String accountTitle = accountTitleController(tab.text);
-            type = (tab.text=="收入")?0:(tab.text=="支出")?1:2;  //1:收入 2：支出 3：转账
+            //type = (tab.text=="收入")?0:(tab.text=="支出")?1:2;  //1:收入 2：支出 3：转账
+            _tabController.addListener(() {
+
+              if (!_tabController.indexIsChanging) {
+                setState(() {
+                  var index = _tabController.index;
+                  print("index : $index");
+                  currentbill.type = index;
+                  print("cu.type: ${currentbill.type}");
+                  type = index;
+                  print("type: $type");
+                });
+              }
+            });
             return AnimatedContainer(
                 duration: Duration(milliseconds: 200),
                 child: ListView(
@@ -570,7 +584,7 @@ class _CardAddBill extends State<CardAddBill>
       Toast.show("合法！ $moneyInput", context);
       currentbill.title = remark;
       currentbill.date = dateSelect;
-      currentbill.type = currentbill.type;
+      currentbill.type = type;
       currentbill.accountIn = accountInSelectText;
       currentbill.accountOut = accountOutSelectText;
       currentbill.category1 = classSelectText.split(",")[0];
