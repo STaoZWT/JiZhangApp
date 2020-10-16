@@ -21,6 +21,10 @@ class _editAccountPicker extends State<editAccountPicker> {
   List accountList; //account所有选项的list形式
   bool isChange;
 
+  List<Widget> accountListCard;
+
+
+
   @override
   Future<void> initState() {
     super.initState();
@@ -34,26 +38,60 @@ class _editAccountPicker extends State<editAccountPicker> {
     accountList = (isChange == false)
         ? JsonDecoder().convert(args.legacyAccountPickerData)
         : accountList; //判断
+    //print(accountList as Map);
+    accountListCard = [];
+    for(var index = 0;index < accountList.length;index++) {
+      accountListCard.add(
+          Dismissible(
+            key: Key(accountList[index].toString()),
+            onDismissed: (direction) {
+
+              setState(() {
+                accountList.removeAt(index);
+                print("$index ${accountList.toString()}");
+                accountListCard.removeAt(index);
+                print("$index ${accountList.toString()}");
+                isChange = true;
+              });
+            },
+            child: Card(
+              margin: EdgeInsets.all(5.0),
+              elevation: 15.0,
+              shape: const RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(14.0))),
+              child: InkWell(
+                onTap: () {},
+                child: ListTile(
+                  title: Text(accountList[index], style: TextStyle(color: Colors.black45),),
+                  leading: Icon(
+                    Icons.account_balance_wallet,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ),
+
+          )
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("editAccountPicker"),
       ),
-      body: new ListView.separated(
-        itemCount: accountList.length,
+      body: new ListView.builder(
+        itemCount: accountListCard.length,
         scrollDirection: Axis.vertical, //方向：垂直滑动
         itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.only(top: 50.0, left: 120.0), //容器外填充
-            constraints:
-                BoxConstraints.tightFor(width: 200.0, height: 50.0), //卡片大小
-            alignment: Alignment.centerLeft, //卡片内文字居中
-            child: Text("${accountList[index]}"),
-          );
-        },
-        separatorBuilder: (context, index) {
-          return new Divider(
-            height: 1,
-          );
+          return accountListCard[index];
+          // return Container(
+          //   margin: EdgeInsets.only(top: 50.0, left: 120.0), //容器外填充
+          //   constraints:
+          //       BoxConstraints.tightFor(width: 200.0, height: 50.0), //卡片大小
+          //   alignment: Alignment.centerLeft, //卡片内文字居中
+          //   child: Text("${accountList[index]}"),
+          // );
         },
       ),
       floatingActionButton: FloatingActionButton(
