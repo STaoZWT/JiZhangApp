@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
+import '../service/database.dart';
 import 'package:flutter/material.dart';
 import '../service/shared_pref.dart';
 import 'package:toast/toast.dart';
@@ -42,37 +42,85 @@ class _editAccountPicker extends State<editAccountPicker> {
     accountListCard = [];
     for(var index = 0;index < accountList.length;index++) {
       accountListCard.add(
-          Dismissible(
-            key: Key(accountList[index].toString()),
-            onDismissed: (direction) {
-
-              setState(() {
-                accountList.removeAt(index);
-                print("$index ${accountList.toString()}");
-                accountListCard.removeAt(index);
-                print("$index ${accountList.toString()}");
-                isChange = true;
-              });
-            },
-            child: Card(
+          // Dismissible(
+          //   key: Key(accountList[index].toString()),
+          //   onDismissed: (direction) {
+          //
+          //     setState(() {
+          //       accountList.removeAt(index);
+          //       print("$index ${accountList.toString()}");
+          //       accountListCard.removeAt(index);
+          //       print("$index ${accountList.toString()}");
+          //       isChange = true;
+          //     });
+          //   },
+          //   child:
+            Card(
               margin: EdgeInsets.all(5.0),
               elevation: 15.0,
               shape: const RoundedRectangleBorder(
                   borderRadius:
                   BorderRadius.all(Radius.circular(14.0))),
               child: InkWell(
-                onTap: () {},
+                onTap: () async {
+                  if (accountList[index] == '现金账户') {
+                    Toast.show('该项不可修改', context);
+                  } else {
+                    String changeAccount = await inputNewAccount();
+                    if (changeAccount != null) {
+                      bool isExist = false;
+                      accountList.forEach((element) {
+                        if (element == changeAccount) {
+                          isExist = true;
+                        }
+                      });
+                      if (isExist == true) {
+                        Toast.show('该账户已存在', context);
+                      } else {
+                        setState(() {
+                          updateAccount(accountList[index], changeAccount);
+                          accountList[index] = changeAccount;
+                          isChange = true;
+                          setPicker('maccountPicker',
+                              JsonEncoder().convert(accountList));
+                        });
+                      }
+                    }
+                  }
+                },
                 child: ListTile(
                   title: Text(accountList[index], style: TextStyle(color: Colors.black45),),
                   leading: Icon(
                     Icons.account_balance_wallet,
                     color: Colors.blue,
                   ),
+                  trailing: Visibility(
+                    visible: true,
+                    maintainInteractivity: false,
+                    maintainSize: false,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.delete_outline
+                      ),
+                      onPressed: () async {
+                        bool isDelete = await deleteConfirm();
+                        if (isDelete) {
+                          isChange = true;
+                          print(accountList);
+                          removeAccount(accountList[index]);
+                          accountList.removeAt(index);
+                          print(accountList);
+                          setPicker('maccountPicker',
+                              JsonEncoder().convert(accountList));
+                        }
+                      },
+                    ),
+                  ),
                 ),
               ),
             ),
 
-          )
+          // )
       );
     }
 
@@ -131,7 +179,7 @@ class _editAccountPicker extends State<editAccountPicker> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("input new account"),
+            title: Text("请输入新的账户名称"),
             content: TextField(
               autofocus: true,
               maxLines: 1, //最大行数
@@ -157,5 +205,41 @@ class _editAccountPicker extends State<editAccountPicker> {
             ],
           );
         });
+  }
+
+  Future<bool> deleteConfirm() {
+    return showDialog<bool>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("提示"),
+            content:Text(
+              "删除账户后，成员关联的账单同时也会变为“现金账户”，您确定要删除所选账户吗？",
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 20,
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("取消"),
+                onPressed: () => Navigator.of(context).pop(false),
+              ),
+              FlatButton(
+                child: Text("确认"),
+                onPressed: () => Navigator.of(context).pop(true),
+              ),
+            ],
+          );
+        }
+    );
+  }
+
+  removeAccount(String accountToBeDeleted) async {
+    await BillsDatabaseService.db.updateAccountInDB(accountToBeDeleted, '现金账户');
+  }
+
+  updateAccount(String accountToBeUpdated, String accountNewName) async {
+    await BillsDatabaseService.db.updateAccountInDB(accountToBeUpdated, accountNewName);
   }
 }

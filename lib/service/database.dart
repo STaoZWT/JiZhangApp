@@ -214,6 +214,14 @@ class BillsDatabaseService {
     print("updated: $count");
   }
 
+  updateAccountInDB(String accountToBeUpdated, String accountNewName) async {
+    print ("Will update member: $accountToBeUpdated to $accountNewName");
+    final db = await database;
+    int count = await db.rawUpdate('UPDATE Bills SET accountIn = ? WHERE accountIn = ?', [accountNewName, accountToBeUpdated]);
+    count += await db.rawUpdate('UPDATE Bills SET accountOut = ? WHERE accountOut = ?', [accountNewName, accountToBeUpdated]);
+    print("updated: $count");
+  }
+
 
   //清空数据
   deleteBillAllInDB() async {
