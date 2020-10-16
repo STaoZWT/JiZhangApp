@@ -21,7 +21,6 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
     await BillsDatabaseService.db.deleteBillAllInDB();
     await removePassword();
     await setGraphicalPassWord(null);
-    await removeOldUserFlag();
   }
 
   @override
