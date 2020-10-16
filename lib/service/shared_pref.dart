@@ -1,4 +1,3 @@
-import 'package:date_format/date_format.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
@@ -15,7 +14,7 @@ Future<String> getPassWord() async {
 //检测是否已经设置密码
 Future<bool> isPasswordSet() async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
-  bool flag = await sharedPref.containsKey('encrypted');
+  bool flag = await sharedPref.containsKey('encrypted1');
   return flag;
 }
 
@@ -24,22 +23,25 @@ Future<Null> setEncryptedPassword(String rawPassword) async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   final cryptor = new PlatformStringCryptor();
   String key = await cryptor.generateRandomKey();
-  await sharedPref.setString('key', key);
+  await sharedPref.setString('key1', key);
   String encrypted = await cryptor.encrypt(rawPassword, key);
-  await sharedPref.setString('encrypted', encrypted);
-  print(key);
+  await sharedPref.setString('encrypted1', encrypted);
 }
 
 //校验密码
 Future<bool> isPasswordValid(String rawPassword) async {
-  print(rawPassword);
+  print("input: $rawPassword");
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   final cryptor = new PlatformStringCryptor();
-  String key = await sharedPref.getString('key');
-  String encrypted = await sharedPref.getString('encrypted');
-  cryptor.encrypt(rawPassword, key).then((input) {
-    return(input == encrypted);
-  });
+  String key = await sharedPref.getString('key1');
+  String encrypted = await sharedPref.getString('encrypted1');
+  String decrypted = await cryptor.decrypt(encrypted, key);
+  // print(await cryptor.decrypt(encrypted, key));
+  // cryptor.decrypt(encrypted, key).then((decrypted) {
+  //   print(decrypted == rawPassword);
+  //   return(true);
+  // });
+  return (decrypted == rawPassword);
 }
 
 Future<Null> removePassword() async {

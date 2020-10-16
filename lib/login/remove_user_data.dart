@@ -30,6 +30,7 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () async {
             isPasswordValid(passwordController.value.text.toString()).then((value) {
+              print("value is $value");
 
             // getPassWord().then((password) {
               if (value == true) {
