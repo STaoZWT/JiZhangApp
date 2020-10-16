@@ -60,10 +60,10 @@ class _CardAddBill extends State<CardAddBill>
     accountSelectOut = [0];
     accountSelectIn = [0];
     memberSelect = [0];
-    classSelectText = "未选择";
+    classSelectText = "未选择,未选择";
     accountInSelectText = "未选择";
     accountOutSelectText = "未选择";
-    memberSelectText = "未选择";
+    memberSelectText = "本人";
     remark = " ";
     type = 0;
     currentbill = BillsModel(
@@ -577,20 +577,23 @@ class _CardAddBill extends State<CardAddBill>
   }
 
   void billConfirm () async {  //点击确认键的逻辑（数据合法性和写入数据库）
-    print("金额：$moneyInput   分类：${classSelectText.split(",")[0]} ${classSelectText.split(",")[1]}");
-    print("账户：$accountOutSelectText $accountInSelectText    成员：$memberSelectText");
-    print("日期：$dateSelect   备注：$remark   记账类型：$type");
-    if (moneyInput > 0 && classSelect!=null && accountSelectOut!=null){
+    print(type==2);
+    print(accountInSelectText);
+    print(accountOutSelectText);
+    currentbill.title = remark;
+    currentbill.date = dateSelect;
+    currentbill.type = type;
+    currentbill.accountIn = (type==2)?accountInSelectText:accountOutSelectText;
+    currentbill.accountOut = accountOutSelectText;
+    currentbill.category1 = classSelectText.split(",")[0];
+    currentbill.category2 = classSelectText.split(",")[1];
+    currentbill.member = memberSelectText;
+    currentbill.value100 = moneyInput;
+    print("金额：$currentbill.value100   分类：${currentbill.category1} ${currentbill.category2}");
+    print("账户：${currentbill.accountOut} ${currentbill.accountIn}    成员：${currentbill.member}");
+    print("日期：${currentbill.date}   备注：${currentbill.title}   记账类型：${currentbill.type}");
+    if (isLeagal() ){
       Toast.show("合法！ $moneyInput", context);
-      currentbill.title = remark;
-      currentbill.date = dateSelect;
-      currentbill.type = type;
-      currentbill.accountIn = accountInSelectText;
-      currentbill.accountOut = accountOutSelectText;
-      currentbill.category1 = classSelectText.split(",")[0];
-      currentbill.category2 = classSelectText.split(",")[1];
-      currentbill.member = memberSelectText;
-      currentbill.value100 = moneyInput;
       //var bill =
       await BillsDatabaseService.db.addBillInDB(currentbill);
       Navigator.of(context).pop();
@@ -599,6 +602,13 @@ class _CardAddBill extends State<CardAddBill>
     } else {
       Toast.show("不合法！", context);
     }
+  }
+
+  bool isLeagal() {  //判断输入是否合法
+    return currentbill.value100 > 0
+        && currentbill.category1!="未选择"
+        && currentbill.accountOut!="未选择"
+        && (type!=2 || currentbill.accountIn!="未选择");
   }
 
   String removeBrackets(String value) {  //去除字符串两端的括号
