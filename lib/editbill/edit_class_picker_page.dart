@@ -24,12 +24,13 @@ class editClassPicker extends StatefulWidget {
 class editClassPickerArguments {
   //上一个页面传入的所有参数
   final String legacyClassPickerData;
-
-  editClassPickerArguments(this.legacyClassPickerData);
+  final String type;  //区分收入和支出的分类
+  editClassPickerArguments(this.legacyClassPickerData, this.type);
 }
 
 class _editClassPicker extends State<editClassPicker> {
   List classList;
+  String type;
   bool isChange;
 
   @override
@@ -45,6 +46,8 @@ class _editClassPicker extends State<editClassPicker> {
     classList = (isChange == false)
         ? JsonDecoder().convert(args.legacyClassPickerData)
         : classList;
+    type = args.type;
+    String fileName = (type=="支出")?'mOutClassPicker':'mInClassPicker';
 
     return Scaffold(
       appBar: AppBar(
@@ -119,7 +122,7 @@ class _editClassPicker extends State<editClassPicker> {
                                 print(classList[index]);
                                 print(JsonEncoder().convert(classList));
                                 isChange = true;
-                                setPicker('mclassPicker',
+                                setPicker(fileName,
                                     JsonEncoder().convert(classList));
                               });
                             }
@@ -161,7 +164,7 @@ class _editClassPicker extends State<editClassPicker> {
                   classList.add(newCategory1);
                   print(classList.last);
                   isChange = true;
-                  setPicker('mclassPicker', JsonEncoder().convert(classList));
+                  setPicker(fileName, JsonEncoder().convert(classList));
                 });
               }
             }
