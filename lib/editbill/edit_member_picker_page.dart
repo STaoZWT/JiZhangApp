@@ -177,7 +177,7 @@ class _editMemberPicker extends State<editMemberPicker> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("输入成员"),
+            title: Text("请输入新的成员名称"),
             content: TextField(
               autofocus: true,
               maxLines: 1, //最大行数
