@@ -65,7 +65,7 @@ class _CardAddBill extends State<CardAddBill>
     classSelectText = "未选择,未选择";
     accountInSelectText = "未选择";
     accountOutSelectText = "未选择";
-    memberSelectText = "本人";
+    memberSelectText = "无成员";
     remark = " ";
     type = 0;
     //tempMoney = 0.00;
@@ -78,7 +78,7 @@ class _CardAddBill extends State<CardAddBill>
       accountOut: "现金",
       category1: "食品酒水",
       category2: "早午晚餐",
-      member: "本人"
+      member: "无成员"
     );
   }
 
@@ -91,19 +91,12 @@ class _CardAddBill extends State<CardAddBill>
           billConfirm();
         },
         label:
-            //   Text(
-            //     "完成",
-            //   style: TextStyle(
-            //     fontSize: 22
-            //   ),
-            // ),
-            //   icon:
             Icon(
           Icons.check,
           size: 30,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         title: Text("新建记账"),
         bottom: TabBar(
@@ -244,57 +237,85 @@ class _CardAddBill extends State<CardAddBill>
                       child: Column(
                         children: <Widget>[
                           //以下选择分类
-                          InkWell(
-                            onTap: () async {
-                              classPickerData = await getPicker("mclassPicker");
-                              if (classPickerData == null) {
-                                await setPicker(
-                                    "mclassPicker", ClassPickerData);
-                                classPickerData =
-                                    await getPicker("mclassPicker");
-                              }
-                              classPicker(context);
-                            },
-                            child: ListTile(
-                              title: Text(
-                                "分类",
-                                style: TextStyle(color: Colors.black45),
+                          Visibility(
+                              visible: (tab.text == "收入" || tab.text == "支出"), //只有选择“收入”“支出”才会显示
+                              maintainInteractivity: false,
+                              maintainSize: false,
+                              child: Column(
+                                children: <Widget>[
+                                  InkWell(
+                                    onTap: () async {  //点击弹出picker
+                                      classPickerData = (tab.text=="支出")?
+                                      await getPicker("mOutClassPicker"):await getPicker("mInClassPicker");
+                                      if (classPickerData == null) { //首次打开picker，需要载入picker初始值
+                                        if(tab.text=="支出") {
+                                          await setPicker(
+                                              "mOutClassPicker", OutClassPickerData); //载入支出的分类
+                                          classPickerData =
+                                          await getPicker("mOutClassPicker");
+                                        }
+                                        else if(tab.text=="收入") {
+                                          await setPicker(
+                                              "mInClassPicker", InClassPickerData); //载入收入的分类
+                                          classPickerData =
+                                          await getPicker("mInClassPicker");
+                                        }
+                                      }
+                                      classPicker(context);
+                                    },
+                                    child: ListTile(
+                                      title: Text(
+                                        "分类",
+                                        style: TextStyle(color: Colors.black45),
+                                      ),
+                                      subtitle: Text(
+                                        "$classSelectText",
+                                        style: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      leading: Icon(
+                                        Icons.apps,
+                                        color: Colors.blue,
+                                      ),
+                                      trailing: IconButton(
+                                        icon: Icon(
+                                          Icons.edit,
+                                        ),
+                                        onPressed: () async {  //点击编辑按钮跳转到自定义界面
+                                          classPickerData = (tab.text=="支出")?
+                                          await getPicker("mOutClassPicker"):await getPicker("mInClassPicker");
+                                          if (classPickerData == null) {
+                                            if(tab.text=="支出") {
+                                              await setPicker(
+                                                  "mOutClassPicker", OutClassPickerData);
+                                              classPickerData =
+                                              await getPicker("mOutClassPicker");
+                                            }
+                                            else if(tab.text=="收入") {
+                                              await setPicker(
+                                                  "mInClassPicker", InClassPickerData);
+                                              classPickerData =
+                                              await getPicker("mInClassPicker");
+                                            }
+                                          }
+                                          Navigator.pushNamed(
+                                              context, "/editClassPicker",
+                                              arguments: editClassPickerArguments(
+                                                  classPickerData, tab.text));
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Colors.black26,
+                                  ),
+                                ],
                               ),
-                              subtitle: Text(
-                                "$classSelectText",
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              leading: Icon(
-                                Icons.apps,
-                                color: Colors.blue,
-                              ),
-                              trailing: IconButton(
-                                icon: Icon(
-                                  Icons.edit,
-                                ),
-                                onPressed: () async {
-                                  classPickerData =
-                                      await getPicker("mclassPicker");
-                                  if (classPickerData == null) {
-                                    await setPicker(
-                                        "mclassPicker", ClassPickerData);
-                                    classPickerData =
-                                        await getPicker("mclassPicker");
-                                  }
-                                  Navigator.pushNamed(
-                                      context, "/editClassPicker",
-                                      arguments: editClassPickerArguments(
-                                          classPickerData));
-                                },
-                              ),
-                            ),
+
                           ),
-                          Divider(
-                            color: Colors.black26,
-                          ),
+
                           //以下选择账户(转出账户)
                           InkWell(
                             onTap: () async {
@@ -588,10 +609,10 @@ class _CardAddBill extends State<CardAddBill>
     currentbill.title = remark;
     currentbill.date = dateSelect;
     currentbill.type = type;
-    currentbill.accountIn = (type==2)?accountInSelectText:accountOutSelectText;
+    currentbill.accountIn = (type==2)?accountInSelectText:accountOutSelectText; //不是转账时，转出账户和转入账户相同
     currentbill.accountOut = accountOutSelectText;
-    currentbill.category1 = classSelectText.split(",")[0];
-    currentbill.category2 = classSelectText.split(",")[1];
+    currentbill.category1 = (type==2)?"其他":classSelectText.split(",")[0]; //转账时无分类，因此赋默认值
+    currentbill.category2 = (type==2)?"转账":classSelectText.split(",")[1];
     currentbill.member = memberSelectText;
     currentbill.value100 = moneyInput;
     print("金额：$currentbill.value100   分类：${currentbill.category1} ${currentbill.category2}");
