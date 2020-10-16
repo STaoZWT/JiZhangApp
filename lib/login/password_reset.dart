@@ -64,7 +64,7 @@ class _PasswordResetPage extends State<PasswordResetPage> {
                           8 &&
                       resetPassWordController.value.text.toString().length <=
                           18) {
-                    await setPassWord(
+                    await setEncryptedPassword(
                         resetPassWordController.value.text.toString());
                     showDialog<Null>(
                         context: context,

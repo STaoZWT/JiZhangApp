@@ -40,14 +40,21 @@ class _HomePageState extends State<HomePage> {
     //   print(value);
     //   passwordInSp = value;
     // });
-    getPassWord().then((passwordInSp) {
-      print('passwordInsp is');
-      print(passwordInSp);
-      passwordInSp != null
-          ? Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (BuildContext context) => LoginPage()))
+    // getPassWord().then((passwordInSp) {
+    //   print('passwordInsp is');
+    //   print(passwordInSp);
+    //   passwordInSp != null
+    //       ? Navigator.of(context).pushReplacement(
+    //           MaterialPageRoute(builder: (BuildContext context) => LoginPage()))
+    //       : Navigator.of(context).pushReplacement(MaterialPageRoute(
+    //           builder: (BuildContext context) => RegisterPage()));
+    // });
+    isPasswordSet().then((value){
+      value == true
+      ? Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (BuildContext context) => LoginPage()))
           : Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => RegisterPage()));
+      builder: (BuildContext context) => RegisterPage()));
     });
   }
 

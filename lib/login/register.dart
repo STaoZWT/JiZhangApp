@@ -18,15 +18,22 @@ class _RegisterPageState extends State<RegisterPage> {
 
   void IsNewUser() async {
     //String passwordInSp;
-    print('passwordInsp');
-    getPassWord().then((passwordInSp) {
-      print('passwordInsp is');
-      print(passwordInSp);
-      passwordInSp == null
+    // print('passwordInsp');
+    print("setuerflag");
+    isPasswordSet().then((value) {
+      value == false
           ? null
           : Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (BuildContext context) => LoginPage()));
+          builder: (BuildContext context) => LoginPage()));
     });
+    // getPassWord().then((passwordInSp) {
+    //   print('passwordInsp is');
+    //   print(passwordInSp);
+    //   passwordInSp == null
+    //       ? null
+    //       : Navigator.of(context).pushReplacement(MaterialPageRoute(
+    //           builder: (BuildContext context) => LoginPage()));
+    // });
   }
 
   @override
@@ -84,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           8 &&
                       registerPassWordController.value.text.toString().length <=
                           18) {
-                    await setPassWord(
+                    await setEncryptedPassword(
                         registerPassWordController.value.text.toString());
                     showDialog<Null>(
                         context: context,

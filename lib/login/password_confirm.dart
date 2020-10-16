@@ -61,10 +61,12 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
               elevation: 6.0,
               child: FlatButton(
                 onPressed: () async {
-                  var passwordInSp;
-                  passwordInSp = await getPassWord();
-                  if (passwordInSp ==
-                      confirmPassWordController.value.text.toString()) {
+                  // var passwordInSp;
+                  // passwordInSp = await getPassWord();
+                  isPasswordValid(confirmPassWordController.value.text.toString()).then((value) {
+                  if (value == true) {
+                  // if (passwordInSp ==
+                  //     confirmPassWordController.value.text.toString()) {
                     showDialog<Null>(
                         context: context,
                         barrierDismissible: false,
@@ -118,7 +120,7 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
                           );
                         });
                   }
-                },
+                });},
                 /*{
 
                   Navigator.of(context).pop();

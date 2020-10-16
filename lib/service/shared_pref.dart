@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
@@ -11,28 +12,40 @@ Future<String> getPassWord() async {
   return sharedPref.getString('mpassWord');
 }
 
+//检测是否已经设置密码
 Future<bool> isPasswordSet() async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
-  bool flag = await sharedPref.containsKey('mpassWord');
+  bool flag = await sharedPref.containsKey('encrypted');
   return flag;
 }
 
+//设置密码
 Future<Null> setEncryptedPassword(String rawPassword) async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   final cryptor = new PlatformStringCryptor();
-  String salt = await cryptor.generateSalt();
-  await sharedPref.setString('salt', salt);
-  String key = await cryptor.generateKeyFromPassword(rawPassword, salt);
-  await sharedPref.setString('encrypted', key);
+  String key = await cryptor.generateRandomKey();
+  await sharedPref.setString('key', key);
+  String encrypted = await cryptor.encrypt(rawPassword, key);
+  await sharedPref.setString('encrypted', encrypted);
+  print(key);
 }
 
+//校验密码
 Future<bool> isPasswordValid(String rawPassword) async {
+  print(rawPassword);
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   final cryptor = new PlatformStringCryptor();
-  String salt = await sharedPref.getString('salt');
-  String key = await cryptor.generateKeyFromPassword(rawPassword, salt);
-  String encryptedPassword = await sharedPref.getString('key');
-  return (key == encryptedPassword);
+  String key = await sharedPref.getString('key');
+  String encrypted = await sharedPref.getString('encrypted');
+  cryptor.encrypt(rawPassword, key).then((input) {
+    return(input == encrypted);
+  });
+}
+
+Future<Null> removePassword() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  await sharedPref.remove('key');
+  await sharedPref.remove('encrypted');
 }
 
 Future<Null> setPassWord(String val) async {
