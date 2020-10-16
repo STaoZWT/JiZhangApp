@@ -114,9 +114,10 @@ class _CardAddBill extends State<CardAddBill>
             String accountTitle = accountTitleController(tab.text);
             //type = (tab.text=="收入")?0:(tab.text=="支出")?1:2;  //1:收入 2：支出 3：转账
             _tabController.addListener(() {
-              var index = _tabController.index;
-              if (_tabController.indexIsChanging) {
+
+              if (!_tabController.indexIsChanging) {
                 setState(() {
+                  var index = _tabController.index;
                   print("index : $index");
                   currentbill.type = index;
                   print("cu.type: ${currentbill.type}");
