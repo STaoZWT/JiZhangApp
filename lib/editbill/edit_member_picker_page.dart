@@ -20,6 +20,8 @@ class _editMemberPicker extends State<editMemberPicker> {
   List memberList;
   bool isChange;
 
+  List<Widget> memberListCard;
+
   @override
   Future<void> initState() {
     super.initState();
@@ -34,27 +36,65 @@ class _editMemberPicker extends State<editMemberPicker> {
         ? JsonDecoder().convert(args.legacyMemberPickerData)
         : memberList;
 
+    memberListCard = [];
+    for (var index = 0; index < memberList.length; index++) {
+      memberListCard.add(
+          Dismissible(
+            key: Key(memberList[index].toString()),
+            onDismissed: (direction) {
+
+              setState(() {
+                memberList.removeAt(index);
+                print("$index ${memberList.toString()}");
+                memberListCard.removeAt(index);
+                print("$index ${memberList.toString()}");
+                isChange = true;
+              });
+            },
+            child: Card(
+              margin: EdgeInsets.all(5.0),
+              elevation: 15.0,
+              shape: const RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(14.0))),
+              child: InkWell(
+                onTap: () {},
+                child: ListTile(
+                  title: Text(memberList[index], style: TextStyle(color: Colors.black45),),
+                  leading: Icon(
+                    Icons.account_balance_wallet,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ),
+
+          )
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("editMemberPicker"),
       ),
-      body: new ListView.separated(
+      body: new ListView.builder(
         itemCount: memberList.length,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.only(top: 50.0, left: 120.0), //容器外填充
-            constraints:
-                BoxConstraints.tightFor(width: 200.0, height: 50.0), //卡片大小
-            alignment: Alignment.centerLeft, //卡片内文字位置
-            child: Text("${memberList[index]}"),
-          );
+          return memberListCard[index];
+          // return Container(
+          //   margin: EdgeInsets.only(top: 50.0, left: 120.0), //容器外填充
+          //   constraints:
+          //       BoxConstraints.tightFor(width: 200.0, height: 50.0), //卡片大小
+          //   alignment: Alignment.centerLeft, //卡片内文字位置
+          //   child: Text("${memberList[index]}"),
+          // );
         },
-        separatorBuilder: (context, index) {
-          return new Divider(
-            height: 1,
-          );
-        },
+        // separatorBuilder: (context, index) {
+        //   return new Divider(
+        //     height: 1,
+        //   );
+        // },
       ),
       floatingActionButton: FloatingActionButton(
         //添加新的account
