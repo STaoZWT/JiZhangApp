@@ -47,6 +47,8 @@ class _CardAddBill extends State<CardAddBill>
 
   String remark; //备注
   int type;
+  //double tempMoney;
+  var moneyController = TextEditingController();
 
   BillsModel currentbill;
 
@@ -66,7 +68,9 @@ class _CardAddBill extends State<CardAddBill>
     memberSelectText = "未选择";
     remark = " ";
     type = 0;
-    currentbill = BillsModel(
+    //tempMoney = 0.00;
+    this.moneyController.text = ("0.00");
+        currentbill = BillsModel(
       title: "",
       date: DateTime.now(),
       type: 0,
@@ -142,6 +146,7 @@ class _CardAddBill extends State<CardAddBill>
                           borderRadius:
                               BorderRadius.all(Radius.circular(14.0))),
                       child: TextField(
+                        controller: moneyController,
                         autofocus: false,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -166,7 +171,7 @@ class _CardAddBill extends State<CardAddBill>
                         style: TextStyle(
                           fontSize: 42.0,
                           fontWeight: FontWeight.w500,
-                          color: Colors.black87,
+                          color: type == 0 ? Colors.red : type == 1 ? Colors.green : Colors.black87,
                           //wordSpacing: 1.5,
                           height: 1.5,
                         ),
