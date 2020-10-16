@@ -69,7 +69,7 @@ class _CardAddBill extends State<CardAddBill>
     remark = " ";
     type = 0;
     //tempMoney = 0.00;
-    this.moneyController.text = ("0.00");
+    //this.moneyController.text = ("0.00");
         currentbill = BillsModel(
       title: "",
       date: DateTime.now(),
@@ -99,6 +99,16 @@ class _CardAddBill extends State<CardAddBill>
       //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         title: Text("新建记账"),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.print),
+              onPressed: () async {
+                List<BillsModel> allBills = await BillsDatabaseService.db.getBillsFromDB();
+                allBills.forEach((element) {
+                  print(element.toMap().toString());
+                });
+              }),
+        ],
         bottom: TabBar(
           controller: _tabController,
           tabs: tabs,
