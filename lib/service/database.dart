@@ -207,6 +207,13 @@ class BillsDatabaseService {
         'Bill updated: ${updatedBill.title} ${updatedBill.value100} ${updatedBill.date}');
   }
 
+  updateMemberInDB(String memberToBeUpdated, String memberNewName) async {
+    print ("Will update member: $memberToBeUpdated to $memberNewName");
+    final db = await database;
+    int count = await db.rawUpdate('UPDATE Bills SET member = ? WHERE member = ?', [memberNewName, memberToBeUpdated]);
+    print("updated: $count");
+  }
+
 
   //清空数据
   deleteBillAllInDB() async {
