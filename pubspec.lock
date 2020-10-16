@@ -139,6 +139,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.2"
+  flutter_string_encryption:
+    dependency: "direct main"
+    description:
+      name: flutter_string_encryption
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter

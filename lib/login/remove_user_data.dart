@@ -19,7 +19,7 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
 
   clearAll() async {
     await BillsDatabaseService.db.deleteBillAllInDB();
-    await setPassWord(null);
+    await removePassword();
     await setGraphicalPassWord(null);
     await removeOldUserFlag();
   }
@@ -29,8 +29,11 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () async {
-            getPassWord().then((password) {
-              if (passwordController.value.text.toString() == password) {
+            isPasswordValid(passwordController.value.text.toString()).then((value) {
+              print("value is $value");
+
+            // getPassWord().then((password) {
+              if (value == true) {
                 showDialog<Null>(
                     context: context,
                     barrierDismissible: false,

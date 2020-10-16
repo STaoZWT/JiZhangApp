@@ -74,67 +74,71 @@ class _LoginPageState extends State<LoginPage> {
                 elevation: 6.0,
                 child: FlatButton(
                   onPressed: () async {
-                    var passwordInSp;
-                    passwordInSp = await getPassWord();
-                    print('passwordSp');
-                    print(passwordInSp);
-                    print('passwordinput');
-                    print(_PassWordController.value.text.toString());
-                    if (passwordInSp ==
-                        _PassWordController.value.text.toString()) {
-                      showDialog<Null>(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text("Congradulation!"),
-                              content: SingleChildScrollView(
-                                child: ListBody(
-                                  children: <Widget>[
-                                    Text("You have login successfully"),
-                                    Text("Now use it happily"),
-                                  ],
+                    // var passwordInSp;
+                    // passwordInSp = await getPassWord();
+                    // print('passwordSp');
+                    // print(passwordInSp);
+                    // print('passwordinput');
+                    // print(_PassWordController.value.text.toString());
+                    isPasswordValid(_PassWordController.value.text.toString()).then((value) {
+                      if (value == true) {
+                        // if (await isPasswordValid(_PassWordController.value.text.toString())) {
+                        // if (passwordInSp ==
+                        //     _PassWordController.value.text.toString()) {
+                        showDialog<Null>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Congradulation!"),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      Text("You have login successfully"),
+                                      Text("Now use it happily"),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              actions: <Widget>[
-                                FlatButton(
-                                  child: Text('confirm'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                                HomePage()));
-                                  },
-                                )
-                              ],
-                            );
-                          });
-                    } else {
-                      showDialog<Null>(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text("Error!!"),
-                              content: SingleChildScrollView(
-                                child: ListBody(
-                                  children: <Widget>[
-                                    Text("passWordError!"),
-                                    Text("Please input again"),
-                                  ],
-                                ),
-                              ),
-                              actions: <Widget>[
-                                FlatButton(
+                                actions: <Widget>[
+                                  FlatButton(
                                     child: Text('confirm'),
                                     onPressed: () {
                                       Navigator.of(context).pop();
-                                    })
-                              ],
-                            );
-                          });
-                    }
+                                      Navigator.of(context).pushReplacement(
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  HomePage()));
+                                    },
+                                  )
+                                ],
+                              );
+                            });
+                      } else {
+                        showDialog<Null>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Error!!"),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: <Widget>[
+                                      Text("passWordError!"),
+                                      Text("Please input again"),
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                      child: Text('confirm'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      })
+                                ],
+                              );
+                            });
+                      }
+                    });
                   },
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
