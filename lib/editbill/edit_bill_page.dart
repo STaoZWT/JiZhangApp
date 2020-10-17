@@ -13,7 +13,6 @@ import 'package:date_format/date_format.dart';
 import '../service/database.dart';
 import '../data/model.dart';
 import 'package:toast/toast.dart';
-import '../homepage.dart';
 
 class CardAddBill extends StatefulWidget {
   @override
@@ -33,7 +32,9 @@ class _CardAddBill extends State<CardAddBill>
   DateTime dateSelect;
   String classPickerData; //分类picker的所有选项
   List classSelect; //用户选择的分类
-  String classSelectText;
+  //String classSelectText;
+  String classInSelectText ;
+  String classOutSelectText ;
 
   String accountPickerData; //账户picker的所有选项
   List accountSelectIn; //用户选择的账户
@@ -62,7 +63,8 @@ class _CardAddBill extends State<CardAddBill>
     accountSelectOut = [0];
     accountSelectIn = [0];
     memberSelect = [0];
-    classSelectText = "未选择,未选择";
+    classInSelectText = "未选择,未选择";
+    classOutSelectText = "未选择,未选择";
     accountInSelectText = "未选择";
     accountOutSelectText = "未选择";
     memberSelectText = "无成员";
@@ -125,11 +127,11 @@ class _CardAddBill extends State<CardAddBill>
               if (!_tabController.indexIsChanging) {
                 setState(() {
                   var index = _tabController.index;
-                  print("index : $index");
+                  //print("index : $index");
                   currentbill.type = index;
-                  print("cu.type: ${currentbill.type}");
+                  //print("cu.type: ${currentbill.type}");
                   type = index;
-                  print("type: $type");
+                  //print("type: $type");
                 });
               }
             });
@@ -271,7 +273,7 @@ class _CardAddBill extends State<CardAddBill>
                                           await getPicker("mInClassPicker");
                                         }
                                       }
-                                      classPicker(context);
+                                      classPicker(context,type);
                                     },
                                     child: ListTile(
                                       title: Text(
@@ -279,7 +281,7 @@ class _CardAddBill extends State<CardAddBill>
                                         style: TextStyle(color: Colors.black45),
                                       ),
                                       subtitle: Text(
-                                        "$classSelectText",
+                                        (type==0)?"$classInSelectText":"$classOutSelectText",  //显示已选择的分类
                                         style: TextStyle(
                                           color: Colors.black87,
                                           fontSize: 20,
@@ -524,7 +526,7 @@ class _CardAddBill extends State<CardAddBill>
     );
   }
 
-  classPicker(BuildContext context) {
+  classPicker(BuildContext context, int type) {
     Picker(
         adapter: PickerDataAdapter<String>(
             pickerdata:
@@ -536,8 +538,13 @@ class _CardAddBill extends State<CardAddBill>
           setState(() {
             //页面刷新，显示出用户的选项
             classSelect = value;
-            classSelectText = removeBrackets(picker.adapter.text);//用户选中的分类
-            print(classSelectText.split(",")[0]);
+            if(type==0) {
+              classInSelectText = removeBrackets(picker.adapter.text);//用户选中的收入分类
+            }
+            else if(type==1) {
+              classOutSelectText = removeBrackets(picker.adapter.text);//用户选中的支出分类
+            }
+            //print(classSelectText.split(",")[0]);
           });
           //print(JsonDecoder().convert(ClassPickerData));
           //print(picker.adapter.text);
@@ -621,8 +628,8 @@ class _CardAddBill extends State<CardAddBill>
     currentbill.type = type;
     currentbill.accountIn = (type==2)?accountInSelectText:accountOutSelectText; //不是转账时，转出账户和转入账户相同
     currentbill.accountOut = accountOutSelectText;
-    currentbill.category1 = (type==2)?"其他":classSelectText.split(",")[0]; //转账时无分类，因此赋默认值
-    currentbill.category2 = (type==2)?"转账":classSelectText.split(",")[1];
+    currentbill.category1 = (type==2)?"其他":(type==0)?classInSelectText.split(",")[0]:classOutSelectText.split(",")[0]; //转账时无分类，因此赋默认值
+    currentbill.category2 = (type==2)?"转账":(type==0)?classInSelectText.split(",")[1]:classOutSelectText.split(",")[1];
     currentbill.member = memberSelectText;
     currentbill.value100 = moneyInput;
     print("金额：$currentbill.value100   分类：${currentbill.category1} ${currentbill.category2}");
@@ -633,8 +640,8 @@ class _CardAddBill extends State<CardAddBill>
       //var bill =
       await BillsDatabaseService.db.addBillInDB(currentbill);
       Navigator.of(context).pop();
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+      // Navigator.of(context).push(
+      //     MaterialPageRoute(builder: (BuildContext context) => HomePage()));
     } else {
       Toast.show("不合法！", context);
     }
