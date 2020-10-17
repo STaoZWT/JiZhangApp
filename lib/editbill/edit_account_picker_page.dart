@@ -95,7 +95,7 @@ class _editAccountPicker extends State<editAccountPicker> {
                     color: Colors.blue,
                   ),
                   trailing: Visibility(
-                    visible: true,
+                    visible: (accountList.length > 1),
                     maintainInteractivity: false,
                     maintainSize: false,
                     child: IconButton(
