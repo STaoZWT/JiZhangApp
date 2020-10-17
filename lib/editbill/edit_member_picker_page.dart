@@ -104,6 +104,9 @@ class _editMemberPicker extends State<editMemberPicker> {
                             print(memberList);
                             setPicker('mmemberPicker',
                                 JsonEncoder().convert(memberList));
+                            setState(() {
+
+                            });
 
                           }
 
