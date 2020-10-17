@@ -214,7 +214,7 @@ class _editAccountPicker extends State<editAccountPicker> {
           return AlertDialog(
             title: Text("提示"),
             content:Text(
-              "删除账户后，成员关联的账单同时也会变为“现金账户”，您确定要删除所选账户吗？",
+              "删除账户后，账户关联的所有流水都将被删除，您确定要删除所选账户吗？",
               style: TextStyle(
                 color: Colors.black87,
                 fontSize: 20,
@@ -236,7 +236,8 @@ class _editAccountPicker extends State<editAccountPicker> {
   }
 
   removeAccount(String accountToBeDeleted) async {
-    await BillsDatabaseService.db.updateAccountInDB(accountToBeDeleted, '现金账户');
+    // await BillsDatabaseService.db.updateAccountInDB(accountToBeDeleted, '现金账户');
+    await BillsDatabaseService.db.deleteAccountInDB(accountToBeDeleted);
   }
 
   updateAccount(String accountToBeUpdated, String accountNewName) async {

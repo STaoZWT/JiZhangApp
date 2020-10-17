@@ -222,6 +222,12 @@ class BillsDatabaseService {
     print("updated: $count");
   }
 
+  deleteAccountInDB(String accountToBeDeleted) async {
+    final db = await database;
+    int count = await db.delete('Bills', where: 'accountIn = ? OR accountOut = ?', whereArgs: [accountToBeDeleted, accountToBeDeleted]);
+    print("deleted: $count");
+  }
+
 
   //清空数据
   deleteBillAllInDB() async {
