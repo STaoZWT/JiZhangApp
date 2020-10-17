@@ -31,7 +31,8 @@ class LiushuiData{
   int value; //金额
   bool show;
   int type; //1收入，2支出
-  LiushuiData(this.id, this.c1c2mc,this.date,this.type,this.value,this.show);
+  String category2;
+  LiushuiData(this.id, this.c1c2mc,this.date,this.type,this.value,this.show,this.category2);
 }
 
 //checked选择查看哪一部分
@@ -48,32 +49,32 @@ List getLiuData(List<BillsModel> data, String checked, String typeSelect, int ty
         if(typeSelect=='一级分类'){
           if((checked)==data[i].category1){
             dataNow = new LiushuiData(data[i].id, data[i].category1, data[i].date, data[i].type,
-                data[i].value100, false);
+                data[i].value100, false, data[i].category2);
             print(dataNow);
             liuData.add(dataNow);
           }
         }else if(typeSelect=='二级分类'){
           if((checked)==data[i].category2){
             dataNow = new LiushuiData(data[i].id, data[i].category2, data[i].date, data[i].type,
-                data[i].value100, false);
+                data[i].value100, false, data[i].category2);
             liuData.add(dataNow);
           }
         }else if(typeSelect=='成员分类'){
           if((checked)==data[i].member){
             dataNow = new LiushuiData(data[i].id, data[i].member, data[i].date, data[i].type,
-                data[i].value100, false);
+                data[i].value100, false, data[i].category2);
             liuData.add(dataNow);
           }
         }else if(typeSelect=='账户分类'){
           if((checked)==data[i].accountOut){
             dataNow = new LiushuiData(data[i].id, data[i].accountOut, data[i].date, data[i].type,
-                data[i].value100, false);
+                data[i].value100, false, data[i].category2);
             liuData.add(dataNow);
           }
         }
       }
   }
-  print(liuData);
+  //print(liuData);
   return liuData;
 }
 

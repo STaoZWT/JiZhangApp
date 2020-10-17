@@ -60,19 +60,19 @@ class MyView extends CustomPainter{
           text: text,
           style: new TextStyle(
             color: Colors.black,
-            fontSize: 20.0,
+            fontSize: 25.0,
           ),
         );
     }
 
     // 正常半径
-    mRadius = 90.0;
+    mRadius = 100.0;
 
     //加大半径  用来绘制被选中的扇形区域
-    mBigRadius=100.0;
+    mBigRadius=108.0;
 
     //內园半径
-    mInnerRadius = mRadius * 0.45;
+    mInnerRadius = mRadius * 0.41;
 
     // 未选中的扇形绘制的矩形区域
     mOval = Rect.fromLTRB(-mRadius, -mRadius, mRadius, mRadius);
@@ -156,14 +156,14 @@ class MyView extends CustomPainter{
       var texts1 ='$percentage%';
       var tp1 = _newVerticalAxisTextPainter(texts1)..layout();
       // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
-      tp1.paint(canvas, Offset(-(65.0 - tp1.width / 2), -6.0));
+      tp1.paint(canvas, Offset(-(65.0 - tp1.width / 2), -11.0));
 
-      // 类别
+      /*// 类别
       var texts2 ='$name';
       var tp2 = _newVerticalAxisTextPainter(texts2)..layout();
       // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
       //tp.paint(canvas, Offset(textLeft, 50.0 - tp.height / 2));
-      tp2.paint(canvas, Offset((0.0 - tp2.width / 2), 120));
+      tp2.paint(canvas, Offset((0.0 - tp2.width / 2), 120));*/
     }
   }
 
