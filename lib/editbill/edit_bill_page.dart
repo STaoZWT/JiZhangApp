@@ -13,7 +13,6 @@ import 'package:date_format/date_format.dart';
 import '../service/database.dart';
 import '../data/model.dart';
 import 'package:toast/toast.dart';
-import '../homepage.dart';
 
 class CardAddBill extends StatefulWidget {
   @override
@@ -128,11 +127,11 @@ class _CardAddBill extends State<CardAddBill>
               if (!_tabController.indexIsChanging) {
                 setState(() {
                   var index = _tabController.index;
-                  print("index : $index");
+                  //print("index : $index");
                   currentbill.type = index;
-                  print("cu.type: ${currentbill.type}");
+                  //print("cu.type: ${currentbill.type}");
                   type = index;
-                  print("type: $type");
+                  //print("type: $type");
                 });
               }
             });

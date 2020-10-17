@@ -68,7 +68,15 @@ class _editClassPicker extends State<editClassPicker> {
             child: ExpansionTile(
               //一级分类的可收缩组件
               backgroundColor: Colors.white,
-              title: Text("$category1name"),
+              title: Card(
+                margin: EdgeInsets.all(5.0),
+                elevation: 15.0,
+                shape: const RoundedRectangleBorder(
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(14.0))),
+                child: Text("$category1name"),
+              ),
+
               initiallyExpanded: false,
               children: <Widget>[
                 new ListView.separated(
