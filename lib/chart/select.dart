@@ -119,7 +119,7 @@ class _SelectPageState extends State<SelectPage> {
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 2,
+                        flex: 1,
                         child: Text("支出图表",
                           style: TextStyle(backgroundColor:Colors.white,inherit:true,color:Colors.black87,fontSize:16),
                         ),
