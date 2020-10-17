@@ -629,7 +629,7 @@ class _CardAddBill extends State<CardAddBill>
     currentbill.accountIn = (type==2)?accountInSelectText:accountOutSelectText; //不是转账时，转出账户和转入账户相同
     currentbill.accountOut = accountOutSelectText;
     currentbill.category1 = (type==2)?"其他":(type==0)?classInSelectText.split(",")[0]:classOutSelectText.split(",")[0]; //转账时无分类，因此赋默认值
-    currentbill.category2 = (type==2)?"转账":(type==0)?classInSelectText.split(",")[1]:classOutSelectText.split(",")[1];
+    currentbill.category2 = (type==2)?"转账":(type==0)?classInSelectText.split(",")[1].substring(1):classOutSelectText.split(",")[1].substring(1);
     currentbill.member = memberSelectText;
     currentbill.value100 = moneyInput;
     print("金额：$currentbill.value100   分类：${currentbill.category1} ${currentbill.category2}");

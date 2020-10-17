@@ -250,6 +250,36 @@ class BillsDatabaseService {
     print('Bill deleted');
   }
 
+  updateCategory1InDB(String category1ToBeUpdated, String category1NewName) async {
+    final db = await database;
+    int count = await db.rawUpdate('UPDATE Bills SET category1 = ? WHERE category1 = ?', [category1NewName, category1ToBeUpdated]);
+    print("updated: $count");
+  }
+
+  updateCategory2InDB(String category2ToBeUpdated, String category2NewName, String fatherCategory) async {
+    final db = await database;
+    int count = await db.rawUpdate('UPDATE Bills SET category2 = ? WHERE category2 = ? AND category1 = ?', [category2NewName, category2ToBeUpdated, fatherCategory]);
+    print("updated: $count");
+  }
+
+  deleteCategory1InDB(String category1ToBeDeleted) async {
+    final db = await database;
+    int count = await db.delete('Bills', where: 'category1 = ?', whereArgs: [category1ToBeDeleted]);
+    print("deleted: $count");
+  }
+
+  deleteCategory2InDB(String category2ToBeDeleted, String fatherCategory) async {
+    final db = await database;
+    print(category2ToBeDeleted);
+    print(fatherCategory);
+    int count = await db.delete('Bills', where: 'category2 = ? AND category1 = ?', whereArgs: [category2ToBeDeleted.toString(), fatherCategory.toString()]);
+    print("deleted: $count");
+  }
+
+  queryCategory2InDB(String category1, String category2) async {
+
+  }
+
   //添加一条数据
   Future<BillsModel> addBillInDB(BillsModel newBill) async {
     final db = await database;
