@@ -9,6 +9,7 @@ import 'service/shared_pref.dart';
 import 'unknown_page.dart';
 import 'editbill/edit_bill_page.dart';
 import 'login/remove_user_data.dart';
+import './total/TotalPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -51,12 +52,12 @@ class _HomePageState extends State<HomePage> {
     //       : Navigator.of(context).pushReplacement(MaterialPageRoute(
     //           builder: (BuildContext context) => RegisterPage()));
     // });
-    isPasswordSet().then((value){
+    isPasswordSet().then((value) {
       value == true
-      ? Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (BuildContext context) => LoginPage()))
+          ? Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (BuildContext context) => LoginPage()))
           : Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (BuildContext context) => RegisterPage()));
+          builder: (BuildContext context) => RegisterPage()));
     });
   }
 
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
           child: ListView(
             children: <Widget>[
               ListTile(
-                  //第一个功能
+                //第一个功能
                   title: Text('修改文字密码'),
                   trailing: Icon(Icons.arrow_right),
                   onTap: () {
@@ -93,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                             PasswordConfirmPage()));
                   }),
               ListTile(
-                  //第二个功能
+                //第二个功能
                   title: Text('设置/重置图形密码'),
                   trailing: Icon(Icons.arrow_right),
                   onTap: () {
@@ -104,14 +105,15 @@ class _HomePageState extends State<HomePage> {
                             GraphicalPasswordRegisterPage()));
                   }),
               ListTile(
-                  //第三个功能
+                //第三个功能
                   title: Text('清空账号信息'),
                   trailing: Icon(Icons.arrow_right),
                   onTap: () {
                     //点击事件
                     Navigator.of(context).pop();
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => RemoveUserDataPage()));
+                        builder: (BuildContext context) =>
+                            RemoveUserDataPage()));
                   }),
               Divider(),
               ListTile(
@@ -173,8 +175,8 @@ class _HomePageState extends State<HomePage> {
               } else if (_currentIndex == 2) {
                 //Navigator.of(context).pop();
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => UnknownPage()));
-                //builder: (BuildContext context) => AccountHomePage()));
+                  //builder: (BuildContext context) => UnknownPage()));
+                    builder: (BuildContext context) => TotalPage()));
               }
               ;
             });
@@ -182,3 +184,4 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 }
+

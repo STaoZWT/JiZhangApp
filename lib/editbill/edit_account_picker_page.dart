@@ -112,6 +112,7 @@ class _editAccountPicker extends State<editAccountPicker> {
                           print(accountList);
                           setPicker('maccountPicker',
                               JsonEncoder().convert(accountList));
+                          setState(() {});
                         }
                       },
                     ),
