@@ -22,52 +22,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 1;
 
-  // void IsNewUser() async{
-  //   var passwordInSp;
-  //   passwordInSp = await getPassWord();
-  //   if(passwordInSp == null)
-  //   {
-  //     Navigator.of(context).pop();
-  //     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>RegisterPage()));
-  //   }
-  //   else{
-  //     Navigator.of(context).pop();
-  //     Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>LoginPage()));
-  //   }
-  // }
-  void IsNewUser() async {
-    //String passwordInSp;
-    print('passwordInsp');
-    //print(await getPassWord());
-    // getPassWord().then((value) {
-    //   print(value);
-    //   passwordInSp = value;
-    // });
-    // getPassWord().then((passwordInSp) {
-    //   print('passwordInsp is');
-    //   print(passwordInSp);
-    //   passwordInSp != null
-    //       ? Navigator.of(context).pushReplacement(
-    //           MaterialPageRoute(builder: (BuildContext context) => LoginPage()))
-    //       : Navigator.of(context).pushReplacement(MaterialPageRoute(
-    //           builder: (BuildContext context) => RegisterPage()));
-    // });
-    isPasswordSet().then((value) {
-      value == true
-          ? Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (BuildContext context) => LoginPage()))
-          : Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (BuildContext context) => RegisterPage()));
-    });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    //IsNewUser();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,8 +42,8 @@ class _HomePageState extends State<HomePage> {
                   trailing: Icon(Icons.arrow_right),
                   onTap: () {
                     //点击事件
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(MaterialPageRoute(
+                    //Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (BuildContext context) =>
                             PasswordConfirmPage()));
                   }),
@@ -99,8 +53,8 @@ class _HomePageState extends State<HomePage> {
                   trailing: Icon(Icons.arrow_right),
                   onTap: () {
                     //点击事件
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(MaterialPageRoute(
+                    //Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (BuildContext context) =>
                             GraphicalPasswordRegisterPage()));
                   }),
@@ -110,8 +64,8 @@ class _HomePageState extends State<HomePage> {
                   trailing: Icon(Icons.arrow_right),
                   onTap: () {
                     //点击事件
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(MaterialPageRoute(
+                    //Navigator.of(context).pop();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (BuildContext context) =>
                             RemoveUserDataPage()));
                   }),
@@ -169,12 +123,12 @@ class _HomePageState extends State<HomePage> {
                     builder: (BuildContext context) => ChartPage()));
               } else if (_currentIndex == 1) {
                 //Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (BuildContext context) => CardAddBill()));
                 //builder: (BuildContext context) => UnknownPage()));
               } else if (_currentIndex == 2) {
                 //Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
                   //builder: (BuildContext context) => UnknownPage()));
                     builder: (BuildContext context) => TotalPage()));
               }

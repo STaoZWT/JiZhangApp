@@ -1,6 +1,7 @@
 //vesion 1
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_jizhangapp/login/splash.dart';
 import 'chart/Tabs/piechart2/chart_pie.dart';
 import 'chart/chartpage.dart';
 import 'login/register.dart';
@@ -23,8 +24,7 @@ class MyApp extends StatelessWidget {
         "/editMemberPicker": (context) => editMemberPicker(),
       },
       title: 'Flutter Demo',
-      //home: RegisterPage(),
-      home: ChartPage(),
+      home: SplashScreen(),
       //onGenerateRoute: onGenerateRoute, //路由
     );
   }
