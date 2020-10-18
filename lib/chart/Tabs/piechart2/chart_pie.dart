@@ -465,7 +465,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                                   padding: const EdgeInsets.only(bottom: 5.0),
                                                   color: mData[index].color,
                                                   onPressed: (){
-                                                    String checked = mData[subscript].name; ///类别
+                                                    String checked = mData[index].name; ///类别
                                                     List<LiushuiData> liuData = getLiuData(data, checked, widget.typeSelect, widget.type);
                                                     Navigator.of(context).pop();
                                                     Navigator.push(
