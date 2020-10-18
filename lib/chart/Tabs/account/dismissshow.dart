@@ -1,26 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_jizhangapp/chart/Tabs/piechart2/chart_pie.dart';
 import 'package:flutter_jizhangapp/service/database.dart';
 import 'package:toast/toast.dart';
 
 import '../../chart_material.dart';
+import '../../chartpage.dart';
 
 class Dismissshow extends StatefulWidget {
   List<LiushuiData> liuData; //接收传值
   String typeSelect; //类型
   int type;
   var picked; //时间
+  int pie_bar = 0; //0--饼状图  1--条形图
 
-  Dismissshow({Key key, this.liuData, this.type, this.typeSelect, this.picked}) : super(key: key);
+  Dismissshow({Key key, this.liuData, this.type, this.typeSelect, this.picked, this.pie_bar}) : super(key: key);
 
   @override
   _Dismissshow createState() => _Dismissshow();
 }
 
 class _Dismissshow extends State<Dismissshow> {
-  String title = '流水信息';  //界面标题内容!!!!
 
   //传入数据!!!!!!!!!
   //类别、时间、金额
@@ -30,6 +30,27 @@ class _Dismissshow extends State<Dismissshow> {
 
   setDataFromDB(int id) async { // 得到数据
     await BillsDatabaseService.db.deleteBillIdInDB(id);
+  }
+
+  String checked;
+  int type;
+
+  @override
+  void initState() {
+    checked = ((widget.liuData)[0]).c1c2mc;
+    type = widget.type;
+  }
+
+
+  //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户
+  //type 0:收入， 1：支出
+  //默认为“一级分类支出”
+  title() {
+    if(type==0){
+      return Text("$checked"+"收入",style: TextStyle(fontSize: 30.0));
+    }else if(type==1){
+      return Text("$checked"+"支出",style: TextStyle(fontSize: 30.0));
+    }
   }
 
   @override
@@ -44,12 +65,14 @@ class _Dismissshow extends State<Dismissshow> {
               Navigator.push(
                   context,
                   CupertinoPageRoute(
-                      builder: (context) => PiechartPage(
+                      builder: (context) => ChartPage(
+                          pie_bar: widget.pie_bar,
                           typeSelect: widget.typeSelect,
                           type: widget.type,
                           picked: widget.picked)));
             }),
-        title: new Text(title), //界面标题内容
+          centerTitle: true,
+          title: title()//界面标题内容
       ),
       body: new ListView.builder(
         itemCount: (widget.liuData).length,
@@ -62,38 +85,45 @@ class _Dismissshow extends State<Dismissshow> {
                 (widget.liuData)[index].show == true ? false : true;
               });
             },
-            child: new Container(
-              height: 50.0, //每一条信息的高度
-              padding: const EdgeInsets.only(left: 20.0), //每条信息左边距
-              decoration: new BoxDecoration(
-                  border: new Border(
-                    bottom: BorderSide(color: Colors.black, width: 0.5), //信息的分割线
-                  )),
-              child: new Row(
-                //mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  item.show == true ? //是否被删除
+            child: new Card(
+              margin: EdgeInsets.all(5.0),
+              elevation: 15.0,
+              shape: const RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(14.0))),
+              child: Container(
+                height: 50.0, //每一条信息的高度
+                padding: const EdgeInsets.only(left: 20.0), //每条信息左边距
+                /*decoration: new BoxDecoration(
+                    border: new Border(
+                      bottom: BorderSide(color: Colors.black, width: 0.5), //信息的分割线
+                    )),*/
+                child: new Row(
+                  //mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    item.show == true ? //是否被删除
                     new RaisedButton(
-                      child: new Text('删除'),
-                      onPressed: () {
-                        print('click');
-                        setState(() {
-                          Toast.show('${widget.typeSelect}'+'   '
-                              '${(widget.liuData)[index].c1c2mc}   已删除',context);
-                          setDataFromDB((widget.liuData)[index].id);
-                          (widget.liuData).removeAt(index);  //删除某条信息!!!!!!!!!
-                        });
-                      },
-                      color: Colors.red,
-                      splashColor: Colors.pink[100])
-                      : new Text(''),
-                  new Text('${(widget.liuData)[index].c1c2mc}: '+'${(widget.liuData)[index].type==0?'收入':''}'+
-                      '${(widget.liuData)[index].type==1?'支出':''}'+
-                      //'${(widget.liuData)[index].type==3?'转出账户:':''}'+
-                      //'${(widget.liuData)[index].type==4?'转入账户:':''}'+
-                      '金额${((widget.liuData)[index].value)/100} '+
-                      '${((widget.liuData)[index].date).year}-${((widget.liuData)[index].date).month}-${((widget.liuData)[index].date).day}')
-                ],
+                        child: new Text('删除'),
+                        onPressed: () {
+                          print('click');
+                          setState(() {
+                            Toast.show('${widget.typeSelect}'+'   '
+                                '${(widget.liuData)[index].c1c2mc}   已删除',context);
+                            setDataFromDB((widget.liuData)[index].id);
+                            (widget.liuData).removeAt(index);  //删除某条信息!!!!!!!!!
+                          });
+                        },
+                        color: Colors.red,
+                        splashColor: Colors.pink[100])
+                        : new Text(''),
+                    new Text('${(widget.liuData)[index].c1c2mc}: '+'${(widget.liuData)[index].type==0?'收入':''}'+
+                        '${(widget.liuData)[index].type==1?'支出':''}'+
+                        //'${(widget.liuData)[index].type==3?'转出账户:':''}'+
+                        //'${(widget.liuData)[index].type==4?'转入账户:':''}'+
+                        '金额${((widget.liuData)[index].value)/100} '+
+                        '${((widget.liuData)[index].date).year}-${((widget.liuData)[index].date).month}-${((widget.liuData)[index].date).day}')
+                  ],
+                ),
               ),
             ),
           );
@@ -102,3 +132,110 @@ class _Dismissshow extends State<Dismissshow> {
     );
   }
 }
+
+/*Scaffold(
+      appBar: new AppBar( //标题
+        backgroundColor: Colors.blue,
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => ChartPage(
+                          pie_bar: widget.pie_bar,
+                          typeSelect: widget.typeSelect,
+                          type: widget.type,
+                          picked: widget.picked)));
+            }),
+        centerTitle: true,
+        title: title()//界面标题内容
+      ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: ListView.builder(
+          itemCount: (widget.liuData).length,
+          itemBuilder: (context, index) {
+            final item = (widget.liuData)[index];
+            return new GestureDetector(
+              child:  Card(
+                margin: EdgeInsets.all(8.0),
+                elevation: 15.0,
+                shape: const RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(14.0))),
+                child: new Container(
+                  height: 250,
+                  width: double.infinity,
+                  child: ListView(
+                    children: [
+                      Column(
+                        children: [
+                          Expanded( //日期
+                            flex: 3,
+                            child: Text('${(item.time).year}'+'-${(item.time).month}'+'-${(item.time).day}'),
+                          ),
+                          Expanded( //流水
+                            flex: 8,
+                            child: ListView.builder(
+                              itemCount: (item.data).length,
+                              itemBuilder: (context, index1) {
+                                final item1 = (item.data)[index1];
+                                return new GestureDetector(
+                                  onHorizontalDragEnd: (endDetails) {
+                                    setState(() {
+                                      item1.show =
+                                      item1.show == true ? false : true;
+                                    });
+                                  },
+                                  child: new Container(
+                                    height: 50.0, //每一条信息的高度
+                                    padding: const EdgeInsets.only(left: 20.0), //每条信息左边距
+                                    decoration: new BoxDecoration(
+                                        border: new Border(
+                                          bottom: BorderSide(color: Colors.black, width: 0.5), //信息的分割线
+                                        )
+                                    ),
+                                    child: new Row(
+                                      //mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        item1.show == true ? //是否被删除
+                                        new RaisedButton(
+                                            child: new Text('删除'),
+                                            onPressed: () {
+                                              print('click');
+                                              setState(() {
+                                                Toast.show('${widget.typeSelect}'+'   '
+                                                    '${item1.category2}   已删除',context);
+                                                setDataFromDB(item1.id);
+                                                (item.data).removeAt(index);  //删除某条信息!!!!!!!!!
+                                              });
+                                            },
+                                            color: Colors.red,
+                                            splashColor: Colors.pink[100]
+                                        ) : new Text(''),
+                                        new Text('${item1.category2}: '+
+                                            '金额${item1.value/100} '+
+                                            '${(item.time).year}-${(item.time).month}-${(item.time).day}')
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              )
+            );
+          }
+        ),
+      )
+    );*/
+
+
