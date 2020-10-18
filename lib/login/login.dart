@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../homepage.dart';
 import 'graphical_password_login.dart';
 import '../service/shared_pref.dart';
+import 'package:local_auth/auth_strings.dart';
+import 'package:local_auth/local_auth.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -18,7 +20,6 @@ class _LoginPageState extends State<LoginPage> {
   var _PassWordController = TextEditingController();
 
   void IsHaveGraphicalPw() async {
-    //String GraphicalPasswordInSp;
     print('GraphicalPwInsp');
     getGraphicalPassWord().then((GraphicalPasswordInSp) {
       print('GraphicalPwInsp is');
@@ -34,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    var localAuth = LocalAuthentication();
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -44,9 +46,7 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.blue,
           automaticallyImplyLeading: false,
         ),
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
+        body: ListView(
           children: <Widget>[
             Padding(
               padding: EdgeInsets.fromLTRB(
@@ -174,25 +174,47 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Container(
               width: 250.0,
+
               margin: EdgeInsets.fromLTRB(10.0, 40.0, 10.0, 0.0),
-              padding: EdgeInsets.fromLTRB(leftRightPadding, topBottomPadding,
-                  leftRightPadding, topBottomPadding),
+              padding: EdgeInsets.fromLTRB(leftRightPadding, topBottomPadding, leftRightPadding, topBottomPadding),
               child: Card(
                 color: Colors.lightBlueAccent,
                 elevation: 6.0,
                 child: FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            GraphicalPasswordLoginPage()));
+                  onPressed: () async {
+                    //下面是汉化
+                    const andStrings = const AndroidAuthMessages(
+                      cancelButton: '取消',
+                      goToSettingsButton: '去设置',
+                      fingerprintNotRecognized: '指纹识别失败',
+                      goToSettingsDescription: '请设置指纹.',
+                      fingerprintHint: '指纹',
+                      fingerprintSuccess: '指纹识别成功',
+                      signInTitle: '指纹验证',
+                      fingerprintRequiredTitle: '请先录入指纹!',
+                    );
+
+                    try {
+                      bool didAuthenticate;
+                      await localAuth.authenticateWithBiometrics(
+                          localizedReason:
+                          '扫描指纹进行身份识别',
+                          useErrorDialogs: true,
+                          stickyAuth: true,
+                          androidAuthStrings: andStrings
+                      ).then((didAuthenticate){
+                        didAuthenticate==true? Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                                (route) => route==null
+                        ):print("false");
+                      });
+                    } catch (e) {
+                      print(e);
+                    }
                   },
                   child: Padding(
                     padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      "Fingerprint login",
-                      style: TextStyle(color: Colors.black, fontSize: 20.0),
-                    ),
+                    child: Text("Fingerprint login",style: TextStyle(color: Colors.black,fontSize: 20.0),),
                   ),
                 ),
               ),

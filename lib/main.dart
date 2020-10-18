@@ -1,6 +1,7 @@
 //vesion 1
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_jizhangapp/login/splash.dart';
 import 'login/register.dart';
 import './editbill/edit_account_picker_page.dart';
 import './editbill/edit_class_picker_page.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         "/editMemberPicker": (context) => editMemberPicker(),
       },
       title: 'Flutter Demo',
-      home: RegisterPage(),
+      home: SplashScreen(),
       //onGenerateRoute: onGenerateRoute, //路由
     );
   }

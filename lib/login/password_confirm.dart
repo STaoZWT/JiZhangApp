@@ -16,7 +16,6 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
   var topBottomPadding = 4.0;
   var textTips = TextStyle(fontSize: 16.0, color: Colors.black);
   var hintTips = TextStyle(fontSize: 15.0, color: Colors.black26);
-  final String mpassWord = '123456789';
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -85,8 +84,8 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
                               FlatButton(
                                 child: Text('confirm'),
                                 onPressed: () {
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).push(MaterialPageRoute(
+                                  //Navigator.of(context).pop();
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
                                       builder: (BuildContext context) =>
                                           PasswordResetPage()));
                                 },

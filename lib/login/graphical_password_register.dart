@@ -21,12 +21,6 @@ class _GraphicalPasswordRegisterPageState
   var textTips = TextStyle(fontSize: 16.0, color: Colors.black);
   var hintTips = TextStyle(fontSize: 15.0, color: Colors.black26);
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(

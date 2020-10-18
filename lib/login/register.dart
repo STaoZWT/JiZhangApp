@@ -16,33 +16,6 @@ class _RegisterPageState extends State<RegisterPage> {
   var textTips = TextStyle(fontSize: 16.0, color: Colors.black);
   var hintTips = TextStyle(fontSize: 15.0, color: Colors.black26);
 
-  void IsNewUser() async {
-    //String passwordInSp;
-    // print('passwordInsp');
-    print("setuerflag");
-    isPasswordSet().then((value) {
-      value == false
-          ? null
-          : Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (BuildContext context) => LoginPage()));
-    });
-    // getPassWord().then((passwordInSp) {
-    //   print('passwordInsp is');
-    //   print(passwordInSp);
-    //   passwordInSp == null
-    //       ? null
-    //       : Navigator.of(context).pushReplacement(MaterialPageRoute(
-    //           builder: (BuildContext context) => LoginPage()));
-    // });
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    IsNewUser();
-  }
-
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
