@@ -13,6 +13,7 @@ import 'package:date_format/date_format.dart';
 import '../service/database.dart';
 import '../data/model.dart';
 import 'package:toast/toast.dart';
+import '../homepage.dart';
 
 class CardAddBill extends StatefulWidget {
   @override
@@ -109,6 +110,8 @@ class _CardAddBill extends State<CardAddBill>
                 allBills.forEach((element) {
                   print(element.toMap().toString());
                 });
+                int test = await BillsDatabaseService.db.getAccountNetAsset('现金账户');
+                print("test: $test");
               }),
         ],
         bottom: TabBar(
@@ -639,7 +642,9 @@ class _CardAddBill extends State<CardAddBill>
       Toast.show("合法！ $moneyInput", context);
       //var bill =
       await BillsDatabaseService.db.addBillInDB(currentbill);
-      Navigator.of(context).pop();
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (BuildContext context) => HomePage()
+      ));
       // Navigator.of(context).push(
       //     MaterialPageRoute(builder: (BuildContext context) => HomePage()));
     } else {
