@@ -60,7 +60,7 @@ class MyView extends CustomPainter{
           text: text,
           style: new TextStyle(
             color: Colors.black,
-            fontSize: 25.0,
+            fontSize: 24.0,
           ),
         );
     }
@@ -102,7 +102,7 @@ class MyView extends CustomPainter{
       var texts1 ='NULL';
       var tp1 = _newVerticalAxisTextPainter(texts1)..layout();
       // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
-      tp1.paint(canvas,  Offset(-(65.0 - tp1.width / 2), -11.0));
+      tp1.paint(canvas,  Offset(-(62.0 - tp1.width / 2), -11.0));
     }
     else{ //有数据
       ///绘制逻辑与Android差不多
@@ -160,7 +160,7 @@ class MyView extends CustomPainter{
       var texts1 ='$percentage%';
       var tp1 = _newVerticalAxisTextPainter(texts1)..layout();
       // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
-      tp1.paint(canvas, Offset(-(65.0 - tp1.width / 2), -11.0));
+      tp1.paint(canvas, Offset(-(75.0 - tp1.width / 2), -11.0));
 
       /*// 类别
       var texts2 ='$name';
