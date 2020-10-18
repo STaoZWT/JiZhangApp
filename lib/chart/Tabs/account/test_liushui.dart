@@ -170,11 +170,12 @@ class _Dismissshow_testPage extends State<Dismissshow_testPage> {
                                       color: Colors.red,
                                       splashColor: Colors.pink[100])
                                       : new Text(''),
-                                  new Text('${(widget.liuData)[index].c1c2mc}: '+'${(widget.liuData)[index].type==0?'收入':''}'+
+                                  new Text('${(widget.liuData)[index].category2}: '+
+                                      //'${(widget.liuData)[index].type==0?'收入':''}'+
                                       //'${(widget.liuData)[index].type==1?'支出':''}'+
                                       //'${(widget.liuData)[index].type==3?'转出账户:':''}'+
                                       //'${(widget.liuData)[index].type==4?'转入账户:':''}'+
-                                      '   ${((widget.liuData)[index].value)/100}元',
+                                      '\t\t${((widget.liuData)[index].value)/100}元',
                                       //'${((widget.liuData)[index].date).year}-${((widget.liuData)[index].date).month}-${((widget.liuData)[index].date).day}',
                                       style: TextStyle(fontSize: 20.0)),
                                 ],
