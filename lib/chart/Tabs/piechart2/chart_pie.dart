@@ -70,7 +70,6 @@ class _PiechartPageState extends State<PiechartPage> {
     setState(() {
       ++subscript;
       ++currentSelect;
-      print(subscript);
       if(subscript == mData.length){
         subscript = 0;
         currentSelect = 0;
@@ -102,6 +101,9 @@ class _PiechartPageState extends State<PiechartPage> {
     setState(() {
       data = dataAll;
       //print(data);
+      /*for(int i=0; i<data.length; i++){
+        print(data[i].type); print(data[i].category2);print(data[i].value100);print(data[i].category1);//print(data[i]);
+      }*/
       typeSelect = (widget.typeSelect)==null?typeSelect:(widget.typeSelect);
       //print(widget.typeSelect);
       type = (widget.type)==null?type:(widget.type);
@@ -406,14 +408,14 @@ class _PiechartPageState extends State<PiechartPage> {
                                     flex: 3,
                                     child: Container(
                                       padding: const EdgeInsets.only(left: 20.0, bottom: 5.0),
-                                      child: Text('类别', style: TextStyle(fontSize: 25.0)),
+                                      child: Text('类别', style: TextStyle(fontSize: 20.0)),
                                     )
                                 ),
                                 Expanded(
                                     flex: 3,
                                     child: Container(
                                       padding: const EdgeInsets.only(left: 0.0, bottom: 5.0),
-                                      child: Text('    比例', style: TextStyle(fontSize: 25.0)),
+                                      child: Text('    比例', style: TextStyle(fontSize: 20.0)),
                                     )
                                 ),
                                 Expanded(
@@ -424,7 +426,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                     flex: 3,
                                     child: Container(
                                       padding: const EdgeInsets.only(bottom: 5.0),
-                                      child: Text('金额/元', style: TextStyle(fontSize: 24.0)),
+                                      child: Text('金额/元', style: TextStyle(fontSize: 20.0)),
                                     )
                                 ),
                               ],
@@ -447,10 +449,11 @@ class _PiechartPageState extends State<PiechartPage> {
                                     child: new Container(
                                         height: 50.0, //每一条信息的高度
                                         //padding: const EdgeInsets.only(left: 20.0), //每条信息左边距
-                                        decoration: new BoxDecoration(
-                                            border: new Border(
-                                              bottom: BorderSide(color: Colors.black, width: 1.0), //信息的分割线
-                                            )
+                                        decoration: (index==(mData.length)-1)?BoxDecoration():  ///最后一条信息下面没有线
+                                          new BoxDecoration(
+                                              border: new Border(
+                                                bottom: BorderSide(color: Colors.black, width: 1.0), //信息的分割线
+                                              )
                                         ),
                                         child: Row(
                                           children: [
@@ -500,7 +503,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                                 flex: 6,
                                                 child: Container(
                                                   padding: const EdgeInsets.only(bottom: 5.0),
-                                                  child: Text('${(mData[index].price)/100}', style: TextStyle(fontSize: 25.0)),
+                                                  child: Text('${(mData[index].price)/100}', style: TextStyle(fontSize: 18.0)),
                                                 )
                                             ),
                                           ],

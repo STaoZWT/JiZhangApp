@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
         "/editMemberPicker": (context) => editMemberPicker(),
       },
       title: 'Flutter Demo',
-      home: RegisterPage(),
+      //home: RegisterPage(),
+      home: ChartPage(),
       //onGenerateRoute: onGenerateRoute, //路由
     );
   }

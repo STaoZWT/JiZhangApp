@@ -139,6 +139,14 @@ double formatNum(double num,int postion){
     if(data.length<=0 || data.length==null){ //总的数据集为空
       return null;
     }
+    print(data.length);
+    for(int i=0; i<data.length; i++) {
+      print('next');
+      print(data[i].type);
+      print(data[i].category2);
+      print(data[i].value100);
+      print(data[i].category1);
+    }//print(data[i]);
     //初始化
     /*if(typeSelect=='一级分类'){ //category1: 1~n
       datanow = new PieData(colorListPie[0], 0.0, data[0].category1, data[0].value100);
@@ -179,6 +187,7 @@ double formatNum(double num,int postion){
           }
           if(flag==0){//不存在
             datanow = new PieData(colorListPie[i], 0.0, data[i].category2, data[i].value100);
+            print(data[i].category2);
             dataPie.add(datanow);
             flag = 0;
           }

@@ -32,14 +32,24 @@ class _Dismissshow extends State<Dismissshow> {
     await BillsDatabaseService.db.deleteBillIdInDB(id);
   }
 
+  String checked;
+  int type;
+
+  @override
+  void initState() {
+    checked = (widget.liuData)[0].c1c2mc;
+    type = widget.type;
+  }
+
+
   //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户
   //type 0:收入， 1：支出
   //默认为“一级分类支出”
-  title(String typeSelect, int type) {
+  title() {
     if(type==0){
-      return Text("$typeSelect"+"收入",style: TextStyle(fontSize: 30.0));
+      return Text("$checked"+"收入",style: TextStyle(fontSize: 30.0));
     }else if(type==1){
-      return Text("$typeSelect"+"支出",style: TextStyle(fontSize: 30.0));
+      return Text("$checked"+"支出",style: TextStyle(fontSize: 30.0));
     }
   }
 
@@ -62,7 +72,7 @@ class _Dismissshow extends State<Dismissshow> {
                           picked: widget.picked)));
             }),
         centerTitle: true,
-        title: title((widget.liuData)[0].c1c2mc, widget.type)//界面标题内容
+        title: title()//界面标题内容
       ),
       body: Card(
         margin: EdgeInsets.all(8.0),
