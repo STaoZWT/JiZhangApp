@@ -83,11 +83,15 @@ class MyView extends CustomPainter{
 
     //当没有数据时 直接返回
     if (mData==null) {
+      canvas.save();
+      ///绘制逻辑与Android差不多
+      // 将坐标点移动到View的中心
+      canvas.translate(0.0, 0.0);
       double hudu = 1.0;
       //计算当前偏移量（单位为弧度）
       double sweepAngle = 2*pi*hudu;
       //画笔的颜色
-      _mPaint..color = Colors.white54;
+      _mPaint..color = Colors.grey;
       // 绘制没被选中的扇形  正常半径
       canvas.drawArc(mOval, 0.0, sweepAngle, true, _mPaint);
       _mPaint..color = Colors.white;
@@ -98,7 +102,7 @@ class MyView extends CustomPainter{
       var texts1 ='NULL';
       var tp1 = _newVerticalAxisTextPainter(texts1)..layout();
       // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
-      tp1.paint(canvas, Offset(-(65.0 - tp1.width / 2), -6.0));
+      tp1.paint(canvas,  Offset(-(65.0 - tp1.width / 2), -11.0));
     }
     else{ //有数据
       ///绘制逻辑与Android差不多

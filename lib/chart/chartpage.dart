@@ -36,8 +36,8 @@ class _ChartPageState extends State<ChartPage> {
   String selected = "一级分类支出"; ///选择图表显示类型!!!!!!!!!!!!!!!!
 
   List<DateTime> picked = [
-    new DateTime.utc(2000,10,1),
-    new DateTime.utc(2030,10,31)
+    new DateTime.utc(DateTime.now().year,1,1),
+    new DateTime.now()
   ]; //picked存选择的时间段
 
   void _incrementCounter() {
