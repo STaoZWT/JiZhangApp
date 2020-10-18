@@ -228,6 +228,20 @@ class BillsDatabaseService {
     print("deleted: $count");
   }
 
+  Future<int> getAccountNetAsset(String accountName) async {
+    final db = await database;
+    List<Map<String, dynamic>> queryResultIn = await db.rawQuery('SELECT sum(value100) FROM Bills WHERE accountIn = ? AND type IN (0, 2)', [accountName]);
+    var temp = queryResultIn[0]['sum(value100)'].toString();
+    var assetIn = int.tryParse(temp) as int;
+    if (assetIn == null) assetIn = 0;
+    List<Map<String, dynamic>> queryResultOut = await db.rawQuery('SELECT sum(value100) FROM Bills WHERE accountOut = ? AND type IN (1, 2)', [accountName]);
+    temp = queryResultOut[0]['sum(value100)'].toString();
+    var assetOut = int.tryParse(temp) as int;
+    if (assetOut == null) assetOut = 0;
+    int netAsset = assetIn - assetOut;
+    return netAsset;
+  }
+
 
   //清空数据
   deleteBillAllInDB() async {
