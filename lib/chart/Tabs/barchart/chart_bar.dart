@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_jizhangapp/chart/Tabs/piechart2/chart_pie.dart';
 import 'package:flutter_jizhangapp/data/model.dart';
 import 'package:flutter_jizhangapp/service/database.dart';
-import '../../../homepage.dart';
 import '../../chart_material.dart';
 import '../../chartpage.dart';
-import '../../select.dart';
 import 'barchart_chart.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
+import 'package:charts_flutter/flutter.dart' as charts;
 
 ///barchart的数据类型仔细看发现没有统一
 
@@ -38,7 +36,7 @@ class _BarchartPageState extends State<BarchartPage> {
   String selected = "分类支出"; ///选择图表显示类型!!!!!!!!!!!!!!!!
 
   List<DateTime> picked = [
-    DateTime.fromMillisecondsSinceEpoch(0),
+    DateTime.utc(DateTime.now().year,1,1),
     DateTime.now()
   ]; //picked存选择的时间段
 
@@ -122,6 +120,8 @@ class _BarchartPageState extends State<BarchartPage> {
     return true;
   }
 
+  List<BarData> dataBarEd_null = [BarData('NULL', 1, charts.ColorUtil.fromDartColor(Colors.grey))];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,13 +162,12 @@ class _BarchartPageState extends State<BarchartPage> {
                                 picked = await DateRagePicker
                                     .showDatePicker(
                                     context: context,
-                                    initialFirstDate: new DateTime.now(),
+                                    initialFirstDate: new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1,0,0,0,0,0),
                                     //初始--起始日期
-                                    initialLastDate: (new DateTime.now()).add(
-                                        new Duration(days: 7)),
+                                    initialLastDate: new DateTime.now(),
                                     //初始--截止日期
-                                    firstDate: new DateTime(2020),
-                                    lastDate: new DateTime(2021)
+                                    firstDate: new DateTime((DateTime.fromMicrosecondsSinceEpoch(0)).year),
+                                    lastDate: new DateTime(((DateTime.now()).year)+1)
                                 );
                                 if (picked != null && picked.length == 2) {
                                   print(picked);
@@ -191,8 +190,8 @@ class _BarchartPageState extends State<BarchartPage> {
                                   });///在arguments里面带上我们需要传参值*/
                                 }else{
                                   picked = [
-                                    new DateTime.utc(2000,10,1),
-                                    new DateTime.utc(2030,10,31)
+                                    new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1),
+                                    new DateTime.now()
                                   ];
                                 }
                               },
@@ -218,7 +217,12 @@ class _BarchartPageState extends State<BarchartPage> {
                 width: double.infinity,
                 padding: const EdgeInsets.only(bottom: 20.0),
                 //color: Color(0xFF00FF00),
-                child: data_empty(dataBarEd)?Container():
+                child: data_empty(dataBarEd)?
+                Center(
+                    child: SubscriberChart(
+                      data: dataBarEd_null,
+                    )
+                ):
                 Center(
                     child: SubscriberChart(
                       data: dataBarEd,

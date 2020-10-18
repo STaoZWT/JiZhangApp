@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_jizhangapp/chart/Tabs/account/dismissshow.dart';
+import 'package:flutter_jizhangapp/chart/Tabs/account/test_liushui.dart';
 import 'package:flutter_jizhangapp/data/model.dart';
 import 'package:flutter_jizhangapp/service/database.dart';
-import '../../../homepage.dart';
 import '../../chart_material.dart';
 import '../../chartpage.dart';
-import '../../select.dart';
+
 import 'MyCustomCircle.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 
@@ -40,7 +39,7 @@ class _PiechartPageState extends State<PiechartPage> {
   String selected = "一级分类支出"; ///选择图表显示类型!!!!!!!!!!!!!!!!
 
   List<DateTime> picked = [
-    DateTime.fromMillisecondsSinceEpoch(0),
+    DateTime.utc(DateTime.now().year,1,1),
     DateTime.now()
   ]; //picked存选择的时间段
 
@@ -161,7 +160,7 @@ class _PiechartPageState extends State<PiechartPage> {
                   Navigator.push(
                       context,
                       CupertinoPageRoute(
-                          builder: (context) => Dismissshow(
+                          builder: (context) => Dismissshow_testPage(
                               pie_bar: 0,
                               typeSelect: widget.typeSelect,
                               type: widget.type,
@@ -251,13 +250,12 @@ class _PiechartPageState extends State<PiechartPage> {
                               picked = await DateRagePicker
                                   .showDatePicker(
                                   context: context,
-                                  initialFirstDate: new DateTime.now(),
+                                  initialFirstDate: new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1,0,0,0,0,0),
                                   //初始--起始日期
-                                  initialLastDate: (new DateTime.now()).add(
-                                      new Duration(days: 7)),
+                                  initialLastDate: new DateTime.now(),
                                   //初始--截止日期
-                                  firstDate: new DateTime(2020),
-                                  lastDate: new DateTime(2021)
+                                  firstDate: new DateTime((DateTime.fromMicrosecondsSinceEpoch(0)).year),
+                                  lastDate: new DateTime(((DateTime.now()).year)+1)
                               );
                               if (picked != null && picked.length == 2) {
                                 print(picked);
@@ -280,8 +278,8 @@ class _PiechartPageState extends State<PiechartPage> {
                                   });///在arguments里面带上我们需要传参值*/
                               }else{
                                 picked = [
-                                  new DateTime.utc(2000,10,1),
-                                  new DateTime.utc(2030,10,31)
+                                  new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1),
+                                  new DateTime.now()
                                 ];
                               }
                             },
@@ -327,7 +325,11 @@ class _PiechartPageState extends State<PiechartPage> {
                                   //padding: const EdgeInsets.only(bottom: 20.0),
                                   //传入相应的参数
                                   child: Center(
-                                    child: data_empty(mData)?Container():
+                                    //child: data_empty(mData)?Container():
+                                    child: data_empty(mData)?new MyCustomCircle(
+                                        null,
+                                        null, 0
+                                    ):
                                     new MyCustomCircle(
                                         mData,
                                         pieData, currentSelect
@@ -368,7 +370,7 @@ class _PiechartPageState extends State<PiechartPage> {
                             Navigator.push(
                                 context,
                                 CupertinoPageRoute(
-                                    builder: (context) => Dismissshow(
+                                    builder: (context) => Dismissshow_testPage(
                                         pie_bar: 0,
                                         typeSelect: widget.typeSelect,
                                         type: widget.type,
@@ -471,7 +473,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                                     Navigator.push(
                                                         context,
                                                         CupertinoPageRoute(
-                                                            builder: (context) => Dismissshow(
+                                                            builder: (context) => Dismissshow_testPage(
                                                                 pie_bar: 0,
                                                                 typeSelect: widget.typeSelect,
                                                                 type: widget.type,
