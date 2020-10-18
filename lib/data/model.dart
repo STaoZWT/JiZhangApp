@@ -50,8 +50,8 @@ class BillsModel {
       'type': this.type,
       'accountIn': this.accountIn,
       'accountOut': this.accountOut,
-      'catogory1': this.category1,
-      'catogory2': this.category2,
+      'category1': this.category1,
+      'category2': this.category2,
       //'hasMember': this.hasMember == true ? 1 : 0,
       'member': this.member,
       'value100': this.value100
