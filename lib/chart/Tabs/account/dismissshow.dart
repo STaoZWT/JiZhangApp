@@ -37,7 +37,7 @@ class _Dismissshow extends State<Dismissshow> {
 
   @override
   void initState() {
-    checked = (widget.liuData)[0].c1c2mc;
+    checked = ((widget.liuData)[0]).c1c2mc;
     type = widget.type;
   }
 
@@ -71,33 +71,33 @@ class _Dismissshow extends State<Dismissshow> {
                           type: widget.type,
                           picked: widget.picked)));
             }),
-        centerTitle: true,
-        title: title()//界面标题内容
+          centerTitle: true,
+          title: title()//界面标题内容
       ),
-      body: Card(
-        margin: EdgeInsets.all(8.0),
-        elevation: 15.0,
-        shape: const RoundedRectangleBorder(
-            borderRadius:
-            BorderRadius.all(Radius.circular(14.0))),
-        child: new ListView.builder(
-          itemCount: (widget.liuData).length,
-          itemBuilder: (context, index) {
-            final item = (widget.liuData)[index];
-            return new GestureDetector(
-              onHorizontalDragEnd: (endDetails) {
-                setState(() {
-                  (widget.liuData)[index].show =
-                  (widget.liuData)[index].show == true ? false : true;
-                });
-              },
-              child: new Container(
+      body: new ListView.builder(
+        itemCount: (widget.liuData).length,
+        itemBuilder: (context, index) {
+          final item = (widget.liuData)[index];
+          return new GestureDetector(
+            onHorizontalDragEnd: (endDetails) {
+              setState(() {
+                (widget.liuData)[index].show =
+                (widget.liuData)[index].show == true ? false : true;
+              });
+            },
+            child: new Card(
+              margin: EdgeInsets.all(5.0),
+              elevation: 15.0,
+              shape: const RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(14.0))),
+              child: Container(
                 height: 50.0, //每一条信息的高度
                 padding: const EdgeInsets.only(left: 20.0), //每条信息左边距
-                decoration: new BoxDecoration(
+                /*decoration: new BoxDecoration(
                     border: new Border(
                       bottom: BorderSide(color: Colors.black, width: 0.5), //信息的分割线
-                    )),
+                    )),*/
                 child: new Row(
                   //mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -116,16 +116,126 @@ class _Dismissshow extends State<Dismissshow> {
                         color: Colors.red,
                         splashColor: Colors.pink[100])
                         : new Text(''),
-                    new Text('${(widget.liuData)[index].category2}: '+
+                    new Text('${(widget.liuData)[index].c1c2mc}: '+'${(widget.liuData)[index].type==0?'收入':''}'+
+                        '${(widget.liuData)[index].type==1?'支出':''}'+
+                        //'${(widget.liuData)[index].type==3?'转出账户:':''}'+
+                        //'${(widget.liuData)[index].type==4?'转入账户:':''}'+
                         '金额${((widget.liuData)[index].value)/100} '+
                         '${((widget.liuData)[index].date).year}-${((widget.liuData)[index].date).month}-${((widget.liuData)[index].date).day}')
                   ],
                 ),
               ),
-            );
-          },
-        ),
-      )
+            ),
+          );
+        },
+      ),
     );
   }
 }
+
+/*Scaffold(
+      appBar: new AppBar( //标题
+        backgroundColor: Colors.blue,
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => ChartPage(
+                          pie_bar: widget.pie_bar,
+                          typeSelect: widget.typeSelect,
+                          type: widget.type,
+                          picked: widget.picked)));
+            }),
+        centerTitle: true,
+        title: title()//界面标题内容
+      ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: ListView.builder(
+          itemCount: (widget.liuData).length,
+          itemBuilder: (context, index) {
+            final item = (widget.liuData)[index];
+            return new GestureDetector(
+              child:  Card(
+                margin: EdgeInsets.all(8.0),
+                elevation: 15.0,
+                shape: const RoundedRectangleBorder(
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(14.0))),
+                child: new Container(
+                  height: 250,
+                  width: double.infinity,
+                  child: ListView(
+                    children: [
+                      Column(
+                        children: [
+                          Expanded( //日期
+                            flex: 3,
+                            child: Text('${(item.time).year}'+'-${(item.time).month}'+'-${(item.time).day}'),
+                          ),
+                          Expanded( //流水
+                            flex: 8,
+                            child: ListView.builder(
+                              itemCount: (item.data).length,
+                              itemBuilder: (context, index1) {
+                                final item1 = (item.data)[index1];
+                                return new GestureDetector(
+                                  onHorizontalDragEnd: (endDetails) {
+                                    setState(() {
+                                      item1.show =
+                                      item1.show == true ? false : true;
+                                    });
+                                  },
+                                  child: new Container(
+                                    height: 50.0, //每一条信息的高度
+                                    padding: const EdgeInsets.only(left: 20.0), //每条信息左边距
+                                    decoration: new BoxDecoration(
+                                        border: new Border(
+                                          bottom: BorderSide(color: Colors.black, width: 0.5), //信息的分割线
+                                        )
+                                    ),
+                                    child: new Row(
+                                      //mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        item1.show == true ? //是否被删除
+                                        new RaisedButton(
+                                            child: new Text('删除'),
+                                            onPressed: () {
+                                              print('click');
+                                              setState(() {
+                                                Toast.show('${widget.typeSelect}'+'   '
+                                                    '${item1.category2}   已删除',context);
+                                                setDataFromDB(item1.id);
+                                                (item.data).removeAt(index);  //删除某条信息!!!!!!!!!
+                                              });
+                                            },
+                                            color: Colors.red,
+                                            splashColor: Colors.pink[100]
+                                        ) : new Text(''),
+                                        new Text('${item1.category2}: '+
+                                            '金额${item1.value/100} '+
+                                            '${(item.time).year}-${(item.time).month}-${(item.time).day}')
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                )
+              )
+            );
+          }
+        ),
+      )
+    );*/
+
+

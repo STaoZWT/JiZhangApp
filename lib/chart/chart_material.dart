@@ -35,6 +35,53 @@ class LiushuiData{
   LiushuiData(this.id, this.c1c2mc,this.date,this.type,this.value,this.show,this.category2);
 }
 
+class LsdataTime{
+  DateTime time;
+  List<LiushuiData> data;
+  String c1c2mc;//类别
+
+  LsdataTime(this.time, this.data, this.c1c2mc);
+}
+
+timeEqual(DateTime time1, DateTime time2){
+  if(time1.year==time2.year &&  // 同一天
+     time1.month==time2.month &&
+     time1.day==time2.day){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+
+List<LsdataTime> dataSortTime(List<LiushuiData> liuData){
+  List<LsdataTime> dataTime = [];
+  int flag = 0;
+  LsdataTime LsdataTimeNow;
+  LiushuiData datanow;
+  for(int i=0;i<liuData.length;i++){
+    for(int j=0;j<dataTime.length;j++){ //遍历
+      if(timeEqual(dataTime[j].time, liuData[i].date)){ //已经添加该日期
+        flag = 1;
+        datanow = liuData[i];
+        (dataTime[j].data).add(datanow);
+        break;
+      }
+    }
+    if(flag==0){//不存在
+      LsdataTimeNow = new LsdataTime(liuData[i].date, [], liuData[i].c1c2mc);
+      //sdataTimeNow.time = liuData[i].date;
+      datanow = liuData[i];
+      (LsdataTimeNow.data).add(datanow);
+      //LsdataTimeNow.c1c2mc = liuData[i].c1c2mc;
+      dataTime.add(LsdataTimeNow);
+      flag = 0;
+    }
+  }
+  print(dataTime);
+  return dataTime;
+}
+
 //checked选择查看哪一部分
 //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户
 //type 0:收入， 1：支出
@@ -75,6 +122,8 @@ List getLiuData(List<BillsModel> data, String checked, String typeSelect, int ty
       }
   }
   //print(liuData);
+  /*List<LsdataTime> dataTime;
+  dataTime = dataSortTime(liuData);*/
   return liuData;
 }
 
