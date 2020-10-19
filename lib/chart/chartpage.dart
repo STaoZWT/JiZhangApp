@@ -71,22 +71,22 @@ class _ChartPageState extends State<ChartPage> {
   }
 
   pagechoose(int _currentIndex){
-    if(_currentIndex == 1 || pie_bar == 1) { // 条形图
+    /*if(_currentIndex == 1 || pie_bar == 1) { // 条形图
       pie_bar = 0;
       return BarchartPage(
           typeSelect: typeSelect,
           type: type,
           picked: picked);
-    }else if(_currentIndex == 0) { // 饼状图
+    }else */if(_currentIndex == 0) { // 饼状图
       return PiechartPage(
           typeSelect: typeSelect,
           type: type,
           picked: picked);
     }
-    return PiechartPage(
+    /*return PiechartPage(
         typeSelect: typeSelect,
         type: type,
-        picked: picked);
+        picked: picked);*/
   }
 
 
@@ -149,11 +149,11 @@ class _ChartPageState extends State<ChartPage> {
                 icon: Icon(Icons.pie_chart),
                 title: Text("饼状图")
             ),
-            BottomNavigationBarItem(
+            /*BottomNavigationBarItem(
                 backgroundColor: Colors.lightBlueAccent,
                 icon: Icon(Icons.insert_chart),
                 title: Text("条形图")
-            ),
+            ),*/
             BottomNavigationBarItem(
                 backgroundColor: Colors.lightBlueAccent,
                 icon: Icon(Icons.home),
