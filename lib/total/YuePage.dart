@@ -8,6 +8,7 @@ import '../service/database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 int accountNumber;
+int flag = 0;
 
 class YuePage extends StatefulWidget {
   YuePage({Key key}) : super(key: key);
@@ -70,26 +71,9 @@ class _YuePageContentState extends State<YuePageContent>
     await BillsDatabaseService.db.addBillInDB(billsModel);
   }
 
-  List accountName = [
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '公交卡',
-    '医保卡',
-    '学生卡'
-  ];
+  List accountName = [];
   int maxAcCount() {
+    accountName.add(billsList[0].accountIn);
     accountName.clear();
     for (var i = 0; i < billsList.length; i++) {
       accountName.add(billsList[i].accountIn);
@@ -194,6 +178,13 @@ class _YuePageContentState extends State<YuePageContent>
     print(
         '///////////////////////////////////////////monthList///////////////////////////////////////////');
     print(monthList);
+    monthList1.clear();
+    for (var i = 0; i < monthList.length; i++) {
+      if (monthList[i]['存在'] == 1) {
+        monthList1.add(monthList[i]);
+      }
+    }
+    flag = 1;
   }
 
   Animation animation;
@@ -627,7 +618,7 @@ class _YuePageContentState extends State<YuePageContent>
   // ];
 
   List<Widget> _monthListData() {
-    var tempList = monthList.map((value) {
+    var tempList = monthList1.map((value) {
       var card = new Container(
         height: 400.0, //设置高度
         // child: new Card(
@@ -813,19 +804,23 @@ class _YuePageContentState extends State<YuePageContent>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(children: <Widget>[
-        Align(
-            alignment: Alignment(-1, -1),
-            child: Container(
-              height: 800,
-              width: 600,
-              color: Colors.white,
-              child: ListView(
-                children: this._monthListData(),
-              ),
-            )),
-      ]),
-    );
+    if (flag == 0) {
+      return CircularProgressIndicator();
+    } else if (flag == 1) {
+      return Container(
+        child: Stack(children: <Widget>[
+          Align(
+              alignment: Alignment(-1, -1),
+              child: Container(
+                height: 800,
+                width: 600,
+                color: Colors.white,
+                child: ListView(
+                  children: this._monthListData(),
+                ),
+              )),
+        ]),
+      );
+    }
   }
 }
