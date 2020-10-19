@@ -14,6 +14,7 @@ import '../service/database.dart';
 import '../data/model.dart';
 import 'package:toast/toast.dart';
 import '../homepage.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CardAddBill extends StatefulWidget {
   @override
@@ -89,22 +90,21 @@ class _CardAddBill extends State<CardAddBill>
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
           billConfirm();
         },
-        label:
-            Icon(
+        child: Icon(
           Icons.check,
           size: 30,
         ),
       ),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       appBar: AppBar(
         title: Text("新建记账"),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.print),
+              icon: FaIcon(FontAwesomeIcons.alipay),
               onPressed: () async {
                 List<BillsModel> allBills = await BillsDatabaseService.db.getBillsFromDB();
                 allBills.forEach((element) {
@@ -144,15 +144,15 @@ class _CardAddBill extends State<CardAddBill>
                   physics: BouncingScrollPhysics(),
                   children: <Widget>[
                     SizedBox(
-                      height: 5,
+                      height: 8,
                     ),
                     //以下输入金钱
                     Card(
-                      margin: EdgeInsets.all(8.0),
-                      elevation: 15.0,
+                      margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                      elevation: 2.0,
                       shape: const RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.all(Radius.circular(14.0))),
+                              BorderRadius.all(Radius.circular(8.0))),
                       child: TextField(
                         controller: moneyController,
                         autofocus: false,
@@ -202,11 +202,11 @@ class _CardAddBill extends State<CardAddBill>
                     ),
                     //以下选择时间
                     Card(
-                        margin: EdgeInsets.all(8.0),
-                        elevation: 15.0,
+                        margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                        elevation: 2.0,
                         shape: const RoundedRectangleBorder(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(14.0))),
+                                BorderRadius.all(Radius.circular(8.0))),
                         child: InkWell(
                           onTap: () {
                             DatePicker.showDateTimePicker(context,
@@ -244,11 +244,11 @@ class _CardAddBill extends State<CardAddBill>
                         )),
                     //以下选择分类，账户，成员
                     Card(
-                      margin: EdgeInsets.all(8.0),
-                      elevation: 15.0,
+                      margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                      elevation: 2.0,
                       shape: const RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.all(Radius.circular(14.0))),
+                              BorderRadius.all(Radius.circular(8.0))),
                       child: Column(
                         children: <Widget>[
                           //以下选择分类
@@ -296,7 +296,7 @@ class _CardAddBill extends State<CardAddBill>
                                       ),
                                       trailing: IconButton(
                                         icon: Icon(
-                                          Icons.edit,
+                                          Icons.dehaze,
                                         ),
                                         onPressed: () async {  //点击编辑按钮跳转到自定义界面
                                           classPickerData = (tab.text=="支出")?
@@ -363,7 +363,7 @@ class _CardAddBill extends State<CardAddBill>
                               trailing: IconButton(
                                 //这是对account picker进行编辑的按钮
                                 icon: Icon(
-                                  Icons.edit,
+                                  Icons.dehaze,
                                 ),
                                 onPressed: () async {
                                   accountPickerData =
@@ -453,7 +453,7 @@ class _CardAddBill extends State<CardAddBill>
                               trailing: IconButton(
                                 //这是对account picker进行编辑的按钮
                                 icon: Icon(
-                                  Icons.edit,
+                                  Icons.dehaze,
                                 ),
                                 onPressed: () async {
                                   memberPickerData =
@@ -477,19 +477,19 @@ class _CardAddBill extends State<CardAddBill>
                     ),
                     //以下输入备注
                     Card(
-                      margin: EdgeInsets.all(8.0),
-                      elevation: 15.0,
+                      margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                      elevation: 2.0,
                       shape: const RoundedRectangleBorder(
                           borderRadius:
-                              BorderRadius.all(Radius.circular(14.0))),
+                              BorderRadius.all(Radius.circular(8.0))),
                       child: TextField(
                         autofocus: false,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          labelText: "备注",
+                          labelText: "      备注",
                           labelStyle: TextStyle(
                             fontWeight: FontWeight.w300,
-                            fontSize: 18,
+                            fontSize: 16,
                           ),
                           hintText: "请输入备注 ",
                           hintStyle:
