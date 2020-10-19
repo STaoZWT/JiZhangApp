@@ -136,7 +136,7 @@ class _ChartPageState extends State<ChartPage> {
             setState(() {
               this._currentIndex = index;
               print(_currentIndex);
-              if(_currentIndex == 2) {  // 首页
+              if(_currentIndex == 1) {  // 首页
                 Navigator.of(context).pop();
                 //Navigator.of(context).push(MaterialPageRoute(
                     //builder: (BuildContext context) => HomePage()));
