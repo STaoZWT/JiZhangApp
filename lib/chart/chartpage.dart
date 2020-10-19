@@ -138,8 +138,8 @@ class _ChartPageState extends State<ChartPage> {
               print(_currentIndex);
               if(_currentIndex == 2) {  // 首页
                 Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => HomePage()));
+                //Navigator.of(context).push(MaterialPageRoute(
+                    //builder: (BuildContext context) => HomePage()));
               }
             });
           },

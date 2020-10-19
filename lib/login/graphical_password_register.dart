@@ -85,10 +85,11 @@ class _GraphicalPasswordRegisterPageState
                                 child: Text('confirm'),
                                 onPressed: () {
                                   Navigator.of(context).pop();
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (BuildContext context) =>
-                                              HomePage()));
+                                  Navigator.of(context).pop();
+                                  // Navigator.of(context).pushReplacement(
+                                  //     MaterialPageRoute(
+                                  //         builder: (BuildContext context) =>
+                                  //             HomePage()));
                                 },
                               )
                             ],

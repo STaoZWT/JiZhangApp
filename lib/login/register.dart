@@ -28,6 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
         iconTheme: IconThemeData(color: Colors.blue),
         backgroundColor: Colors.blue,
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,

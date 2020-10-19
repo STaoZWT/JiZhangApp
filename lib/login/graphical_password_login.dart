@@ -33,9 +33,7 @@ class _GraphicalPasswordLoginPageState
         backgroundColor: Colors.blue,
         automaticallyImplyLeading: false,
       ),
-      body: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
+      body: ListView(
           children: <Widget>[
             GestureView(
               immediatelyClear: false,
@@ -84,7 +82,8 @@ class _GraphicalPasswordLoginPageState
                                 FlatButton(
                                   child: Text('confirm'),
                                   onPressed: () {
-                                    //Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
+                                    Navigator.of(context).pop();
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                             builder: (BuildContext context) =>
@@ -154,7 +153,8 @@ class _GraphicalPasswordLoginPageState
                 ),
               ),
             )
-          ]),
+          ]
+          ),
     );
   }
 }

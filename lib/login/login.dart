@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
       print(GraphicalPasswordInSp);
       if (GraphicalPasswordInSp != null) {
         //Navigator.of(context).pop();
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
+        Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => GraphicalPasswordLoginPage()));
       }
     });
