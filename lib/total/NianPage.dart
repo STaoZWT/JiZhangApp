@@ -8,6 +8,7 @@ import '../service/database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 int accountNumber;
+int flag = 0;
 
 class NianPage extends StatefulWidget {
   NianPage({Key key}) : super(key: key);
@@ -54,6 +55,9 @@ class _NianPageContentState extends State<NianPageContent>
   List yearList = [
     {'日期': DateTime.now(), '金额100': 0, '金额': '0', '明细': []}
   ];
+  List yearList1 = [
+    {'日期': DateTime.now(), '金额100': 0, '金额': '0', '明细': []}
+  ];
   setBillsFromDB() async {
     print("Entered setBills");
     var fetchedBills = await BillsDatabaseService.db.getBillsFromDB();
@@ -67,7 +71,31 @@ class _NianPageContentState extends State<NianPageContent>
     await BillsDatabaseService.db.addBillInDB(billsModel);
   }
 
-  List accountName = ['现金'];
+  // deleteBillInDB(BillsModel billToDelete) async {
+  //   final db = await database;
+  //   await db.delete('Bills', where: '_id = ?', whereArgs: [billToDelete.id]);
+  //   print('Bill deleted');
+  // }
+
+  List accountName = [
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '公交卡',
+    '医保卡',
+    '学生卡'
+  ];
   int maxAcCount() {
     accountName.clear();
     for (var i = 0; i < billsList.length; i++) {
@@ -161,6 +189,7 @@ class _NianPageContentState extends State<NianPageContent>
   initall() async {
     await setBillsFromDB();
     //print(billsList.length);
+    billsList.sort((a, b) => (b.date).compareTo(a.date));
     maxAc = maxAcCount();
     //print(maxAc);
     totalList = inittotalList();
@@ -172,6 +201,12 @@ class _NianPageContentState extends State<NianPageContent>
     print(
         '///////////////////////////////////////////yearList///////////////////////////////////////////');
     print(yearList);
+    yearList1.clear();
+    for (var i = 0; i < yearList.length; i++) {
+      if (yearList[i]['存在'] == 1) {
+        yearList1.add(yearList[i]);
+      }
+    }
   }
 
   Animation animation;
@@ -179,17 +214,19 @@ class _NianPageContentState extends State<NianPageContent>
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     print(
         '///////////////////////////////////////////按年统计开始///////////////////////////////////////////');
+    animationController = new AnimationController(
+        vsync: this, duration: Duration(milliseconds: 200));
+    animation = new Tween(begin: 0.0, end: 0.5).animate(animationController);
     accountNumber = acountChange();
     print(
         '///////////////////////////////////////////////////////////////////////accountNumber');
     print(accountNumber);
     initall();
-    animationController = new AnimationController(
-        vsync: this, duration: Duration(milliseconds: 200));
-    animation = new Tween(begin: 0.0, end: 0.5).animate(animationController);
+    flag = 1;
   }
 
   _changeTrailing(bool expand) {
@@ -204,13 +241,19 @@ class _NianPageContentState extends State<NianPageContent>
 
   List inityearList() {
     DateTime lastTime = DateTime.now();
-    DateTime firstTime = DateTime.now();
+    DateTime firstTime = billsList[0].date;
 
     // print(
     //     '///////////////////////////////////////////yeardifference///////////////////////////////////////////');
     // print(yeardifference);
     List nianList = [
-      {'日期': 2020, '金额100': 0, '金额': '0', '明细': []}
+      {
+        '日期': DateTime(2020, 09, 18, 20, 23, 45),
+        '金额100': 0,
+        '金额': '0',
+        '明细': [],
+        '存在': 0
+      }
     ];
 
     //重建
@@ -222,13 +265,17 @@ class _NianPageContentState extends State<NianPageContent>
         if (lastTime.isAfter(billsList[i].date)) {
           lastTime = billsList[i].date;
         }
+        if (firstTime.isBefore(billsList[i].date)) {
+          firstTime = billsList[i].date;
+        }
       }
       final yeardifference = firstTime.year - lastTime.year;
       int yeartemp = lastTime.year - 1;
       for (var i = 0; i < yeardifference + 1; i++) {
         detailList.clear();
         yeartemp++;
-        nianList.add({'日期': yeartemp, '金额100': 0, '金额': '0', '明细': []});
+        nianList
+            .add({'日期': yeartemp, '金额100': 0, '金额': '0', '明细': [], '存在': 0});
 
         for (var j = 0; j < billsList.length; j++) {
           if (billsList[j].date.year == yeartemp) {
@@ -252,6 +299,7 @@ class _NianPageContentState extends State<NianPageContent>
                             detailtemp100.length - 2, detailtemp100.length);
               }
               String tempcardName2 = billsList[j].accountIn;
+              nianList[i]['存在'] = 1;
               detailList.add({
                 'type': tempcardName2 + '收入',
                 'date': billsList[j].date,
@@ -282,6 +330,7 @@ class _NianPageContentState extends State<NianPageContent>
                             detailtemp100.length - 2, detailtemp100.length);
               }
               String tempcardName1 = billsList[j].accountOut;
+              nianList[i]['存在'] = 1;
               detailList.add({
                 'type': tempcardName1 + '支出',
                 'date': billsList[j].date,
@@ -312,6 +361,7 @@ class _NianPageContentState extends State<NianPageContent>
               }
               String tempcardName1 = billsList[j].accountOut;
               String tempcardName2 = billsList[j].accountIn;
+              nianList[i]['存在'] = 1;
               detailList.add({
                 'type': tempcardName1 + '转账到' + tempcardName2,
                 'date': billsList[j].date,
@@ -352,6 +402,9 @@ class _NianPageContentState extends State<NianPageContent>
           if (lastTime.isAfter(billsList[i].date)) {
             lastTime = billsList[i].date;
           }
+          if (firstTime.isBefore(billsList[i].date)) {
+            firstTime = billsList[i].date;
+          }
         }
       }
       final yeardifference = firstTime.year - lastTime.year;
@@ -359,7 +412,8 @@ class _NianPageContentState extends State<NianPageContent>
       for (var i = 0; i < yeardifference + 1; i++) {
         detailList.clear();
         yeartemp++;
-        nianList.add({'日期': yeartemp, '金额100': 0, '金额': '0', '明细': []});
+        nianList
+            .add({'日期': yeartemp, '金额100': 0, '金额': '0', '明细': [], '存在': 0});
         for (var j = 0; j < billsList.length; j++) {
           if (billsList[j].date.year == yeartemp) {
             if (billsList[j].type == 0) {
@@ -393,6 +447,7 @@ class _NianPageContentState extends State<NianPageContent>
                               detailtemp100.length - 2, detailtemp100.length);
                 }
                 String tempcardName2 = billsList[j].accountIn;
+                nianList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName2 + '收入',
                   'title': billsList[j].title,
@@ -434,6 +489,7 @@ class _NianPageContentState extends State<NianPageContent>
                               detailtemp100.length - 2, detailtemp100.length);
                 }
                 String tempcardName1 = billsList[j].accountOut;
+                nianList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName1 + '支出',
                   'title': billsList[j].title,
@@ -466,6 +522,7 @@ class _NianPageContentState extends State<NianPageContent>
                 }
                 String tempcardName1 = billsList[j].accountOut;
                 String tempcardName2 = billsList[j].accountIn;
+                nianList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName1 + '转账到' + tempcardName2,
                   'title': billsList[j].title,
@@ -497,6 +554,7 @@ class _NianPageContentState extends State<NianPageContent>
                 }
                 String tempcardName1 = billsList[j].accountOut;
                 String tempcardName2 = billsList[j].accountIn;
+                nianList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName1 + '转账到' + tempcardName2,
                   'title': billsList[j].title,
@@ -541,7 +599,7 @@ class _NianPageContentState extends State<NianPageContent>
   // ];
 
   List<Widget> _yearListData() {
-    var tempList = yearList.map((value) {
+    var tempList = yearList1.map((value) {
       var card = new Container(
         height: 400.0, //设置高度
         // child: new Card(
@@ -633,7 +691,6 @@ class _NianPageContentState extends State<NianPageContent>
         ),
         //),
       );
-
       return Card(
         elevation: 15.0, //设置阴影
         shape: const RoundedRectangleBorder(
@@ -723,7 +780,7 @@ class _NianPageContentState extends State<NianPageContent>
             child: Container(
               height: 800,
               width: 600,
-              color: Colors.blue[50],
+              color: Colors.white,
               child: ListView(
                 children: this._yearListData(),
               ),

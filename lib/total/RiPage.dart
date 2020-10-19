@@ -55,6 +55,10 @@ class _RiPageContentState extends State<RiPageContent>
   List dayList = [
     {'日期': DateTime.now(), '金额100': 0, '金额': '0', '明细': []}
   ];
+  List dayList1 = [
+    {'日期': DateTime.now(), '金额100': 0, '金额': '0', '明细': []}
+  ];
+
   setBillsFromDB() async {
     print("Entered setBills");
     var fetchedBills = await BillsDatabaseService.db.getBillsFromDB();
@@ -68,7 +72,25 @@ class _RiPageContentState extends State<RiPageContent>
     await BillsDatabaseService.db.addBillInDB(billsModel);
   }
 
-  List accountName = ['现金'];
+  List accountName = [
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '公交卡',
+    '医保卡',
+    '学生卡'
+  ];
   int maxAcCount() {
     accountName.clear();
     for (var i = 0; i < billsList.length; i++) {
@@ -162,6 +184,7 @@ class _RiPageContentState extends State<RiPageContent>
   initall() async {
     await setBillsFromDB();
     //totalList = countT();
+    billsList.sort((a, b) => (b.date).compareTo(a.date));
     maxAc = maxAcCount();
     //print(maxAc);
     totalList = inittotalList();
@@ -170,9 +193,16 @@ class _RiPageContentState extends State<RiPageContent>
         '///////////////////////////////////////////totalList///////////////////////////////////////////');
     print(totalList);
     dayList = initdayList();
+
     print(
         '///////////////////////////////////////////dayList///////////////////////////////////////////');
     print(dayList);
+    dayList1.clear();
+    for (var i = 0; i < dayList.length; i++) {
+      if (dayList[i]['存在'] == 1) {
+        dayList1.add(dayList[i]);
+      }
+    }
   }
 
   Animation animation;
@@ -205,7 +235,7 @@ class _RiPageContentState extends State<RiPageContent>
 
   List initdayList() {
     DateTime lastTime = DateTime.now();
-    DateTime firstTime = DateTime.now();
+    DateTime firstTime = billsList[0].date;
 
     // print(
     //     '///////////////////////////////////////////daydifference///////////////////////////////////////////');
@@ -215,7 +245,8 @@ class _RiPageContentState extends State<RiPageContent>
         '日期': DateTime(2020, 09, 18, 20, 23, 45),
         '金额100': 0,
         '金额': '0',
-        '明细': []
+        '明细': [],
+        '存在': 0
       }
     ];
 
@@ -228,17 +259,25 @@ class _RiPageContentState extends State<RiPageContent>
         if (lastTime.isAfter(billsList[i].date)) {
           lastTime = billsList[i].date;
         }
+        if (firstTime.isBefore(billsList[i].date)) {
+          firstTime = billsList[i].date;
+        }
       }
-      final daydifference = firstTime.difference(lastTime).inDays;
+      print(lastTime);
+      print(firstTime);
+      var dl = new DateTime(lastTime.year, lastTime.month, lastTime.day);
+      var df = new DateTime(firstTime.year, firstTime.month, firstTime.day);
+      int daydifference = df.difference(dl).inDays;
+      print(daydifference);
       for (var i = 0; i < daydifference + 1; i++) {
         detailList.clear();
         riList.add({
           '日期': lastTime.add(new Duration(days: i)),
           '金额100': 0,
           '金额': '0',
-          '明细': []
+          '明细': [],
+          '存在': 0
         });
-
         for (var j = 0; j < billsList.length; j++) {
           if (billsList[j].date.year ==
                   (lastTime.add(new Duration(days: i))).year &&
@@ -248,7 +287,6 @@ class _RiPageContentState extends State<RiPageContent>
                   (lastTime.add(new Duration(days: i))).day) {
             if (billsList[j].type == 0) {
               riList[i]['金额100'] += billsList[j].value100;
-
               String detailtemp;
               String detailtemp100 = billsList[j].value100.toString();
               if (billsList[j].value100 == 0) {
@@ -267,6 +305,7 @@ class _RiPageContentState extends State<RiPageContent>
                             detailtemp100.length - 2, detailtemp100.length);
               }
               String tempcardName2 = billsList[j].accountIn;
+              riList[i]['存在'] = 1;
               detailList.add({
                 'type': tempcardName2 + '收入',
                 'date': billsList[j].date,
@@ -297,6 +336,7 @@ class _RiPageContentState extends State<RiPageContent>
                             detailtemp100.length - 2, detailtemp100.length);
               }
               String tempcardName1 = billsList[j].accountOut;
+              riList[i]['存在'] = 1;
               detailList.add({
                 'type': tempcardName1 + '支出',
                 'date': billsList[j].date,
@@ -327,6 +367,7 @@ class _RiPageContentState extends State<RiPageContent>
               }
               String tempcardName1 = billsList[j].accountOut;
               String tempcardName2 = billsList[j].accountIn;
+              riList[i]['存在'] = 1;
               detailList.add({
                 'type': tempcardName1 + '转账到' + tempcardName2,
                 'date': billsList[j].date,
@@ -367,15 +408,24 @@ class _RiPageContentState extends State<RiPageContent>
           if (lastTime.isAfter(billsList[i].date)) {
             lastTime = billsList[i].date;
           }
+          if (firstTime.isBefore(billsList[i].date)) {
+            firstTime = billsList[i].date;
+          }
         }
       }
-      final daydifference = firstTime.difference(lastTime).inDays;
+      print(lastTime);
+      print(firstTime);
+      var dl = new DateTime(lastTime.year, lastTime.month, lastTime.day);
+      var df = new DateTime(firstTime.year, firstTime.month, firstTime.day);
+      int daydifference = df.difference(dl).inDays;
+      print(daydifference);
       for (var i = 0; i < daydifference + 1; i++) {
         riList.add({
           '日期': lastTime.add(new Duration(days: i)),
           '金额100': 0,
           '金额': '0',
-          '明细': []
+          '明细': [],
+          '存在': 0
         });
         detailList.clear();
         for (var j = 0; j < billsList.length; j++) {
@@ -406,6 +456,7 @@ class _RiPageContentState extends State<RiPageContent>
                               detailtemp100.length - 2, detailtemp100.length);
                 }
                 String tempcardName2 = billsList[j].accountIn;
+                riList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName2 + '收入',
                   'title': billsList[j].title,
@@ -437,6 +488,7 @@ class _RiPageContentState extends State<RiPageContent>
                               detailtemp100.length - 2, detailtemp100.length);
                 }
                 String tempcardName1 = billsList[j].accountOut;
+                riList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName1 + '支出',
                   'title': billsList[j].title,
@@ -469,6 +521,7 @@ class _RiPageContentState extends State<RiPageContent>
                 }
                 String tempcardName1 = billsList[j].accountOut;
                 String tempcardName2 = billsList[j].accountIn;
+                riList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName1 + '转账到' + tempcardName2,
                   'title': billsList[j].title,
@@ -500,6 +553,7 @@ class _RiPageContentState extends State<RiPageContent>
                 }
                 String tempcardName1 = billsList[j].accountOut;
                 String tempcardName2 = billsList[j].accountIn;
+                riList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName1 + '转账到' + tempcardName2,
                   'title': billsList[j].title,
@@ -538,7 +592,7 @@ class _RiPageContentState extends State<RiPageContent>
   }
 
   List<Widget> _dayListData() {
-    var tempList = dayList.map((value) {
+    var tempList = dayList1.map((value) {
       var card = new Container(
         height: 400.0, //设置高度
         // child: new Card(
@@ -551,10 +605,23 @@ class _RiPageContentState extends State<RiPageContent>
             new ListTile(
               onTap: () => print(value['明细'].length),
               title: new Text(
-                  accountName[accountNumber] + value['日期'].toString() + '流水明细',
+                  accountName[accountNumber] +
+                      value['日期'].year.toString() +
+                      '年' +
+                      value['日期'].month.toString() +
+                      '月' +
+                      value['日期'].day.toString() +
+                      '日' +
+                      '流水明细',
                   style: new TextStyle(fontWeight: FontWeight.w500)),
-              subtitle: new Text(
-                  accountName[accountNumber] + value['日期'].toString() + '流水明细'),
+              subtitle: new Text(accountName[accountNumber] +
+                  value['日期'].year.toString() +
+                  '年' +
+                  value['日期'].month.toString() +
+                  '月' +
+                  value['日期'].day.toString() +
+                  '日' +
+                  '流水明细'),
               leading: new Icon(
                 Icons.restaurant_menu,
                 color: Colors.blue[500],
@@ -725,7 +792,7 @@ class _RiPageContentState extends State<RiPageContent>
             child: Container(
               height: 800,
               width: 600,
-              color: Colors.blue[50],
+              color: Colors.white,
               child: ListView(
                 children: this._dayListData(),
               ),

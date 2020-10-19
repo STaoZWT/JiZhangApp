@@ -54,6 +54,9 @@ class _JiPageContentState extends State<JiPageContent>
   List jiList = [
     {'日期': DateTime.now(), '金额100': 0, '金额': '0', '明细': []}
   ];
+  List jiList1 = [
+    {'日期': DateTime.now(), '金额100': 0, '金额': '0', '明细': []}
+  ];
   setBillsFromDB() async {
     print("Entered setBills");
     var fetchedBills = await BillsDatabaseService.db.getBillsFromDB();
@@ -67,7 +70,25 @@ class _JiPageContentState extends State<JiPageContent>
     await BillsDatabaseService.db.addBillInDB(billsModel);
   }
 
-  List accountName = ['现金'];
+  List accountName = [
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '现金',
+    '信用卡',
+    '公交卡',
+    '医保卡',
+    '学生卡'
+  ];
   int maxAcCount() {
     accountName.clear();
     for (var i = 0; i < billsList.length; i++) {
@@ -161,6 +182,7 @@ class _JiPageContentState extends State<JiPageContent>
   initall() async {
     await setBillsFromDB();
     //print(billsList.length);
+    billsList.sort((a, b) => (b.date).compareTo(a.date));
     maxAc = maxAcCount();
     //print(maxAc);
     totalList = inittotalList();
@@ -204,14 +226,20 @@ class _JiPageContentState extends State<JiPageContent>
 
   List initjiList() {
     DateTime lastTime = DateTime.now();
-    DateTime firstTime = DateTime.now();
+    DateTime firstTime = billsList[0].date;
 
     // print(
     //     '///////////////////////////////////////////month1month2///////////////////////////////////////////');
     // print(month1);
     // print(month2);
     List duList = [
-      {'日期': 2020, '金额100': 0, '金额': '0', '明细': []}
+      {
+        '日期': DateTime(2020, 09, 18, 20, 23, 45),
+        '金额100': 0,
+        '金额': '0',
+        '明细': [],
+        '存在': 0
+      }
     ];
     int decide(int month) {
       int month0;
@@ -251,6 +279,9 @@ class _JiPageContentState extends State<JiPageContent>
         if (lastTime.isAfter(billsList[i].date)) {
           lastTime = billsList[i].date;
         }
+        if (firstTime.isBefore(billsList[i].date)) {
+          firstTime = billsList[i].date;
+        }
       }
       final yeardifference = firstTime.year - lastTime.year;
       int loopTime(DateTime last, DateTime first) {
@@ -268,8 +299,14 @@ class _JiPageContentState extends State<JiPageContent>
       for (var i = 0; i < times; i++) {
         detailList.clear();
 
-        duList
-            .add({'年份': yeartemp, '季度': jidu, '金额100': 0, '金额': '0', '明细': []});
+        duList.add({
+          '年份': yeartemp,
+          '季度': jidu,
+          '金额100': 0,
+          '金额': '0',
+          '明细': [],
+          '存在': 0
+        });
         lastjidu = jidu;
         jidu = next(jidu);
 
@@ -297,6 +334,7 @@ class _JiPageContentState extends State<JiPageContent>
                             detailtemp100.length - 2, detailtemp100.length);
               }
               String tempcardName2 = billsList[j].accountIn;
+              duList[i]['存在'] = 1;
               detailList.add({
                 'type': tempcardName2 + '收入',
                 'date': billsList[j].date,
@@ -327,6 +365,7 @@ class _JiPageContentState extends State<JiPageContent>
                             detailtemp100.length - 2, detailtemp100.length);
               }
               String tempcardName1 = billsList[j].accountOut;
+              duList[i]['存在'] = 1;
               detailList.add({
                 'type': tempcardName1 + '支出',
                 'date': billsList[j].date,
@@ -357,6 +396,7 @@ class _JiPageContentState extends State<JiPageContent>
               }
               String tempcardName1 = billsList[j].accountOut;
               String tempcardName2 = billsList[j].accountIn;
+              duList[i]['存在'] = 1;
               detailList.add({
                 'type': tempcardName1 + '转账到' + tempcardName2,
                 'date': billsList[j].date,
@@ -400,6 +440,9 @@ class _JiPageContentState extends State<JiPageContent>
           if (lastTime.isAfter(billsList[i].date)) {
             lastTime = billsList[i].date;
           }
+          if (firstTime.isBefore(billsList[i].date)) {
+            firstTime = billsList[i].date;
+          }
         }
       }
       final yeardifference = firstTime.year - lastTime.year;
@@ -418,8 +461,14 @@ class _JiPageContentState extends State<JiPageContent>
       for (var i = 0; i < times; i++) {
         detailList.clear();
 
-        duList
-            .add({'年份': yeartemp, '季度': jidu, '金额100': 0, '金额': '0', '明细': []});
+        duList.add({
+          '年份': yeartemp,
+          '季度': jidu,
+          '金额100': 0,
+          '金额': '0',
+          '明细': [],
+          '存在': 0
+        });
         lastjidu = jidu;
         jidu = next(jidu);
         for (var j = 0; j < billsList.length; j++) {
@@ -447,6 +496,8 @@ class _JiPageContentState extends State<JiPageContent>
                               detailtemp100.length - 2, detailtemp100.length);
                 }
                 String tempcardName2 = billsList[j].accountIn;
+
+                duList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName2 + '收入',
                   'title': billsList[j].title,
@@ -478,6 +529,7 @@ class _JiPageContentState extends State<JiPageContent>
                               detailtemp100.length - 2, detailtemp100.length);
                 }
                 String tempcardName1 = billsList[j].accountOut;
+                duList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName1 + '支出',
                   'title': billsList[j].title,
@@ -510,6 +562,7 @@ class _JiPageContentState extends State<JiPageContent>
                 }
                 String tempcardName1 = billsList[j].accountOut;
                 String tempcardName2 = billsList[j].accountIn;
+                duList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName1 + '转账到' + tempcardName2,
                   'title': billsList[j].title,
@@ -541,6 +594,7 @@ class _JiPageContentState extends State<JiPageContent>
                 }
                 String tempcardName1 = billsList[j].accountOut;
                 String tempcardName2 = billsList[j].accountIn;
+                duList[i]['存在'] = 1;
                 detailList.add({
                   'type': tempcardName1 + '转账到' + tempcardName2,
                   'title': billsList[j].title,
@@ -781,7 +835,7 @@ class _JiPageContentState extends State<JiPageContent>
             child: Container(
               height: 800,
               width: 600,
-              color: Colors.blue[50],
+              color: Colors.white,
               child: ListView(
                 children: this._jiListData(),
               ),
