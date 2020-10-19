@@ -23,9 +23,9 @@ Future<Null> setEncryptedPassword(String rawPassword) async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   final cryptor = new PlatformStringCryptor();
   String key = await cryptor.generateRandomKey();
-  await sharedPref.setString('key', key);
+  await sharedPref.setString('key1', key);
   String encrypted = await cryptor.encrypt(rawPassword, key);
-  await sharedPref.setString('encrypted', encrypted);
+  await sharedPref.setString('encrypted1', encrypted);
 }
 
 //校验密码
@@ -33,8 +33,8 @@ Future<bool> isPasswordValid(String rawPassword) async {
   print("input: $rawPassword");
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   final cryptor = new PlatformStringCryptor();
-  String key = await sharedPref.getString('key');
-  String encrypted = await sharedPref.getString('encrypted');
+  String key = await sharedPref.getString('key1');
+  String encrypted = await sharedPref.getString('encrypted1');
   String decrypted = await cryptor.decrypt(encrypted, key);
   // print(await cryptor.decrypt(encrypted, key));
   // cryptor.decrypt(encrypted, key).then((decrypted) {
@@ -46,8 +46,8 @@ Future<bool> isPasswordValid(String rawPassword) async {
 
 Future<Null> removePassword() async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
-  await sharedPref.remove('key');
-  await sharedPref.remove('encrypted');
+  await sharedPref.remove('key1');
+  await sharedPref.remove('encrypted1');
 }
 
 Future<Null> setPassWord(String val) async {
