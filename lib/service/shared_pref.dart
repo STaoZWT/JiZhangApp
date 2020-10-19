@@ -14,7 +14,7 @@ Future<String> getPassWord() async {
 //检测是否已经设置密码
 Future<bool> isPasswordSet() async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
-  bool flag = await sharedPref.containsKey('encrypted1');
+  bool flag = await sharedPref.containsKey('encrypted');
   return flag;
 }
 
