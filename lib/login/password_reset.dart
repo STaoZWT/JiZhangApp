@@ -84,10 +84,11 @@ class _PasswordResetPage extends State<PasswordResetPage> {
                               FlatButton(
                                 child: Text('confirm'),
                                 onPressed: () {
-                                  //Navigator.of(context).pop();
-                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          HomePage()));
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop();
+                                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                  //     builder: (BuildContext context) =>
+                                  //         HomePage()));
                                 },
                               )
                             ],

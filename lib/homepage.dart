@@ -42,8 +42,8 @@ class _HomePageState extends State<HomePage> {
                   trailing: Icon(Icons.arrow_right),
                   onTap: () {
                     //点击事件
-                    //Navigator.of(context).pop();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) =>
                             PasswordConfirmPage()));
                   }),
@@ -53,8 +53,8 @@ class _HomePageState extends State<HomePage> {
                   trailing: Icon(Icons.arrow_right),
                   onTap: () {
                     //点击事件
-                    //Navigator.of(context).pop();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) =>
                             GraphicalPasswordRegisterPage()));
                   }),
@@ -64,8 +64,8 @@ class _HomePageState extends State<HomePage> {
                   trailing: Icon(Icons.arrow_right),
                   onTap: () {
                     //点击事件
-                    //Navigator.of(context).pop();
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) =>
                             RemoveUserDataPage()));
                   }),
@@ -122,13 +122,12 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => ChartPage()));
               } else if (_currentIndex == 1) {
-                //Navigator.of(context).pop();
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => CardAddBill()));
                 //builder: (BuildContext context) => UnknownPage()));
               } else if (_currentIndex == 2) {
                 //Navigator.of(context).pop();
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                Navigator.of(context).push(MaterialPageRoute(
                   //builder: (BuildContext context) => UnknownPage()));
                     builder: (BuildContext context) => TotalPage()));
               }

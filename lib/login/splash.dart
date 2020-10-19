@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   void initState() {
     super.initState();
 
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 10000));
+    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 5000));
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
 
     /* 动画事件监听器
@@ -58,8 +58,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return FadeTransition( // 透明动画组件
       opacity: _animation, // 执行动画
-      child: Image.network(
-        'https://i.loli.net/2020/10/17/iL4ZvCrDM89mqVS.jpg',
+      child: Image.asset(
+        'image/tupian.jpg',
         scale: 2.0, // 缩放
         fit: BoxFit.cover,  // 充满容器
       ),

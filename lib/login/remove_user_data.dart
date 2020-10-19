@@ -57,6 +57,8 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
                       FlatButton(
                           onPressed: () async {
                             await clearAll();
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
                             Navigator.of(context).pushReplacement(MaterialPageRoute(
                                 builder: (BuildContext context) => RegisterPage()));
                           },
