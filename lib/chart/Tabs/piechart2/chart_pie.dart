@@ -94,6 +94,16 @@ class _PiechartPageState extends State<PiechartPage> {
     setDataFromDB();
   }
 
+  empty(List<PieData> mData){
+    if(mData==null){
+      return true;
+    }else if(mData.length<=0){
+      return true;
+    }else if(mData.length>0){
+      return false;
+    }
+  }
+
   ///给时间
   setDataFromDB() async { // 得到数据
     var dataAll = await BillsDatabaseService.db.getBillsFromDBByDate(picked[0],picked[1]);
@@ -110,7 +120,7 @@ class _PiechartPageState extends State<PiechartPage> {
       mData = (data==null || data.length<=0)?
           []:dataProcessPie(typeSelect, type);
       //print(mData);
-      pieData = mData==[]?null:mData[0];
+      pieData = empty(mData)?null:mData[0];
       //print(pieData);
     });
   }
@@ -348,6 +358,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                     iconSize: 60.0,
                                     color: Colors.green[500],
                                     onPressed:(){
+                                      data_empty(mData)?print('Nothing'):
                                       _changeData();
                                     },
                                   )
