@@ -8,6 +8,7 @@ import '../service/database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 int accountNumber;
+int flag = 0;
 
 class RiPage extends StatefulWidget {
   RiPage({Key key}) : super(key: key);
@@ -72,26 +73,9 @@ class _RiPageContentState extends State<RiPageContent>
     await BillsDatabaseService.db.addBillInDB(billsModel);
   }
 
-  List accountName = [
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '公交卡',
-    '医保卡',
-    '学生卡'
-  ];
+  List accountName = [];
   int maxAcCount() {
+    accountName.add(billsList[0].accountIn);
     accountName.clear();
     for (var i = 0; i < billsList.length; i++) {
       accountName.add(billsList[i].accountIn);
@@ -203,6 +187,7 @@ class _RiPageContentState extends State<RiPageContent>
         dayList1.add(dayList[i]);
       }
     }
+    flag = 1;
   }
 
   Animation animation;
@@ -785,19 +770,23 @@ class _RiPageContentState extends State<RiPageContent>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(children: <Widget>[
-        Align(
-            alignment: Alignment(-1, -1),
-            child: Container(
-              height: 800,
-              width: 600,
-              color: Colors.white,
-              child: ListView(
-                children: this._dayListData(),
-              ),
-            )),
-      ]),
-    );
+    if (flag == 0) {
+      return CircularProgressIndicator();
+    } else if (flag == 1) {
+      return Container(
+        child: Stack(children: <Widget>[
+          Align(
+              alignment: Alignment(-1, -1),
+              child: Container(
+                height: 800,
+                width: 600,
+                color: Colors.white,
+                child: ListView(
+                  children: this._dayListData(),
+                ),
+              )),
+        ]),
+      );
+    }
   }
 }

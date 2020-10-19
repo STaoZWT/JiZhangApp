@@ -53,10 +53,10 @@ class _NianPageContentState extends State<NianPageContent>
     }
   ];
   List yearList = [
-    {'日期': DateTime.now(), '金额100': 0, '金额': '0', '明细': []}
+    {'日期': DateTime.now().year, '金额100': 0, '金额': '0', '明细': []}
   ];
   List yearList1 = [
-    {'日期': DateTime.now(), '金额100': 0, '金额': '0', '明细': []}
+    {'日期': DateTime.now().year, '金额100': 0, '金额': '0', '明细': []}
   ];
   setBillsFromDB() async {
     print("Entered setBills");
@@ -77,26 +77,9 @@ class _NianPageContentState extends State<NianPageContent>
   //   print('Bill deleted');
   // }
 
-  List accountName = [
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '公交卡',
-    '医保卡',
-    '学生卡'
-  ];
+  List accountName = [];
   int maxAcCount() {
+    accountName.add(billsList[0].accountIn);
     accountName.clear();
     for (var i = 0; i < billsList.length; i++) {
       accountName.add(billsList[i].accountIn);
@@ -207,6 +190,7 @@ class _NianPageContentState extends State<NianPageContent>
         yearList1.add(yearList[i]);
       }
     }
+    flag = 1;
   }
 
   Animation animation;
@@ -226,7 +210,6 @@ class _NianPageContentState extends State<NianPageContent>
         '///////////////////////////////////////////////////////////////////////accountNumber');
     print(accountNumber);
     initall();
-    flag = 1;
   }
 
   _changeTrailing(bool expand) {
@@ -773,19 +756,23 @@ class _NianPageContentState extends State<NianPageContent>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(children: <Widget>[
-        Align(
-            alignment: Alignment(-1, -1),
-            child: Container(
-              height: 800,
-              width: 600,
-              color: Colors.white,
-              child: ListView(
-                children: this._yearListData(),
-              ),
-            )),
-      ]),
-    );
+    if (flag == 0) {
+      return CircularProgressIndicator();
+    } else if (flag == 1) {
+      return Container(
+        child: Stack(children: <Widget>[
+          Align(
+              alignment: Alignment(-1, -1),
+              child: Container(
+                height: 800,
+                width: 600,
+                color: Colors.white,
+                child: ListView(
+                  children: this._yearListData(),
+                ),
+              )),
+        ]),
+      );
+    }
   }
 }

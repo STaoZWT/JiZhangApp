@@ -8,6 +8,7 @@ import '../service/database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 int accountNumber;
+int flag = 0;
 
 class JiPage extends StatefulWidget {
   JiPage({Key key}) : super(key: key);
@@ -70,26 +71,9 @@ class _JiPageContentState extends State<JiPageContent>
     await BillsDatabaseService.db.addBillInDB(billsModel);
   }
 
-  List accountName = [
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '现金',
-    '信用卡',
-    '公交卡',
-    '医保卡',
-    '学生卡'
-  ];
+  List accountName = [];
   int maxAcCount() {
+    accountName.add(billsList[0].accountIn);
     accountName.clear();
     for (var i = 0; i < billsList.length; i++) {
       accountName.add(billsList[i].accountIn);
@@ -194,6 +178,13 @@ class _JiPageContentState extends State<JiPageContent>
     print(
         '///////////////////////////////////////////jiList///////////////////////////////////////////');
     print(jiList);
+    jiList1.clear();
+    for (var i = 0; i < jiList.length; i++) {
+      if (jiList[i]['存在'] == 1) {
+        jiList1.add(jiList[i]);
+      }
+    }
+    flag = 1;
   }
 
   Animation animation;
@@ -642,7 +633,7 @@ class _JiPageContentState extends State<JiPageContent>
   // ];
 
   List<Widget> _jiListData() {
-    var tempList = jiList.map((value) {
+    var tempList = jiList1.map((value) {
       var card = new Container(
         height: 400.0, //设置高度
         // child: new Card(
@@ -828,19 +819,23 @@ class _JiPageContentState extends State<JiPageContent>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(children: <Widget>[
-        Align(
-            alignment: Alignment(-1, -1),
-            child: Container(
-              height: 800,
-              width: 600,
-              color: Colors.white,
-              child: ListView(
-                children: this._jiListData(),
-              ),
-            )),
-      ]),
-    );
+    if (flag == 0) {
+      return CircularProgressIndicator();
+    } else if (flag == 1) {
+      return Container(
+        child: Stack(children: <Widget>[
+          Align(
+              alignment: Alignment(-1, -1),
+              child: Container(
+                height: 800,
+                width: 600,
+                color: Colors.white,
+                child: ListView(
+                  children: this._jiListData(),
+                ),
+              )),
+        ]),
+      );
+    }
   }
 }
