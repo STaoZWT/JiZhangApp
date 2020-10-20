@@ -320,7 +320,8 @@ class _editClassPicker extends State<editClassPicker> {
               maxLines: 1, //最大行数
               decoration: InputDecoration(
                   labelText: "$text级分类", //输入框标题
-                  prefixIcon: Icon(Icons.add_box) //输入框图标样式
+                  prefixIcon: Icon(Icons.add_box), //输入框图标样式
+                  hintText: "不大于6个字符",
                   ),
               keyboardType: TextInputType.name,
               onChanged: (val) {
@@ -335,10 +336,13 @@ class _editClassPicker extends State<editClassPicker> {
               FlatButton(
                 child: Text("确认"),
                 onPressed: () {
-                  if (input != null) {
+                  if (input.length > 0 && input.length < 7) {
                     Navigator.of(context).pop(input);
-                  } else {
+                  } else if(input.length == 0) {
                     Toast.show("请输入$text级分类", context, gravity: Toast.CENTER);
+                  }
+                  else {
+                    Toast.show("名称长度过长", context, gravity: Toast.CENTER);
                   }
                 },
               ),
@@ -364,7 +368,8 @@ class _editClassPicker extends State<editClassPicker> {
                 maxLines: 1, //最大行数
                 decoration: InputDecoration(
                     labelText: "一级分类", //输入框标题
-                    prefixIcon: Icon(Icons.add_box) //输入框图标样式
+                    prefixIcon: Icon(Icons.add_box),  //输入框图标样式
+                    hintText: "不大于6个字符",
                     ),
                 keyboardType: TextInputType.name,
                 onChanged: (val) {
@@ -377,7 +382,8 @@ class _editClassPicker extends State<editClassPicker> {
                 maxLines: 1, //最大行数
                 decoration: InputDecoration(
                     labelText: "二级分类", //输入框标题
-                    prefixIcon: Icon(Icons.add_box) //输入框图标样式
+                    prefixIcon: Icon(Icons.add_box), //输入框图标样式
+                    hintText: "不大于6个字符",
                     ),
                 keyboardType: TextInputType.name,
                 onChanged: (val) {
@@ -394,13 +400,16 @@ class _editClassPicker extends State<editClassPicker> {
             FlatButton(
               child: Text("确认"),
               onPressed: () {
-                if (input1 != null) {
+                if (input1.length > 0 && input1.length < 7 && input2.length < 7) {
                   input = {
                     "$input1": ["$input2"]
                   };
                   Navigator.of(context).pop(input);
-                } else {
+                } else if(input1.length == 0){
                   Toast.show("请输入一级分类", context, gravity: Toast.CENTER);
+                }
+                else {
+                  Toast.show("名称长度过长", context, gravity: Toast.CENTER);
                 }
               },
             ),
