@@ -63,30 +63,27 @@ class _editAccountPicker extends State<editAccountPicker> {
                   BorderRadius.all(Radius.circular(14.0))),
               child: InkWell(
                 onTap: () async {
-                  if (accountList[index] == '现金账户') {
-                    Toast.show('该项不可修改', context);
-                  } else {
-                    String changeAccount = await inputNewAccount();
-                    if (changeAccount != null) {
-                      bool isExist = false;
-                      accountList.forEach((element) {
-                        if (element == changeAccount) {
-                          isExist = true;
-                        }
-                      });
-                      if (isExist == true) {
-                        Toast.show('该账户已存在', context);
-                      } else {
-                        setState(() {
-                          updateAccount(accountList[index], changeAccount);
-                          accountList[index] = changeAccount;
-                          isChange = true;
-                          setPicker('maccountPicker',
-                              JsonEncoder().convert(accountList));
-                        });
+                  String changeAccount = await inputNewAccount();
+                  if (changeAccount != null) {
+                    bool isExist = false;
+                    accountList.forEach((element) {
+                      if (element == changeAccount) {
+                        isExist = true;
                       }
+                    });
+                    if (isExist == true) {
+                      Toast.show('该账户已存在', context);
+                    } else {
+                      setState(() {
+                        updateAccount(accountList[index], changeAccount);
+                        accountList[index] = changeAccount;
+                        isChange = true;
+                        setPicker('maccountPicker',
+                            JsonEncoder().convert(accountList));
+                      });
                     }
                   }
+
                 },
                 child: ListTile(
                   title: Text(accountList[index], style: TextStyle(color: Colors.black45),),
@@ -174,14 +171,17 @@ class _editAccountPicker extends State<editAccountPicker> {
     );
   }
 
-  Future<String> inputNewAccount() {
+  Future<String> inputNewAccount() {  //新建账户弹窗
     String input;
     return showDialog<String>(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("请输入新的账户名称"),
+            title: Text("请输入账户名称"),
             content: TextField(
+             decoration: InputDecoration(
+               hintText: "不大于6个字符",
+             ),
               autofocus: true,
               maxLines: 1, //最大行数
               keyboardType: TextInputType.name,
@@ -197,10 +197,13 @@ class _editAccountPicker extends State<editAccountPicker> {
               FlatButton(
                   child: Text("确认"),
                   onPressed: () {
-                    if (input != null) {
+                    if (input.length > 0 && input.length <7) {
                       Navigator.of(context).pop(input);
-                    } else {
+                    } else if(input.length == 0){
                       Toast.show("请输入账户", context, gravity: Toast.CENTER);
+                    }
+                    else if(input.length > 7){
+                      Toast.show("名称长度过长", context, gravity: Toast.CENTER);
                     }
                   }),
             ],

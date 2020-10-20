@@ -185,6 +185,9 @@ class _editMemberPicker extends State<editMemberPicker> {
               autofocus: true,
               maxLines: 1, //最大行数
               keyboardType: TextInputType.name,
+              decoration: InputDecoration(
+                hintText: "不大于6个字符",
+              ),
               onChanged: (val) {
                 input = val;
               },
@@ -197,10 +200,13 @@ class _editMemberPicker extends State<editMemberPicker> {
               FlatButton(
                 child: Text("确认"),
                 onPressed: () {
-                  if (input != null) {
+                  if (input.length > 0 && input.length <7) {
                     Navigator.of(context).pop(input);
-                  } else {
+                  } else if(input.length == 0){
                     Toast.show("请输入成员", context, gravity: Toast.CENTER);
+                  }
+                  else if(input.length > 7){
+                    Toast.show("名称长度过长", context, gravity: Toast.CENTER);
                   }
                 },
               ),

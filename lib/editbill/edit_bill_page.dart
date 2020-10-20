@@ -668,7 +668,7 @@ class _CardAddBill extends State<CardAddBill>
 //限制金额只能输入符合规格的格式
 class MoneyInputFormatter extends TextInputFormatter {
   static final RegExp regExp =
-      RegExp("\^(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?\$");
+    RegExp("\^(([1-9]\\d{0,5})|([0]))(\\.(\\d){0,2})?\$");
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
