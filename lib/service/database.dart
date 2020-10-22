@@ -58,6 +58,32 @@ class BillsDatabaseService {
     return billsList;
   }
 
+  //获得所有数据
+  Future<List<BillsModel>> getBillsFromDBDescand() async {
+    final db = await database;
+    List<BillsModel> billsList = [];
+    List<Map> maps = await db.query('Bills', columns: [
+      '_id',
+      'title',
+      'date',
+      'type',
+      'accountIn',
+      'accountOut',
+      'category1',
+      'category2',
+      'member',
+      'value100'
+      ],
+      orderBy: 'date DESC',
+    );
+    if (maps.length > 0) {
+      maps.forEach((map) {
+        billsList.add(BillsModel.fromMap(map));
+      });
+    }
+    return billsList;
+  }
+
   Future<List<BillsModel>> getBillsFromDBByDate(
       DateTime dateStart, DateTime dateEnd) async {
     final db = await database;
@@ -80,6 +106,38 @@ class BillsDatabaseService {
           dateStart.millisecondsSinceEpoch,
           dateEnd.millisecondsSinceEpoch
         ]);
+    if (maps.length > 0) {
+      maps.forEach((map) {
+        billsList.add(BillsModel.fromMap(map));
+      });
+    }
+    return billsList;
+  }
+
+  Future<List<BillsModel>> getBillsFromDBByDateOrderByDate(
+      DateTime dateStart, DateTime dateEnd) async {
+    final db = await database;
+    List<BillsModel> billsList = [];
+    List<Map> maps = await db.query('Bills',
+        columns: [
+          '_id',
+          'title',
+          'date',
+          'type',
+          'accountIn',
+          'accountOut',
+          'category1',
+          'category2',
+          'member',
+          'value100'
+        ],
+        where: 'date >= ? AND date <= ?',
+        whereArgs: [
+          dateStart.millisecondsSinceEpoch,
+          dateEnd.millisecondsSinceEpoch
+        ],
+        orderBy: 'date',
+    );
     if (maps.length > 0) {
       maps.forEach((map) {
         billsList.add(BillsModel.fromMap(map));

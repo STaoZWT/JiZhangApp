@@ -69,22 +69,6 @@ Future<Null> setGraphicalPassWord(String val) async {
   sharedPref.setString('mGrapthicalPassWord', val);
 }
 
-//判断是否是新用户的flag和shared preferences的交互
-Future<String> getOldUserFlag() async {
-  SharedPreferences sharedPref = await SharedPreferences.getInstance();
-  return sharedPref.getString('OldUserFlag');
-}
-
-Future<Null> setOldUserFlag() async {
-  SharedPreferences sharedPref = await SharedPreferences.getInstance();
-  sharedPref.setString('OldUserFlag', 'Yes');
-}
-
-Future<Null> removeOldUserFlag() async {
-  SharedPreferences sharedPref = await SharedPreferences.getInstance();
-  sharedPref.remove('OldUserFlag');
-}
-
 //all
 Future<String> getPicker(String key) async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
@@ -121,3 +105,16 @@ Future<Null> removeDraft() async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   await sharedPref.remove('mDraft');
 }
+
+Future<String> getColorKey() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  String colorKey = await sharedPref.getString('colorKey');
+  if (colorKey == null) return 'blue';
+  return colorKey;
+}
+
+Future<Null> setColorKey(String key) async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  await sharedPref.setString('colorKey', key);
+}
+

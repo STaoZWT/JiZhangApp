@@ -73,7 +73,7 @@ class _SelectPageState extends State<SelectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.blue,
+          //backgroundColor: Colors.blue,
           centerTitle: true,
           title: title(typeSelect, type),
           actions: <Widget>[

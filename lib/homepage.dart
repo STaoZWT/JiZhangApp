@@ -10,6 +10,7 @@ import 'unknown_page.dart';
 import 'editbill/edit_bill_page.dart';
 import 'login/remove_user_data.dart';
 import './total/TotalPage.dart';
+import 'set_theme_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -28,10 +29,8 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           title: Text(
             "Home Page",
-            style: TextStyle(color: Colors.black),
           ),
           iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: Colors.blue,
         ),
         drawer: Drawer(
           child: ListView(
@@ -71,6 +70,18 @@ class _HomePageState extends State<HomePage> {
                   }),
               Divider(),
               ListTile(
+                //第三个功能
+                  title: Text('改变主题颜色'),
+                  trailing: Icon(Icons.arrow_right),
+                  onTap: () {
+                    //点击事件
+                    Navigator.of(context).pop();
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            SetThemePage()));
+                  }),
+              Divider(),
+              ListTile(
                 //退出
                 title: Text('退出'),
                 trailing: Icon(Icons.cancel),
@@ -87,7 +98,7 @@ class _HomePageState extends State<HomePage> {
         ),
         bottomNavigationBar: BottomNavigationBar(
           //底部导航
-          fixedColor: Colors.blue, //点击后是什么颜色
+          //fixedColor: Colors.blue, //点击后是什么颜色
           items: [
             BottomNavigationBarItem(
                 icon: Icon(
@@ -118,7 +129,6 @@ class _HomePageState extends State<HomePage> {
               if (_currentIndex == 0) {
                 //setPassWord(null);
                 //Navigator.of(context).pop();
-                //TODO：待整合记账、统计、图标页面
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => ChartPage()));
               } else if (_currentIndex == 1) {
