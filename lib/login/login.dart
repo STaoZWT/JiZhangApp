@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                                       Navigator.of(context).pushReplacement(
                                           MaterialPageRoute(
                                               builder: (BuildContext context) =>
-                                                  HomePage()));
+                                                  NavigationHomeScreen()));
                                     },
                                   )
                                 ],
@@ -204,7 +204,7 @@ class _LoginPageState extends State<LoginPage> {
                           androidAuthStrings: andStrings
                       ).then((didAuthenticate){
                         didAuthenticate==true? Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (context) => HomePage()),
+                            MaterialPageRoute(builder: (context) => NavigationHomeScreen()),
                                 (route) => route==null
                         ):print("false");
                       });
