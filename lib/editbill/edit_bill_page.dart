@@ -15,6 +15,7 @@ import '../data/model.dart';
 import 'package:toast/toast.dart';
 import '../homepage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../total/account_card.dart';
 
 class CardAddBill extends StatefulWidget {
   @override
@@ -151,6 +152,9 @@ class _CardAddBill extends State<CardAddBill>
                   });
                   int test = await BillsDatabaseService.db.getAccountNetAsset('现金账户');
                   print("test: $test");
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => AccountCardPage()
+                  ));
                 }),
           ],
           bottom: TabBar(

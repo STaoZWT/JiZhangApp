@@ -89,7 +89,7 @@ class _editAccountPicker extends State<editAccountPicker> {
                   title: Text(accountList[index], style: TextStyle(color: Colors.black45),),
                   leading: Icon(
                     Icons.account_balance_wallet,
-                    color: Colors.blue,
+                    color: Theme.of(context).primaryColor,
                   ),
                   trailing: Visibility(
                     visible: (accountList.length > 1),

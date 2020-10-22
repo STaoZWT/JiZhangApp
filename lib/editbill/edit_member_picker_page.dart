@@ -84,7 +84,7 @@ class _editMemberPicker extends State<editMemberPicker> {
                   title: Text(memberList[index], style: TextStyle(color: Colors.black45),),
                   leading: Icon(
                     Icons.account_balance_wallet,
-                    color: Colors.blue,
+                    color: Theme.of(context).primaryColor,
                   ),
                   trailing: Visibility(
                       visible: (memberList[index]!='无成员'), //只有选择“收入”“支出”才会显示
