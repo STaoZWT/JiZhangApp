@@ -78,6 +78,7 @@ class _CardAddBill extends State<CardAddBill>
     //tempMoney = 0.00;
     //this.moneyController.text = ("0.00");
         currentbill = BillsModel(
+          value100: 0,
       title: "",
       date: DateTime.now(),
       type: 0,
@@ -717,10 +718,11 @@ class _CardAddBill extends State<CardAddBill>
       remark = "${currentbill.title}";
       moneyInput = currentbill.value100;
       dateSelect = currentbill.date;
-      String toInsert =
+      String toInsert =(currentbill.value100 > 99)?
           currentbill.value100.toString().substring(0, currentbill.value100.toString().length-2)
           + '.'
-          + currentbill.value100.toString().substring(currentbill.value100.toString().length-1);
+          + currentbill.value100.toString().substring(currentbill.value100.toString().length-1):
+          (currentbill.value100 > 9) ? '0.' + currentbill.value100.toString() :'0.0' + currentbill.value100.toString();
       moneyController = new TextEditingController(text: toInsert);
     } else {
       moneyController = new TextEditingController();
