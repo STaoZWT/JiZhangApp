@@ -108,7 +108,7 @@ class _CardAddBill extends State<CardAddBill>
                     currentbill.title = remark;
                     currentbill.date = dateSelect;
                     currentbill.type = type;
-                    currentbill.accountIn = (type==2)?accountInSelectText:accountOutSelectText; //不是转账时，转出账户和转入账户相同
+                    currentbill.accountIn = (type==2)?accountInSelectText:"未选择"; //保存草稿时，支出和收入类型时，此项无保存必要
                     currentbill.accountOut = accountOutSelectText;
                     currentbill.category1 = (type==2)?"其他":(type==0)?classInSelectText.split(",")[0]:classOutSelectText.split(",")[0]; //转账时无分类，因此赋默认值
                     currentbill.category2 = (type==2)?"转账":(type==0)?classInSelectText.split(",")[1]:classOutSelectText.split(",")[1];
@@ -596,7 +596,9 @@ class _CardAddBill extends State<CardAddBill>
   accountPickerOut(BuildContext context) {
     List accountPickerDataTemp = JsonDecoder()
         .convert(accountPickerData);
-    accountPickerDataTemp.remove(accountInSelectText);
+    if(type==2) {
+      accountPickerDataTemp.remove(accountInSelectText);
+    }
     Picker(
         adapter: PickerDataAdapter<String>(
             pickerdata: accountPickerDataTemp), //传入可选项，json:string to list
@@ -617,6 +619,7 @@ class _CardAddBill extends State<CardAddBill>
   accountPickerIn(BuildContext context) {
     List accountPickerDataTemp = JsonDecoder()
         .convert(accountPickerData);
+
     accountPickerDataTemp.remove(accountOutSelectText);
     Picker(
         adapter: PickerDataAdapter<String>(
