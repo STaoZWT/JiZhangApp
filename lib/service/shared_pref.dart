@@ -109,11 +109,16 @@ Future<Null> removeDraft() async {
 Future<String> getColorKey() async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   String colorKey = await sharedPref.getString('colorKey');
-  if (colorKey == null) return 'blue';
+  if (colorKey == null)  {
+    print("color key not found");
+    return 'blue';
+  }
+  print("get color key: $colorKey");
   return colorKey;
 }
 
 Future<Null> setColorKey(String key) async {
+  print("set color key: $key");
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   await sharedPref.setString('colorKey', key);
 }

@@ -26,8 +26,8 @@ class _RegisterPageState extends State<RegisterPage> {
           "register",
           style: TextStyle(color: Colors.black),
         ),
-        iconTheme: IconThemeData(color: Colors.blue),
-        backgroundColor: Colors.blue,
+        iconTheme: Theme.of(context).iconTheme,
+        backgroundColor: Theme.of(context).primaryColor,
         automaticallyImplyLeading: false,
       ),
       body: Column(
@@ -57,7 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
             padding: EdgeInsets.fromLTRB(leftRightPadding, topBottomPadding,
                 leftRightPadding, topBottomPadding),
             child: Card(
-              color: Colors.lightBlueAccent,
+              color: Theme.of(context).primaryColor,
               elevation: 6.0,
               child: FlatButton(
                 onPressed: () async {
