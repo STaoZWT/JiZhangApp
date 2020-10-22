@@ -681,15 +681,19 @@ class _CardAddBill extends State<CardAddBill>
       // Navigator.of(context).push(
       //     MaterialPageRoute(builder: (BuildContext context) => HomePage()));
     } else {
-      Toast.show("不合法！", context);
+      if(currentbill.value100 < 1) {Toast.show("请输入金额", context);}
+      else if (!(type==2 || currentbill.category1!="未选择")) {Toast.show("请选择分类", context);}
+      else if (currentbill.accountOut=="未选择") {Toast.show("请选择账户", context);}
+      else if (!(type!=2 || currentbill.accountIn!="未选择")) {Toast.show("请选择账户", context);}
+      //Toast.show("不合法！", context);
     }
   }
 
   bool isLeagal() {  //判断输入是否合法
-    return currentbill.value100 > 0
-        && currentbill.category1!="未选择"
-        && currentbill.accountOut!="未选择"
-        && (type!=2 || currentbill.accountIn!="未选择");
+    return currentbill.value100 > 0 //金额
+        && (type==2 || currentbill.category1!="未选择")  //收入支出时要填分类
+        && currentbill.accountOut!="未选择"  //必填账户
+        && (type!=2 || currentbill.accountIn!="未选择");  //转账时必填转入账户
   }
 
   writeCurrentBill () {
