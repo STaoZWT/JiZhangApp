@@ -117,7 +117,7 @@ class _editClassPicker extends State<editClassPicker> {
                       ),
                       leading: Icon(
                         Icons.apps,
-                        color: Colors.blue,
+                        color: Theme.of(context).primaryColor,
                       ),
                       trailing: Visibility(
                         visible: classList.length > 1, //
@@ -189,7 +189,7 @@ class _editClassPicker extends State<editClassPicker> {
                           title: Text("${category2[index]}"),
                           leading: Icon(
                             Icons.category,
-                            color: Colors.blue,
+                            color: Theme.of(context).primaryColor,
                           ),
                             trailing: Visibility(
                               visible: !(classList.length==1 && category2.length==1),
