@@ -197,7 +197,8 @@ class _editAccountPicker extends State<editAccountPicker> {
               FlatButton(
                   child: Text("确认"),
                   onPressed: () {
-                    if (input.length > 0 && input.length <7) {
+                    if (input == "未选择") {Toast.show("名称不可用", context, gravity: Toast.CENTER);}
+                    else if (input.length > 0 && input.length <7) {
                       Navigator.of(context).pop(input);
                     } else if(input.length == 0){
                       Toast.show("请输入账户", context, gravity: Toast.CENTER);

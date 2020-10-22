@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter_jizhangapp/data/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
@@ -91,4 +94,30 @@ Future<String> getPicker(String key) async {
 Future<Null> setPicker(String key, String val) async {
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   sharedPref.setString(key, val);
+}
+
+Future<Null> setDraft(BillsModel billsModel) async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  sharedPref.setString('mDraft', JsonEncoder().convert(billsModel.toMap()));
+  print(JsonEncoder().convert(billsModel.toMap()));
+}
+
+Future<BillsModel> getDraft() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  BillsModel draft = BillsModel.fromMap(JsonDecoder().convert(sharedPref.getString('mDraft')));
+  print(draft.toMap());
+  return draft;
+}
+
+//判断之前是否有存草稿
+Future<bool> isDraftSet() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  bool flag = await sharedPref.containsKey('mDraft');
+  return flag;
+}
+
+//清除草稿
+Future<Null> removeDraft() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  await sharedPref.remove('mDraft');
 }
