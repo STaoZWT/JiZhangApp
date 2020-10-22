@@ -124,11 +124,9 @@ class NavigationHomeScreen extends StatefulWidget {
 
 class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
   Widget screenView;
-  DrawerIndex drawerIndex;
 
   @override
   void initState() {
-    drawerIndex = DrawerIndex.HOME;
     screenView = const HomePage();
     super.initState();
   }
@@ -143,7 +141,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         child: Scaffold(
           backgroundColor: AppTheme.nearlyWhite,
           body: DrawerUserController(
-            screenIndex: drawerIndex,
+            screenIndex: DrawerIndex.HOME,
             drawerWidth: MediaQuery.of(context).size.width * 0.75,
             onDrawerCall: (DrawerIndex drawerIndexdata) {
               changeIndex(drawerIndexdata);
@@ -159,12 +157,11 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
 
   void changeIndex(DrawerIndex drawerIndexdata) {
     print(drawerIndexdata);
-    drawerIndex = drawerIndexdata;
     if (drawerIndexdata == DrawerIndex.HOME) {
       print('去主页');
-      setState(() {
+      //setState(() {
         screenView = const HomePage();
-      });
+      //});
     } else if (drawerIndexdata == DrawerIndex.Help) {
       print('去修改文字密码');
       Navigator.of(context).push(MaterialPageRoute(
@@ -176,10 +173,15 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
           builder: (BuildContext context) => GraphicalPasswordRegisterPage()));
     }
     else if (drawerIndexdata == DrawerIndex.Invite) {
+      print('去修改主题');
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) => SetThemePage()));
+      }
+    else if (drawerIndexdata == DrawerIndex.Share) {
       print('去初始化');
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) => RemoveUserDataPage()));
-      }
+    }
   }
 
 }
