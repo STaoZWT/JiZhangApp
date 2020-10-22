@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   void IsNewUser() async {
     //String passwordInSp;
     // print('passwordInsp');
-    print("setuerflag");
+    print("set user flag");
     isPasswordSet().then((value) {
       value == false
           ? Navigator.of(context).pushReplacement(MaterialPageRoute(
