@@ -27,10 +27,10 @@ class _GraphicalPasswordRegisterPageState
       appBar: AppBar(
         title: Text(
           "Setting Gesture",
-          style: TextStyle(color: Colors.black),
+          //style: TextStyle(color: Colors.black),
         ),
-        iconTheme: IconThemeData(color: Colors.blue),
-        backgroundColor: Colors.blue,
+        iconTheme: Theme.of(context).iconTheme,
+        //backgroundColor: Colors.blue,
         automaticallyImplyLeading: false,
       ),
       body: Column(
@@ -54,7 +54,7 @@ class _GraphicalPasswordRegisterPageState
               padding: EdgeInsets.fromLTRB(leftRightPadding, topBottomPadding,
                   leftRightPadding, topBottomPadding),
               child: Card(
-                color: Colors.lightBlueAccent,
+                //color: Colors.lightBlueAccent,
                 elevation: 6.0,
                 child: FlatButton(
                   onPressed: () async {

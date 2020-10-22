@@ -94,7 +94,6 @@ class _ChartPageState extends State<ChartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.blue,
           centerTitle: true,
           title: title(typeSelect, type),
           actions: <Widget>[
@@ -145,9 +144,9 @@ class _ChartPageState extends State<ChartPage> {
           },
           items: [ //按钮定义
             BottomNavigationBarItem(
-                backgroundColor: Colors.lightBlueAccent,
-                icon: Icon(Icons.pie_chart),
-                title: Text("饼状图")
+                backgroundColor: Theme.of(context).primaryColor,
+                icon: Icon(Icons.pie_chart, color: Theme.of(context).primaryColor,),
+                title: Text("饼状图", style: TextStyle(color: Colors.black54),)
             ),
             /*BottomNavigationBarItem(
                 backgroundColor: Colors.lightBlueAccent,
@@ -155,9 +154,9 @@ class _ChartPageState extends State<ChartPage> {
                 title: Text("条形图")
             ),*/
             BottomNavigationBarItem(
-                backgroundColor: Colors.lightBlueAccent,
-                icon: Icon(Icons.home),
-                title: Text("首页")
+                backgroundColor: Theme.of(context).primaryColor,
+                icon: Icon(Icons.home, color: Theme.of(context).primaryColor,),
+                title: Text("首页", style: TextStyle(color: Colors.black54),)
             ),
           ]
       ),

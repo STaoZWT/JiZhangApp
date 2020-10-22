@@ -42,8 +42,8 @@ class _LoginPageState extends State<LoginPage> {
             "login",
             style: TextStyle(color: Colors.black),
           ),
-          iconTheme: IconThemeData(color: Colors.blue),
-          backgroundColor: Colors.blue,
+          iconTheme: Theme.of(context).iconTheme,
+          backgroundColor: Theme.of(context).primaryColor,
           automaticallyImplyLeading: false,
         ),
         body: ListView(
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.fromLTRB(leftRightPadding, topBottomPadding,
                   leftRightPadding, topBottomPadding),
               child: Card(
-                color: Colors.lightBlueAccent,
+                color: Theme.of(context).primaryColor,
                 elevation: 6.0,
                 child: FlatButton(
                   onPressed: () async {
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.fromLTRB(leftRightPadding, topBottomPadding,
                   leftRightPadding, topBottomPadding),
               child: Card(
-                color: Colors.lightBlueAccent,
+                color: Theme.of(context).primaryColor,
                 elevation: 6.0,
                 child: FlatButton(
                   onPressed: () {
@@ -178,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
               margin: EdgeInsets.fromLTRB(10.0, 40.0, 10.0, 0.0),
               padding: EdgeInsets.fromLTRB(leftRightPadding, topBottomPadding, leftRightPadding, topBottomPadding),
               child: Card(
-                color: Colors.lightBlueAccent,
+                color: Theme.of(context).primaryColor,
                 elevation: 6.0,
                 child: FlatButton(
                   onPressed: () async {

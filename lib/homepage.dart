@@ -13,12 +13,11 @@ import 'unknown_page.dart';
 import 'editbill/edit_bill_page.dart';
 import 'login/remove_user_data.dart';
 import './total/TotalPage.dart';
+
 import './homepage_drawer/drawer_user_controller.dart';
 import './homepage_drawer/home_drawer.dart';
 import './homepage_drawer/app_theme.dart';
-
-
-
+import 'set_theme_page.dart';
 
 
 //
@@ -52,69 +51,12 @@ class _HomePageState extends State<HomePage> {
           automaticallyImplyLeading:false,
           title: Text(
             "Home Page",
-            style: TextStyle(color: Colors.black),
           ),
           iconTheme: IconThemeData(color: Colors.white),
-          backgroundColor: Colors.blue,
         ),
-        // drawer: Drawer(
-        //   child: ListView(
-        //     children: <Widget>[
-        //       ListTile(
-        //         //第一个功能
-        //           title: Text('修改文字密码'),
-        //           trailing: Icon(Icons.arrow_right),
-        //           onTap: () {
-        //             //点击事件
-        //             Navigator.of(context).pop();
-        //             Navigator.of(context).push(MaterialPageRoute(
-        //                 builder: (BuildContext context) =>
-        //                     PasswordConfirmPage()));
-        //           }),
-        //       ListTile(
-        //         //第二个功能
-        //           title: Text('设置/重置图形密码'),
-        //           trailing: Icon(Icons.arrow_right),
-        //           onTap: () {
-        //             //点击事件
-        //             Navigator.of(context).pop();
-        //             Navigator.of(context).push(MaterialPageRoute(
-        //                 builder: (BuildContext context) =>
-        //                     GraphicalPasswordRegisterPage()));
-        //           }),
-        //       ListTile(
-        //         //第三个功能
-        //           title: Text('清空账号信息'),
-        //           trailing: Icon(Icons.arrow_right),
-        //           onTap: () {
-        //             //点击事件
-        //             Navigator.of(context).pop();
-        //             Navigator.of(context).push(MaterialPageRoute(
-        //                 builder: (BuildContext context) =>
-        //                     RemoveUserDataPage()));
-        //           }),
-        //       Divider(),
-        //       ListTile(
-        //         //退出
-        //         title: Text('退出'),
-        //         trailing: Icon(Icons.cancel),
-        //         onTap: () => Navigator.of(context).pop(), //收起侧边栏
-        //         //       )
-        //     ],
-        //   ),
-        // ),
-        // body: Center(
-        //   child: FlatButton(
-        //     child: Text("test"),
-        //     onPressed: () {
-        //       Navigator.of(context).push(MaterialPageRoute(
-        //           builder: (BuildContext context) => NavigationHomeScreen()));
-        //     },
-        //   ),
-        // ),
         bottomNavigationBar: BottomNavigationBar(
           //底部导航
-          fixedColor: Colors.blue, //点击后是什么颜色
+          //fixedColor: Colors.blue, //点击后是什么颜色
           items: [
             BottomNavigationBarItem(
                 icon: Icon(
@@ -145,7 +87,6 @@ class _HomePageState extends State<HomePage> {
               if (_currentIndex == 0) {
                 //setPassWord(null);
                 //Navigator.of(context).pop();
-                //TODO：待整合记账、统计、图标页面
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => ChartPage()));
               } else if (_currentIndex == 1) {
