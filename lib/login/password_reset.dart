@@ -88,7 +88,7 @@ class _PasswordResetPage extends State<PasswordResetPage> {
                                   Navigator.of(context).pop();
                                   // Navigator.of(context).pushReplacement(MaterialPageRoute(
                                   //     builder: (BuildContext context) =>
-                                  //         HomePage()));
+                                  //         NavigationHomeScreen()));
                                 },
                               )
                             ],
@@ -125,7 +125,7 @@ class _PasswordResetPage extends State<PasswordResetPage> {
                 /*onPressed: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => HomePage()));
+                      builder: (BuildContext context) => NavigationHomeScreen()));
                   /*if(registerPassWordController.value.text.toString().length>=8&&registerPassWordController.value.text.toString().length<=18){
                     save(); //保存密码为mpassWord
                     get().then((value) => passWordGet=value??000);
@@ -150,7 +150,7 @@ class _PasswordResetPage extends State<PasswordResetPage> {
                                 onPressed: (){
                                   Navigator.of(context).pop();
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) => HomePage()));
+                                      builder: (BuildContext context) => NavigationHomeScreen()));
                                 },
                               )
                             ],

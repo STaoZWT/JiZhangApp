@@ -87,7 +87,7 @@ class _GraphicalPasswordLoginPageState
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                             builder: (BuildContext context) =>
-                                                HomePage()));
+                                            NavigationHomeScreen()));
                                   },
                                 )
                               ],
