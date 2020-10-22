@@ -23,10 +23,10 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
       appBar: AppBar(
         title: Text(
           "password confirm",
-          style: TextStyle(color: Colors.black),
+          //style: TextStyle(color: Colors.black),
         ),
-        iconTheme: IconThemeData(color: Colors.blue),
-        backgroundColor: Colors.blue,
+        iconTheme: Theme.of(context).iconTheme,
+        //backgroundColor: Colors.blue,
         automaticallyImplyLeading: false,
       ),
       body: Column(
@@ -56,7 +56,7 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
             padding: EdgeInsets.fromLTRB(leftRightPadding, topBottomPadding,
                 leftRightPadding, topBottomPadding),
             child: Card(
-              color: Colors.lightBlueAccent,
+              color: Theme.of(context).primaryColor,
               elevation: 6.0,
               child: FlatButton(
                 onPressed: () async {
@@ -187,10 +187,10 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
                   }*/
                 },*/
                 child: Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     "Sure",
-                    style: TextStyle(color: Colors.black, fontSize: 20.0),
+                    style: TextStyle(fontSize: 20.0),
                   ),
                 ),
               ),

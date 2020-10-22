@@ -129,6 +129,7 @@ class _CardAddBill extends State<CardAddBill>
               ])),
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
           onPressed: () {
             billConfirm();
           },
@@ -211,7 +212,7 @@ class _CardAddBill extends State<CardAddBill>
                                 fontWeight: FontWeight.bold),
                             prefixIcon: Icon(
                               Icons.attach_money,
-                              color: Colors.blue,
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                           style: TextStyle(
@@ -275,7 +276,7 @@ class _CardAddBill extends State<CardAddBill>
                               ),
                               leading: Icon(
                                 Icons.date_range,
-                                color: Colors.blue,
+                                color: Theme.of(context).primaryColor,
                               ),
                             ),
                           )),
@@ -329,7 +330,7 @@ class _CardAddBill extends State<CardAddBill>
                                       ),
                                       leading: Icon(
                                         Icons.apps,
-                                        color: Colors.blue,
+                                        color: Theme.of(context).primaryColor,
                                       ),
                                       trailing: IconButton(
                                         icon: Icon(
@@ -395,7 +396,7 @@ class _CardAddBill extends State<CardAddBill>
                                 ),
                                 leading: Icon(
                                   Icons.account_balance_wallet,
-                                  color: Colors.blue,
+                                  color: Theme.of(context).primaryColor,
                                 ),
                                 trailing: IconButton(
                                   //这是对account picker进行编辑的按钮
@@ -450,7 +451,7 @@ class _CardAddBill extends State<CardAddBill>
                                   ),
                                   leading: Icon(
                                     Icons.arrow_forward_ios,
-                                    color: Colors.blue,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                 ),
                               ),
@@ -485,7 +486,7 @@ class _CardAddBill extends State<CardAddBill>
                                 ),
                                 leading: Icon(
                                   Icons.account_circle,
-                                  color: Colors.blue,
+                                  color: Theme.of(context).primaryColor,
                                 ),
                                 trailing: IconButton(
                                   //这是对account picker进行编辑的按钮
@@ -539,7 +540,7 @@ class _CardAddBill extends State<CardAddBill>
                                 fontWeight: FontWeight.bold),
                             prefixIcon: Icon(
                               Icons.border_color,
-                              color: Colors.blue,
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                           style: TextStyle(
@@ -576,7 +577,7 @@ class _CardAddBill extends State<CardAddBill>
                 JsonDecoder().convert(classPickerData)), //json:string to list
         changeToFirst: true,
         hideHeader: false,
-        selectedTextStyle: TextStyle(color: Colors.blue),
+        selectedTextStyle: TextStyle(color: Theme.of(context).primaryColor),
         onConfirm: (Picker picker, List value) {
           setState(() {
             //页面刷新，显示出用户的选项
@@ -605,7 +606,7 @@ class _CardAddBill extends State<CardAddBill>
             pickerdata: accountPickerDataTemp), //传入可选项，json:string to list
         changeToFirst: true,
         hideHeader: false,
-        selectedTextStyle: TextStyle(color: Colors.blue),
+        selectedTextStyle: TextStyle(color: Theme.of(context).primaryColor),
         onConfirm: (Picker picker, List value) {
           setState(() {
             accountSelectOut = value;
@@ -627,7 +628,7 @@ class _CardAddBill extends State<CardAddBill>
             pickerdata: accountPickerDataTemp), //传入可选项，json:string to list
         changeToFirst: true,
         hideHeader: false,
-        selectedTextStyle: TextStyle(color: Colors.blue),
+        selectedTextStyle: TextStyle(color: Theme.of(context).primaryColor),
         onConfirm: (Picker picker, List value) {
           setState(() {
             accountSelectIn = value;
@@ -646,7 +647,7 @@ class _CardAddBill extends State<CardAddBill>
                 .convert(memberPickerData)), //传入可选项，json:string to list
         changeToFirst: true,
         hideHeader: false,
-        selectedTextStyle: TextStyle(color: Colors.blue),
+        selectedTextStyle: TextStyle(color: Theme.of(context).primaryColor),
         onConfirm: (Picker picker, List value) {
           setState(() {
             memberSelect = value;
