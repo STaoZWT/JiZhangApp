@@ -4,6 +4,7 @@ import '../service/database.dart';
 import 'package:flutter/material.dart';
 import '../service/shared_pref.dart';
 import 'package:toast/toast.dart';
+import '../const/common_color.dart';
 
 class editAccountPicker extends StatefulWidget {
   @override
@@ -42,57 +43,44 @@ class _editAccountPicker extends State<editAccountPicker> {
     accountListCard = [];
     for(var index = 0;index < accountList.length;index++) {
       accountListCard.add(
-          // Dismissible(
-          //   key: Key(accountList[index].toString()),
-          //   onDismissed: (direction) {
-          //
-          //     setState(() {
-          //       accountList.removeAt(index);
-          //       print("$index ${accountList.toString()}");
-          //       accountListCard.removeAt(index);
-          //       print("$index ${accountList.toString()}");
-          //       isChange = true;
-          //     });
-          //   },
-          //   child:
             Card(
-              margin: EdgeInsets.all(5.0),
-              elevation: 15.0,
+              color: Theme.of(context).primaryColor.withAlpha(255 - 20 * (10 - index % 20).abs()),
+              margin: EdgeInsets.fromLTRB(8, 8, 8, 4),
+              elevation: 0,
               shape: const RoundedRectangleBorder(
                   borderRadius:
-                  BorderRadius.all(Radius.circular(14.0))),
+                  BorderRadius.all(Radius.circular(8.0))),
               child: InkWell(
                 onTap: () async {
-                  if (accountList[index] == '现金账户') {
-                    Toast.show('该项不可修改', context);
-                  } else {
-                    String changeAccount = await inputNewAccount();
-                    if (changeAccount != null) {
-                      bool isExist = false;
-                      accountList.forEach((element) {
-                        if (element == changeAccount) {
-                          isExist = true;
-                        }
-                      });
-                      if (isExist == true) {
-                        Toast.show('该账户已存在', context);
-                      } else {
-                        setState(() {
-                          updateAccount(accountList[index], changeAccount);
-                          accountList[index] = changeAccount;
-                          isChange = true;
-                          setPicker('maccountPicker',
-                              JsonEncoder().convert(accountList));
-                        });
+                  String changeAccount = await inputNewAccount();
+                  if (changeAccount != null) {
+                    bool isExist = false;
+                    accountList.forEach((element) {
+                      if (element == changeAccount) {
+                        isExist = true;
                       }
+                    });
+                    if (isExist == true) {
+                      Toast.show('该账户已存在', context);
+                    } else {
+                      setState(() {
+                        updateAccount(accountList[index], changeAccount);
+                        accountList[index] = changeAccount;
+                        isChange = true;
+                        setPicker('maccountPicker',
+                            JsonEncoder().convert(accountList));
+                      });
                     }
                   }
+
                 },
                 child: ListTile(
-                  title: Text(accountList[index], style: TextStyle(color: Colors.black45),),
+                  hoverColor: Colors.transparent,
+                  title: Text(accountList[index], style: TextStyle(color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,),),
                   leading: Icon(
                     Icons.account_balance_wallet,
-                    color: Colors.blue,
+                    color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
+                    //Theme.of(context).primaryColor,
                   ),
                   trailing: Visibility(
                     visible: (accountList.length > 1),
@@ -100,7 +88,8 @@ class _editAccountPicker extends State<editAccountPicker> {
                     maintainSize: false,
                     child: IconButton(
                       icon: Icon(
-                        Icons.delete_outline
+                        Icons.delete_outline,
+                        color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
                       ),
                       onPressed: () async {
                         bool isDelete = await deleteConfirm();
@@ -127,7 +116,9 @@ class _editAccountPicker extends State<editAccountPicker> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("editAccountPicker"),
+        title: Text("编辑账户", style: TextStyle(color: Theme.of(context).primaryColor),),
+        centerTitle: true,
+        backgroundColor: Colors.white,
       ),
       body: new ListView.builder(
         itemCount: accountListCard.length,
@@ -146,6 +137,7 @@ class _editAccountPicker extends State<editAccountPicker> {
       floatingActionButton: FloatingActionButton(
         //添加新的account
         child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () async {
           //print(accountList.last);
           String newAccount = await inputNewAccount(); //等待输入框返回字符串
@@ -174,14 +166,17 @@ class _editAccountPicker extends State<editAccountPicker> {
     );
   }
 
-  Future<String> inputNewAccount() {
+  Future<String> inputNewAccount() {  //新建账户弹窗
     String input;
     return showDialog<String>(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("请输入新的账户名称"),
+            title: Text("请输入账户名称"),
             content: TextField(
+             decoration: InputDecoration(
+               hintText: "不大于6个字符",
+             ),
               autofocus: true,
               maxLines: 1, //最大行数
               keyboardType: TextInputType.name,
@@ -197,10 +192,14 @@ class _editAccountPicker extends State<editAccountPicker> {
               FlatButton(
                   child: Text("确认"),
                   onPressed: () {
-                    if (input != null) {
+                    if (input == "未选择") {Toast.show("名称不可用", context, gravity: Toast.CENTER);}
+                    else if (input.length > 0 && input.length <7) {
                       Navigator.of(context).pop(input);
-                    } else {
+                    } else if(input.length == 0){
                       Toast.show("请输入账户", context, gravity: Toast.CENTER);
+                    }
+                    else if(input.length > 7){
+                      Toast.show("名称长度过长", context, gravity: Toast.CENTER);
                     }
                   }),
             ],

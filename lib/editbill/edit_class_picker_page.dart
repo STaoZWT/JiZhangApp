@@ -52,7 +52,9 @@ class _editClassPicker extends State<editClassPicker> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("自定义分类"),
+        title: Text("编辑分类", style: TextStyle(color: Theme.of(context).primaryColor),),
+        centerTitle: true,
+        backgroundColor: Colors.white,
       ),
       body: new ListView.separated(
         //列举一级分类的list
@@ -66,17 +68,22 @@ class _editClassPicker extends State<editClassPicker> {
           List category2 = category1[category1name]; //该一级分类下所有二级分类的list
           //print(category2[1]);
           return Container(
-            margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            margin: EdgeInsets.fromLTRB(8, 8, 8, 2),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor.withAlpha(255 - 20 * (10 - index % 20).abs()),
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
             child: ExpansionTile(
               //一级分类的可收缩组件
               backgroundColor: Colors.white,
               //以下是一级分类的card
               title: Card(
-                margin: EdgeInsets.all(5.0),
+                color: Colors.transparent,
+                margin: EdgeInsets.all(2.0),
                 elevation: 0,
                 shape: const RoundedRectangleBorder(
                     borderRadius:
-                    BorderRadius.all(Radius.circular(14.0))),
+                    BorderRadius.all(Radius.circular(8.0))),
                 child:InkWell(
                     onTap: () async { //修改一级分类的操作
                       String newCategory1 = await inputNewCategory("一");
@@ -106,19 +113,21 @@ class _editClassPicker extends State<editClassPicker> {
                           }
                         }
                       }
-
-
-
                     },
                     child: ListTile(
+                      dense: true,
                       title: Text(
                         "$category1name",
-                        style: TextStyle(color: Colors.black45, fontSize: 20), //一级分类字体颜色和大小
+                        style: TextStyle(
+                            color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
+                            //Colors.black45,
+                            fontSize: 20), //一级分类字体颜色和大小
                       ),
-                      leading: Icon(
-                        Icons.apps,
-                        color: Colors.blue,
-                      ),
+                      // leading:
+                      //     Icon(
+                      //       Icons.apps,
+                      //       color: Theme.of(context).primaryColor,
+                      //     ),
                       trailing: Visibility(
                         visible: classList.length > 1, //
                         maintainInteractivity: false,
@@ -126,6 +135,7 @@ class _editClassPicker extends State<editClassPicker> {
                         child:IconButton( //删除一级分类按钮
                           icon: Icon(
                             Icons.delete_outline,  //删除按钮
+                            color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
                           ),
                           onPressed: () async {
                             bool isDelete = await deleteConfirm();
@@ -142,12 +152,13 @@ class _editClassPicker extends State<editClassPicker> {
 
                       ),
                 ),
+
               ),
               ),
 
               initiallyExpanded: false,
               children: <Widget>[
-                new ListView.builder(
+                new ListView.separated(
                   //二级分类的list
                   shrinkWrap: true, //无限高度
                   itemCount: category2.length,
@@ -156,7 +167,7 @@ class _editClassPicker extends State<editClassPicker> {
                     //以下是二级分类的card
                     return Card(
                       margin: EdgeInsets.all(5.0),
-                      elevation: 5.0,
+                      elevation: 0.0,
                       shape: const RoundedRectangleBorder(
                           borderRadius:
                           BorderRadius.all(Radius.circular(14.0))),
@@ -188,8 +199,9 @@ class _editClassPicker extends State<editClassPicker> {
                         child: ListTile(
                           title: Text("${category2[index]}"),
                           leading: Icon(
-                            Icons.category,
-                            color: Colors.blue,
+                            //Icons.arrow_forward_ios,
+                            Icons.remove,
+                            color: Theme.of(context).primaryColor,
                           ),
                             trailing: Visibility(
                               visible: !(classList.length==1 && category2.length==1),
@@ -222,6 +234,9 @@ class _editClassPicker extends State<editClassPicker> {
                       ),
                     );
 
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider();
                   },
                 ),
                 new Padding(
@@ -280,6 +295,7 @@ class _editClassPicker extends State<editClassPicker> {
       floatingActionButton: FloatingActionButton(
           //添加一级分类
           child: Icon(Icons.add),
+          backgroundColor: Theme.of(context).primaryColor,
           onPressed: () async {
             Map newCategory1 = await inputNewCategory1();
             //print(newCategory1);
@@ -320,7 +336,8 @@ class _editClassPicker extends State<editClassPicker> {
               maxLines: 1, //最大行数
               decoration: InputDecoration(
                   labelText: "$text级分类", //输入框标题
-                  prefixIcon: Icon(Icons.add_box) //输入框图标样式
+                  prefixIcon: Icon(Icons.add_box), //输入框图标样式
+                  hintText: "不大于6个字符",
                   ),
               keyboardType: TextInputType.name,
               onChanged: (val) {
@@ -335,10 +352,14 @@ class _editClassPicker extends State<editClassPicker> {
               FlatButton(
                 child: Text("确认"),
                 onPressed: () {
-                  if (input != null) {
+                  if (input == "未选择") {Toast.show("名称不可用", context, gravity: Toast.CENTER);}
+                  else if (input.length > 0 && input.length < 7) {
                     Navigator.of(context).pop(input);
-                  } else {
+                  } else if(input.length == 0) {
                     Toast.show("请输入$text级分类", context, gravity: Toast.CENTER);
+                  }
+                  else {
+                    Toast.show("名称长度过长", context, gravity: Toast.CENTER);
                   }
                 },
               ),
@@ -364,7 +385,8 @@ class _editClassPicker extends State<editClassPicker> {
                 maxLines: 1, //最大行数
                 decoration: InputDecoration(
                     labelText: "一级分类", //输入框标题
-                    prefixIcon: Icon(Icons.add_box) //输入框图标样式
+                    prefixIcon: Icon(Icons.add_box),  //输入框图标样式
+                    hintText: "不大于6个字符",
                     ),
                 keyboardType: TextInputType.name,
                 onChanged: (val) {
@@ -377,7 +399,8 @@ class _editClassPicker extends State<editClassPicker> {
                 maxLines: 1, //最大行数
                 decoration: InputDecoration(
                     labelText: "二级分类", //输入框标题
-                    prefixIcon: Icon(Icons.add_box) //输入框图标样式
+                    prefixIcon: Icon(Icons.add_box), //输入框图标样式
+                    hintText: "不大于6个字符",
                     ),
                 keyboardType: TextInputType.name,
                 onChanged: (val) {
@@ -394,13 +417,17 @@ class _editClassPicker extends State<editClassPicker> {
             FlatButton(
               child: Text("确认"),
               onPressed: () {
-                if (input1 != null) {
+                if (input1 == "未选择" || input2 == "未选择") {Toast.show("名称不可用", context, gravity: Toast.CENTER);}
+                if (input1.length > 0 && input1.length < 7 && input2.length < 7) {
                   input = {
                     "$input1": ["$input2"]
                   };
                   Navigator.of(context).pop(input);
-                } else {
+                } else if(input1.length == 0){
                   Toast.show("请输入一级分类", context, gravity: Toast.CENTER);
+                }
+                else {
+                  Toast.show("名称长度过长", context, gravity: Toast.CENTER);
                 }
               },
             ),

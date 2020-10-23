@@ -137,6 +137,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_page_indicator:
+    dependency: transitive
+    description:
+      name: flutter_page_indicator
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.3"
   flutter_picker:
     dependency: "direct main"
     description:
@@ -179,6 +186,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.1"
+  flutter_swiper:
+    dependency: "direct main"
+    description:
+      name: flutter_swiper
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -218,7 +232,7 @@ packages:
     source: hosted
     version: "1.1.6"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       url: "https://pub.flutter-io.cn"
@@ -252,6 +266,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.8"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.4"
   path:
     dependency: transitive
     description:
@@ -315,6 +336,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.13"
+  provider:
+    dependency: "direct main"
+    description:
+      name: provider
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.3.2+2"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -362,6 +390,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smooth_star_rating:
+    dependency: "direct main"
+    description:
+      name: smooth_star_rating
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.1"
   source_span:
     dependency: transitive
     description:
@@ -432,6 +467,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.1.5"
+  transformer_page_view:
+    dependency: transitive
+    description:
+      name: transformer_page_view
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.6"
   typed_data:
     dependency: transitive
     description:

@@ -161,6 +161,7 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
                     backgroundImage: AssetImage("image/tupian.jpg"),
                     radius: 60,
                     backgroundColor: Colors.transparent,
+
                   ),
                 ),
               )

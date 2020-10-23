@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   void IsNewUser() async {
     //String passwordInSp;
     // print('passwordInsp');
-    print("setuerflag");
+    print("set user flag");
     isPasswordSet().then((value) {
       value == false
           ? Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   void initState() {
     super.initState();
 
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 5000));
+    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
 
     /* 动画事件监听器

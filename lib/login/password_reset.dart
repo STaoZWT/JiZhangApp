@@ -132,6 +132,7 @@ class _PasswordResetPage extends State<PasswordResetPage> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
+
                               ),
                             ),
                             color: Colors.lightBlueAccent,

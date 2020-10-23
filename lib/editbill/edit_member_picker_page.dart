@@ -45,11 +45,12 @@ class _editMemberPicker extends State<editMemberPicker> {
     for (var index = 0; index < memberList.length; index++) {
       memberListCard.add(
           Card(
-              margin: EdgeInsets.all(5.0),
-              elevation: 15.0,
-              shape: const RoundedRectangleBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(14.0))),
+            color: Theme.of(context).primaryColor.withAlpha(255 - 20 * (10 - index % 20).abs()),
+            margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
+            elevation: 0.0,
+            shape: const RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.all(Radius.circular(8.0))),
               child: InkWell(
                 onTap: () async {
                   if(memberList[index]=='无成员') {
@@ -81,10 +82,10 @@ class _editMemberPicker extends State<editMemberPicker> {
 
                 },
                 child: ListTile(
-                  title: Text(memberList[index], style: TextStyle(color: Colors.black45),),
+                  title: Text(memberList[index], style: TextStyle(color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,),),
                   leading: Icon(
-                    Icons.account_balance_wallet,
-                    color: Colors.blue,
+                    Icons.person_outline,
+                    color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
                   ),
                   trailing: Visibility(
                       visible: (memberList[index]!='无成员'), //只有选择“收入”“支出”才会显示
@@ -93,6 +94,7 @@ class _editMemberPicker extends State<editMemberPicker> {
                       child:IconButton( //删除按钮
                         icon: Icon(
                           Icons.delete_outline,  //删除按钮
+                          color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
                         ),
                         onPressed: () async {
                           bool isDelete = await deleteConfirm();
@@ -124,7 +126,9 @@ class _editMemberPicker extends State<editMemberPicker> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("editMemberPicker"),
+        title: Text("编辑成员", style: TextStyle(color: Theme.of(context).primaryColor),),
+        centerTitle: true,
+        backgroundColor: Colors.white,
       ),
       body: new ListView.builder(
         itemCount: memberList.length,
@@ -148,6 +152,7 @@ class _editMemberPicker extends State<editMemberPicker> {
       floatingActionButton: FloatingActionButton(
         //添加新的account
         child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () async {
           String newMember = await inputNewMember(); //等待输入框返回字符串
           if (newMember != null) {
@@ -185,6 +190,9 @@ class _editMemberPicker extends State<editMemberPicker> {
               autofocus: true,
               maxLines: 1, //最大行数
               keyboardType: TextInputType.name,
+              decoration: InputDecoration(
+                hintText: "不大于6个字符",
+              ),
               onChanged: (val) {
                 input = val;
               },
@@ -197,10 +205,13 @@ class _editMemberPicker extends State<editMemberPicker> {
               FlatButton(
                 child: Text("确认"),
                 onPressed: () {
-                  if (input != null) {
+                  if (input.length > 0 && input.length <7) {
                     Navigator.of(context).pop(input);
-                  } else {
+                  } else if(input.length == 0){
                     Toast.show("请输入成员", context, gravity: Toast.CENTER);
+                  }
+                  else if(input.length > 7){
+                    Toast.show("名称长度过长", context, gravity: Toast.CENTER);
                   }
                 },
               ),

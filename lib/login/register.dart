@@ -160,6 +160,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     fontWeight: FontWeight.w500,
                                     color: Colors.black26,
                                   )),
+
                             ),
                             SizedBox(
                               height: 33,

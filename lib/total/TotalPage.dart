@@ -40,6 +40,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
   List totalList = [
     {'账户': '净资产', '金额100': 0, '金额': '0'}
   ];
+
   List<BillsModel> billsList;
 ////////////////////////////////////////////////////////////////////////////////数据库billsList
   setBillsFromDB() async {
@@ -176,6 +177,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
         '///////////////////////////////////////////billsList长度///////////////////////////////////////////');
     print(billsList.length);
     print(billsList);
+    billsList.sort((a, b) => (b.date).compareTo(a.date));
     print(
         '///////////////////////////////////////////maxAc值///////////////////////////////////////////');
     maxAc = maxAcCount();
@@ -290,7 +292,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
     return Container(
       height: 800,
       width: 600,
-      color: Colors.blue[50],
+      color: Colors.white,
       child: ListView(
         //ReorderableListView(
         children: this._totalListData(),

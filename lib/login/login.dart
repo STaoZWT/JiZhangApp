@@ -104,6 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
                         color: Colors.white
+
                     ),
                   ),
                   SizedBox(
@@ -259,6 +260,7 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundImage: AssetImage("image/tupian.jpg"),
                     radius: 60,
                     backgroundColor: Colors.transparent,
+
                   ),
                 ),
               )
