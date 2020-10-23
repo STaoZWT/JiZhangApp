@@ -143,6 +143,7 @@ class _editAccountPicker extends State<editAccountPicker> {
       floatingActionButton: FloatingActionButton(
         //添加新的account
         child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () async {
           //print(accountList.last);
           String newAccount = await inputNewAccount(); //等待输入框返回字符串

@@ -148,6 +148,7 @@ class _editMemberPicker extends State<editMemberPicker> {
       floatingActionButton: FloatingActionButton(
         //添加新的account
         child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () async {
           String newMember = await inputNewMember(); //等待输入框返回字符串
           if (newMember != null) {

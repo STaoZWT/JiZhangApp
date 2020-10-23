@@ -129,19 +129,22 @@ class _CardAddBill extends State<CardAddBill>
                 )
               ])),
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Theme.of(context).primaryColor,
           onPressed: () {
             billConfirm();
           },
-          child: Icon(
+          icon: Icon(
             Icons.check,
             size: 30,
           ),
+          label: Text("  完成 "),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         appBar: AppBar(
-          title: Text("新建记账"),
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          title: Text("新建记账",style: TextStyle(color: Theme.of(context).primaryColor),),
           actions: <Widget>[
             IconButton(
                 icon: FaIcon(FontAwesomeIcons.alipay),
@@ -156,8 +159,30 @@ class _CardAddBill extends State<CardAddBill>
                     builder: (context) => AccountCardPage()
                   ));
                 }),
+            AnimatedContainer(
+              margin: EdgeInsets.only(left: 10),
+              duration: Duration(milliseconds: 200),
+              width: (1==1) ? 100 : 0,
+              height: 42,
+              curve: Curves.decelerate,
+              child: RaisedButton.icon(
+                color: Theme.of(context).accentColor,
+                textColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(100),
+                        bottomLeft: Radius.circular(100))),
+                icon: Icon(Icons.done),
+                label: Text(
+                  'SAVE',
+                  style: TextStyle(letterSpacing: 1),
+                ),
+                onPressed: (){billConfirm();},
+              ),
+            )
           ],
           bottom: TabBar(
+            labelColor: Theme.of(context).primaryColor,
             controller: _tabController,
             tabs: tabs,
           ),

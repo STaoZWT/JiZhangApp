@@ -280,6 +280,7 @@ class _editClassPicker extends State<editClassPicker> {
       floatingActionButton: FloatingActionButton(
           //添加一级分类
           child: Icon(Icons.add),
+          backgroundColor: Theme.of(context).primaryColor,
           onPressed: () async {
             Map newCategory1 = await inputNewCategory1();
             //print(newCategory1);
