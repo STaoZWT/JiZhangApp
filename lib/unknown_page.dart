@@ -13,7 +13,7 @@ class _UnknownPageState extends State<UnknownPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("JiZhangAPP"),
+        child:  Text("JiZhangAPP"),
       ),
     );
   }
