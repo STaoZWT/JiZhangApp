@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_jizhangapp/login/register.dart';
 import '../service/shared_pref.dart';
 import '../service/database.dart';
+import '../service/app_info.dart';
+import 'package:provider/provider.dart';
 
 class RemoveUserDataPage extends StatefulWidget {
   @override
@@ -20,7 +22,9 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
   clearAll() async {
     await BillsDatabaseService.db.deleteBillAllInDB();
     await removePassword();
+    await removeColorKey();
     await setGraphicalPassWord(null);
+    Provider.of<AppInfoProvider>(context, listen: false).setTheme('blue');
   }
 
   @override

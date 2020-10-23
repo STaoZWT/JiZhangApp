@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_jizhangapp/data/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_string_encryption/flutter_string_encryption.dart';
+import 'package:provider/provider.dart';
 
 
 //文本密码和shared preferences 的交互
@@ -121,5 +122,10 @@ Future<Null> setColorKey(String key) async {
   print("set color key: $key");
   SharedPreferences sharedPref = await SharedPreferences.getInstance();
   await sharedPref.setString('colorKey', key);
+}
+
+Future<Null> removeColorKey() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  await sharedPref.remove('colorKey');
 }
 
