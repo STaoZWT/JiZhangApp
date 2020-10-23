@@ -104,7 +104,10 @@ class _CardAddBill extends State<CardAddBill>
       onWillPop: () async => showDialog(
           context: context,
           builder: (context) =>
-              AlertDialog(title: Text('是否保存草稿？'), actions: <Widget>[
+              AlertDialog(
+                  title: Text('提示'),
+                  content:Text('是否保存草稿？'),
+                  actions: <Widget>[
                 RaisedButton(
                   child: Text('是'),
                   onPressed: () {
@@ -119,6 +122,8 @@ class _CardAddBill extends State<CardAddBill>
                     currentbill.value100 = moneyInput;
                     setDraft(currentbill);
                     Navigator.of(context).pop(true);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => NavigationHomeScreen()));
                   },
                 ),
                 RaisedButton(
@@ -126,6 +131,14 @@ class _CardAddBill extends State<CardAddBill>
                   onPressed: () {
                     removeDraft();
                     Navigator.of(context).pop(true);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => NavigationHomeScreen()));
+                  },
+                ),
+                RaisedButton(
+                  child:Text('取消'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
                   },
                 )
               ])),
@@ -723,17 +736,19 @@ class _CardAddBill extends State<CardAddBill>
     print("账户：${currentbill.accountOut} ${currentbill.accountIn}    成员：${currentbill.member}");
     print("日期：${currentbill.date}   备注：${currentbill.title}   记账类型：${currentbill.type}");
     if (isLeagal() ){
-      Toast.show("合法！ $moneyInput", context);
+      Toast.show("记账成功", context, gravity: Toast.CENTER);
       //var bill =
       await BillsDatabaseService.db.addBillInDB(currentbill);
       Navigator.of(context).pop();  //记账成功后退出记账界面
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) => NavigationHomeScreen()));
       // Navigator.of(context).push(
       //     MaterialPageRoute(builder: (BuildContext context) => HomePage()));
     } else {
-      if(currentbill.value100 < 1) {Toast.show("请输入金额", context);}
-      else if (!(type==2 || currentbill.category1!="未选择")) {Toast.show("请选择分类", context);}
-      else if (currentbill.accountOut=="未选择") {Toast.show("请选择账户", context);}
-      else if (!(type!=2 || currentbill.accountIn!="未选择")) {Toast.show("请选择账户", context);}
+      if(currentbill.value100 < 1) {Toast.show("请输入金额", context, gravity: Toast.CENTER);}
+      else if (!(type==2 || currentbill.category1!="未选择")) {Toast.show("请选择分类", context, gravity: Toast.CENTER);}
+      else if (currentbill.accountOut=="未选择") {Toast.show("请选择账户", context, gravity: Toast.CENTER);}
+      else if (!(type!=2 || currentbill.accountIn!="未选择")) {Toast.show("请选择账户", context, gravity: Toast.CENTER);}
       //Toast.show("不合法！", context);
     }
   }
@@ -759,10 +774,8 @@ class _CardAddBill extends State<CardAddBill>
 
   draftToCurrentBill() async {
     bool isDraft = await isDraftSet();
-    print("tag1");
     if (isDraft) {
       currentbill = await getDraft();
-      print("tag2");
       if(currentbill.type==0) {classInSelectText = "${currentbill.category1},${currentbill.category2}";}
       else if(currentbill.type==1) {classOutSelectText = "${currentbill.category1},${currentbill.category2}";}
       accountInSelectText = "${currentbill.accountIn}";
@@ -780,10 +793,8 @@ class _CardAddBill extends State<CardAddBill>
     } else {
       moneyController = new TextEditingController();
     }
-    print("tag3");
     _tabController = TabController(length: tabs.length, vsync: this, initialIndex: currentbill.type);
     isInit = true;
-    print("tag4");
     setState(() { });
   }
 
