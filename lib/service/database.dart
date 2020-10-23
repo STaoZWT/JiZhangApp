@@ -287,6 +287,7 @@ class BillsDatabaseService {
   }
 
   Future<int> getAccountNetAsset(String accountName) async {
+    print("Will check $accountName");
     final db = await database;
     List<Map<String, dynamic>> queryResultIn = await db.rawQuery('SELECT sum(value100) FROM Bills WHERE accountIn = ? AND type IN (0, 2)', [accountName]);
     var temp = queryResultIn[0]['sum(value100)'].toString();
@@ -297,6 +298,7 @@ class BillsDatabaseService {
     var assetOut = int.tryParse(temp) as int;
     if (assetOut == null) assetOut = 0;
     int netAsset = assetIn - assetOut;
+    print("Net Asset is: $netAsset");
     return netAsset;
   }
 
@@ -365,6 +367,8 @@ class BillsDatabaseService {
         'Bill added: ${newBill.title} ${newBill.value100} ${newBill.date} type is: ${newBill.type}');
     return newBill;
   }
+
+
 
 //根据账户获得数据
 

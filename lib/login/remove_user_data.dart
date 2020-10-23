@@ -127,7 +127,7 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
           ),
           Card(
             margin: EdgeInsets.all(8.0),
-            elevation: 15.0,
+            elevation: 2.0,
             shape: const RoundedRectangleBorder(
                 borderRadius:
                 BorderRadius.all(Radius.circular(14.0))),
