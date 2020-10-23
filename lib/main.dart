@@ -62,6 +62,7 @@ class AppState extends State<MyApp> {
               }
         return MaterialApp(
           theme: ThemeData.light().copyWith(
+          //colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey),
           primaryColor: _themeColor,
           accentColor: _themeColor,
           indicatorColor: Colors.white,

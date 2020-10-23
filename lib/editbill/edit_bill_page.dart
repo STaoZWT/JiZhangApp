@@ -58,6 +58,7 @@ class _CardAddBill extends State<CardAddBill>
 
   bool isInit;
 
+
   @override
   void initState() {
     super.initState();
@@ -129,25 +130,25 @@ class _CardAddBill extends State<CardAddBill>
                 )
               ])),
       child: Scaffold(
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Theme.of(context).primaryColor,
-          onPressed: () {
-            billConfirm();
-          },
-          icon: Icon(
-            Icons.check,
-            size: 30,
-          ),
-          label: Text("  完成 "),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        // floatingActionButton: FloatingActionButton.extended(
+        //   backgroundColor: Theme.of(context).primaryColor,
+        //   onPressed: () {
+        //     billConfirm();
+        //   },
+        //   icon: Icon(
+        //     Icons.check,
+        //     size: 30,
+        //   ),
+        //   label: Text("  完成 "),
+        // ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
           title: Text("新建记账",style: TextStyle(color: Theme.of(context).primaryColor),),
           actions: <Widget>[
             IconButton(
-                icon: FaIcon(FontAwesomeIcons.alipay),
+                icon: FaIcon(FontAwesomeIcons.alipay, color: Theme.of(context).primaryColor,),
                 onPressed: () async {
                   List<BillsModel> allBills = await BillsDatabaseService.db.getBillsFromDB();
                   allBills.forEach((element) {
@@ -160,9 +161,10 @@ class _CardAddBill extends State<CardAddBill>
                   ));
                 }),
             AnimatedContainer(
-              margin: EdgeInsets.only(left: 10),
+              margin: EdgeInsets.fromLTRB(10, 6, 0, 6),
+              //EdgeInsets.only(left: 10),
               duration: Duration(milliseconds: 200),
-              width: (1==1) ? 100 : 0,
+              width: 1==1 ? 100 : 0,
               height: 42,
               curve: Curves.decelerate,
               child: RaisedButton.icon(
@@ -174,7 +176,7 @@ class _CardAddBill extends State<CardAddBill>
                         bottomLeft: Radius.circular(100))),
                 icon: Icon(Icons.done),
                 label: Text(
-                  'SAVE',
+                  '完成',
                   style: TextStyle(letterSpacing: 1),
                 ),
                 onPressed: (){billConfirm();},
@@ -263,6 +265,8 @@ class _CardAddBill extends State<CardAddBill>
                           onChanged: (money) {
                             print("$money");
                             moneyInput = (double.parse(money) * 100).round();
+                            setState(() {
+                            });
                           },
                           textAlign: TextAlign.right,
                         ),
@@ -344,6 +348,8 @@ class _CardAddBill extends State<CardAddBill>
                                         }
                                       }
                                       classPicker(context,type);
+                                      setState(() {
+                                      });
                                     },
                                     child: ListTile(
                                       title: Text(
@@ -410,6 +416,8 @@ class _CardAddBill extends State<CardAddBill>
                                   await getPicker("maccountPicker");
                                 }
                                 accountPickerOut(context); //点击按钮弹出滚动选择框
+                                setState(() {
+                                });
                               },
                               child: ListTile(
                                 title: Text(
@@ -465,6 +473,8 @@ class _CardAddBill extends State<CardAddBill>
                                     await getPicker("maccountPicker");
                                   }
                                   accountPickerIn(context); //点击按钮弹出滚动选择框
+                                  setState(() {
+                                  });
                                 },
                                 child: ListTile(
                                   title: Text(
