@@ -728,7 +728,7 @@ class _CardAddBill extends State<CardAddBill>
       String toInsert =(currentbill.value100 > 99)?
           currentbill.value100.toString().substring(0, currentbill.value100.toString().length-2)
           + '.'
-          + currentbill.value100.toString().substring(currentbill.value100.toString().length-1):
+          + currentbill.value100.toString().substring(currentbill.value100.toString().length-2, currentbill.value100.toString().length):
           (currentbill.value100 > 9) ? '0.' + currentbill.value100.toString() :'0.0' + currentbill.value100.toString();
       moneyController = new TextEditingController(text: toInsert);
     } else {
