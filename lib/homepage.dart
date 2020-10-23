@@ -46,6 +46,25 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: Container(
+          height: 60,
+          width: 60,
+          padding: EdgeInsets.all(4),
+          margin: EdgeInsets.only(top: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            color: Colors.white,
+          ),
+          child: FloatingActionButton(
+            child: Icon(Icons.add),
+            backgroundColor: Theme.of(context).primaryColor,
+            onPressed: (){
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => CardAddBill()));
+            },
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle:true,
@@ -70,10 +89,12 @@ class _HomePageState extends State<HomePage> {
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.attach_money,
+                  color: Colors.white,
                 ),
                 title: Text(
                   '记一笔',
-                )),
+                )
+            ),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.account_balance_wallet,
