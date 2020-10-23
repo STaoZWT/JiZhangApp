@@ -54,6 +54,9 @@ dependencies:
   provider: ^4.0.4
   flutter_swiper : ^1.1.6
 
+  #new
+  intl: ^0.16.0
+
 
 dev_dependencies:
   flutter_test:

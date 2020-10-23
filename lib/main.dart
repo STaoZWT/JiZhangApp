@@ -6,8 +6,6 @@ import 'package:flutter_jizhangapp/login/splash.dart';
 import 'package:flutter_jizhangapp/service/app_info.dart';
 import 'package:flutter_jizhangapp/service/shared_pref.dart';
 import 'package:provider/provider.dart';
-import 'chart/Tabs/piechart2/chart_pie.dart';
-import 'chart/chartpage.dart';
 import 'login/register.dart';
 import './editbill/edit_account_picker_page.dart';
 import './editbill/edit_class_picker_page.dart';
