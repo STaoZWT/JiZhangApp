@@ -371,11 +371,12 @@ class BillsDatabaseService {
 
   //本月记账条数
   Future<int> billsCountThisMonth() async {
+    int count = 0;
     final db = await database;
     DateTime to = DateTime.now();
     DateTime from = DateTime(to.year, to.month, 1);
     List<Map<String, dynamic>> result = await db.rawQuery('SELECT count(*) FROM Bills WHERE date >= ? AND date <= ?', [from.millisecondsSinceEpoch, to.millisecondsSinceEpoch]);
-    int count = result[0]['count(*)'] as int;
+    count = result[0]['count(*)'] == null ? 0 : result[0]['count(*)'];
     print(count);
     return count;
   }
@@ -438,9 +439,9 @@ class BillsDatabaseService {
         billsList.add(BillsModel.fromMap(map));
       });
     }
-    BillsModel toReturn = billsList[0];
-    print(toReturn.toMap());
-    return toReturn;
+    if (billsList.length != 0)
+      return billsList[0];
+    return null;
   }
 
 
