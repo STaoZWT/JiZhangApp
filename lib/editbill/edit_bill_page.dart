@@ -680,9 +680,7 @@ class _CardAddBill extends State<CardAddBill>
       Toast.show("合法！ $moneyInput", context);
       //var bill =
       await BillsDatabaseService.db.addBillInDB(currentbill);
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (BuildContext context) => HomePage()
-      ));
+      Navigator.of(context).pop();  //记账成功后退出记账界面
       // Navigator.of(context).push(
       //     MaterialPageRoute(builder: (BuildContext context) => HomePage()));
     } else {

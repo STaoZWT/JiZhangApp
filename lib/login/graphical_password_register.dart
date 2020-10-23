@@ -89,7 +89,7 @@ class _GraphicalPasswordRegisterPageState
                                   // Navigator.of(context).pushReplacement(
                                   //     MaterialPageRoute(
                                   //         builder: (BuildContext context) =>
-                                  //             HomePage()));
+                                  //             NavigationHomeScreen));
                                 },
                               )
                             ],
