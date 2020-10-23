@@ -189,6 +189,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "8.10.0"
+  gesture_password:
+    dependency: "direct main"
+    description:
+      name: gesture_password
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.6"
   gesture_recognition:
     dependency: "direct main"
     description:

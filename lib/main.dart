@@ -1,7 +1,11 @@
 //vesion 1
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_jizhangapp/login/graphical_password_register.dart';
+import 'package:flutter_jizhangapp/login/password_confirm.dart';
+import 'package:flutter_jizhangapp/login/password_reset.dart';
 import 'package:flutter_jizhangapp/login/splash.dart';
+import 'package:flutter_jizhangapp/routes.dart';
 import 'chart/Tabs/piechart2/chart_pie.dart';
 import 'chart/chartpage.dart';
 import 'login/register.dart';
@@ -18,14 +22,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {
-        "/editClassPicker": (context) => editClassPicker(),
-        "/editAccountPicker": (context) => editAccountPicker(),
-        "/editMemberPicker": (context) => editMemberPicker(),
-      },
       title: 'Flutter Demo',
-      home: SplashScreen(),
-      //onGenerateRoute: onGenerateRoute, //路由
+      home: PasswordResetPage(),
+      onGenerateRoute: onGenerateRoute, //路由
     );
   }
 }
+
