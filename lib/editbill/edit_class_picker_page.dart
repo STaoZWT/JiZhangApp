@@ -70,7 +70,7 @@ class _editClassPicker extends State<editClassPicker> {
           return Container(
             margin: EdgeInsets.fromLTRB(8, 8, 8, 2),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor.withAlpha(55 + (20 * (index % 10))),
+              color: Theme.of(context).primaryColor.withAlpha(255 - 20 * (10 - index % 20).abs()),
               borderRadius: BorderRadius.all(Radius.circular(8)),
             ),
             child: ExpansionTile(
@@ -118,7 +118,10 @@ class _editClassPicker extends State<editClassPicker> {
                       dense: true,
                       title: Text(
                         "$category1name",
-                        style: TextStyle(color: Colors.black45, fontSize: 20), //一级分类字体颜色和大小
+                        style: TextStyle(
+                            color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
+                            //Colors.black45,
+                            fontSize: 20), //一级分类字体颜色和大小
                       ),
                       // leading:
                       //     Icon(
@@ -132,6 +135,7 @@ class _editClassPicker extends State<editClassPicker> {
                         child:IconButton( //删除一级分类按钮
                           icon: Icon(
                             Icons.delete_outline,  //删除按钮
+                            color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
                           ),
                           onPressed: () async {
                             bool isDelete = await deleteConfirm();

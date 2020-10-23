@@ -150,15 +150,19 @@ class _CardAddBill extends State<CardAddBill>
             IconButton(
                 icon: FaIcon(FontAwesomeIcons.alipay, color: Theme.of(context).primaryColor,),
                 onPressed: () async {
-                  List<BillsModel> allBills = await BillsDatabaseService.db.getBillsFromDB();
-                  allBills.forEach((element) {
-                    print(element.toMap().toString());
-                  });
-                  int test = await BillsDatabaseService.db.getAccountNetAsset('现金账户');
-                  print("test: $test");
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => AccountCardPage()
-                  ));
+                  // List<BillsModel> allBills = await BillsDatabaseService.db.getBillsFromDB();
+                  // allBills.forEach((element) {
+                  //   print(element.toMap().toString());
+                  // });
+                  // int test = await BillsDatabaseService.db.getAccountNetAsset('现金账户');
+                  // print("test: $test");
+                  BillsDatabaseService.db.billsCountThisMonth();
+                  BillsDatabaseService.db.assetInThisMonth();
+                  BillsDatabaseService.db.assetOutThisMonth();
+                  BillsDatabaseService.db.LatestBill();
+                  // Navigator.push(context, MaterialPageRoute(
+                  //   builder: (context) => AccountCardPage()
+                  // ));
                 }),
             AnimatedContainer(
               margin: EdgeInsets.fromLTRB(10, 6, 0, 6),
@@ -185,6 +189,9 @@ class _CardAddBill extends State<CardAddBill>
           ],
           bottom: TabBar(
             labelColor: Theme.of(context).primaryColor,
+            labelStyle: TextStyle(fontWeight: FontWeight.bold),
+            unselectedLabelColor: Colors.grey,
+            unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
             controller: _tabController,
             tabs: tabs,
           ),
@@ -227,6 +234,7 @@ class _CardAddBill extends State<CardAddBill>
                           controller: moneyController,
                           autofocus: false,
                           decoration: InputDecoration(
+
                             border: InputBorder.none,
                             // labelText: "金额",
                             // labelStyle: TextStyle(
@@ -241,15 +249,18 @@ class _CardAddBill extends State<CardAddBill>
                                 color: Colors.black45,
                                 fontSize: 26,
                                 fontWeight: FontWeight.bold),
-                            prefixIcon: Icon(
-                              Icons.attach_money,
-                              color: Theme.of(context).primaryColor,
+                            prefixIcon: Padding(
+                              padding: const EdgeInsetsDirectional.only(start: 16.0),
+                              child: FaIcon(
+                                FontAwesomeIcons.yenSign,
+                                color: Theme.of(context).primaryColor,
+                              ),
                             ),
                           ),
                           style: TextStyle(
                             fontSize: 42.0,
-                            fontWeight: FontWeight.w500,
-                            color: type == 0 ? Colors.red : type == 1 ? Colors.green : Colors.black87,
+                            fontWeight: FontWeight.w400,
+                            color: Theme.of(context).primaryColor.withOpacity(0.7),
                             //wordSpacing: 1.5,
                             height: 1.5,
                           ),
@@ -303,7 +314,7 @@ class _CardAddBill extends State<CardAddBill>
                                     [yyyy, "年", m, "月", d, "日  ", H, ":", nn]),
                                 style: TextStyle(
                                   color: Colors.black87,
-                                  fontSize: 24,
+                                  fontSize: 20,
                                 ),
                                 textAlign: TextAlign.left,
                               ),

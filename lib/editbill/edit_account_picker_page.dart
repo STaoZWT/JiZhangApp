@@ -44,7 +44,7 @@ class _editAccountPicker extends State<editAccountPicker> {
     for(var index = 0;index < accountList.length;index++) {
       accountListCard.add(
             Card(
-              color: Theme.of(context).primaryColor.withAlpha(55 + (20 * (index % 10))),
+              color: Theme.of(context).primaryColor.withAlpha(255 - 20 * (10 - index % 20).abs()),
               margin: EdgeInsets.fromLTRB(8, 8, 8, 4),
               elevation: 0,
               shape: const RoundedRectangleBorder(
@@ -76,10 +76,10 @@ class _editAccountPicker extends State<editAccountPicker> {
                 },
                 child: ListTile(
                   hoverColor: Colors.transparent,
-                  title: Text(accountList[index], style: TextStyle(color: Colors.black45),),
+                  title: Text(accountList[index], style: TextStyle(color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,),),
                   leading: Icon(
                     Icons.account_balance_wallet,
-                    color: Colors.white
+                    color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
                     //Theme.of(context).primaryColor,
                   ),
                   trailing: Visibility(
@@ -89,7 +89,7 @@ class _editAccountPicker extends State<editAccountPicker> {
                     child: IconButton(
                       icon: Icon(
                         Icons.delete_outline,
-                        color: Colors.white,
+                        color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
                       ),
                       onPressed: () async {
                         bool isDelete = await deleteConfirm();

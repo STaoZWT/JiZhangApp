@@ -45,7 +45,7 @@ class _editMemberPicker extends State<editMemberPicker> {
     for (var index = 0; index < memberList.length; index++) {
       memberListCard.add(
           Card(
-            color: Theme.of(context).primaryColor.withAlpha(55 + (20 * (index % 10))),
+            color: Theme.of(context).primaryColor.withAlpha(255 - 20 * (10 - index % 20).abs()),
             margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
             elevation: 0.0,
             shape: const RoundedRectangleBorder(
@@ -82,10 +82,10 @@ class _editMemberPicker extends State<editMemberPicker> {
 
                 },
                 child: ListTile(
-                  title: Text(memberList[index], style: TextStyle(color: Colors.black45),),
+                  title: Text(memberList[index], style: TextStyle(color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,),),
                   leading: Icon(
-                    Icons.account_balance_wallet,
-                    color: Colors.white
+                    Icons.person_outline,
+                    color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
                   ),
                   trailing: Visibility(
                       visible: (memberList[index]!='无成员'), //只有选择“收入”“支出”才会显示
@@ -94,7 +94,7 @@ class _editMemberPicker extends State<editMemberPicker> {
                       child:IconButton( //删除按钮
                         icon: Icon(
                           Icons.delete_outline,  //删除按钮
-                          color: Colors.white,
+                          color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
                         ),
                         onPressed: () async {
                           bool isDelete = await deleteConfirm();
