@@ -45,11 +45,12 @@ class _editMemberPicker extends State<editMemberPicker> {
     for (var index = 0; index < memberList.length; index++) {
       memberListCard.add(
           Card(
-              margin: EdgeInsets.all(5.0),
-              elevation: 15.0,
-              shape: const RoundedRectangleBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(14.0))),
+            color: Theme.of(context).primaryColor.withAlpha(55 + (20 * (index % 10))),
+            margin: EdgeInsets.fromLTRB(8, 4, 8, 4),
+            elevation: 0.0,
+            shape: const RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.all(Radius.circular(8.0))),
               child: InkWell(
                 onTap: () async {
                   if(memberList[index]=='无成员') {
@@ -84,7 +85,7 @@ class _editMemberPicker extends State<editMemberPicker> {
                   title: Text(memberList[index], style: TextStyle(color: Colors.black45),),
                   leading: Icon(
                     Icons.account_balance_wallet,
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.white
                   ),
                   trailing: Visibility(
                       visible: (memberList[index]!='无成员'), //只有选择“收入”“支出”才会显示
@@ -93,6 +94,7 @@ class _editMemberPicker extends State<editMemberPicker> {
                       child:IconButton( //删除按钮
                         icon: Icon(
                           Icons.delete_outline,  //删除按钮
+                          color: Colors.white,
                         ),
                         onPressed: () async {
                           bool isDelete = await deleteConfirm();
@@ -124,7 +126,9 @@ class _editMemberPicker extends State<editMemberPicker> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("editMemberPicker"),
+        title: Text("编辑成员", style: TextStyle(color: Theme.of(context).primaryColor),),
+        centerTitle: true,
+        backgroundColor: Colors.white,
       ),
       body: new ListView.builder(
         itemCount: memberList.length,
@@ -148,6 +152,7 @@ class _editMemberPicker extends State<editMemberPicker> {
       floatingActionButton: FloatingActionButton(
         //添加新的account
         child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () async {
           String newMember = await inputNewMember(); //等待输入框返回字符串
           if (newMember != null) {

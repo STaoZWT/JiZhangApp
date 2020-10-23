@@ -4,6 +4,7 @@ import '../service/database.dart';
 import 'package:flutter/material.dart';
 import '../service/shared_pref.dart';
 import 'package:toast/toast.dart';
+import '../const/common_color.dart';
 
 class editAccountPicker extends StatefulWidget {
   @override
@@ -42,25 +43,13 @@ class _editAccountPicker extends State<editAccountPicker> {
     accountListCard = [];
     for(var index = 0;index < accountList.length;index++) {
       accountListCard.add(
-          // Dismissible(
-          //   key: Key(accountList[index].toString()),
-          //   onDismissed: (direction) {
-          //
-          //     setState(() {
-          //       accountList.removeAt(index);
-          //       print("$index ${accountList.toString()}");
-          //       accountListCard.removeAt(index);
-          //       print("$index ${accountList.toString()}");
-          //       isChange = true;
-          //     });
-          //   },
-          //   child:
             Card(
-              margin: EdgeInsets.all(5.0),
-              elevation: 15.0,
+              color: Theme.of(context).primaryColor.withAlpha(55 + (20 * (index % 10))),
+              margin: EdgeInsets.fromLTRB(8, 8, 8, 4),
+              elevation: 0,
               shape: const RoundedRectangleBorder(
                   borderRadius:
-                  BorderRadius.all(Radius.circular(14.0))),
+                  BorderRadius.all(Radius.circular(8.0))),
               child: InkWell(
                 onTap: () async {
                   String changeAccount = await inputNewAccount();
@@ -86,10 +75,12 @@ class _editAccountPicker extends State<editAccountPicker> {
 
                 },
                 child: ListTile(
+                  hoverColor: Colors.transparent,
                   title: Text(accountList[index], style: TextStyle(color: Colors.black45),),
                   leading: Icon(
                     Icons.account_balance_wallet,
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.white
+                    //Theme.of(context).primaryColor,
                   ),
                   trailing: Visibility(
                     visible: (accountList.length > 1),
@@ -97,7 +88,8 @@ class _editAccountPicker extends State<editAccountPicker> {
                     maintainSize: false,
                     child: IconButton(
                       icon: Icon(
-                        Icons.delete_outline
+                        Icons.delete_outline,
+                        color: Colors.white,
                       ),
                       onPressed: () async {
                         bool isDelete = await deleteConfirm();
@@ -124,7 +116,9 @@ class _editAccountPicker extends State<editAccountPicker> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("editAccountPicker"),
+        title: Text("编辑账户", style: TextStyle(color: Theme.of(context).primaryColor),),
+        centerTitle: true,
+        backgroundColor: Colors.white,
       ),
       body: new ListView.builder(
         itemCount: accountListCard.length,
@@ -143,6 +137,7 @@ class _editAccountPicker extends State<editAccountPicker> {
       floatingActionButton: FloatingActionButton(
         //添加新的account
         child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () async {
           //print(accountList.last);
           String newAccount = await inputNewAccount(); //等待输入框返回字符串

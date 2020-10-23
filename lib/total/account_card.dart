@@ -87,7 +87,7 @@ class _AccountCardPageState extends State<AccountCardPage> {
                     alignment: Alignment.centerRight,
                     margin: EdgeInsets.all(20),
                     builder: FractionPaginationBuilder(
-                        color: Colors.grey,
+                        color: Colors.white,
                         activeColor: Colors.white
                     )
                 ),
@@ -112,10 +112,16 @@ class _AccountCardPageState extends State<AccountCardPage> {
                               ),
                             ),
                             TextSpan(
+                              text: '''余额\n''',
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                            TextSpan(
                               text: '''￥${accountBalance[index]}''',
                               style: TextStyle(
                                 fontSize: 40,
-                                height: 1.8,
+                                height: 1.3,
                               ),
                             ),
                           ],
