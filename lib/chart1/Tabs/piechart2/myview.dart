@@ -94,7 +94,7 @@ class MyView extends CustomPainter{
       _mPaint..color = Colors.grey;
       // 绘制没被选中的扇形  正常半径
       canvas.drawArc(mOval, 0.0, sweepAngle, true, _mPaint);
-      _mPaint..color = Colors.blue;  ///内部颜色
+      _mPaint..color = Colors.white;  ///内部颜色
       canvas.drawCircle(Offset.zero, mInnerRadius, _mPaint);
       canvas.restore();
 
@@ -138,7 +138,7 @@ class MyView extends CustomPainter{
 //    canvas.drawRect(mOval, _mPaint);  // 矩形区域
 
       // 2.画内圆
-      _mPaint..color = Colors.blue;  ///内部颜色
+      _mPaint..color = Colors.white;  ///内部颜色
       canvas.drawCircle(Offset.zero, mInnerRadius, _mPaint);
       canvas.restore();
 

@@ -63,6 +63,18 @@ class _ChartPageState extends State<ChartPage> {
     }
   }
 
+  //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户
+  //type 0:收入， 1：支出
+  //默认为“一级分类支出”
+  title(String typeSelect, int type) {
+    if(type==0){
+      return Text("$typeSelect"+"收入",
+          style: TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor));
+    }else if(type==1){
+      return Text("$typeSelect"+"支出",
+          style: TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor));
+    }
+  }
 
   double topBarOpacity = 0.0;
   @override
@@ -70,51 +82,31 @@ class _ChartPageState extends State<ChartPage> {
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
-          //centerTitle: true,
-          title: Text(
-            '饼状图',
-            textAlign: TextAlign.start,
-            style: TextStyle(
-              fontFamily: JizhangAppTheme.fontName,
-              fontWeight: FontWeight.w200,
-              fontSize: 22 + 6 - 6 * topBarOpacity,
-              letterSpacing: 1.2,
-              color: JizhangAppTheme.darkerText,
-            ),
-          ),
+          centerTitle: true,
+          title: title(typeSelect, type),
           actions: <Widget>[
-            IconButton(  ///时间选择
-              icon: new Icon(Icons.calendar_today),
-              iconSize: 40.0,
-              alignment: Alignment(0.0, 0.0),//Alignment.center,//
-              color: Colors.grey[500],
-              onPressed: () async {
-                picked = await DateRagePicker
-                    .showDatePicker(
-                    context: context,
-                    initialFirstDate: new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1,0,0,0,0,0),
-                    //初始--起始日期
-                    initialLastDate: new DateTime.now(),
-                    //初始--截止日期
-                    firstDate: new DateTime((DateTime.fromMicrosecondsSinceEpoch(0)).year),
-                    lastDate: new DateTime(((DateTime.now()).year)+1)
-                );
-                if (picked != null && picked.length == 2) {
-                  print(picked);
-                  Navigator.of(context).pop();
-                  Navigator.push(  ///选择完时间，跳转图表界面
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => ChartPage(
-                              typeSelect: typeSelect,
-                              type: type,
-                              picked: picked)));
-                }else{
-                  picked = [
-                    new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1),
-                    new DateTime.now()
-                  ];
-                }
+            RaisedButton.icon(
+              color: Theme.of(context).accentColor,
+              textColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(100),
+                      bottomLeft: Radius.circular(100))),
+              icon: Icon(Icons.select_all),
+              label: Text(
+                '分类',
+                style: TextStyle(letterSpacing: 1),
+              ),
+              onPressed: (){
+                Navigator.of(context).pop();
+                Navigator.push(
+                    context,
+                    //transition: TransitionType.inFromBottom,
+                    CupertinoPageRoute(
+                        builder: (context) => SelectPage(
+                            typeSelect: typeSelect,
+                            type: type,
+                            picked: picked)));
               },
             ),
           ]
@@ -147,12 +139,12 @@ class _ChartPageState extends State<ChartPage> {
           items: [ //按钮定义
             BottomNavigationBarItem(
                 backgroundColor: Theme.of(context).primaryColor,
-                icon: Icon(Icons.pie_chart, color: Theme.of(context).primaryColor,),
+                icon: Icon(Icons.pie_chart, color: Theme.of(context).primaryColor),
                 title: Text("饼状图", style: TextStyle(color: Colors.black54),)
             ),
             BottomNavigationBarItem(
                 backgroundColor: Theme.of(context).primaryColor,
-                icon: Icon(Icons.home, color: Theme.of(context).primaryColor,),
+                icon: Icon(Icons.home, color: Theme.of(context).primaryColor),
                 title: Text("首页", style: TextStyle(color: Colors.black54),)
             ),
           ]

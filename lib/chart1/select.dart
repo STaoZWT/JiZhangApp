@@ -79,14 +79,14 @@ class _SelectPageState extends State<SelectPage> {
               style: TextStyle(
                 fontFamily: JizhangAppTheme.fontName,
                 fontWeight: FontWeight.w700,
-                fontSize: 22 + 6 - 6 * topBarOpacity,
+                fontSize: 20 + 6 - 6 * topBarOpacity,
                 letterSpacing: 1.2,
-                color: Colors.grey,
+                color: Theme.of(context).primaryColor,
               ),
           ),
           leading: Builder(builder: (context){
             return IconButton(
-              icon: Icon(Icons.arrow_back,color: Colors.grey,size: 30,),
+              icon: Icon(Icons.arrow_back,color: Theme.of(context).primaryColor,size: 30,),
               onPressed: (){
                 Navigator.of(context).pop();
                 Navigator.push(
@@ -135,7 +135,7 @@ class _SelectPageState extends State<SelectPage> {
           ),
           Card(
               margin: EdgeInsets.all(8.0),
-              elevation: 15.0,
+              elevation: 2.0,
               shape: const RoundedRectangleBorder(
                   borderRadius:
                   BorderRadius.all(Radius.circular(14.0))),
@@ -170,7 +170,7 @@ class _SelectPageState extends State<SelectPage> {
                                 child: IconButton(  ///选择时间
                                   icon: new Icon(Icons.looks_one),
                                   iconSize: 25.0,
-                                  color: Colors.grey[500],
+                                  color: Theme.of(context).primaryColor,
                                   onPressed: () {
                                     selected = "分类支出";
                                     typeSelect = '一级分类';
@@ -227,7 +227,7 @@ class _SelectPageState extends State<SelectPage> {
                                 child: IconButton(  ///选择时间
                                   icon: new Icon(Icons.category),
                                   iconSize: 25.0,
-                                  color: Colors.grey[500],
+                                  color: Theme.of(context).primaryColor,
                                   onPressed: () {
                                     selected = "二级支出";
                                     typeSelect = '二级分类';
@@ -284,7 +284,7 @@ class _SelectPageState extends State<SelectPage> {
                                   child: IconButton(  ///选择时间
                                     icon: new Icon(Icons.account_box),
                                     iconSize: 25.0,
-                                    color: Colors.grey[500],
+                                    color: Theme.of(context).primaryColor,
                                     onPressed: () {
                                       selected = "账户支出";
                                       typeSelect = '账户分类';
@@ -341,7 +341,7 @@ class _SelectPageState extends State<SelectPage> {
                                   child: IconButton(  ///选择时间
                                     icon: new Icon(Icons.people),
                                     iconSize: 25.0,
-                                    color: Colors.grey[500],
+                                    color: Theme.of(context).primaryColor,
                                     onPressed: () {
                                       selected = "成员支出";
                                       typeSelect = '成员分类';
@@ -388,7 +388,7 @@ class _SelectPageState extends State<SelectPage> {
           ),
           Card(
             margin: EdgeInsets.all(8.0),
-            elevation: 15.0,
+            elevation: 2.0,
             shape: const RoundedRectangleBorder(
                 borderRadius:
                 BorderRadius.all(Radius.circular(14.0))),
@@ -423,7 +423,7 @@ class _SelectPageState extends State<SelectPage> {
                               child: IconButton(  ///选择时间
                                 icon: new Icon(Icons.repeat_one),
                                 iconSize: 25.0,
-                                color: Colors.grey[500],
+                                color: Theme.of(context).primaryColor,
                                 onPressed: () {
                                   selected = "一级收入";
                                   typeSelect = '一级分类';
@@ -480,7 +480,7 @@ class _SelectPageState extends State<SelectPage> {
                               child: IconButton(  ///选择时间
                                 icon: new Icon(Icons.looks_two),
                                 iconSize: 25.0,
-                                color: Colors.grey[500],
+                                color: Theme.of(context).primaryColor,
                                 onPressed: () {
                                   selected = "二级收入";
                                   typeSelect = '二级分类';
@@ -537,7 +537,7 @@ class _SelectPageState extends State<SelectPage> {
                               child: IconButton(  ///选择时间
                                 icon: new Icon(Icons.account_circle),
                                 iconSize: 25.0,
-                                color: Colors.grey[500],
+                                color: Theme.of(context).primaryColor,
                                 onPressed: () {
                                   selected = "账户收入";
                                   typeSelect = '账户分类';
@@ -594,7 +594,7 @@ class _SelectPageState extends State<SelectPage> {
                               child: IconButton(  ///选择时间
                                 icon: new Icon(Icons.people_outline),
                                 iconSize: 25.0,
-                                color: Colors.grey[500],
+                                color: Theme.of(context).primaryColor,
                                 onPressed: () {
                                   selected = "成员收入";
                                   typeSelect = '成员分类';
