@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_jizhangapp/chart1/chart_material.dart';
+import 'package:flutter_jizhangapp/chart1/chartpage.dart';
 import 'package:flutter_jizhangapp/service/database.dart';
 import 'package:toast/toast.dart';
 
-import '../../chart_material.dart';
-import '../../chartpage.dart';
 
 class Dismissshow_testPage extends StatefulWidget {
   List<LiushuiData> liuData; //接收传值
   String typeSelect; //类型
   int type;
   var picked; //时间
-  int pie_bar = 0; //0--饼状图  1--条形图
 
-  Dismissshow_testPage({Key key, this.liuData, this.type, this.typeSelect, this.picked, this.pie_bar}) : super(key: key);
+  Dismissshow_testPage({Key key, this.liuData, this.type, this.typeSelect, this.picked}) : super(key: key);
 
   @override
   _Dismissshow_testPage createState() => _Dismissshow_testPage();
@@ -79,7 +78,6 @@ class _Dismissshow_testPage extends State<Dismissshow_testPage> {
                     context,
                     CupertinoPageRoute(
                         builder: (context) => ChartPage(
-                            pie_bar: widget.pie_bar,
                             typeSelect: widget.typeSelect,
                             type: widget.type,
                             picked: widget.picked)));

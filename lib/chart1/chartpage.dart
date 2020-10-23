@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
-import 'package:flutter_jizhangapp/chart/select.dart';
+import 'package:flutter_jizhangapp/chart1/Tabs/piechart2/chart_pie.dart';
+import 'package:flutter_jizhangapp/chart1/select.dart';
 import 'package:flutter_jizhangapp/data/model.dart';
-import 'package:flutter_jizhangapp/service/database.dart';
-import 'package:toast/toast.dart';
-import '../homepage.dart';
-import 'Tabs/barchart/chart_bar.dart';
-import 'Tabs/piechart2/chart_pie.dart';
+
+import 'Tabs/ui_view/app_theme.dart';
 
 
 
@@ -16,9 +14,8 @@ class ChartPage extends StatefulWidget {
   String typeSelect; //类型
   int type;
   var picked; //时间
-  int pie_bar;
 
-  ChartPage({Key key, this.title, this.type, this.typeSelect, this.picked, this.pie_bar}) : super(key: key);
+  ChartPage({Key key, this.title, this.type, this.typeSelect, this.picked}) : super(key: key);
 
   @override
   _ChartPageState createState() => _ChartPageState();
@@ -33,7 +30,7 @@ class _ChartPageState extends State<ChartPage> {
   //默认为“一级分类支出”
   String typeSelect = '一级分类';
   int type = 1;
-  String selected = "一级分类支出"; ///选择图表显示类型!!!!!!!!!!!!!!!!
+
 
   List<DateTime> picked = [
     new DateTime.utc(DateTime.now().year,1,1),
@@ -48,71 +45,76 @@ class _ChartPageState extends State<ChartPage> {
 
   List<BillsModel> data = [];
 
-  //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户
-  //type 0:收入， 1：支出
-  //默认为“一级分类支出”
-  title(String typeSelect, int type) {
-    if(type==0){
-      return Text("$typeSelect"+"收入",style: TextStyle(fontSize: 30.0));
-    }else if(type==1){
-      return Text("$typeSelect"+"支出",style: TextStyle(fontSize: 30.0));
-    }
-  }
-
-
   void initState() {
     super.initState();
     //BillsDatabaseService.db.init();
     picked = widget.picked==null?picked:widget.picked;
-    pie_bar = widget.pie_bar==null?pie_bar:widget.pie_bar;
-    _currentIndex = widget.pie_bar==null?_currentIndex:widget.pie_bar;
+    _currentIndex = _currentIndex;
     typeSelect = (widget.typeSelect)==null?typeSelect:(widget.typeSelect);
     type = (widget.type)==null?type:(widget.type);
   }
 
   pagechoose(int _currentIndex){
-    /*if(_currentIndex == 1 || pie_bar == 1) { // 条形图
-      pie_bar = 0;
-      return BarchartPage(
-          typeSelect: typeSelect,
-          type: type,
-          picked: picked);
-    }else */if(_currentIndex == 0) { // 饼状图
+    if(_currentIndex == 0) { // 饼状图
       return PiechartPage(
           typeSelect: typeSelect,
           type: type,
           picked: picked);
     }
-    /*return PiechartPage(
-        typeSelect: typeSelect,
-        type: type,
-        picked: picked);*/
   }
 
 
+  double topBarOpacity = 0.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          centerTitle: true,
-          title: title(typeSelect, type),
+          backgroundColor: Colors.white,
+          //centerTitle: true,
+          title: Text(
+            '饼状图',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              fontFamily: JizhangAppTheme.fontName,
+              fontWeight: FontWeight.w200,
+              fontSize: 22 + 6 - 6 * topBarOpacity,
+              letterSpacing: 1.2,
+              color: JizhangAppTheme.darkerText,
+            ),
+          ),
           actions: <Widget>[
-            IconButton(
-              icon: new Icon(Icons.arrow_right),
-              iconSize: 50.0,
+            IconButton(  ///时间选择
+              icon: new Icon(Icons.calendar_today),
+              iconSize: 40.0,
               alignment: Alignment(0.0, 0.0),//Alignment.center,//
               color: Colors.grey[500],
-              onPressed:(){
-                Navigator.of(context).pop();
-                Navigator.push(
-                    context,
-                    //transition: TransitionType.inFromBottom,
-                    CupertinoPageRoute(
-                        builder: (context) => SelectPage(
-                            pie_bar: _currentIndex,
-                            typeSelect: typeSelect,
-                            type: type,
-                            picked: picked)));
+              onPressed: () async {
+                picked = await DateRagePicker
+                    .showDatePicker(
+                    context: context,
+                    initialFirstDate: new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1,0,0,0,0,0),
+                    //初始--起始日期
+                    initialLastDate: new DateTime.now(),
+                    //初始--截止日期
+                    firstDate: new DateTime((DateTime.fromMicrosecondsSinceEpoch(0)).year),
+                    lastDate: new DateTime(((DateTime.now()).year)+1)
+                );
+                if (picked != null && picked.length == 2) {
+                  print(picked);
+                  Navigator.of(context).pop();
+                  Navigator.push(  ///选择完时间，跳转图表界面
+                      context,
+                      CupertinoPageRoute(
+                          builder: (context) => ChartPage(
+                              typeSelect: typeSelect,
+                              type: type,
+                              picked: picked)));
+                }else{
+                  picked = [
+                    new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1),
+                    new DateTime.now()
+                  ];
+                }
               },
             ),
           ]
@@ -148,11 +150,6 @@ class _ChartPageState extends State<ChartPage> {
                 icon: Icon(Icons.pie_chart, color: Theme.of(context).primaryColor,),
                 title: Text("饼状图", style: TextStyle(color: Colors.black54),)
             ),
-            /*BottomNavigationBarItem(
-                backgroundColor: Colors.lightBlueAccent,
-                icon: Icon(Icons.insert_chart),
-                title: Text("条形图")
-            ),*/
             BottomNavigationBarItem(
                 backgroundColor: Theme.of(context).primaryColor,
                 icon: Icon(Icons.home, color: Theme.of(context).primaryColor,),

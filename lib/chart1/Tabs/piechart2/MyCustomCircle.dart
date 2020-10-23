@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import '../../chart_material.dart';
-import 'myview.dart';
+import 'package:flutter_jizhangapp/chart1/Tabs/piechart2/myview.dart';
+import 'package:flutter_jizhangapp/chart1/chart_material.dart';
 
 ///自定义  饼状图
 

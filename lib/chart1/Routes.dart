@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_jizhangapp/chart1/Tabs/account/dismissshow.dart';
+import 'package:flutter_jizhangapp/chart1/Tabs/piechart2/chart_pie.dart';
 
-import 'Tabs/account/dismissshow.dart';
-import 'Tabs/barchart/chart_bar.dart';
-import 'Tabs/piechart2/chart_pie.dart';
 
 
 //配置路由
 final routes={
   //'/':(context,{arguments})=>PiechartPage(arguments:arguments),
   '/pieChart':(context,)=>PiechartPage(),
-  '/barCart':(context,)=>BarchartPage(),
   '/liushui':(context,)=>Dismissshow(),
 };
 

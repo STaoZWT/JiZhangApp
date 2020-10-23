@@ -19,7 +19,7 @@ class PieData{
   String name;// 名称
   Color color;// 颜色
   num percentage;//百分比
-  var price;//成交额
+  double price;//成交额
 
   PieData(this.color,this.percentage,this.name,this.price);
 }
@@ -128,13 +128,26 @@ List getLiuData(List<BillsModel> data, String checked, String typeSelect, int ty
 }
 
   List<Color> colorListPie = [
-    Colors.blue,
+    Colors.blueAccent,
     Colors.green,
-    Colors.indigo,
+    Colors.pink,  ///5
+    Colors.orangeAccent,
+    Colors.black38,
+    Colors.cyanAccent,
+    Colors.deepPurpleAccent,
+    Colors.deepOrangeAccent, ///10
+    Colors.yellowAccent,
     Colors.redAccent,
     Colors.cyan,
     Colors.purple,
-    Colors.yellowAccent
+    Colors.brown,///15
+    Colors.lightGreenAccent,
+    Colors.indigo,
+    Colors.deepPurple,
+    Colors.deepOrange,
+    Colors.yellow,
+    Colors.blueGrey,
+    Colors.indigo,///20
   ];
 
 double formatNum(double num,int postion){
@@ -219,7 +232,7 @@ double formatNum(double num,int postion){
             }
           }
           if(flag==0){//不存在
-            datanow = new PieData(colorListPie[i], 0.0, data[i].category1, data[i].value100);
+            datanow = new PieData(colorListPie[i], 0.00, data[i].category1, (data[i].value100).roundToDouble());
             dataPie.add(datanow);
             flag = 0;
           }
@@ -235,7 +248,7 @@ double formatNum(double num,int postion){
             }
           }
           if(flag==0){//不存在
-            datanow = new PieData(colorListPie[i], 0.0, data[i].category2, data[i].value100);
+            datanow = new PieData(colorListPie[i], 0.00, data[i].category2, (data[i].value100).roundToDouble());
             print(data[i].category2);
             dataPie.add(datanow);
             flag = 0;
@@ -252,7 +265,7 @@ double formatNum(double num,int postion){
             }
           }
           if(flag==0){//不存在
-            datanow = new PieData(colorListPie[i], 0.0, data[i].member, data[i].value100);
+            datanow = new PieData(colorListPie[i], 0.00, data[i].member, (data[i].value100).roundToDouble());
             dataPie.add(datanow);
             flag = 0;
           }
@@ -268,7 +281,7 @@ double formatNum(double num,int postion){
             }
           }
           if(flag==0){//不存在
-            datanow = new PieData(colorListPie[i], 0.0, data[i].accountOut, data[i].value100);
+            datanow = new PieData(colorListPie[i], 0.00, data[i].accountOut, (data[i].value100).roundToDouble());
             dataPie.add(datanow);
             flag = 0;
           }

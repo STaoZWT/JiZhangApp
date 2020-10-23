@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_jizhangapp/chart1/chart_material.dart';
 
-import '../../chart_material.dart';
 
 
 class MyView extends CustomPainter{
@@ -66,13 +66,13 @@ class MyView extends CustomPainter{
     }
 
     // 正常半径
-    mRadius = 100.0;
+    mRadius = 80.0;
 
     //加大半径  用来绘制被选中的扇形区域
-    mBigRadius=108.0;
+    mBigRadius=83.0;
 
     //內园半径
-    mInnerRadius = mRadius * 0.41;
+    mInnerRadius = mRadius * 0.93;
 
     // 未选中的扇形绘制的矩形区域
     mOval = Rect.fromLTRB(-mRadius, -mRadius, mRadius, mRadius);
@@ -94,7 +94,7 @@ class MyView extends CustomPainter{
       _mPaint..color = Colors.grey;
       // 绘制没被选中的扇形  正常半径
       canvas.drawArc(mOval, 0.0, sweepAngle, true, _mPaint);
-      _mPaint..color = Colors.white;
+      _mPaint..color = Colors.blue;  ///内部颜色
       canvas.drawCircle(Offset.zero, mInnerRadius, _mPaint);
       canvas.restore();
 
@@ -102,7 +102,7 @@ class MyView extends CustomPainter{
       var texts1 ='NULL';
       var tp1 = _newVerticalAxisTextPainter(texts1)..layout();
       // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
-      tp1.paint(canvas,  Offset(-(62.0 - tp1.width / 2), -11.0));
+      tp1.paint(canvas,  Offset(-(75 - tp1.width / 2), -12.0));
     }
     else{ //有数据
       ///绘制逻辑与Android差不多
@@ -120,6 +120,7 @@ class MyView extends CustomPainter{
         double hudu = p.percentage;
         //计算当前偏移量（单位为弧度）
         double sweepAngle = 2*pi*hudu;
+
         //画笔的颜色
         _mPaint..color = p.color;
         if(currentSelect>=0 && i==currentSelect){
@@ -137,16 +138,14 @@ class MyView extends CustomPainter{
 //    canvas.drawRect(mOval, _mPaint);  // 矩形区域
 
       // 2.画内圆
-
-      _mPaint..color = Colors.white;
+      _mPaint..color = Colors.blue;  ///内部颜色
       canvas.drawCircle(Offset.zero, mInnerRadius, _mPaint);
       canvas.restore();
 
       //当前百分比值
       double percentage = pieData.percentage * 100;
-      percentage = formatNum(percentage, 2);
-      //print("percentage");
-      //print(percentage);
+      percentage = formatNum(percentage, 2)==0?formatNum(percentage, 3):formatNum(percentage, 2);
+
       String name = pieData.name;
       /*// 绘制文字内容
     var texts ='$name: $percentage%';
@@ -157,17 +156,11 @@ class MyView extends CustomPainter{
     tp.paint(canvas, Offset(-40.0, 40.0));*/
 
       // 百分比
-      var texts1 ='$percentage%';
-      var tp1 = _newVerticalAxisTextPainter(texts1)..layout();
-      // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
-      tp1.paint(canvas, Offset(-(75.0 - tp1.width / 2), -11.0));
-
-      /*// 类别
-      var texts2 ='$name';
+      var texts2 ='$percentage%';
       var tp2 = _newVerticalAxisTextPainter(texts2)..layout();
       // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
-      //tp.paint(canvas, Offset(textLeft, 50.0 - tp.height / 2));
-      tp2.paint(canvas, Offset((0.0 - tp2.width / 2), 120));*/
+      tp2.paint(canvas, Offset(-(75 - tp2.width / 2), -12.0));
+
     }
   }
 
