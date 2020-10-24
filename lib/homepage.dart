@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
     print('homepage init!');
     //drawerIndex = DrawerIndex.HOME;
     flag = false;
+    getHomePageData();
   }
 
 
@@ -56,7 +57,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     //getHomePageData();
     if (flag==false) {
-      getHomePageData();
       return Center(
         child: CircularProgressIndicator(),
       );
