@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../data/model.dart';
+import '../homepage.dart';
 import '../total/cardInkwell.dart';
 import 'TimePage.dart';
 import '../service/database.dart';
@@ -22,7 +24,17 @@ class _TotalPageState extends State<TotalPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('分账户统计')),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor,size: 28),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
+        title: Text('分账户统计',
+            style: TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor)),
+      ),
       body: TotalPageContent(),
     );
   }
@@ -130,9 +142,6 @@ class _TotalPageContentState extends State<TotalPageContent> {
           }
         }
       }
-
-      ///////////////////////////////////////////////////////////////
-      //print(totalList);
     }
     for (var j = 0; j < maxAc; j++) {
       String temp;
@@ -158,38 +167,12 @@ class _TotalPageContentState extends State<TotalPageContent> {
   }
 
   initall() async {
-    print(
-        '///////////////////////////////////////////开始异步///////////////////////////////////////////');
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
     await setBillsFromDB();
-    print(
-        '///////////////////////////////////////////异步结束///////////////////////////////////////////');
-    print(
-        '///////////////////////////////////////////billsList长度///////////////////////////////////////////');
-    print(billsList.length);
-    print(billsList);
     billsList.sort((a, b) => (b.date).compareTo(a.date));
-    print(
-        '///////////////////////////////////////////maxAc值///////////////////////////////////////////');
     maxAc = maxAcCount();
     print(maxAc);
     totalList = inittotalList();
-    print(
-        '///////////////////////////////////////////新建totalList///////////////////////////////////////////');
-    print(totalList);
     totalList = countT();
-    print(
-        '///////////////////////////////////////////赋值totalList///////////////////////////////////////////');
-    print(totalList);
   }
 
   @override
@@ -205,58 +188,54 @@ class _TotalPageContentState extends State<TotalPageContent> {
     // print(totalList);
     var tempList = totalList.map((value) {
       return Card(
-        elevation: 15.0, //设置阴影
+        elevation: 2.0, //设置阴影
+        margin: const EdgeInsets.only(top: 20.0,left: 10, right: 10),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(14.0))), //设置圆角
         child: new Column(
           // card只能有一个widget，但这个widget内容可以包含其他的widget
           children: [
             SizedBox(
-              height: 80,
+              height: 70,
               child: MaterialTapWidget(
-                //backgroundColor: Colors.blue[100],
-                // onLongTap: () {
-                //   Text('查看账户详情', style: TextStyle(fontSize: 30));
-                // },
                 onTap: () {
                   setState(() {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => TimePage()));
+                        MaterialPageRoute(builder: (context) => TimePage(index: 0)));
                     index_current = accountName.length - 1;
                     for (var i = 0; i < accountName.length - 1; i++) {
                       if (accountName[i] == value['账户']) {
                         index_current = i;
                       }
                     }
-                    print(
-                        '///////////////////////////////////////////////////////////////////////index_current');
-                    print(index_current);
                   });
                 },
-
                 child: Stack(children: <Widget>[
                   Align(
-                    alignment: Alignment(-0.7, -0.6),
-                    child: Text('账户:' + value['账户'],
-                        style: TextStyle(fontSize: 25)),
+                    //alignment: Alignment(-0.7, -0.6),
+                    alignment: Alignment(-0.7, 0.0),
+                    child: Text('  '+value['账户'],
+                        style: TextStyle(fontSize: 23,
+                              color: Colors.blueGrey)),
                   ),
                   Align(
                     alignment: Alignment(0.6, 0),
-                    child: Text(value['金额'], style: TextStyle(fontSize: 35)),
+                    child: Text(value['金额']+'元', style: TextStyle(fontSize: 22,
+                        color: Theme.of(context).primaryColor )),
                   ),
-                  Align(
+                  /*Align(
                     alignment: Alignment(-0.7, 0.6),
                     child: Text('统计', style: TextStyle(fontSize: 18)),
-                  ),
+                  ),*/
                   Align(
                     alignment: Alignment(-0.95, 0),
                     child: Icon(Icons.account_balance_wallet,
-                        color: Colors.blue[200], size: 30),
+                        color: Theme.of(context).primaryColor, size: 22),
                   ),
                   Align(
                     alignment: Alignment(0.9, 0),
                     child: Icon(Icons.arrow_forward_ios,
-                        color: Colors.grey[300], size: 30),
+                        color: Colors.grey[300], size: 25),
                   ),
                 ]),
               ),

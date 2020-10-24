@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jizhangapp/const/common_color.dart';
 import 'package:flutter_jizhangapp/login/splash.dart';
+import 'package:flutter_jizhangapp/routes.dart';
 import 'package:flutter_jizhangapp/service/app_info.dart';
 import 'package:flutter_jizhangapp/service/shared_pref.dart';
 import 'package:provider/provider.dart';
@@ -73,8 +74,9 @@ class AppState extends State<MyApp> {
           "/editAccountPicker": (context) => editAccountPicker(),
          "/editMemberPicker": (context) => editMemberPicker(),
       },
-       title: 'Flutter Demo',
-        home: SplashScreen(),
+          title: 'Flutter Demo',
+            home: SplashScreen(),
+          onGenerateRoute: onGenerateRoute,
     );
   },
   ),

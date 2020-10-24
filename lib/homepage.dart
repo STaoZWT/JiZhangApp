@@ -985,8 +985,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
       //});
     } else if (drawerIndexdata == DrawerIndex.Help) {
       print('去修改文字密码');
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (BuildContext context) => PasswordConfirmPage()));  //跳转到修改密码
+      Navigator.of(context).pushNamed('password_confirm');  //跳转到修改密码
     }
     else if (drawerIndexdata == DrawerIndex.FeedBack) {
       print('去修改手势密码');
