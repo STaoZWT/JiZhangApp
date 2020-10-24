@@ -188,7 +188,7 @@ class _JiPageContentState extends State<JiPageContent>
   initall() async {
     await setBillsFromDB();
     //print(billsList.length);
-    billsList.sort((a, b) => (b.date).compareTo(a.date));
+    //billsList.sort((a, b) => (b.date).compareTo(a.date));
     maxAc = maxAcCount();
     //print(maxAc);
     totalList = inittotalList();

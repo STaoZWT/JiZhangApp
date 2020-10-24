@@ -198,7 +198,7 @@ class _RiPageContentState extends State<RiPageContent>
   initall() async {
     await setBillsFromDB();
     //totalList = countT();
-    billsList.sort((a, b) => (b.date).compareTo(a.date));
+    //billsList.sort((a, b) => (b.date).compareTo(a.date));
     maxAc = maxAcCount();
     //print(maxAc);
     totalList = inittotalList();

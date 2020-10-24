@@ -167,7 +167,7 @@ class _Dismissshow extends State<Dismissshow> {
                             Expanded(
                               flex: 3,
                               child:Text('周'+weekday((item.date).weekday),
-                                  style: TextStyle(fontSize: 22.0, color: Theme.of(context).primaryColor)),
+                                  style: TextStyle(fontSize: 21.0, color: Theme.of(context).primaryColor)),
                             ),
                             Expanded(
                               flex: 6,
@@ -178,7 +178,7 @@ class _Dismissshow extends State<Dismissshow> {
                     ),
                   ),
                   Expanded(
-                      flex: timeEqual(time,(widget.liuData)[index].date)?200:5,
+                      flex: timeEqual(time,(widget.liuData)[index].date)?200:6,
                       child: Card(
                         margin: EdgeInsets.all(8.0),
                         elevation: 2.0,
@@ -199,7 +199,7 @@ class _Dismissshow extends State<Dismissshow> {
                                 '${formatNum(((widget.liuData)[index].value)/100, 3)} 元',
                                 style: TextStyle(fontSize: 18.0, color: Colors.black)),
                             subtitle: new Text(
-                                '${(item.date).hour}: ${(item.date).minute}',
+                                '${(item.date).hour}时${(item.date).minute}分',
                             ),
                             onTap: () => print("$index被点击了"),
                             onLongPress: () => print("$index被长按了"),
