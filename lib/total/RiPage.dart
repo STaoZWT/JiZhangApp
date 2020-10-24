@@ -44,7 +44,7 @@ class _RiPageContentState extends State<RiPageContent>
 //账单明细
   List detailList = [
     {
-      'id':0,
+      'id': 0,
       'type': '类型',
       'date': DateTime.now(),
       'title': '备注',
@@ -77,14 +77,14 @@ class _RiPageContentState extends State<RiPageContent>
     await BillsDatabaseService.db.addBillInDB(billsModel);
   }
 
-  empty(List<BillsModel> billsList){
-    if(billsList==null){
+  empty(List<BillsModel> billsList) {
+    if (billsList == null) {
       flag = 0;
       return true;
-    }else if(billsList.length<=0){
+    } else if (billsList.length <= 0) {
       flag = 0;
       return true;
-    }else if(billsList.length>0){
+    } else if (billsList.length > 0) {
       flag = 1;
       return false;
     }
@@ -94,13 +94,13 @@ class _RiPageContentState extends State<RiPageContent>
 
   List accountName = [];
   int maxAcCount() {
-    if(billsList==null){
+    if (billsList == null) {
       flag = 0;
       return 0;
-    }else if(billsList.length<=0){
+    } else if (billsList.length <= 0) {
       flag = 0;
       return 0;
-    }else if(billsList.length>0) {
+    } else if (billsList.length > 0) {
       accountName.add(billsList[0].accountIn);
       accountName.clear();
       for (var i = 0; i < billsList.length; i++) {
@@ -113,7 +113,7 @@ class _RiPageContentState extends State<RiPageContent>
       accountName.add('净资产');
       ///////////////////////////////////////////确定账户个数
       ///////////////////////////////////////////账户1，账户2......
-      flag =1;
+      flag = 1;
       return accountName.length;
     }
     flag = 0;
@@ -198,7 +198,7 @@ class _RiPageContentState extends State<RiPageContent>
   initall() async {
     await setBillsFromDB();
     //totalList = countT();
-    //billsList.sort((a, b) => (b.date).compareTo(a.date));
+    billsList.sort((a, b) => (b.date).compareTo(a.date));
     maxAc = maxAcCount();
     //print(maxAc);
     totalList = inittotalList();
@@ -238,17 +238,18 @@ class _RiPageContentState extends State<RiPageContent>
     });
   }
 
-  setDataFromDB(int id) async { // 得到数据
+  setDataFromDB(int id) async {
+    // 得到数据
     await BillsDatabaseService.db.deleteBillIdInDB(id);
   }
 
   List initdayList() {
     DateTime lastTime = DateTime.now();
-    DateTime firstTime = empty(billsList)?DateTime.now():billsList[0].date;
+    DateTime firstTime = empty(billsList) ? DateTime.now() : billsList[0].date;
 
     List riList = [
       {
-        'id':0,
+        'id': 0,
         '日期': DateTime(2020, 09, 18, 20, 23, 45),
         '金额100': 0,
         '金额': '0',
@@ -260,7 +261,10 @@ class _RiPageContentState extends State<RiPageContent>
     //重建
     riList.clear();
 
-    String tempaccountName = empty(billsList)?null:accountName[accountNumber];
+    String tempaccountName =
+        empty(billsList) || accountNumber > accountName.length - 1
+            ? null
+            : accountName[accountNumber];
     if (tempaccountName == '净资产') {
       for (var i = 0; i < billsList.length; i++) {
         if (lastTime.isAfter(billsList[i].date)) {
@@ -276,7 +280,7 @@ class _RiPageContentState extends State<RiPageContent>
       for (var i = 0; i < daydifference + 1; i++) {
         detailList.clear();
         riList.add({
-          'id':0,
+          'id': 0,
           '日期': lastTime.add(new Duration(days: i)),
           '金额100': 0,
           '金额': '0',
@@ -428,7 +432,7 @@ class _RiPageContentState extends State<RiPageContent>
       int daydifference = df.difference(dl).inDays;
       for (var i = 0; i < daydifference + 1; i++) {
         riList.add({
-          'id':0,
+          'id': 0,
           '日期': lastTime.add(new Duration(days: i)),
           '金额100': 0,
           '金额': '0',
@@ -469,6 +473,7 @@ class _RiPageContentState extends State<RiPageContent>
                   'id': billsList[j].id,
                   'type': tempcardName2 + '收入',
                   'title': billsList[j].title,
+                  'date': billsList[j].date,
                   'category1': billsList[j].category1,
                   'category2': billsList[j].category2,
                   'member': billsList[j].member,
@@ -501,6 +506,7 @@ class _RiPageContentState extends State<RiPageContent>
                 detailList.add({
                   'id': billsList[j].id,
                   'type': tempcardName1 + '支出',
+                  'date': billsList[j].date,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
                   'category2': billsList[j].category2,
@@ -533,6 +539,7 @@ class _RiPageContentState extends State<RiPageContent>
                 String tempcardName2 = billsList[j].accountIn;
                 riList[i]['存在'] = 1;
                 detailList.add({
+                  'date': billsList[j].date,
                   'id': billsList[j].id,
                   'type': tempcardName1 + '转账到' + tempcardName2,
                   'title': billsList[j].title,
@@ -566,6 +573,7 @@ class _RiPageContentState extends State<RiPageContent>
                 String tempcardName2 = billsList[j].accountIn;
                 riList[i]['存在'] = 1;
                 detailList.add({
+                  'date': billsList[j].date,
                   'id': billsList[j].id,
                   'type': tempcardName1 + '转账到' + tempcardName2,
                   'title': billsList[j].title,
@@ -607,11 +615,11 @@ class _RiPageContentState extends State<RiPageContent>
     var tempList = dayList1.map((value) {
       return Card(
         elevation: 2.0, //设置阴影
-        margin: const EdgeInsets.only(top: 20.0,left: 10, right: 10),
+        margin: const EdgeInsets.only(top: 20.0, left: 10, right: 10),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(14.0))), //设置圆角
         child: new Column(
-          // card只能有一个widget，但这个widget内容可以包含其他的widget
+            // card只能有一个widget，但这个widget内容可以包含其他的widget
             children: [
               Container(
                 margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
@@ -624,9 +632,12 @@ class _RiPageContentState extends State<RiPageContent>
                           '月' +
                           value['日期'].day.toString() +
                           '日\n' +
-                          accountName[accountNumber] + '   ' + value['金额'] + '元',
+                          accountName[accountNumber] +
+                          '   ' +
+                          value['金额'] +
+                          '元',
                       style: new TextStyle(
-                        color: Color(0xFF333333),
+                        color: Colors.blueGrey,
                         fontSize: 20,
                       ),
                     ),
@@ -653,30 +664,51 @@ class _RiPageContentState extends State<RiPageContent>
                                     elevation: 2.0,
                                     color: Colors.white,
                                     shape: const RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(7.0))),
-                                    child:
-                                    Slidable(
-                                      actionPane: SlidableStrechActionPane(), //滑出选项的面板 动画
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(7.0))),
+                                    child: Slidable(
+                                      actionPane:
+                                          SlidableStrechActionPane(), //滑出选项的面板 动画
                                       actionExtentRatio: 0.25,
-                                      child: ListTile(
-                                        leading: new Icon(
-                                          Icons.category,
-                                          color: Theme.of(context).primaryColor,
+                                      child: Stack(children: <Widget>[
+                                        Align(
+                                          alignment: Alignment(0.9, 0.0),
+                                          child: Text(
+                                              value['明细'][index]['金额'] + '元',
+                                              style: TextStyle(
+                                                  color: Colors.blueGrey)),
                                         ),
-                                        title: new Text(
-                                            value['明细'][index]['type'] +
-                                                ':            ' +
-                                                value['明细'][index]['金额'] +'元'),
-                                        subtitle: new Text(
-                                            value['明细'][index]['category2']
+                                        ListTile(
+                                          leading: new Icon(
+                                            Icons.category,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                          ),
+                                          title: new Text(
+                                              value['明细'][index]['category2'] +
+                                                  ':',
+                                              style: TextStyle(
+                                                  color: Colors.blueGrey)),
+                                          subtitle: new Text(value['明细'][index]
+                                                      ['date']
+                                                  .hour
+                                                  .toString() +
+                                              '时' +
+                                              value['明细'][index]['date']
+                                                  .minute
+                                                  .toString() +
+                                              '分'
+                                                  // '  ' +
+                                                  // value['明细'][index]['title'] +
+                                                  '  ' +
+                                              value['明细'][index]['type'] +
+                                              '  ' +
+                                              value['明细'][index]['member']),
+                                          onTap: () => print("$index被点击了"),
+                                          onLongPress: () =>
+                                              print("$index被长按了"),
                                         ),
-                                        // trailing: new Icon(Icons.arrow_forward_ios),
-                                        // contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                                        // enabled: true,
-                                        onTap: () => print("$index被点击了"),
-                                        onLongPress: () => print("$index被长按了"),
-                                      ),
+                                      ]),
                                       secondaryActions: <Widget>[
                                         //右侧按钮列表
                                         IconSlideAction(
@@ -694,26 +726,31 @@ class _RiPageContentState extends State<RiPageContent>
                                             //_showSnackBar('Delete');
                                             print('click');
                                             setState(() {
-                                              Toast.show('${value['明细'][index]['type']}'+'  已删除',context);
-                                              setDataFromDB(value['明细'][index]['id']);
-                                              (value['明细']).removeAt(index);  //删除某条信息!!!!!!!!!
+                                              Toast.show(
+                                                  '${value['明细'][index]['type']}' +
+                                                      '  已删除',
+                                                  context);
+                                              setDataFromDB(
+                                                  value['明细'][index]['id']);
+                                              (value['明细']).removeAt(
+                                                  index); //删除某条信息!!!!!!!!!
                                               Navigator.of(context).push(
-                                                  MaterialPageRoute(builder: (context) => TimePage(index: 3,)));
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          TimePage(
+                                                            index: 3,
+                                                          )));
                                             });
                                           },
                                         ),
                                       ],
-                                    )
-                                )
-                            );
+                                    )));
                           },
                         ),
                       ),
-                    ]
-                ),
+                    ]),
               ),
-            ]
-        ),
+            ]),
       );
     });
     return tempList.toList();
@@ -745,9 +782,8 @@ class _RiPageContentState extends State<RiPageContent>
   @override
   Widget build(BuildContext context) {
     if (flag == 0) {
-      return Center(
-        child: Container()//CircularProgressIndicator(),
-      );
+      return Center(child: Container() //CircularProgressIndicator(),
+          );
     } else if (flag == 1) {
       return Container(
         child: Stack(children: <Widget>[

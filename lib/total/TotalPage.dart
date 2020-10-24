@@ -79,6 +79,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
   List accountName = ['现金'];
   int maxAcCount() {
     accountName.clear();
+
     for (var i = 0; i < billsList.length; i++) {
       accountName.add(billsList[i].accountIn);
       accountName.add(billsList[i].accountOut);
@@ -91,7 +92,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
         accountName.remove('未选择');
       }
     }
-    accountName.add('净资产');
+    accountName.insert(0, '净资产');
     ///////////////////////////////////////////确定账户个数
     ///////////////////////////////////////////账户1，账户2......
     return accountName.length;
@@ -123,28 +124,28 @@ class _TotalPageContentState extends State<TotalPageContent> {
 //计算
     for (var i = 0; i < billsList.length; i++) {
       if (billsList[i].type == 0) {
-        for (var j = 0; j < maxAc - 1; j++) {
+        for (var j = 1; j < maxAc; j++) {
           if (billsList[i].accountOut == totalList[j]['账户']) {
             totalList[j]['金额100'] += billsList[i].value100;
-            totalList[maxAc - 1]['金额100'] += billsList[i].value100;
+            totalList[0]['金额100'] += billsList[i].value100;
           }
         }
       } else if (billsList[i].type == 1) {
-        for (var j = 0; j < maxAc - 1; j++) {
+        for (var j = 1; j < maxAc; j++) {
           if (billsList[i].accountOut == totalList[j]['账户']) {
             totalList[j]['金额100'] -= billsList[i].value100;
-            totalList[maxAc - 1]['金额100'] -= billsList[i].value100;
+            totalList[0]['金额100'] -= billsList[i].value100;
           }
         }
       } else if (billsList[i].type == 2) {
-        for (var j = 0; j < maxAc - 1; j++) {
+        for (var j = 1; j < maxAc; j++) {
           if (billsList[i].accountOut == totalList[j]['账户']) {
             totalList[j]['金额100'] -= billsList[i].value100;
-            totalList[maxAc - 1]['金额100'] -= billsList[i].value100;
+            totalList[0]['金额100'] -= billsList[i].value100;
           }
           if (billsList[i].accountIn == totalList[j]['账户']) {
             totalList[j]['金额100'] += billsList[i].value100;
-            totalList[maxAc - 1]['金额100'] += billsList[i].value100;
+            totalList[0]['金额100'] += billsList[i].value100;
           }
         }
       }
@@ -208,8 +209,8 @@ class _TotalPageContentState extends State<TotalPageContent> {
     // TODO: implement initState
     super.initState();
     initall();
-
   }
+
 //
 ////////////////////////////////////////////////////////////////////////////////配置Card
   List<Widget> _totalListData() {
@@ -231,10 +232,13 @@ class _TotalPageContentState extends State<TotalPageContent> {
                   setState(() {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => TimePage(index: 0)));
-                    index_current = accountName.length - 1;
-                    for (var i = 0; i < accountName.length - 1; i++) {
-                      if (accountName[i] == value['账户']) {
+                    index_current = totalList.length - 1;
+                    for (var i = 0; i < totalList.length - 1; i++) {
+                      if (totalList[i]['账户'] == value['账户']) {
                         index_current = i;
+                        print(
+                            '//////////////////////////////////////////////////////////');
+                        print(i);
                       }
                     }
                   });
