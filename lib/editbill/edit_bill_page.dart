@@ -64,7 +64,7 @@ class _CardAddBill extends State<CardAddBill>
     super.initState();
     isInit = false;
 
-    //moneyInput = 0;
+    moneyInput = 0;
     dateSelect = DateTime.now();
     classSelect = [0, 0];
     accountSelectOut = [0];
@@ -97,9 +97,10 @@ class _CardAddBill extends State<CardAddBill>
 
   @override
   Widget build(BuildContext context) {
+    print(isInit);
     if(isInit == false) {
       return Center(
-        child: Text("加载中"),
+        child: CircularProgressIndicator(),
       );
     }
     else {
@@ -112,7 +113,9 @@ class _CardAddBill extends State<CardAddBill>
               showDialog(
                   context: context,
                   builder: (context) =>
-                      AlertDialog(title: Text('是否保存草稿？'), actions: <Widget>[
+                      AlertDialog(
+                        content: Text('是否保存草稿？'),
+                          title: Text('提示'), actions: <Widget>[
                         RaisedButton(
                           child: Text('是'),
                           onPressed: () {
@@ -134,14 +137,26 @@ class _CardAddBill extends State<CardAddBill>
                             currentbill.member = memberSelectText;
                             currentbill.value100 = moneyInput;
                             setDraft(currentbill);
-                            Navigator.of(context).pop(true);
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                builder: (BuildContext context) => NavigationHomeScreen()));
                           },
                         ),
                         RaisedButton(
                           child: Text('否'),
                           onPressed: () {
                             removeDraft();
-                            Navigator.of(context).pop(true);
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                builder: (BuildContext context) => NavigationHomeScreen()));
+                          },
+                        ),
+                        RaisedButton(
+                          child: Text('取消'),
+                          onPressed: () {
+                            removeDraft();
+                            Navigator.of(context).pop();
+
                           },
                         )
                       ])),
@@ -824,12 +839,12 @@ class _CardAddBill extends State<CardAddBill>
     print("账户：${currentbill.accountOut} ${currentbill.accountIn}    成员：${currentbill.member}");
     print("日期：${currentbill.date}   备注：${currentbill.title}   记账类型：${currentbill.type}");
     if (isLeagal() ){
-      Toast.show("合法！ $moneyInput", context);
+      Toast.show("记账成功", context);
       //var bill =
       await BillsDatabaseService.db.addBillInDB(currentbill);
-      Navigator.of(context).pop();  //记账成功后退出记账界面
-      // Navigator.of(context).push(
-      //     MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+      //Navigator.of(context).pop();  //记账成功后退出记账界面
+       Navigator.of(context).push(
+           MaterialPageRoute(builder: (BuildContext context) => NavigationHomeScreen()));
     } else {
       if(currentbill.value100 < 1) {Toast.show("请输入金额", context);}
       else if (!(type==2 || currentbill.category1!="未选择")) {Toast.show("请选择分类", context);}
