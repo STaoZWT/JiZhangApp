@@ -683,7 +683,7 @@ class _NianPageContentState extends State<NianPageContent>
                                     //右侧按钮列表
                                     IconSlideAction(
                                       caption: '编辑',
-                                      color: Theme.of(context).primaryColor,
+                                      color: Colors.black45,
                                       icon: Icons.more_horiz,
                                       //onTap: () => _showSnackBar('More'),
                                     ),
