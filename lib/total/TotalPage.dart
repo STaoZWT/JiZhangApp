@@ -5,9 +5,13 @@ import '../homepage.dart';
 import '../total/cardInkwell.dart';
 import 'TimePage.dart';
 import '../service/database.dart';
+import '../service/shared_pref.dart';
+import 'dart:convert';
 
 int index_current;
 int accountNumber1;
+List addList;
+List addList0;
 int acountChange() {
   accountNumber1 = index_current;
   return accountNumber1;
@@ -28,12 +32,14 @@ class _TotalPageState extends State<TotalPage> {
         backgroundColor: Colors.white,
         centerTitle: true,
         leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor,size: 28),
+            icon: Icon(Icons.arrow_back,
+                color: Theme.of(context).primaryColor, size: 28),
             onPressed: () {
               Navigator.of(context).pop();
             }),
         title: Text('分账户统计',
-            style: TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor)),
+            style: TextStyle(
+                fontSize: 23.0, color: Theme.of(context).primaryColor)),
       ),
       body: TotalPageContent(),
     );
@@ -168,11 +174,33 @@ class _TotalPageContentState extends State<TotalPageContent> {
 
   initall() async {
     await setBillsFromDB();
+    String addString = await getPicker("maccountPicker");
+    addList = JsonDecoder().convert(addString);
+    //print(addList);
     billsList.sort((a, b) => (b.date).compareTo(a.date));
     maxAc = maxAcCount();
     print(maxAc);
     totalList = inittotalList();
     totalList = countT();
+    addList0 = getDiffrent1(addList, accountName);
+    print(addList0);
+    if (addList0 != null) {
+      for (var i = 0; i < addList0.length; i++) {
+        totalList.add({'账户': addList0[i], '金额100': 0, '金额': '0.00'});
+      }
+    }
+  }
+
+  List getDiffrent1(List list1, List list2) {
+    // diff 存放不同的元素
+    List diff = new List();
+    list1.forEach((element) {
+      if (!list2.contains(element.toString())) {
+        diff.add(element.toString());
+      }
+    });
+    //print(diff);
+    return diff;
   }
 
   @override
@@ -180,8 +208,9 @@ class _TotalPageContentState extends State<TotalPageContent> {
     // TODO: implement initState
     super.initState();
     initall();
-  }
 
+  }
+//
 ////////////////////////////////////////////////////////////////////////////////配置Card
   List<Widget> _totalListData() {
     // print('///////////////////////////////////////////////////////');
@@ -189,7 +218,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
     var tempList = totalList.map((value) {
       return Card(
         elevation: 2.0, //设置阴影
-        margin: const EdgeInsets.only(top: 20.0,left: 10, right: 10),
+        margin: const EdgeInsets.only(top: 20.0, left: 10, right: 10),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(14.0))), //设置圆角
         child: new Column(
@@ -200,8 +229,8 @@ class _TotalPageContentState extends State<TotalPageContent> {
               child: MaterialTapWidget(
                 onTap: () {
                   setState(() {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => TimePage(index: 0)));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => TimePage(index: 0)));
                     index_current = accountName.length - 1;
                     for (var i = 0; i < accountName.length - 1; i++) {
                       if (accountName[i] == value['账户']) {
@@ -214,14 +243,15 @@ class _TotalPageContentState extends State<TotalPageContent> {
                   Align(
                     //alignment: Alignment(-0.7, -0.6),
                     alignment: Alignment(-0.7, 0.0),
-                    child: Text('  '+value['账户'],
-                        style: TextStyle(fontSize: 23,
-                              color: Colors.blueGrey)),
+                    child: Text('  ' + value['账户'],
+                        style: TextStyle(fontSize: 23, color: Colors.blueGrey)),
                   ),
                   Align(
                     alignment: Alignment(0.6, 0),
-                    child: Text(value['金额']+'元', style: TextStyle(fontSize: 22,
-                        color: Theme.of(context).primaryColor )),
+                    child: Text(value['金额'] + '元',
+                        style: TextStyle(
+                            fontSize: 22,
+                            color: Theme.of(context).primaryColor)),
                   ),
                   /*Align(
                     alignment: Alignment(-0.7, 0.6),
