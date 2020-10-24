@@ -129,3 +129,21 @@ Future<Null> removeColorKey() async {
   await sharedPref.remove('colorKey');
 }
 
+//用户名与shared preferences的交互
+Future<String> getUserName() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  String pw = sharedPref.getString('muserName');
+  print('username in Sp');
+  print(pw);
+  return sharedPref.getString('muserName');
+}
+Future<Null> setUserName(String val) async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  sharedPref.setString('muserName', val);
+}
+//判断是否是可用密码
+bool isLoginPassword(String input) {
+//RegExp mobile = new RegExp(r"(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,18}$");
+  RegExp mobile = new RegExp(r"[A-Za-z0-9]{8,18}$");
+  return mobile.hasMatch(input);
+}
