@@ -130,7 +130,7 @@ class _ChartPageState extends State<ChartPage> {
         ],*/
       ),
       body: pagechoose(_currentIndex),
-      bottomNavigationBar: BottomNavigationBar( //界面下方按钮
+      /*bottomNavigationBar: BottomNavigationBar( //界面下方按钮
           fixedColor: Colors.blue, //点击后是什么颜色
           iconSize: 20.0,//icon的大小
           currentIndex: this._currentIndex, //配置对应的索引值选中
@@ -158,7 +158,7 @@ class _ChartPageState extends State<ChartPage> {
                 title: Text("首页", style: TextStyle(color: Colors.black54),)
             ),
           ]
-      ),
+      ),*/
     );
   }
 }

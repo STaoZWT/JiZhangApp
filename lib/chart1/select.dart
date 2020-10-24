@@ -125,63 +125,78 @@ class _SelectPageState extends State<SelectPage> {
                         flex: 7,
                         child: Container(
                           color: Colors.white12,
-                          child: Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.end,
-                            children: <Widget>[
-                              SizedBox(
-                                width: double.infinity,
-                                height: 28,
-                                child: IconButton(  ///选择时间
-                                  icon: new Icon(Icons.looks_one),
-                                  iconSize: 28.0,
-                                  color: Theme.of(context).primaryColor,
-                                  onPressed: () {
-                                    selected = "分类支出";
-                                    typeSelect = '一级分类';
-                                    type = 1;
-                                    print(selected);
-                                    Navigator.of(context).pop();
-                                    //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) => ChartPage(
-                                                typeSelect: typeSelect,
-                                                type: type,
-                                                picked: picked)));
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                const EdgeInsets.only(
-                                    top: 4),
-                                child: Text(
-                                  '分类支出  ', ///终止时间 年
-                                  //textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily:
-                                    JizhangAppTheme
-                                        .fontName,
-                                    fontWeight:
-                                    FontWeight.w600,
-                                    fontSize: 15,
-                                    color: Colors.grey,
+                          child: Card(
+                            margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                            elevation: 2.0,
+                            color: Colors.white,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(2.0))),
+                            child: Column(
+                              mainAxisAlignment:
+                              MainAxisAlignment.center,
+                              crossAxisAlignment:
+                              CrossAxisAlignment.end,
+                              children: <Widget>[
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 28,
+                                  child: IconButton(  ///选择时间
+                                    icon: new Icon(Icons.looks_one),
+                                    iconSize: 28.0,
+                                    color: Theme.of(context).primaryColor,
+                                    onPressed: () {
+                                      selected = "分类支出";
+                                      typeSelect = '一级分类';
+                                      type = 1;
+                                      print(selected);
+                                      Navigator.of(context).pop();
+                                      //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
+                                      Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (context) => ChartPage(
+                                                  typeSelect: typeSelect,
+                                                  type: type,
+                                                  picked: picked)));
+                                    },
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(
+                                      top: 4),
+                                  child: Text(
+                                    '分类支出  ', ///终止时间 年
+                                    //textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily:
+                                      JizhangAppTheme
+                                          .fontName,
+                                      fontWeight:
+                                      FontWeight.w600,
+                                      fontSize: 15,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                        )
                         )
                       ),
                       Expanded(
                         flex: 7,
                         child: Container(
                           color: Colors.white12,
-                          child: Column(
+                          child: Card(
+                            margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                            elevation: 2.0,
+                            color: Colors.white,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(2.0))),
+                            child: Column(
                             mainAxisAlignment:
                             MainAxisAlignment.center,
                             crossAxisAlignment:
@@ -230,14 +245,21 @@ class _SelectPageState extends State<SelectPage> {
                                 ),
                               ),
                             ],
-                          ),
+                          ),)
                         )
                       ),
                       Expanded(
                         flex: 7,
                           child: Container(
                             color: Colors.white12,
-                            child: Column(
+                            child:Card(
+                              margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                              elevation: 2.0,
+                              color: Colors.white,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(2.0))),
+                              child: Column(
                               mainAxisAlignment:
                               MainAxisAlignment.center,
                               crossAxisAlignment:
@@ -287,13 +309,21 @@ class _SelectPageState extends State<SelectPage> {
                                 ),
                               ],
                             ),
+                            )
                           )
                       ),
                       Expanded(
                         flex: 7,
                           child: Container(
                             color: Colors.white12,
-                            child: Column(
+                            child: Card(
+                              margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 6),
+                              elevation: 2.0,
+                              color: Colors.white,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(2.0))),
+                              child: Column(
                               mainAxisAlignment:
                               MainAxisAlignment.center,
                               crossAxisAlignment:
@@ -343,6 +373,7 @@ class _SelectPageState extends State<SelectPage> {
                                 ),
                               ],
                             ),
+                            )
                           )
                       ),
                     ],
@@ -374,7 +405,14 @@ class _SelectPageState extends State<SelectPage> {
                     flex: 7,
                       child: Container(
                         color: Colors.white12,
-                        child: Column(
+                        child: Card(
+                          margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                          elevation: 2.0,
+                          color: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(2.0))),
+                          child: Column(
                           mainAxisAlignment:
                           MainAxisAlignment.center,
                           crossAxisAlignment:
@@ -425,12 +463,20 @@ class _SelectPageState extends State<SelectPage> {
                           ],
                         ),
                       )
+                      )
                   ),
                   Expanded(
                     flex: 7,
                       child: Container(
                         color: Colors.white12,
-                        child: Column(
+                        child: Card(
+                          margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                          elevation: 2.0,
+                          color: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(2.0))),
+                          child: Column(
                           mainAxisAlignment:
                           MainAxisAlignment.center,
                           crossAxisAlignment:
@@ -480,13 +526,21 @@ class _SelectPageState extends State<SelectPage> {
                             ),
                           ],
                         ),
+                        )
                       )
                   ),
                   Expanded(
                     flex: 7,
                       child: Container(
                         color: Colors.white12,
-                        child: Column(
+                        child: Card(
+                          margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                          elevation: 2.0,
+                          color: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(2.0))),
+                          child: Column(
                           mainAxisAlignment:
                           MainAxisAlignment.center,
                           crossAxisAlignment:
@@ -536,13 +590,21 @@ class _SelectPageState extends State<SelectPage> {
                             ),
                           ],
                         ),
+                        )
                       )
                   ),
                   Expanded(
                     flex: 7,
                       child: Container(
                         color: Colors.white12,
-                        child: Column(
+                        child: Card(
+                          margin: EdgeInsets.only(top: 1,bottom: 4,left: 1,right: 6),
+                          elevation: 2.0,
+                          color: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(2.0))),
+                          child: Column(
                           mainAxisAlignment:
                           MainAxisAlignment.center,
                           crossAxisAlignment:
@@ -592,6 +654,7 @@ class _SelectPageState extends State<SelectPage> {
                             ),
                           ],
                         ),
+                        )
                       )
                   ),
                 ],

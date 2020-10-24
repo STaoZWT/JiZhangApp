@@ -109,16 +109,11 @@ class _NianPageContentState extends State<NianPageContent>
   }
 
   List inittotalList() {
-    //print("开始执行");
-    ///////////////////////////////////////////定义totalList
-    ///////////////////////////////////////////totalList[0]存净资产
     totalList.clear();
     //totalList.add({'账户': '净资产', '金额100': 0, '金额': '0'});
     for (var i = 0; i < maxAc; i++) {
       String tempaccountName = accountName[i];
       totalList.add({'账户': tempaccountName, '金额100': 0, '金额': '0'});
-      ///////////////////////////////////////////////////////////////////////
-      //print("totallist $i $totalList");
     }
     return totalList;
   }
@@ -186,7 +181,7 @@ class _NianPageContentState extends State<NianPageContent>
   initall() async {
     await setBillsFromDB();
     //print(billsList.length);
-    billsList.sort((a, b) => (b.date).compareTo(a.date));
+    //billsList.sort((a, b) => (b.date).compareTo(a.date));
     maxAc = maxAcCount();
     //print(maxAc);
     totalList = inittotalList();

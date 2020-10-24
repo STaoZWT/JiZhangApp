@@ -196,7 +196,7 @@ class _YuePageContentState extends State<YuePageContent>
   initall() async {
     await setBillsFromDB();
     //print(billsList.length);
-    billsList.sort((a, b) => (b.date).compareTo(a.date));
+    //billsList.sort((a, b) => (b.date).compareTo(a.date));
     maxAc = maxAcCount();
     //print(maxAc);
     totalList = inittotalList();
