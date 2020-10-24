@@ -240,7 +240,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 //以下是第二张卡片(本月有记账)
                 Visibility(
-                  visible: (latestBill != null),
+                  visible: (latestBill.id != -1),
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 24, right: 24, top: 16, bottom: 18),
@@ -735,43 +735,306 @@ class _HomePageState extends State<HomePage> {
                 ),
                 //本月无记账
                 Visibility(
-                  visible: (latestBill == null),
+                  visible: (latestBill.id == -1),
                   child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 24, right: 24, top: 16, bottom: 18),
-                      child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(8.0),
-                                bottomLeft: Radius.circular(8.0),
-                                bottomRight: Radius.circular(8.0),
-                                topRight: Radius.circular(68.0)),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  offset: Offset(1.1, 1.1),
-                                  blurRadius: 10.0),
-                            ],
-                          ),
-                          child: Padding(
-                              padding:
-                              const EdgeInsets.only(top: 16, left: 16, right: 16),
-                              child: Text(
-                                  '快来记录本月第一笔账吧！',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 17,
-                                    letterSpacing: -0.1,
-                                    color: Theme.of(context).primaryColor
-                                        .withOpacity(0.8),
-                                  ),
-                          ),
+                    padding: const EdgeInsets.only(
+                        left: 24, right: 24, top: 16, bottom: 18),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8.0),
+                            bottomLeft: Radius.circular(8.0),
+                            bottomRight: Radius.circular(8.0),
+                            topRight: Radius.circular(68.0)),
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: Colors.grey.withOpacity(0.8),
+                              offset: Offset(1.1, 1.1),
+                              blurRadius: 10.0),
+                        ],
                       ),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding:
+                            const EdgeInsets.only(top: 16, left: 16, right: 16),
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8, right: 8, top: 4),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Row(
+                                          children: <Widget>[
+                                            Container(
+                                              height: 48,
+                                              width: 2,
+                                              decoration: BoxDecoration(
+                                                color: Colors.pinkAccent
+                                                    .withOpacity(0.5),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(4.0)),
+                                              ),
+                                            ),
+                                            //收入
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 4, bottom: 2),
+                                                    child: Text(
+                                                      '本月收入',
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 16,
+                                                        letterSpacing: -0.1,
+                                                        color: Theme.of(context).primaryColor
+                                                            .withOpacity(0.5),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                    children: <Widget>[
 
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 4, bottom: 3),
+                                                        child: Text(
+                                                          income,
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(
+
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                            fontSize: 24,
+                                                            color: Theme.of(context).primaryColor,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 4, bottom: 3),
+                                                        child: Text(
+                                                          '元',
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(
+
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                            fontSize: 12,
+                                                            letterSpacing: -0.2,
+                                                            color: Theme.of(context).primaryColor
+                                                                .withOpacity(0.5),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        Row(
+                                          children: <Widget>[
+                                            Container(
+                                              height: 48,
+                                              width: 2,
+                                              decoration: BoxDecoration(
+                                                color: Colors.amber
+                                                    .withOpacity(0.5),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(4.0)),
+                                              ),
+                                            ),
+                                            //支出
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 4, bottom: 2),
+                                                    child: Text(
+                                                      '本月支出',
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+
+                                                        fontWeight: FontWeight.w500,
+                                                        fontSize: 16,
+                                                        letterSpacing: -0.1,
+                                                        color: Theme.of(context).primaryColor
+                                                            .withOpacity(0.5),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 4, bottom: 3),
+                                                        child: Text(
+                                                          outcome,
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                            fontSize: 24,
+                                                            color: Theme.of(context).primaryColor,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 8, bottom: 3),
+                                                        child: Text(
+                                                          '元',
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(
+
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                            fontSize: 12,
+                                                            letterSpacing: -0.2,
+                                                            color: Theme.of(context).primaryColor
+                                                                .withOpacity(0.5),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                //以下绘制圆圈
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 16),
+                                  child: Center(
+                                    child: Stack(
+                                      overflow: Overflow.visible,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            width: 100,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.all(
+                                                Radius.circular(100.0),
+                                              ),
+                                              border: new Border.all(
+                                                  width: 4,
+                                                  color: Theme.of(context).primaryColor
+                                                      .withOpacity(0.2)),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              children: <Widget>[
+                                                Text(
+                                                  '结余',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+
+                                                    fontWeight: FontWeight.normal,
+                                                    fontSize: 16,
+                                                    letterSpacing: 0.0,
+                                                    color: Theme.of(context).primaryColor,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '${countBalance (income, outcome)}',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+
+                                                    fontWeight: FontWeight.normal,
+                                                    fontSize: 12,
+                                                    letterSpacing: 0.0,
+                                                    color: Theme.of(context).primaryColor,
+                                                  ),
+                                                ),
+
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: CustomPaint(  //绘制多边形
+                                            painter: CurvePainter(
+                                              colors: [
+                                                Theme.of(context).primaryColor,
+                                                Colors.purple,
+                                                Colors.purple
+                                              ],
+                                              angle: angleController (income, outcome),
+                                            ),
+                                            child: SizedBox(
+                                              width: 108,
+                                              height: 108,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 24, right: 24, top: 8, bottom: 8),
+                            child: Container(
+                              height: 2,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                )
                 )
 
 
@@ -911,6 +1174,19 @@ class _HomePageState extends State<HomePage> {
     outcome = await BillsDatabaseService.db.assetOutThisMonth();
     latestBill = await BillsDatabaseService.db.LatestBill();
     //String outcomePlan = await getOutcomePlan();
+    if (latestBill == null) {
+      latestBill = new BillsModel(id: -1,
+        category1: '',
+        category2: '',
+        accountIn: '',
+        accountOut: '',
+        value100: 0,
+        member: '',
+        type: 0,
+        date: DateTime.now(),
+        title: '',
+      );
+    }
     flag = true;
     setState(() {
 
