@@ -843,7 +843,7 @@ class _CardAddBill extends State<CardAddBill>
       //var bill =
       await BillsDatabaseService.db.addBillInDB(currentbill);
       //Navigator.of(context).pop();  //记账成功后退出记账界面
-       Navigator.of(context).push(
+       Navigator.of(context).pushReplacement(
            MaterialPageRoute(builder: (BuildContext context) => NavigationHomeScreen()));
     } else {
       if(currentbill.value100 < 1) {Toast.show("请输入金额", context);}
