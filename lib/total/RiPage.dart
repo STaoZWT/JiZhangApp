@@ -772,7 +772,9 @@ class _RiPageContentState extends State<RiPageContent>
   @override
   Widget build(BuildContext context) {
     if (flag == 0) {
-      return CircularProgressIndicator();
+      return Center(
+        child: CircularProgressIndicator(),
+      );
     } else if (flag == 1) {
       return Container(
         child: Stack(children: <Widget>[
