@@ -1,5 +1,3 @@
-//import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_jizhangapp/login/password_reset.dart';
 import './login/graphical_password_register.dart';
@@ -15,10 +13,7 @@ import './homepage_drawer/app_theme.dart';
 import 'set_theme_page.dart';
 
 
-//
 class HomePage extends StatefulWidget {
-
-  //
   const HomePage({Key key}) : super(key:key);
 
   @override

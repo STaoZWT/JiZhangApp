@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -45,11 +46,11 @@ class _Dismissshow extends State<Dismissshow> {
   //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户
   //type 0:收入， 1：支出
   //默认为“一级分类支出”
-  title() {
+  title(BuildContext context) {
     if(widget.type==0){
-      return Text("$checked"+"收入",style: TextStyle(fontSize: 27.0, color: Colors.grey));
+      return Text("$checked"+"收入",style: TextStyle(fontSize: 27.0, color: Theme.of(context).primaryColor));
     }else if(widget.type==1){
-      return Text("$checked"+"支出",style: TextStyle(fontSize: 27.0, color: Colors.grey));
+      return Text("$checked"+"支出",style: TextStyle(fontSize: 27.0, color: Theme.of(context).primaryColor));
     }
   }
 
@@ -66,13 +67,31 @@ class _Dismissshow extends State<Dismissshow> {
     }
   }
 
+  weekday(int weekday){
+    if(weekday==1){
+      return '一';
+    }else if(weekday==2){
+      return '二';
+    }else if(weekday==3){
+      return '三';
+    }else if(weekday==4){
+      return '四';
+    }else if(weekday==5){
+      return '五';
+    }else if(weekday==6){
+      return '六';
+    }else if(weekday==7){
+      return '日';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar( //标题
         backgroundColor: Colors.white,
         leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.grey,),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor,),
             onPressed: () {
               Navigator.of(context).pop();
               Navigator.push(
@@ -84,9 +103,162 @@ class _Dismissshow extends State<Dismissshow> {
                           picked: widget.picked)));
             }),
           centerTitle: true,
-          title: title()//界面标题内容
+          title: title(context)//界面标题内容
       ),
-      body: Container(  ///卡片
+      body: ListView.builder(
+        itemCount: (widget.liuData).length,
+        itemBuilder: (context, index) {
+          final item = (widget.liuData)[index];
+          DateTime time = (index==0)?null:(widget.liuData)[index-1].date;
+          return new GestureDetector(
+            onHorizontalDragEnd: (endDetails) {
+              setState(() {
+                (widget.liuData)[index].show =
+                (widget.liuData)[index].show == true ? false : true;
+              });
+            },
+            child: Container(
+              height: timeEqual(time,(widget.liuData)[index].date)?70.0:110.0, //每一条信息的高度
+              margin: const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(left: 5.0), //每条信息左边距
+              /*decoration: new BoxDecoration(
+                    border: new Border(
+                      bottom: BorderSide(color: Colors.black, width: 0.5), //信息的分割线
+                    )),*/
+              child: Column(
+                children: [
+                  Expanded(
+                    flex: timeEqual(time,(widget.liuData)[index].date)?1:3,
+                    child: timeEqual(time,(widget.liuData)[index].date)?
+                    Center( //间隔线
+                      child: Container(),
+                    ):
+                    Container( //时间
+                        height: 30,
+                        width: double.infinity,
+                        padding: const EdgeInsets.only(left:10.0, top: 10.0), //每条信息左边距
+                        //color: Colors.white54,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child:Text('${(item.date).year}',
+                                  style: TextStyle(fontSize: 24.0, color: Theme.of(context).primaryColor)),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child:Text('${(item.date).month}.${(item.date).day}',
+                                  style: TextStyle(fontSize: 22.0, color: Theme.of(context).primaryColor)),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child:Text('周'+weekday((item.date).weekday),
+                                  style: TextStyle(fontSize: 22.0, color: Theme.of(context).primaryColor)),
+                            ),
+                            Expanded(
+                              flex: 6,
+                              child: Container(),
+                            )
+                          ],
+                        )
+                    ),
+                  ),
+                  Expanded(
+                      flex: timeEqual(time,(widget.liuData)[index].date)?100:4,
+                      child: Card(
+                        margin: EdgeInsets.all(8.0),
+                        elevation: 2.0,
+                        color: Colors.white,
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(7.0))),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              flex: 3,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 6,
+                                    child: Center(
+                                      child: Text('${(item.date).hour}: ${(item.date).minute}',
+                                          style: TextStyle(fontSize: 18.0, color: Colors.black)),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 12,
+                                    child: Container(
+                                    ),
+                                  )
+                                ],
+                              )
+                            ),
+                            Expanded(
+                              flex: 5,
+                              child: Container(
+                                height: 40.0, //每一条信息的高度
+                                width: double.infinity,
+                                color: Colors.transparent,
+                                padding: const EdgeInsets.only(left: 5.0), //每条信息左边距
+                                /*decoration: new BoxDecoration(
+                                  border: new Border(
+                                    bottom: BorderSide(color: Colors.black, width: 0.5), //信息的分割线
+                                  )),*/
+                                child: Row(
+                                  //mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: item.show == true ? //是否被删除
+                                      1:2,
+                                      child: Icon(Icons.category, color: Theme.of(context).primaryColor),
+                                    ),
+                                    Expanded(
+                                      flex: item.show == true ? //是否被删除
+                                      6:10,
+                                      child:new Text(' ${(widget.liuData)[index].category2}: ',
+                                          style: TextStyle(fontSize: 20.0)),
+                                    ),
+                                    Expanded(
+                                      flex: item.show == true ? //是否被删除
+                                      5:6,
+                                      child:new Text('${formatNum(((widget.liuData)[index].value)/100, 3)}元',
+                                          style: TextStyle(fontSize: 18.0)),
+                                    ),
+                                    Expanded(
+                                      flex: item.show == true ? //是否被删除
+                                      3:1,
+                                      child:item.show == true ? //是否被删除
+                                      RaisedButton(
+                                          child: new Text('删除'),
+                                          onPressed: () {
+                                            print('click');
+                                            setState(() {
+                                              Toast.show('${widget.typeSelect}'+'   '
+                                                  '${(widget.liuData)[index].c1c2mc}   已删除',context);
+                                              setDataFromDB((widget.liuData)[index].id);
+                                              (widget.liuData).removeAt(index);  //删除某条信息!!!!!!!!!
+                                            });
+                                          },
+                                          color: Theme.of(context).primaryColor,
+                                          splashColor: Colors.pink[100])
+                                          :Text(''),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+
+                      )
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+      /*Container(  ///卡片
           margin: EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             color: Colors.grey,//JizhangAppTheme.nearlyBlue,
@@ -117,74 +289,80 @@ class _Dismissshow extends State<Dismissshow> {
                   });
                 },
                 child: Container(
-                  height: timeEqual(time,(widget.liuData)[index].date)?45.0:80.0, //每一条信息的高度
-                  margin: const EdgeInsets.only(top: 10.0),
-                  padding: const EdgeInsets.only(left: 5.0), //每条信息左边距
-                  /*decoration: new BoxDecoration(
+                    height: timeEqual(time,(widget.liuData)[index].date)?45.0:80.0, //每一条信息的高度
+                    margin: const EdgeInsets.only(top: 10.0),
+                    padding: const EdgeInsets.only(left: 5.0), //每条信息左边距
+                    /*decoration: new BoxDecoration(
                     border: new Border(
                       bottom: BorderSide(color: Colors.black, width: 0.5), //信息的分割线
                     )),*/
-                  child: Column(
-                    children: [
-                      Expanded(
-                        flex: timeEqual(time,(widget.liuData)[index].date)?1:3,
-                        child: timeEqual(time,(widget.liuData)[index].date)?
-                        Center( //间隔线
-                          child: Container(),
-                        ):
-                        Container( //时间
-                          height: 30,
-                          width: double.infinity,
-                          padding: const EdgeInsets.only(left:10.0, top: 10.0), //每条信息左边距
-                          //color: Colors.white54,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child:Text('${(item.date).year}',
-                                    style: TextStyle(fontSize: 24.0)),
-                              ),
-                              Expanded(
-                                flex: 3,
-                                child:Text('${(item.date).month}.${(item.date).day}',
-                                    style: TextStyle(fontSize: 22.0)),
-                              ),
-                              Expanded(
-                                flex: 9,
-                                child: Container(),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          flex: timeEqual(time,(widget.liuData)[index].date)?1:3,
+                          child: timeEqual(time,(widget.liuData)[index].date)?
+                          Center( //间隔线
+                            child: Container(),
+                          ):
+                          Container( //时间
+                              height: 30,
+                              width: double.infinity,
+                              padding: const EdgeInsets.only(left:10.0, top: 10.0), //每条信息左边距
+                              //color: Colors.white54,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child:Text('${(item.date).year}',
+                                        style: TextStyle(fontSize: 24.0)),
+                                  ),
+                                  Expanded(
+                                    flex: 3,
+                                    child:Text('${(item.date).month}.${(item.date).day}',
+                                        style: TextStyle(fontSize: 22.0)),
+                                  ),
+                                  Expanded(
+                                    flex: 9,
+                                    child: Container(),
+                                  )
+                                ],
                               )
-                            ],
-                          )
+                          ),
                         ),
-                      ),
-                      Expanded(
+                        Expanded(
                           flex: timeEqual(time,(widget.liuData)[index].date)?100:4,
-                          child: Container(
+                          child: Card(
+                            margin: EdgeInsets.all(5.0),
+                            elevation: 15.0,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(14.0))),
+                            child: Container(
                               height: 40.0, //每一条信息的高度
                               width: double.infinity,
                               padding: const EdgeInsets.only(left: 5.0), //每条信息左边距
-                              decoration: new BoxDecoration(
-                                border: new Border(
-                                  bottom: BorderSide(color: Colors.black, width: 0.5), //信息的分割线
-                                )),
+                              /*decoration: new BoxDecoration(
+                                  border: new Border(
+                                    bottom: BorderSide(color: Colors.black, width: 0.5), //信息的分割线
+                                  )),*/
                               child: Row(
                                 //mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
                                   Expanded(
                                     flex: item.show == true ? //是否被删除
-                                          7:12,
+                                    7:12,
                                     child:new Text(' ${(widget.liuData)[index].category2}: ',
-                                                    style: TextStyle(fontSize: 20.0)),
+                                        style: TextStyle(fontSize: 20.0)),
                                   ),
                                   Expanded(
                                     flex: item.show == true ? //是否被删除
-                                          6:6,
+                                    6:6,
                                     child:new Text('${formatNum(((widget.liuData)[index].value)/100, 3)}元',
                                         style: TextStyle(fontSize: 20.0)),
                                   ),
                                   Expanded(
                                     flex: item.show == true ? //是否被删除
-                                          4:1,
+                                    4:1,
                                     child:item.show == true ? //是否被删除
                                     RaisedButton(
                                         child: new Text('删除'),
@@ -219,11 +397,11 @@ class _Dismissshow extends State<Dismissshow> {
                                 ],
                               ),
                             ),
-                      ),
-                    ],
+                          )
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-
               );
             },
           ),
@@ -279,7 +457,7 @@ class _Dismissshow extends State<Dismissshow> {
               );
             },
           ),*/
-      )
+      )*/
 
     );
   }
