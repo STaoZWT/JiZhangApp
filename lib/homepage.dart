@@ -1056,9 +1056,15 @@ class _HomePageState extends State<HomePage> {
               child: Icon(Icons.add),
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: (){
+                Navigator.pushReplacementNamed(
+                  context, "/editBill",
+                  arguments: editBillArguments(
+                    null
+                  )
+                );
 
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => CardAddBill()));
+                // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                //     builder: (BuildContext context) => CardAddBill()));
               },
             ),
           ),

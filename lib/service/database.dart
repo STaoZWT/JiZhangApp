@@ -105,7 +105,9 @@ class BillsDatabaseService {
         whereArgs: [
           dateStart.millisecondsSinceEpoch,
           dateEnd.millisecondsSinceEpoch
-        ]);
+        ],
+      //orderBy: 'date DESC',
+    );
     if (maps.length > 0) {
       maps.forEach((map) {
         billsList.add(BillsModel.fromMap(map));
@@ -300,6 +302,35 @@ class BillsDatabaseService {
     int netAsset = assetIn - assetOut;
     print("Net Asset is: $netAsset");
     return netAsset;
+  }
+
+  //根据id获得BillsModel
+  Future<BillsModel> getBillById(int id) async {
+    print("Will get $id");
+    final db = await database;
+    List<BillsModel> billsList = [];
+    List<Map> maps = await db.query('Bills',
+        columns: [
+          '_id',
+          'title',
+          'date',
+          'type',
+          'accountIn',
+          'accountOut',
+          'category1',
+          'category2',
+          'member',
+          'value100'
+        ],
+        where: '_id = ?',
+        whereArgs: [id]);
+    if (maps.length > 0) {
+      maps.forEach((map) {
+        billsList.add(BillsModel.fromMap(map));
+      });
+    }
+    print(billsList[0].toMap());
+    return billsList[0];
   }
 
 

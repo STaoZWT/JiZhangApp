@@ -22,8 +22,13 @@ class CardAddBill extends StatefulWidget {
   _CardAddBill createState() => _CardAddBill();
 }
 
+class editBillArguments {
+  final int billId;
+  editBillArguments(this.billId);
+}
+
 class _CardAddBill extends State<CardAddBill>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   TabController _tabController;
   List<Tab> tabs = [
     Tab(text: "收入"),
@@ -57,13 +62,13 @@ class _CardAddBill extends State<CardAddBill>
   BillsModel currentbill;
 
   bool isInit;
+  int _billId;
 
 
   @override
   void initState() {
     super.initState();
     isInit = false;
-
     moneyInput = 0;
     dateSelect = DateTime.now();
     classSelect = [0, 0];
@@ -90,15 +95,27 @@ class _CardAddBill extends State<CardAddBill>
         category2: "未选择",
         member: "无成员"
     );
+
     draftToCurrentBill();
   }
 
   FocusNode blankNode = FocusNode();
 
+  Future<int> getArgs() async {
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    final editBillArguments args =
+        ModalRoute.of(context).settings.arguments;
+    _billId = args.billId;
+    //
+
     print(isInit);
     if(isInit == false) {
+      draftToCurrentBill();
       return Center(
         child: CircularProgressIndicator(),
       );
@@ -109,12 +126,15 @@ class _CardAddBill extends State<CardAddBill>
           FocusScope.of(context).requestFocus(blankNode);
         },
         child: WillPopScope(
-          onWillPop: () async =>
+          onWillPop: () async {
+            if (_billId != null) {
+              Navigator.of(context).pop();
+            } else {
               showDialog(
                   context: context,
                   builder: (context) =>
                       AlertDialog(
-                        content: Text('是否保存草稿？'),
+                          content: Text('是否保存草稿？'),
                           title: Text('提示'), actions: <Widget>[
                         RaisedButton(
                           child: Text('是'),
@@ -159,7 +179,10 @@ class _CardAddBill extends State<CardAddBill>
 
                           },
                         )
-                      ])),
+                      ]));
+            }
+          },
+
           child: Scaffold(
             // floatingActionButton: FloatingActionButton.extended(
             //   backgroundColor: Theme.of(context).primaryColor,
@@ -176,7 +199,7 @@ class _CardAddBill extends State<CardAddBill>
             appBar: AppBar(
               backgroundColor: Colors.white,
               centerTitle: true,
-              title: Text("新建记账", style: TextStyle(color: Theme
+              title: Text("编辑记账", style: TextStyle(color: Theme
                   .of(context)
                   .primaryColor),),
               actions: <Widget>[
@@ -834,17 +857,25 @@ class _CardAddBill extends State<CardAddBill>
 
   void billConfirm () async {  //点击确认键的逻辑（数据合法性和写入数据库）
     writeCurrentBill ();
-    removeDraft();
+    if (_billId == null)
+      removeDraft();
     print("金额：$currentbill.value100   分类：${currentbill.category1} ${currentbill.category2}");
     print("账户：${currentbill.accountOut} ${currentbill.accountIn}    成员：${currentbill.member}");
     print("日期：${currentbill.date}   备注：${currentbill.title}   记账类型：${currentbill.type}");
     if (isLeagal() ){
-      Toast.show("记账成功", context);
-      //var bill =
-      await BillsDatabaseService.db.addBillInDB(currentbill);
-      //Navigator.of(context).pop();  //记账成功后退出记账界面
-       Navigator.of(context).pushReplacement(
-           MaterialPageRoute(builder: (BuildContext context) => NavigationHomeScreen()));
+      if (_billId == null) {
+        Toast.show("新增记账成功", context);
+        //var bill =
+        await BillsDatabaseService.db.addBillInDB(currentbill);
+        //Navigator.of(context).pop();  //记账成功后退出记账界面
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (BuildContext context) => NavigationHomeScreen()));
+      } else {
+        Toast.show("修改记账成功", context);
+        await BillsDatabaseService.db.updateBillInDB(currentbill);
+        Navigator.of(context).pop();
+      }
+
     } else {
       if(currentbill.value100 < 1) {Toast.show("请输入金额", context);}
       else if (!(type==2 || currentbill.category1!="未选择")) {Toast.show("请选择分类", context);}
@@ -874,9 +905,28 @@ class _CardAddBill extends State<CardAddBill>
   }
 
   draftToCurrentBill() async {
+    bool isUpdate = _billId == null ? false : true;
+    print("isUpdate: $isUpdate");
     bool isDraft = await isDraftSet();
     print("tag1");
-    if (isDraft) {
+    if (isUpdate) {
+      print("get billId: $_billId");
+      currentbill = await BillsDatabaseService.db.getBillById(_billId);
+      if(currentbill.type==0) {classInSelectText = "${currentbill.category1},${currentbill.category2}";}
+      else if(currentbill.type==1) {classOutSelectText = "${currentbill.category1},${currentbill.category2}";}
+      accountInSelectText = "${currentbill.accountIn}";
+      accountOutSelectText = "${currentbill.accountOut}";
+      memberSelectText = "${currentbill.member}";
+      remark = "${currentbill.title}";
+      moneyInput = currentbill.value100;
+      dateSelect = currentbill.date;
+      String toInsert =(currentbill.value100 > 99)?
+      currentbill.value100.toString().substring(0, currentbill.value100.toString().length-2)
+          + '.'
+          + currentbill.value100.toString().substring(currentbill.value100.toString().length-2, currentbill.value100.toString().length):
+      (currentbill.value100 > 9) ? '0.' + currentbill.value100.toString() :'0.0' + currentbill.value100.toString();
+      moneyController = new TextEditingController(text: toInsert);
+    } else if (isDraft) {
       currentbill = await getDraft();
       print("tag2");
       if(currentbill.type==0) {classInSelectText = "${currentbill.category1},${currentbill.category2}";}
@@ -895,6 +945,7 @@ class _CardAddBill extends State<CardAddBill>
       moneyController = new TextEditingController(text: toInsert);
     } else {
       moneyController = new TextEditingController();
+      print("is new bill");
     }
     print("tag3");
     _tabController = TabController(length: tabs.length, vsync: this, initialIndex: currentbill.type);

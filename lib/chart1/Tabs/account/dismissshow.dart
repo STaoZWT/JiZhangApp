@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_jizhangapp/chart1/chart_material.dart';
 import 'package:flutter_jizhangapp/chart1/chartpage.dart';
+import 'package:flutter_jizhangapp/editbill/edit_bill_page.dart';
 import 'package:flutter_jizhangapp/service/database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:toast/toast.dart';
@@ -213,7 +214,15 @@ class _Dismissshow extends State<Dismissshow> {
                               onTap: () {
                                 //_showSnackBar('Delete');
                                 print('编辑');
+                                print("set id: ${(widget.liuData)[index].id}");
+                                Navigator.pushNamed(
+                                  context, "/editBill",
+                                  arguments: editBillArguments(
+                                      (widget.liuData)[index].id
+                                  ),
+                                );
                                 setState(() {
+
                                   ///跳转编辑页面
                                   //setDataFromDB((widget.liuData)[index].id);
                                   //(widget.liuData).insertAll(index, );  //删除某条信息!!!!!!!!!
