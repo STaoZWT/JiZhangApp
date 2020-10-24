@@ -41,7 +41,6 @@ class _HomePageState extends State<HomePage> {
   BillsModel latestBill;
   //String messageCount;
 
-  int outcomePlan;
 
 
   bool flag = false;
@@ -535,55 +534,44 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Divider(),
+                        //以下显示最近一笔记账
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 24, right: 24, top: 8, bottom: 16),
-                          child: Row(
+                          child: Column(
                             children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      'Carbs',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16,
-                                        letterSpacing: -0.2,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 6),
-                                      child: Text(
-                                        '12g left',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12,
-                                          color:
-                                          Theme.of(context).primaryColor.withOpacity(0.5),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                              Text(
+                                '最近记账',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 17,
+                                  letterSpacing: -0.1,
+                                  color: Theme.of(context).primaryColor
+                                      .withOpacity(0.8),
                                 ),
                               ),
-                              Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Column(
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 24, right: 24, top: 8, bottom: 8),
+                                child: Container(
+                                  height: 1,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                                  ),
+                                ),
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  //时间
+                                  Expanded(
+                                    child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          'Protein',
+                                          '时间',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
 
@@ -593,67 +581,149 @@ class _HomePageState extends State<HomePage> {
                                             color: Theme.of(context).primaryColor,
                                           ),
                                         ),
-
                                         Padding(
                                           padding: const EdgeInsets.only(top: 6),
                                           child: Text(
-                                            '30g left',
+                                            '${latestBill.date.month}月${latestBill.date.day}日',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
 
                                               fontWeight: FontWeight.w600,
                                               fontSize: 12,
-                                              color: Theme.of(context).primaryColor
-                                                  .withOpacity(0.5),
+                                              color:
+                                              Theme.of(context).primaryColor.withOpacity(0.5),
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    Column(
+                                  ),
+                                  //金额
+                                  Expanded(
+                                    child: Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: <Widget>[
-                                        Text(
-                                          'Fat',
-                                          style: TextStyle(
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              '金额',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
 
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16,
-                                            letterSpacing: -0.2,
-                                            color: Theme.of(context).primaryColor,
-                                          ),
-                                        ),
-
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 6),
-                                          child: Text(
-                                            '10g left',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 12,
-                                              color: Theme.of(context).primaryColor
-                                                  .withOpacity(0.5),
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16,
+                                                letterSpacing: -0.2,
+                                                color: Theme.of(context).primaryColor,
+                                              ),
                                             ),
-                                          ),
+
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 6),
+                                              child: Text(
+                                                '${value100ConvertToText (latestBill.value100)}',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12,
+                                                  color: Theme.of(context).primaryColor
+                                                      .withOpacity(0.5),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
-                                  ],
-                                ),
-                              )
+                                  ),
+                                  //分类、转出账户
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text(
+                                              (latestBill.type==2)?'转出':'分类',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16,
+                                                letterSpacing: -0.2,
+                                                color: Theme.of(context).primaryColor,
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 6),
+                                              child: Text(
+                                                (latestBill.type==2)?'${latestBill.accountOut}':'${latestBill.category2}',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 12,
+                                                  color: Theme.of(context).primaryColor
+                                                      .withOpacity(0.5),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  //转入账户
+                                  Visibility(
+                                    visible: latestBill.type==2,
+                                    child: Expanded(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                '转入',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16,
+                                                  letterSpacing: -0.2,
+                                                  color: Theme.of(context).primaryColor,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.only(top: 6),
+                                                child: Text(
+                                                  '${latestBill.accountIn}',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 12,
+                                                    color: Theme.of(context).primaryColor
+                                                        .withOpacity(0.5),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+
+
                             ],
                           ),
+
                         )
                       ],
                     ),
@@ -690,7 +760,7 @@ class _HomePageState extends State<HomePage> {
             centerTitle:true,
             automaticallyImplyLeading:false,
             title: Text(
-              "Home Page",
+              "喵喵记",
               style: TextStyle(color: Theme.of(context).primaryColor),
             ),
             iconTheme: IconThemeData(color: Colors.white),
@@ -796,11 +866,20 @@ class _HomePageState extends State<HomePage> {
     outcome = await BillsDatabaseService.db.assetOutThisMonth();
     latestBill = await BillsDatabaseService.db.LatestBill();
     //String outcomePlan = await getOutcomePlan();
-    if (latestBill == null) {}
     flag = true;
     setState(() {
 
     });
+  }
+
+  //以下将金额int转为***.**字符串
+  String value100ConvertToText (int value100) {
+    String ans = (value100 > 99)?
+    value100.toString().substring(0, value100.toString().length-2)
+        + '.'
+        + value100.toString().substring(value100.toString().length-2, value100.toString().length):
+    (value100 > 9) ? '0.' + value100.toString() :'0.0' + value100.toString();
+    return ans;
   }
 
   String messageCountController (int count) {
