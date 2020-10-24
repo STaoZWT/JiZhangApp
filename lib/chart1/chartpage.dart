@@ -88,10 +88,10 @@ class _ChartPageState extends State<ChartPage> {
               icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor,size: 28),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.push(
+                /*Navigator.push(
                     context,
                     CupertinoPageRoute(
-                        builder: (context) => HomePage()));
+                        builder: (context) => HomePage()));*/
               }),
           title: title(typeSelect, type),
           actions: <Widget>[

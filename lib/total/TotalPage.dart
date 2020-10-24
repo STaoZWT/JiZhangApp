@@ -31,10 +31,6 @@ class _TotalPageState extends State<TotalPage> {
             icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor,size: 28),
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => HomePage()));
             }),
         title: Text('分账户统计',
             style: TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor)),

@@ -57,6 +57,7 @@ class _TimePageState extends State<TimePage> {
             icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor,size: 28),
             onPressed: () {
               Navigator.of(context).pop();
+              Navigator.of(context).pop();
               Navigator.push(
                   context,
                   CupertinoPageRoute(
