@@ -472,28 +472,28 @@ class _HomePageState extends State<HomePage> {
                                             CrossAxisAlignment.center,
                                             children: <Widget>[
                                               Text(
-                                                'hhhhh',
+                                                '结余',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
 
                                                   fontWeight: FontWeight.normal,
-                                                  fontSize: 24,
+                                                  fontSize: 16,
                                                   letterSpacing: 0.0,
                                                   color: Theme.of(context).primaryColor,
                                                 ),
                                               ),
                                               Text(
-                                                'aaaaaa',
+                                                '${countBalance (income, outcome)}',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
 
-                                                  fontWeight: FontWeight.bold,
+                                                  fontWeight: FontWeight.normal,
                                                   fontSize: 12,
                                                   letterSpacing: 0.0,
-                                                  color: Theme.of(context).primaryColor
-                                                      .withOpacity(0.5),
+                                                  color: Theme.of(context).primaryColor,
                                                 ),
                                               ),
+
                                             ],
                                           ),
                                         ),
@@ -507,7 +507,7 @@ class _HomePageState extends State<HomePage> {
                                                 Colors.purple,
                                                 Colors.purple
                                               ],
-                                              angle: 120,
+                                              angle: angleController (income, outcome),
                                           ),
                                           child: SizedBox(
                                             width: 108,
@@ -896,8 +896,24 @@ class _HomePageState extends State<HomePage> {
     return messageCount;
   }
 
-  double angleController () {
+  //以下控制圆环角度
+  double angleController (String income, String outcome) {
+     double val1 = double.parse(income);
+     double val2 = double.parse(outcome);
+     if(val1 == 0 ) {
+       return 0;
+     }
+     else if (val2 > val1) {
+       return 360;
+     }
+     else return 360 * val2 / val1;
+  }
 
+  //以下计算结余
+  double countBalance (String income, String outcome) {
+    double val1 = double.parse(income);
+    double val2 = double.parse(outcome);
+    return val1 - val2;
   }
 
 
