@@ -101,8 +101,6 @@ class _NianPageContentState extends State<NianPageContent>
       s.addAll(accountName);
       accountName = s.toList();
       accountName.add('净资产');
-      ///////////////////////////////////////////确定账户个数
-      ///////////////////////////////////////////账户1，账户2......
       flag = 1;
       return accountName.length;
     }
@@ -211,15 +209,10 @@ class _NianPageContentState extends State<NianPageContent>
 
     super.initState();
     flag = 0;
-    print(
-        '///////////////////////////////////////////按年统计开始///////////////////////////////////////////');
     animationController = new AnimationController(
         vsync: this, duration: Duration(milliseconds: 200));
     animation = new Tween(begin: 0.0, end: 0.5).animate(animationController);
     accountNumber = acountChange();
-    print(
-        '///////////////////////////////////////////////////////////////////////accountNumber');
-    print(accountNumber);
     initall();
   }
 

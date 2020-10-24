@@ -682,61 +682,6 @@ class _PiechartPageState extends State<PiechartPage> {
   }
 }
 
-/*
-Container(
-            width: double.infinity,
-            height: 60.0,
-            ///副标题
-            child: Row(
-              children: [
-                Expanded(  ///副标题
-                  flex: 6,
-                  child: title(typeSelect, type)
-                ),
-                Expanded(  ///选择分类
-                  flex: 2,
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 1),
-                        child: IconButton(
-                          icon: new Icon(Icons.select_all, color: JizhangAppTheme.grey, size: 18, ),
-                          onPressed:(){
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                                context,
-                                //transition: TransitionType.inFromBottom,
-                                CupertinoPageRoute(
-                                    builder: (context) => SelectPage(
-                                        typeSelect: typeSelect,
-                                        type: type,
-                                        picked: picked)));
-                          },
-                        )
-                        /*Icon(
-                          Icons.select_all,
-                          color: JizhangAppTheme.grey,
-                          size: 18,
-                        ),*/
-                      ),
-                      Text(
-                        '分类',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: JizhangAppTheme.fontName,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 16,
-                          letterSpacing: -0.2,
-                          color: JizhangAppTheme.darkerText,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
- */
 
 
 

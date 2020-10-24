@@ -28,8 +28,6 @@ class _TimePageState extends State<TimePage> {
   void initState() {
     // TODO: implement initState
     _currentIndex = ((widget.index)==0)?0:(widget.index);
-    print('ssssssss');
-    print(_currentIndex);
     super.initState();
     //totalList = countT();
   }

@@ -104,7 +104,7 @@ class _ChartPageState extends State<ChartPage> {
                       bottomLeft: Radius.circular(100))),
               icon: Icon(Icons.select_all),
               label: Text(
-                '分类选择',
+                '分类',
                 style: TextStyle(letterSpacing: 1),
               ),
               onPressed: (){
