@@ -10,35 +10,32 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
-
+  String userNameGet='kangkang';
   AnimationController _controller;
   Animation _animation;
 
   void IsNewUser() async {
-    //String passwordInSp;
-    // print('passwordInsp');
     print("set user flag");
+    print('usernameget is $userNameGet');
     isPasswordSet().then((value) {
       value == false
           ? Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (BuildContext context) => RegisterPage()))
-          : Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (BuildContext context) => LoginPage()));
+          : Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context){
+          return LoginPage(
+          userNameGet: userNameGet,
+        );
+        //return NavigationHomeScreen();
+      }));
     });
-    // getPassWord().then((passwordInSp) {
-    //   print('passwordInsp is');
-    //   print(passwordInSp);
-    //   passwordInSp == null
-    //       ? null
-    //       : Navigator.of(context).pushReplacement(MaterialPageRoute(
-    //           builder: (BuildContext context) => LoginPage()));
-    // });
   }
-
+  void getuserName() async{
+    userNameGet = await getUserName();
+  }
   @override
   void initState() {
     super.initState();
-
+    getuserName();
     _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 1000));
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
 
