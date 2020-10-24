@@ -18,6 +18,7 @@ import 'dart:core';
 import './service/database.dart';
 import './data/model.dart';
 import 'dart:math' as math;
+import './const/picker_data.dart';
 
 
 
@@ -54,6 +55,13 @@ class _HomePageState extends State<HomePage> {
     //drawerIndex = DrawerIndex.HOME;
     flag = false;
     getHomePageData();
+    initAccount();
+  }
+
+  //以下为设置账户初始值
+  void initAccount() async {
+    await setPicker(
+        "maccountPicker", AccountPickerData);
   }
 
 
@@ -254,7 +262,7 @@ class _HomePageState extends State<HomePage> {
                             topRight: Radius.circular(68.0)),
                         boxShadow: <BoxShadow>[
                           BoxShadow(
-                              color: Colors.grey.withOpacity(0.2),
+                              color: Colors.grey.withOpacity(0.8),
                               offset: Offset(1.1, 1.1),
                               blurRadius: 10.0),
                         ],
