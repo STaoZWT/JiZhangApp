@@ -193,6 +193,7 @@ class _JiPageContentState extends State<JiPageContent>
   void initState() {
     // TODO: implement initState
     super.initState();
+    flag = 0;
     print(
         '///////////////////////////////////////////按年统计开始///////////////////////////////////////////');
     accountNumber = acountChange();

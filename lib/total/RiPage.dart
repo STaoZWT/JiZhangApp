@@ -196,6 +196,7 @@ class _RiPageContentState extends State<RiPageContent>
   void initState() {
     // TODO: implement initState
     super.initState();
+    flag = 0;
     print(
         '///////////////////////////////////////////按日统计开始///////////////////////////////////////////');
     accountNumber = acountChange();
