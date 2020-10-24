@@ -175,11 +175,11 @@ class _PiechartPageState extends State<PiechartPage> {
                       child: Column(
                         children: [
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Container(),
                           ),
                           Expanded(  ///起始时间
-                            flex: 2,
+                            flex: 4,
                             child: Container(
                               //color: Colors.yellowAccent,
                               child: Column(
@@ -192,16 +192,15 @@ class _PiechartPageState extends State<PiechartPage> {
                                     padding: const EdgeInsets.only(
                                         left: 6, bottom: 1),
                                     child: Text(
-                                      'begin',
+                                      'Begin',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily:
                                         JizhangAppTheme.fontName,
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 16,
+                                        fontSize: 18,
                                         letterSpacing: -0.1,
-                                        color: JizhangAppTheme.grey
-                                            .withOpacity(0.5),
+                                        color: Colors.black54,
                                       ),
                                     ),
                                   ),
@@ -264,8 +263,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                             fontWeight:
                                             FontWeight.w600,
                                             fontSize: 16,
-                                            color: JizhangAppTheme
-                                                .darkerText,
+                                            color: Colors.blueGrey
                                           ),
                                         ),
                                       ),
@@ -296,8 +294,9 @@ class _PiechartPageState extends State<PiechartPage> {
                               ),
                             ),
                           ),
+
                           Expanded(  ///终止时间
-                            flex: 2,
+                            flex: 7,
                             child: Container(
                               //color: Colors.yellowAccent,
                               child: Column(
@@ -310,16 +309,15 @@ class _PiechartPageState extends State<PiechartPage> {
                                     padding: const EdgeInsets.only(
                                         left: 6, bottom: 1),
                                     child: Text(
-                                      'end',
+                                      'End',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily:
                                         JizhangAppTheme.fontName,
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 16,
+                                        fontSize: 18,
                                         letterSpacing: -0.1,
-                                        color: JizhangAppTheme.grey
-                                            .withOpacity(0.5),
+                                        color: Colors.black54,
                                       ),
                                     ),
                                   ),
@@ -382,8 +380,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                             fontWeight:
                                             FontWeight.w600,
                                             fontSize: 16,
-                                            color: JizhangAppTheme
-                                                .darkerText,
+                                            color: Colors.blueGrey
                                           ),
                                         ),
                                       ),
@@ -415,7 +412,7 @@ class _PiechartPageState extends State<PiechartPage> {
                             ),
                           ),
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Container(),
                           ),
                         ],
@@ -468,14 +465,15 @@ class _PiechartPageState extends State<PiechartPage> {
                                                   typeSelect: widget.typeSelect,
                                                   type: widget.type,
                                                   picked: widget.picked,
-                                                  liuData: liuData)));
+                                                  liuData: liuData,
+                                                  color: mData[subscript].color,)));
                                     },
                                     child: Center(
                                         child: Text(mData[currentSelect].name,
                                           style: TextStyle( //backgroundColor:Colors.white,
                                               inherit: true,
-                                              color: Theme.of(context).primaryColor,
-                                              fontSize: 25),)
+                                              color: Colors.blueGrey,
+                                              fontSize: 24),)
                                     )
                                 ),
                               )
@@ -532,41 +530,56 @@ class _PiechartPageState extends State<PiechartPage> {
                     children: [
                       Expanded(
                           flex: 4,
-                          child: Container(
+                          child: Card(
+                              //margin: EdgeInsets.all(8.0),
+                              elevation: 2.0,
+                              color: Colors.white,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(7.0))),
+                              child:
+                              Container(
                             child: Row(
                               children: [
                                 Expanded(
                                     flex: 11,
                                     child: Container(
                                       padding: const EdgeInsets.only(left: 38.0, bottom: 5.0),
-                                      child: Text('类别', style: TextStyle(fontSize: 20.0)),
+                                      child: Text('类别', style: TextStyle(fontSize: 20.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context).primaryColor)),
                                     )
                                 ),
                                 Expanded(
                                     flex: 6,
                                     child: Container(
                                       padding: const EdgeInsets.only(left: 0.0, bottom: 5.0),
-                                      child: Text('比例', style: TextStyle(fontSize: 20.0)),
+                                      child: Text('比例', style: TextStyle(fontSize: 18.0,
+                                          fontWeight: FontWeight.w500,
+                                          color: Theme.of(context).primaryColor)),
                                     )
                                 ),
                                 Expanded(
-                                    flex: 4,
+                                    flex: 2,
                                     child: Container()
                                 ),
                                 Expanded(
-                                    flex: 7,
+                                    flex: 9,
                                     child: Container(
                                       padding: const EdgeInsets.only(bottom: 5.0),
-                                      child: Text('金额/元', style: TextStyle(fontSize: 18.0)),
+                                      child: Text('金额/元', style: TextStyle(fontSize: 18.0,
+                                          fontWeight: FontWeight.w500,
+                                          color: Theme.of(context).primaryColor)),
                                     )
                                 ),
                               ],
                             ),
-                            decoration: new BoxDecoration(
+                            /*decoration: new BoxDecoration(
                                 border: new Border(
                                   bottom: BorderSide(color: Colors.black, width: 2.0), //信息的分割线
                                 )
-                            ),
+                            ),*/
+                          )
                           )
                       ),
                       Expanded(  //类别图例
@@ -577,69 +590,82 @@ class _PiechartPageState extends State<PiechartPage> {
                               itemBuilder: (context, index) {
                                 final item = mData[index];
                                 return new GestureDetector(
-                                    child: new Container(
-                                        height: 55, //每一条信息的高度
-                                        //padding: const EdgeInsets.only(left: 20.0), //每条信息左边距
-                                        decoration: (index==(mData.length)-1)?BoxDecoration():  ///最后一条信息下面没有线
-                                          new BoxDecoration(
-                                              border: new Border(
-                                                bottom: BorderSide(color: Colors.black, width: 1.0), //信息的分割线
-                                              )
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                                flex: 3,
-                                                child: IconButton(
-                                                  icon: new Icon(Icons.arrow_right),
-                                                  iconSize: 40.0,
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
-                                                  color: mData[index].color,
-                                                  onPressed: (){
-                                                    String checked = mData[index].name; ///类别
-                                                    List<LiushuiData> liuData = getLiuData(data, checked, widget.typeSelect, widget.type);
-                                                    Navigator.of(context).pop();
-                                                    Navigator.push(
-                                                        context,
-                                                        CupertinoPageRoute(
-                                                            builder: (context) => Dismissshow(
-                                                                typeSelect: widget.typeSelect,
-                                                                type: widget.type,
-                                                                picked: widget.picked,
-                                                                liuData: liuData)));
-                                                  },
-                                                )
-                                            ),
-                                            Expanded(
-                                                flex: 8,
-                                                child: Container(
-                                                  //color: Colors.blue,
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
-                                                  child: Text(mData[index].name, style: TextStyle(fontSize: 15.0)),
-                                                )
-                                            ),
-                                            Expanded(
-                                                flex: 6,
-                                                child: Container(
-                                                  padding: const EdgeInsets.only(left: 0.0, bottom: 5.0),
-                                                  child: Text('${formatNum((mData[index].percentage)*100, 2)==0?
-                                                      formatNum((mData[index].percentage)*100, 3):
-                                                      formatNum((mData[index].percentage)*100, 2)}%'
-                                                      , style: TextStyle(fontSize: 17.0)),
-                                                )
-                                            ),
-                                            Expanded(
-                                                flex: 4,
-                                                child: Container()
-                                            ),
-                                            Expanded(
-                                                flex: 7,
-                                                child: Container(
-                                                  padding: const EdgeInsets.only(bottom: 5.0), //'${formatNum(mData[index].price, 4)}'
-                                                  child: Text('${mData[index].price}', style: TextStyle(fontSize: 17.0)),
-                                                )
-                                            ),
-                                          ],
+                                    child: new Card(
+                                      //margin: EdgeInsets.all(8.0),
+                                      elevation: 0.5,
+                                      color: Colors.white,
+                                      /*shape: const RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(7.0))),*/
+                                      child: Container(
+                                            height: 55, //每一条信息的高度
+                                            //padding: const EdgeInsets.only(left: 20.0), //每条信息左边距
+                                            /*decoration: (index==(mData.length)-1)?BoxDecoration():  ///最后一条信息下面没有线
+                                              new BoxDecoration(
+                                                  border: new Border(
+                                                    bottom: BorderSide(color: Colors.black, width: 1.0), //信息的分割线
+                                                  )
+                                            ),*/
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                    flex: 3,
+                                                    child: IconButton(
+                                                      icon: new Icon(Icons.arrow_right),
+                                                      iconSize: 40.0,
+                                                      padding: const EdgeInsets.only(bottom: 5.0),
+                                                      color: mData[index].color,
+                                                      onPressed: (){
+                                                        String checked = mData[index].name; ///类别
+                                                        List<LiushuiData> liuData = getLiuData(data, checked, widget.typeSelect, widget.type);
+                                                        Navigator.of(context).pop();
+                                                        Navigator.push(
+                                                            context,
+                                                            CupertinoPageRoute(
+                                                                builder: (context) => Dismissshow(
+                                                                    typeSelect: widget.typeSelect,
+                                                                    type: widget.type,
+                                                                    picked: widget.picked,
+                                                                    liuData: liuData,
+                                                                    color: mData[index].color,)));
+                                                      },
+                                                    )
+                                                ),
+                                                Expanded(
+                                                    flex: 8,
+                                                    child: Container(
+                                                      //color: Colors.blue,
+                                                      padding: const EdgeInsets.only(bottom: 5.0),
+                                                      child: Text(mData[index].name, style: TextStyle(fontSize: 15.0,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: Colors.blueGrey,)),
+                                                    )
+                                                ),
+                                                Expanded(
+                                                    flex: 6,
+                                                    child: Container(
+                                                      padding: const EdgeInsets.only(left: 0.0, bottom: 5.0),
+                                                      child: Text('${formatNum((mData[index].percentage)*100, 2)==0?
+                                                          formatNum((mData[index].percentage)*100, 3):
+                                                          formatNum((mData[index].percentage)*100, 2)}%'
+                                                          , style: TextStyle(fontSize: 17.0,
+                                                              color: Colors.grey)),
+                                                    )
+                                                ),
+                                                Expanded(
+                                                    flex: 2,
+                                                    child: Container()
+                                                ),
+                                                Expanded(
+                                                    flex: 9,
+                                                    child: Container(
+                                                      padding: const EdgeInsets.only(bottom: 5.0), //'${formatNum(mData[index].price, 4)}'
+                                                      child: Text('${mData[index].price}', style: TextStyle(fontSize: 17.0,
+                                                                    color: mData[index].color)),
+                                                    )
+                                                ),
+                                              ],
+                                            )
                                         )
                                     )
                                 );

@@ -2,10 +2,13 @@
 //flutter_slidable: ^0.5.4
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 import '../total/TotalPage.dart';
 import '../data/model.dart';
 import '../service/database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+
+import 'TimePage.dart';
 
 int accountNumber;
 int flag = 0;
@@ -41,6 +44,7 @@ class _YuePageContentState extends State<YuePageContent>
 //账单明细
   List detailList = [
     {
+      'id': 0,
       'type': '类型',
       'date': DateTime.now(),
       'title': '备注',
@@ -71,21 +75,47 @@ class _YuePageContentState extends State<YuePageContent>
     await BillsDatabaseService.db.addBillInDB(billsModel);
   }
 
+  empty(List<BillsModel> billsList){
+    if(billsList==null){
+      flag = 0;
+      return true;
+    }else if(billsList.length<=0){
+      flag = 0;
+      return true;
+    }else if(billsList.length>0){
+      flag = 1;
+      return false;
+    }
+    flag = 0;
+    return true;
+  }
+
   List accountName = [];
   int maxAcCount() {
-    accountName.add(billsList[0].accountIn);
-    accountName.clear();
-    for (var i = 0; i < billsList.length; i++) {
-      accountName.add(billsList[i].accountIn);
-      accountName.add(billsList[i].accountOut);
+    if(billsList==null){
+      flag = 0;
+      return 0;
+    }else if(billsList.length<=0){
+      flag = 0;
+      return 0;
+    }else if(billsList.length>0) {
+      accountName.add(billsList[0].accountIn);
+      accountName.clear();
+      for (var i = 0; i < billsList.length; i++) {
+        accountName.add(billsList[i].accountIn);
+        accountName.add(billsList[i].accountOut);
+      }
+      var s = new Set();
+      s.addAll(accountName);
+      accountName = s.toList();
+      accountName.add('净资产');
+      ///////////////////////////////////////////确定账户个数
+      ///////////////////////////////////////////账户1，账户2......
+      flag = 1;
+      return accountName.length;
     }
-    var s = new Set();
-    s.addAll(accountName);
-    accountName = s.toList();
-    accountName.add('净资产');
-    ///////////////////////////////////////////确定账户个数
-    ///////////////////////////////////////////账户1，账户2......
-    return accountName.length;
+    flag = 0;
+    return 0;
   }
 
   List inittotalList() {
@@ -171,13 +201,7 @@ class _YuePageContentState extends State<YuePageContent>
     //print(maxAc);
     totalList = inittotalList();
     totalList = countT();
-    print(
-        '///////////////////////////////////////////accountName///////////////////////////////////////////');
-    print(accountName);
     monthList = initmonthList();
-    print(
-        '///////////////////////////////////////////monthList///////////////////////////////////////////');
-    print(monthList);
     monthList1.clear();
     for (var i = 0; i < monthList.length; i++) {
       if (monthList[i]['存在'] == 1) {
@@ -194,12 +218,7 @@ class _YuePageContentState extends State<YuePageContent>
     // TODO: implement initState
     super.initState();
     flag = 0;
-    print(
-        '///////////////////////////////////////////按年统计开始///////////////////////////////////////////');
     accountNumber = acountChange();
-    print(
-        '///////////////////////////////////////////////////////////////////////accountNumber');
-    print(accountNumber);
     initall();
     animationController = new AnimationController(
         vsync: this, duration: Duration(milliseconds: 200));
@@ -216,16 +235,17 @@ class _YuePageContentState extends State<YuePageContent>
     });
   }
 
+  setDataFromDB(int id) async { // 得到数据
+    await BillsDatabaseService.db.deleteBillIdInDB(id);
+  }
+
   List initmonthList() {
     DateTime lastTime = DateTime.now();
-    DateTime firstTime = billsList[0].date;
+    DateTime firstTime = empty(billsList)?DateTime.now():billsList[0].date;
 
-    // print(
-    //     '///////////////////////////////////////////month1month2///////////////////////////////////////////');
-    // print(month1);
-    // print(month2);
     List yueList = [
       {
+        'id':0,
         '日期': DateTime(2020, 09, 18, 20, 23, 45),
         '金额100': 0,
         '金额': '0',
@@ -236,7 +256,7 @@ class _YuePageContentState extends State<YuePageContent>
 
     //重建
     yueList.clear();
-    String tempaccountName = accountName[accountNumber];
+    String tempaccountName = empty(billsList)?null:accountName[accountNumber];
     if (tempaccountName == '净资产') {
       for (var i = 0; i < billsList.length; i++) {
         if (lastTime.isAfter(billsList[i].date)) {
@@ -272,6 +292,7 @@ class _YuePageContentState extends State<YuePageContent>
         detailList.clear();
 
         yueList.add({
+          'id': 0,
           '年份': yeartemp,
           '月份': month,
           '金额100': 0,
@@ -307,6 +328,7 @@ class _YuePageContentState extends State<YuePageContent>
               String tempcardName2 = billsList[j].accountIn;
               yueList[i]['存在'] = 1;
               detailList.add({
+                'id': billsList[j].id,
                 'type': tempcardName2 + '收入',
                 'date': billsList[j].date,
                 'title': billsList[j].title,
@@ -338,6 +360,7 @@ class _YuePageContentState extends State<YuePageContent>
               String tempcardName1 = billsList[j].accountOut;
               yueList[i]['存在'] = 1;
               detailList.add({
+                'id': billsList[j].id,
                 'type': tempcardName1 + '支出',
                 'date': billsList[j].date,
                 'title': billsList[j].title,
@@ -369,6 +392,7 @@ class _YuePageContentState extends State<YuePageContent>
               String tempcardName2 = billsList[j].accountIn;
               yueList[i]['存在'] = 1;
               detailList.add({
+                'id': billsList[j].id,
                 'type': tempcardName1 + '转账到' + tempcardName2,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
@@ -441,6 +465,7 @@ class _YuePageContentState extends State<YuePageContent>
       for (var i = 0; i < times; i++) {
         detailList.clear();
         yueList.add({
+          'id': 0,
           '年份': yeartemp,
           '月份': month,
           '金额100': 0,
@@ -476,6 +501,7 @@ class _YuePageContentState extends State<YuePageContent>
                 String tempcardName2 = billsList[j].accountIn;
                 yueList[i]['存在'] = 1;
                 detailList.add({
+                  'id': billsList[j].id,
                   'type': tempcardName2 + '收入',
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
@@ -508,6 +534,7 @@ class _YuePageContentState extends State<YuePageContent>
                 String tempcardName1 = billsList[j].accountOut;
                 yueList[i]['存在'] = 1;
                 detailList.add({
+                  'id': billsList[j].id,
                   'type': tempcardName1 + '支出',
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
@@ -541,6 +568,7 @@ class _YuePageContentState extends State<YuePageContent>
                 String tempcardName2 = billsList[j].accountIn;
                 yueList[i]['存在'] = 1;
                 detailList.add({
+                  'id': billsList[j].id,
                   'type': tempcardName1 + '转账到' + tempcardName2,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
@@ -573,6 +601,7 @@ class _YuePageContentState extends State<YuePageContent>
                 String tempcardName2 = billsList[j].accountIn;
                 yueList[i]['存在'] = 1;
                 detailList.add({
+                  'id': billsList[j].id,
                   'type': tempcardName1 + '转账到' + tempcardName2,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
@@ -617,163 +646,119 @@ class _YuePageContentState extends State<YuePageContent>
   //     '流水明细',
   //   ),
   // ];
+  /*
+  value['月份'].toString() +
+                      '月\n' +
+   */
 
   List<Widget> _monthListData() {
     var tempList = monthList1.map((value) {
-      var card = new Container(
-        height: 400.0, //设置高度
-        // child: new Card(
-        //   elevation: 15.0, //设置阴影
-        //   shape: const RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.all(Radius.circular(14.0))), //设置圆角
-        child: new ListView(
-          // card只能有一个widget，但这个widget内容可以包含其他的widget
-          children: [
-            new ListTile(
-              onTap: () => print(value['明细'].length),
-              title: new Text(
-                  accountName[accountNumber] +
-                      value['年份'].toString() +
-                      '年' +
-                      value['月份'].toString() +
-                      '月' +
-                      '流水明细',
-                  style: new TextStyle(fontWeight: FontWeight.w500)),
-              subtitle: new Text(accountName[accountNumber] +
-                  value['年份'].toString() +
-                  '年' +
-                  value['月份'].toString() +
-                  '月' +
-                  '流水明细'),
-              leading: new Icon(
-                Icons.restaurant_menu,
-                color: Colors.blue[500],
-              ),
-            ),
-            new Divider(),
-            // new ListTile(
-            //   title: new Text('内容一'),
-            //   leading: new Icon(
-            //     Icons.contact_mail,
-            //     color: Colors.blue[500],
-            //   ),
-            // ),
-
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: value['明细'].length,
-              itemBuilder: (context, index) {
-                return new Slidable(
-                  actionPane: SlidableStrechActionPane(), //滑出选项的面板 动画
-                  actionExtentRatio: 0.25,
-                  child: ListTile(
-                    leading: new Icon(
-                      Icons.contact_mail,
-                      color: Colors.blue[500],
-                    ),
-                    title: new Text(value['明细'][index]['type'] +
-                        ':' +
-                        value['明细'][index]['金额']),
-                    subtitle: new Text('category1:' +
-                        value['明细'][index]['category1'] +
-                        '       ' +
-                        'category2:' +
-                        value['明细'][index]['category2']),
-                    // trailing: new Icon(Icons.arrow_forward_ios),
-                    // contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                    // enabled: true,
-                    onTap: () => print("$index被点击了"),
-                    onLongPress: () => print("$index被长按了"),
-                  ),
-                  secondaryActions: <Widget>[
-                    //右侧按钮列表
-                    IconSlideAction(
-                      caption: 'More',
-                      color: Colors.black45,
-                      icon: Icons.more_horiz,
-                      //onTap: () => _showSnackBar('More'),
-                    ),
-                    IconSlideAction(
-                      caption: 'Delete',
-                      color: Colors.red,
-                      icon: Icons.delete,
-                      closeOnTap: false,
-                      onTap: () {
-                        _showSnackBar('Delete');
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
-
-            // new ListTile(
-            //   title: new Text('内容二'),
-            //   // onTap: () => print(value['明细'].length),
-            //   // onLongPress: () => print(value['明细'][1]),
-            //   leading: new Icon(
-            //     Icons.contact_mail,
-            //     color: Colors.blue[500],
-            //   ),
-            // ),
-          ],
-        ),
-        //),
-      );
-
       return Card(
-        elevation: 15.0, //设置阴影
+        elevation: 2.0, //设置阴影
+        margin: const EdgeInsets.only(top: 20.0,left: 10, right: 10),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(14.0))), //设置圆角
         child: new Column(
           // card只能有一个widget，但这个widget内容可以包含其他的widget
-          children: [
-            Container(
-              margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
-              child: ExpansionTile(
-                backgroundColor: Colors.transparent,
-                title: new Text(
-                  value['年份'].toString() +
-                      '年' +
-                      value['月份'].toString() +
-                      '月' +
-                      '   ' +
-                      '账户：' +
-                      accountName[accountNumber] +
-                      '     ' +
-                      value['金额'],
-                  style: new TextStyle(
-                    color: Color(0xFF333333),
-                    fontSize: 20,
-                  ),
+            children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                child: ExpansionTile(
+                    backgroundColor: Colors.transparent,
+                    title: new Text(
+                      value['年份'].toString() +
+                          '年 ' +
+                          value['月份'].toString() +
+                          '月\n' +
+                          accountName[accountNumber] + '   ' + value['金额'] + '元',
+                      style: new TextStyle(
+                        color: Color(0xFF333333),
+                        fontSize: 20,
+                      ),
+                    ),
+                    trailing: RotationTransition(
+                      turns: animation,
+                      child: Icon(Icons.arrow_drop_down),
+                      //child: Image.asset('assets/images/收起.png'),
+                    ),
+                    onExpansionChanged: (expand) {
+                      _changeTrailing(expand);
+                    },
+                    initiallyExpanded: false,
+                    children: <Widget>[
+                      Container(
+                        height: 300,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: value['明细'].length,
+                          itemBuilder: (context, index) {
+                            return new Container(
+                                height: 65,
+                                child: Card(
+                                    margin: EdgeInsets.all(5.0),
+                                    elevation: 2.0,
+                                    color: Colors.white,
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius:
+                                        BorderRadius.all(Radius.circular(7.0))),
+                                    child:
+                                    Slidable(
+                                      actionPane: SlidableStrechActionPane(), //滑出选项的面板 动画
+                                      actionExtentRatio: 0.25,
+                                      child: ListTile(
+                                        leading: new Icon(
+                                          Icons.category,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        title: new Text(
+                                            value['明细'][index]['type'] +
+                                                ':            ' +
+                                                value['明细'][index]['金额'] +'元'),
+                                        subtitle: new Text(
+                                            value['明细'][index]['category2']
+                                        ),
+                                        // trailing: new Icon(Icons.arrow_forward_ios),
+                                        // contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                                        // enabled: true,
+                                        onTap: () => print("$index被点击了"),
+                                        onLongPress: () => print("$index被长按了"),
+                                      ),
+                                      secondaryActions: <Widget>[
+                                        //右侧按钮列表
+                                        IconSlideAction(
+                                          caption: '编辑',
+                                          color: Theme.of(context).primaryColor,
+                                          icon: Icons.more_horiz,
+                                          //onTap: () => _showSnackBar('More'),
+                                        ),
+                                        IconSlideAction(
+                                          caption: '删除',
+                                          color: Colors.red,
+                                          icon: Icons.delete,
+                                          closeOnTap: false,
+                                          onTap: () {
+                                            //_showSnackBar('Delete');
+                                            print('click');
+                                            setState(() {
+                                              Toast.show('${value['明细'][index]['type']}'+'  已删除',context);
+                                              setDataFromDB(value['明细'][index]['id']);
+                                              (value['明细']).removeAt(index);  //删除某条信息!!!!!!!!!
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(builder: (context) => TimePage(index: 2,)));
+                                            });
+                                          },
+                                        ),
+                                      ],
+                                    )
+                                )
+                            );
+                          },
+                        ),
+                      ),
+                    ]
                 ),
-                trailing: RotationTransition(
-                  turns: animation,
-                  child: Icon(Icons.arrow_drop_down),
-                  //child: Image.asset('assets/images/收起.png'),
-                ),
-                onExpansionChanged: (expand) {
-                  _changeTrailing(expand);
-                },
-                initiallyExpanded: false,
-                children: <Widget>[
-                  Wrap(
-                    runSpacing: 10,
-                    spacing: 10,
-                    runAlignment: WrapAlignment.start,
-                    crossAxisAlignment: WrapCrossAlignment.start,
-                    //children: lzData,
-                  ),
-                  new Divider(),
-                  card,
-                  Container(
-                    height: 20,
-                    color: Colors.transparent,
-                  ),
-                ],
               ),
-            ),
-          ],
+            ]
         ),
       );
     });
@@ -807,7 +792,7 @@ class _YuePageContentState extends State<YuePageContent>
   Widget build(BuildContext context) {
     if (flag == 0) {
       return Center(
-        child: CircularProgressIndicator(),
+        child: Container()//CircularProgressIndicator(),
       );
     } else if (flag == 1) {
       return Container(
