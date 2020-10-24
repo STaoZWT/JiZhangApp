@@ -101,17 +101,17 @@ class _PiechartPageState extends State<PiechartPage> {
     var dataAll = await BillsDatabaseService.db.getBillsFromDBByDate(picked[0],picked[1]);
     setState(() {
       data = dataAll;
-      //print(data);
-      /*for(int i=0; i<data.length; i++){
+      print(data);
+      for(int i=0; i<data.length; i++){
         print(data[i].type); print(data[i].category2);print(data[i].value100);print(data[i].category1);//print(data[i]);
-      }*/
+      }
       typeSelect = (widget.typeSelect)==null?typeSelect:(widget.typeSelect);
       //print(widget.typeSelect);
       type = (widget.type)==null?type:(widget.type);
       //print(widget.type);
       mData = (data==null || data.length<=0)?
           []:dataProcessPie(typeSelect, type);
-      //print(mData);
+      print(mData);
       pieData = data_empty(mData)?null:mData[0];
       //print(pieData);
     });
@@ -131,64 +131,12 @@ class _PiechartPageState extends State<PiechartPage> {
   //默认为“一级分类支出”
   title(String typeSelect, int type) {
     if(type==0){
-      return Text("   $typeSelect"+"收入",style: TextStyle(fontSize: 23.0, color: JizhangAppTheme.deactivatedText,));
+      return Text("$typeSelect"+"收入",style: TextStyle(fontSize: 23.0, color: JizhangAppTheme.deactivatedText,));
     }else if(type==1){
-      return Text("   $typeSelect"+"支出",style: TextStyle(fontSize: 23.0, color: JizhangAppTheme.deactivatedText,));
+      return Text("$typeSelect"+"支出",style: TextStyle(fontSize: 23.0, color: JizhangAppTheme.deactivatedText,));
     }
   }
 
-  Liushui(PieData piedata){
-      return Row(
-        children: [
-          Expanded(
-              flex: 1,
-              child: IconButton(
-                icon: new Icon(Icons.arrow_right),
-                iconSize: 10.0,
-                color: piedata.color,
-                onPressed: (){
-                  Navigator.of(context).pop();
-                  String checked = mData[subscript].name; ///类别
-                  List<LiushuiData> liuData = getLiuData(data, checked, typeSelect, type);
-                  Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => Dismissshow(
-                              typeSelect: typeSelect,
-                              type: type,
-                              picked: picked,
-                              liuData: liuData)));
-                },
-              )
-          ),
-          Expanded(
-              flex: 8,
-              child: Container(
-                padding: const EdgeInsets.only(left: 5.0, bottom: 5.0),
-                child: Text(piedata.name, style: TextStyle(fontSize: 25.0)),
-              )
-          ),
-          Expanded(
-              flex: 4,
-              child: Container(
-                padding: const EdgeInsets.only(left: 0.0, bottom: 5.0),
-                child: Text('${piedata.percentage}', style: TextStyle(fontSize: 24.0)),
-              )
-          ),
-          Expanded(
-              flex: 3,
-              child: Container()
-          ),
-          Expanded(
-              flex: 5,
-              child: Container(
-                padding: const EdgeInsets.only(bottom: 5.0),
-                child: Text('${piedata.price}', style: TextStyle(fontSize: 25.0)),
-              )
-          ),
-        ],
-      );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -198,62 +146,12 @@ class _PiechartPageState extends State<PiechartPage> {
         //padding: const EdgeInsets.only(top: 40),
         children: <Widget>[
           Container(
-            width: double.infinity,
-            height: 60.0,
-            ///副标题
-            child: Row(
-              children: [
-                Expanded(  ///副标题
-                  flex: 6,
-                  child: title(typeSelect, type)
-                ),
-                Expanded(  ///选择分类
-                  flex: 2,
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 1),
-                        child: IconButton(  ///时间选择
-                          icon: new Icon(Icons.select_all, color: JizhangAppTheme.grey, size: 18, ),
-                          onPressed:(){
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                                context,
-                                //transition: TransitionType.inFromBottom,
-                                CupertinoPageRoute(
-                                    builder: (context) => SelectPage(
-                                        typeSelect: typeSelect,
-                                        type: type,
-                                        picked: picked)));
-                          },
-                        )
-                        /*Icon(
-                          Icons.select_all,
-                          color: JizhangAppTheme.grey,
-                          size: 18,
-                        ),*/
-                      ),
-                      Text(
-                        '分类',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: JizhangAppTheme.fontName,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 16,
-                          letterSpacing: -0.2,
-                          color: JizhangAppTheme.darkerText,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+            height: 20.0,
           ),
           Container(  ///卡片
             margin: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-                color: Colors.blue,//JizhangAppTheme.nearlyBlue,
+                color: Colors.white,//JizhangAppTheme.nearlyBlue,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8.0),
                     bottomLeft: Radius.circular(8.0),
@@ -319,7 +217,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                         child: IconButton(  ///选择时间
                                           icon: new Icon(Icons.access_time),
                                           iconSize: 25.0,
-                                          color: Colors.grey[500],
+                                          color: Theme.of(context).primaryColor,
                                           onPressed: () async { //初始日期要修改  //picked储存选择的时间期限
                                             picked = await DateRagePicker
                                                 .showDatePicker(
@@ -437,8 +335,8 @@ class _PiechartPageState extends State<PiechartPage> {
                                         child: IconButton(  ///选择时间
                                           icon: new Icon(Icons.access_time),
                                           iconSize: 25.0,
-                                          color: Colors.grey[500],
-                                          onPressed: () async { //初始日期要修改  //picked储存选择的时间期限
+                                          color: Theme.of(context).primaryColor,
+                                            onPressed: () async { //初始日期要修改  //picked储存选择的时间期限
                                             picked = await DateRagePicker
                                                 .showDatePicker(
                                                 context: context,
@@ -554,7 +452,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                 child: data_empty(mData)?
                                 Text('Nothing!', style: TextStyle( //backgroundColor:Colors.white,
                                     inherit: true,
-                                    color: Colors.grey,
+                                    color: Theme.of(context).primaryColor,
                                     fontSize: 25),):
                                 MaterialButton(  ///类别按钮
                                   //color: Colors.deepOrangeAccent,
@@ -576,7 +474,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                         child: Text(mData[currentSelect].name,
                                           style: TextStyle( //backgroundColor:Colors.white,
                                               inherit: true,
-                                              color: Colors.grey,
+                                              color: Theme.of(context).primaryColor,
                                               fontSize: 25),)
                                     )
                                 ),
@@ -599,7 +497,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                 //padding: const EdgeInsets.only(right: 40),
                                 icon: new Icon(Icons.arrow_right),
                                 iconSize: 40.0,
-                                color: Colors.green[500],
+                                color: Theme.of(context).primaryColor,
                                 onPressed:(){
                                   data_empty(mData)?print('Nothing'):
                                   _changeData();
@@ -618,9 +516,12 @@ class _PiechartPageState extends State<PiechartPage> {
                 ],
               ),
           ),
+          Container(
+            height: 10.0,
+          ),
           Card(  // 类别
               margin: EdgeInsets.all(10.0),
-              elevation: 15.0,
+              elevation: 2.0,
               shape: const RoundedRectangleBorder(
                   borderRadius:
                   BorderRadius.all(Radius.circular(14.0))),
@@ -721,7 +622,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                                 flex: 6,
                                                 child: Container(
                                                   padding: const EdgeInsets.only(left: 0.0, bottom: 5.0),
-                                                  child: Text('${formatNum(mData[index].percentage, 2)==0?
+                                                  child: Text('${formatNum((mData[index].percentage)*100, 2)==0?
                                                       formatNum((mData[index].percentage)*100, 3):
                                                       formatNum((mData[index].percentage)*100, 2)}%'
                                                       , style: TextStyle(fontSize: 17.0)),
@@ -734,8 +635,8 @@ class _PiechartPageState extends State<PiechartPage> {
                                             Expanded(
                                                 flex: 7,
                                                 child: Container(
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
-                                                  child: Text('${formatNum((mData[index].price)/100, 3)}', style: TextStyle(fontSize: 17.0)),
+                                                  padding: const EdgeInsets.only(bottom: 5.0), //'${formatNum(mData[index].price, 4)}'
+                                                  child: Text('${mData[index].price}', style: TextStyle(fontSize: 17.0)),
                                                 )
                                             ),
                                           ],
@@ -754,6 +655,62 @@ class _PiechartPageState extends State<PiechartPage> {
     );
   }
 }
+
+/*
+Container(
+            width: double.infinity,
+            height: 60.0,
+            ///副标题
+            child: Row(
+              children: [
+                Expanded(  ///副标题
+                  flex: 6,
+                  child: title(typeSelect, type)
+                ),
+                Expanded(  ///选择分类
+                  flex: 2,
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 1),
+                        child: IconButton(
+                          icon: new Icon(Icons.select_all, color: JizhangAppTheme.grey, size: 18, ),
+                          onPressed:(){
+                            Navigator.of(context).pop();
+                            Navigator.push(
+                                context,
+                                //transition: TransitionType.inFromBottom,
+                                CupertinoPageRoute(
+                                    builder: (context) => SelectPage(
+                                        typeSelect: typeSelect,
+                                        type: type,
+                                        picked: picked)));
+                          },
+                        )
+                        /*Icon(
+                          Icons.select_all,
+                          color: JizhangAppTheme.grey,
+                          size: 18,
+                        ),*/
+                      ),
+                      Text(
+                        '分类',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontFamily: JizhangAppTheme.fontName,
+                          fontWeight: FontWeight.normal,
+                          fontSize: 16,
+                          letterSpacing: -0.2,
+                          color: JizhangAppTheme.darkerText,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+ */
 
 
 

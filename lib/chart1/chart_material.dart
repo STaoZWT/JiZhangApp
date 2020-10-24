@@ -54,34 +54,6 @@ timeEqual(DateTime time1, DateTime time2){
 }
 
 
-List<LsdataTime> dataSortTime(List<LiushuiData> liuData){
-  List<LsdataTime> dataTime = [];
-  int flag = 0;
-  LsdataTime LsdataTimeNow;
-  LiushuiData datanow;
-  for(int i=0;i<liuData.length;i++){
-    for(int j=0;j<dataTime.length;j++){ //遍历
-      if(timeEqual(dataTime[j].time, liuData[i].date)){ //已经添加该日期
-        flag = 1;
-        datanow = liuData[i];
-        (dataTime[j].data).add(datanow);
-        break;
-      }
-    }
-    if(flag==0){//不存在
-      LsdataTimeNow = new LsdataTime(liuData[i].date, [], liuData[i].c1c2mc);
-      //sdataTimeNow.time = liuData[i].date;
-      datanow = liuData[i];
-      (LsdataTimeNow.data).add(datanow);
-      //LsdataTimeNow.c1c2mc = liuData[i].c1c2mc;
-      dataTime.add(LsdataTimeNow);
-      flag = 0;
-    }
-  }
-  print(dataTime);
-  return dataTime;
-}
-
 //checked选择查看哪一部分
 //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户
 //type 0:收入， 1：支出
@@ -130,19 +102,19 @@ List getLiuData(List<BillsModel> data, String checked, String typeSelect, int ty
   List<Color> colorListPie = [
     Colors.blueAccent,
     Colors.green,
-    Colors.pink,  ///5
+    Colors.pink,
     Colors.orangeAccent,
-    Colors.black38,
+    Colors.black38,///5
     Colors.cyanAccent,
     Colors.deepPurpleAccent,
-    Colors.deepOrangeAccent, ///10
+    Colors.deepOrangeAccent,
     Colors.yellowAccent,
-    Colors.redAccent,
+    Colors.redAccent,///10
     Colors.cyan,
     Colors.purple,
-    Colors.brown,///15
+    Colors.brown,
     Colors.lightGreenAccent,
-    Colors.indigo,
+    Colors.indigo,///15
     Colors.deepPurple,
     Colors.deepOrange,
     Colors.yellow,
@@ -189,106 +161,85 @@ double formatNum(double num,int postion){
 
   //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户
   //type 0:收入， 1：支出
-  List<PieData> statisticsPie(List<BillsModel> data, String typeSelect, int type){//, List<String> member, List<String> account){ //饼状图
-    int n = 0; ///n<8
-    int allPrice = 0;
+  List<PieData> statisticsPie(List<BillsModel> data, String typeSelect, int type){
+    double allPrice = 0;
     var dataPie = new List<PieData>();
     var dataPieFull = new List<PieData>();
     var datanow;
     int flag = 0; //是否已经记录
-    //print("传入数据为：");
-    //print(data);
-    if(data.length<=0 || data.length==null){ //总的数据集为空
-      return null;
-    }
-    print(data.length);
-    for(int i=0; i<data.length; i++) {
-      print('next');
-      print(data[i].type);
-      print(data[i].category2);
-      print(data[i].value100);
-      print(data[i].category1);
-    }//print(data[i]);
-    //初始化
-    /*if(typeSelect=='一级分类'){ //category1: 1~n
-      datanow = new PieData(colorListPie[0], 0.0, data[0].category1, data[0].value100);
-    }else if(typeSelect=='二级分类'){ //category2: 1~n
-      datanow = new PieData(colorListPie[0], 0.0, data[0].category2, data[0].value100);
-    }else if(typeSelect=='成员分类'){ //member: 1~n
-      datanow = new PieData(colorListPie[0], 0.0, data[0].member, data[0].value100);
-    }else if(typeSelect=='账户分类'){ //账户
-      datanow = new PieData(colorListPie[0], 0.0, data[0].accountOut, data[0].value100);
-    }
-    allPrice = allPrice + data[0].value100;
-    dataPie.add(datanow);*/
+
     for(int i=0;i<data.length;i++){
       if(typeSelect=='一级分类'){ //category1: 1~n
         if(type==data[i].type){
           for(int j=0;j<dataPie.length;j++){ //遍历
             if(dataPie[j].name==data[i].category1){ //已经添加该名字
-              dataPie[j].price = dataPie[j].price + data[i].value100;
+              dataPie[j].price = dataPie[j].price + data[i].value100/100;
               flag = 1;
               break;
             }
           }
           if(flag==0){//不存在
-            datanow = new PieData(colorListPie[i], 0.00, data[i].category1, (data[i].value100).roundToDouble());
+            datanow = new PieData(colorListPie[i], 0.00, data[i].category1, data[i].value100 /100);
             dataPie.add(datanow);
-            flag = 0;
           }
-          allPrice = allPrice + data[i].value100;
+          flag = 0;
+          allPrice = allPrice + (data[i].value100)/100;
         }
       }else if(typeSelect=='二级分类'){ //category2: 1~n
         if(type==data[i].type){
           for(int j=0;j<dataPie.length;j++){ //遍历
             if(dataPie[j].name==data[i].category2){ //已经添加该名字
-              dataPie[j].price = dataPie[j].price + data[i].value100;
+              dataPie[j].price = dataPie[j].price + data[i].value100/100;
               flag = 1;
               break;
             }
           }
           if(flag==0){//不存在
-            datanow = new PieData(colorListPie[i], 0.00, data[i].category2, (data[i].value100).roundToDouble());
+            datanow = new PieData(colorListPie[i], 0.00, data[i].category2, data[i].value100 /100);
             print(data[i].category2);
             dataPie.add(datanow);
             flag = 0;
           }
-          allPrice = allPrice + data[i].value100;
+          flag = 0;
+          allPrice = allPrice + (data[i].value100)/100;
         }
       }else if(typeSelect=='成员分类'){ //member: 1~n
         if(type==data[i].type){
           for(int j=0;j<dataPie.length;j++){ //遍历
             if(dataPie[j].name==data[i].member){ //已经添加该名字
-              dataPie[j].price = dataPie[j].price + data[i].value100;
+              dataPie[j].price = dataPie[j].price + data[i].value100/100;
               flag = 1;
               break;
             }
           }
           if(flag==0){//不存在
-            datanow = new PieData(colorListPie[i], 0.00, data[i].member, (data[i].value100).roundToDouble());
+            datanow = new PieData(colorListPie[i], 0.00, data[i].member, data[i].value100 /100);
             dataPie.add(datanow);
             flag = 0;
           }
-          allPrice = allPrice + data[i].value100;
+          flag = 0;
+          allPrice = allPrice + (data[i].value100)/100;
         }
       }else if(typeSelect=='账户分类'){ //账户
         if(type==data[i].type){
           for(int j=0;j<dataPie.length;j++){ //遍历
             if(dataPie[j].name==data[i].accountOut){ //已经添加该名字
-              dataPie[j].price = dataPie[j].price + data[i].value100;
+              dataPie[j].price = dataPie[j].price + data[i].value100/100;
               flag = 1;
               break;
             }
           }
           if(flag==0){//不存在
-            datanow = new PieData(colorListPie[i], 0.00, data[i].accountOut, (data[i].value100).roundToDouble());
+            datanow = new PieData(colorListPie[i], 0.00, data[i].accountOut, data[i].value100 /100);
             dataPie.add(datanow);
             flag = 0;
           }
-          allPrice = allPrice + data[i].value100;
+          flag = 0;
+          allPrice = allPrice + (data[i].value100)/100;
         }
       }
     }
+    print(allPrice);
     if(allPrice!=0){ //不能除0
       for(int i=0;i<dataPie.length;i++)
       {
