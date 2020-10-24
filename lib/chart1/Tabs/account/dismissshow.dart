@@ -1,21 +1,23 @@
-import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_jizhangapp/chart1/Tabs/ui_view/app_theme.dart';
 import 'package:flutter_jizhangapp/chart1/chart_material.dart';
 import 'package:flutter_jizhangapp/chart1/chartpage.dart';
 import 'package:flutter_jizhangapp/service/database.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:toast/toast.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 
 class Dismissshow extends StatefulWidget {
+  String title;
   List<LiushuiData> liuData; //接收传值
   String typeSelect; //类型
   int type;
   var picked; //时间
+  Color color; //对应颜色
 
-  Dismissshow({Key key, this.liuData, this.type, this.typeSelect, this.picked}) : super(key: key);
+  Dismissshow({Key key, this.title, this.liuData, this.type, this.typeSelect, this.picked, this.color}) : super(key: key);
 
   @override
   _Dismissshow createState() => _Dismissshow();
@@ -38,7 +40,7 @@ class _Dismissshow extends State<Dismissshow> {
 
   @override
   void initState() {
-    checked = ((widget.liuData)[0]).c1c2mc;
+    checked = empty(widget.liuData)? widget.title: (widget.liuData)[0].c1c2mc;
     type = widget.type;
   }
 
@@ -48,9 +50,9 @@ class _Dismissshow extends State<Dismissshow> {
   //默认为“一级分类支出”
   title(BuildContext context) {
     if(widget.type==0){
-      return Text("$checked"+"收入",style: TextStyle(fontSize: 27.0, color: Theme.of(context).primaryColor));
+      return Text("$checked"+" 收入",style: TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor));
     }else if(widget.type==1){
-      return Text("$checked"+"支出",style: TextStyle(fontSize: 27.0, color: Theme.of(context).primaryColor));
+      return Text("$checked"+" 支出",style: TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor));
     }
   }
 
@@ -85,13 +87,24 @@ class _Dismissshow extends State<Dismissshow> {
     }
   }
 
+  empty(List<LiushuiData> liuData){
+    if(liuData==null){
+      return true;
+    }else if(liuData.length<=0){
+      return true;
+    }else if(liuData.length>=0){
+      return false;
+    }
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar( //标题
         backgroundColor: Colors.white,
         leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor,),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor,size: 28),
             onPressed: () {
               Navigator.of(context).pop();
               Navigator.push(
@@ -105,7 +118,8 @@ class _Dismissshow extends State<Dismissshow> {
           centerTitle: true,
           title: title(context)//界面标题内容
       ),
-      body: ListView.builder(
+      body: empty(widget.liuData)?Container():
+      ListView.builder(
         itemCount: (widget.liuData).length,
         itemBuilder: (context, index) {
           final item = (widget.liuData)[index];
@@ -164,7 +178,7 @@ class _Dismissshow extends State<Dismissshow> {
                     ),
                   ),
                   Expanded(
-                      flex: timeEqual(time,(widget.liuData)[index].date)?100:4,
+                      flex: timeEqual(time,(widget.liuData)[index].date)?200:5,
                       child: Card(
                         margin: EdgeInsets.all(8.0),
                         elevation: 2.0,
@@ -172,84 +186,69 @@ class _Dismissshow extends State<Dismissshow> {
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                             BorderRadius.all(Radius.circular(7.0))),
-                        child: Column(
-                          children: [
-                            Expanded(
-                              flex: 3,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 6,
-                                    child: Center(
-                                      child: Text('${(item.date).hour}: ${(item.date).minute}',
-                                          style: TextStyle(fontSize: 18.0, color: Colors.black)),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 12,
-                                    child: Container(
-                                    ),
-                                  )
-                                ],
-                              )
+                        child: Slidable(
+                          actionPane: SlidableStrechActionPane(), //滑出选项的面板 动画
+                          actionExtentRatio: 0.25,
+                          child: ListTile(
+                            leading: new Icon(
+                              Icons.category,
+                              color: widget.color,
                             ),
-                            Expanded(
-                              flex: 5,
-                              child: Container(
-                                height: 40.0, //每一条信息的高度
-                                width: double.infinity,
-                                color: Colors.transparent,
-                                padding: const EdgeInsets.only(left: 5.0), //每条信息左边距
-                                /*decoration: new BoxDecoration(
-                                  border: new Border(
-                                    bottom: BorderSide(color: Colors.black, width: 0.5), //信息的分割线
-                                  )),*/
-                                child: Row(
-                                  //mainAxisAlignment: MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: item.show == true ? //是否被删除
-                                      1:2,
-                                      child: Icon(Icons.category, color: Theme.of(context).primaryColor),
-                                    ),
-                                    Expanded(
-                                      flex: item.show == true ? //是否被删除
-                                      6:10,
-                                      child:new Text(' ${(widget.liuData)[index].category2}: ',
-                                          style: TextStyle(fontSize: 20.0)),
-                                    ),
-                                    Expanded(
-                                      flex: item.show == true ? //是否被删除
-                                      5:6,
-                                      child:new Text('${formatNum(((widget.liuData)[index].value)/100, 3)}元',
-                                          style: TextStyle(fontSize: 18.0)),
-                                    ),
-                                    Expanded(
-                                      flex: item.show == true ? //是否被删除
-                                      3:1,
-                                      child:item.show == true ? //是否被删除
-                                      RaisedButton(
-                                          child: new Text('删除'),
-                                          onPressed: () {
-                                            print('click');
-                                            setState(() {
-                                              Toast.show('${widget.typeSelect}'+'   '
-                                                  '${(widget.liuData)[index].c1c2mc}   已删除',context);
-                                              setDataFromDB((widget.liuData)[index].id);
-                                              (widget.liuData).removeAt(index);  //删除某条信息!!!!!!!!!
-                                            });
-                                          },
-                                          color: Theme.of(context).primaryColor,
-                                          splashColor: Colors.pink[100])
-                                          :Text(''),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            )
+                            title: new Text('${(widget.liuData)[index].category2}:' +
+                                '           ' +
+                                '${formatNum(((widget.liuData)[index].value)/100, 3)} 元',
+                                style: TextStyle(fontSize: 18.0, color: Colors.black)),
+                            subtitle: new Text(
+                                '${(item.date).hour}: ${(item.date).minute}',
+                            ),
+                            onTap: () => print("$index被点击了"),
+                            onLongPress: () => print("$index被长按了"),
+                          ),
+                          secondaryActions: <Widget>[
+                            //右侧按钮列表
+                            IconSlideAction(
+                              caption: '编辑',
+                              color: Colors.black45,
+                              icon: Icons.more_horiz,
+                              onTap: () {
+                                //_showSnackBar('Delete');
+                                print('编辑');
+                                setState(() {
+                                  ///跳转编辑页面
+                                  //setDataFromDB((widget.liuData)[index].id);
+                                  //(widget.liuData).insertAll(index, );  //删除某条信息!!!!!!!!!
+                                });
+                              },
+                            ),
+                            IconSlideAction(
+                              caption: '删除',
+                              color: Colors.red,
+                              icon: Icons.delete,
+                              closeOnTap: false,
+                              onTap: () {
+                                //_showSnackBar('Delete');
+                                print('click');
+                                setState(() {
+                                  Toast.show('${widget.typeSelect}'+'   '
+                                      '${(widget.liuData)[index].c1c2mc}   已删除',context);
+                                  setDataFromDB((widget.liuData)[index].id);
+                                  (widget.liuData).removeAt(index);  //删除某条信息!!!!!!!!!
+                                  Navigator.of(context).pop();
+                                  Navigator.push(
+                                      context,
+                                      CupertinoPageRoute(
+                                          builder: (context) => Dismissshow(
+                                            typeSelect: widget.typeSelect,
+                                            type: widget.type,
+                                            picked: widget.picked,
+                                            liuData: widget.liuData,
+                                            title: checked,
+                                            color: widget.color,)));
+                                });
+                              },
+                            ),
                           ],
-                        )
-
+                        ),
                       )
                   ),
                 ],

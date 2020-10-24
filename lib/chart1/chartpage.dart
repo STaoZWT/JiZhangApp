@@ -5,6 +5,7 @@ import 'package:flutter_jizhangapp/chart1/Tabs/piechart2/chart_pie.dart';
 import 'package:flutter_jizhangapp/chart1/select.dart';
 import 'package:flutter_jizhangapp/data/model.dart';
 
+import '../homepage.dart';
 import 'Tabs/ui_view/app_theme.dart';
 
 
@@ -83,6 +84,15 @@ class _ChartPageState extends State<ChartPage> {
       appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: true,
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor,size: 28),
+              onPressed: () {
+                Navigator.of(context).pop();
+                /*Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => HomePage()));*/
+              }),
           title: title(typeSelect, type),
           actions: <Widget>[
             RaisedButton.icon(

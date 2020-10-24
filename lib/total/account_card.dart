@@ -136,8 +136,6 @@ class _AccountCardPageState extends State<AccountCardPage> {
         ),
       );
     }
-
-
   }
 
 }

@@ -17,25 +17,25 @@ class MyCustomCircle extends StatelessWidget{
 
   MyCustomCircle(this.datas,this.data,this.currentSelect);
 
-  choose(){
+  choose(BuildContext context){
     if(datas==null){
       return CustomPaint(
-          painter: MyView(null,null,null,true)
+          painter: MyView(null,null,null,true,context)
       );
     }
     if(datas.length<=0){
       return CustomPaint(
-          painter: MyView(null,null,null,true)
+          painter: MyView(null,null,null,true,context)
       );
     }
     return CustomPaint(
-        painter: MyView(datas,data,currentSelect,true)
+        painter: MyView(datas,data,currentSelect,true,context)
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return choose();
+    return choose(context);
     /*CustomPaint(
         painter: MyView(datas,data,currentSelect,true)
     );*/
