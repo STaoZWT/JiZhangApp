@@ -208,8 +208,9 @@ class _TotalPageContentState extends State<TotalPageContent> {
     // TODO: implement initState
     super.initState();
     initall();
+    print('');
   }
-
+//
 ////////////////////////////////////////////////////////////////////////////////配置Card
   List<Widget> _totalListData() {
     // print('///////////////////////////////////////////////////////');
