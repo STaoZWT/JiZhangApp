@@ -193,6 +193,7 @@ class _JiPageContentState extends State<JiPageContent>
   void initState() {
     // TODO: implement initState
     super.initState();
+    flag = 0;
     print(
         '///////////////////////////////////////////按年统计开始///////////////////////////////////////////');
     accountNumber = acountChange();
@@ -820,7 +821,9 @@ class _JiPageContentState extends State<JiPageContent>
   @override
   Widget build(BuildContext context) {
     if (flag == 0) {
-      return CircularProgressIndicator();
+      return Center(
+        child: CircularProgressIndicator(),
+      );
     } else if (flag == 1) {
       return Container(
         child: Stack(children: <Widget>[
