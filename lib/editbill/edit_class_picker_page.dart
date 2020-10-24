@@ -64,7 +64,7 @@ class _editClassPicker extends State<editClassPicker> {
           int category1Index = index;
           Map category1 = classList[index] as Map; //第index个一级分类和他的二级分类们
           String category1name =
-              removeBrackets(category1.keys.toString()); //该一级分类的名字，去除括号！！！
+          removeBrackets(category1.keys.toString()); //该一级分类的名字，去除括号！！！
           List category2 = category1[category1name]; //该一级分类下所有二级分类的list
           //print(category2[1]);
           return Container(
@@ -85,75 +85,76 @@ class _editClassPicker extends State<editClassPicker> {
                     borderRadius:
                     BorderRadius.all(Radius.circular(8.0))),
                 child:InkWell(
-                    onTap: () async { //修改一级分类的操作
-                      String newCategory1 = await inputNewCategory("一");
-                      if (newCategory1 != null) {
-                        bool isExist = false;
-                        classList.forEach((element) {
-                          //print("${newCategory1.keys}   ${(element as Map).keys}");
-                          if (removeBrackets((element as Map).keys.toString()) == newCategory1) {
-                            isExist = true; //判断修改的一级分类是否重复
-                          }
-                        });
-                        if (isExist == true) {
-                          Toast.show("该一级分类已存在", context);
+                  onTap: () async { //修改一级分类的操作
+                    String newCategory1 = await inputNewCategory("一");
+                    if (newCategory1 != null) {
+                      bool isExist = false;
+                      classList.forEach((element) {
+                        //print("${newCategory1.keys}   ${(element as Map).keys}");
+                        if (removeBrackets((element as Map).keys.toString()) == newCategory1) {
+                          isExist = true; //判断修改的一级分类是否重复
                         }
-                        else {
-                          if(newCategory1 != category1name) {
-                            isChange = true;
-                            updateCategory1(category1name, newCategory1);  //数据库操作
-                            //print(newCategory1);
-                            var value = category1[category1name];
-                            category1.putIfAbsent(newCategory1, () => value);
-                            category1.remove(category1name);
-                            classList[index] =category1;
-                            //print(classList[index]);
-                            setPicker(fileName, JsonEncoder().convert(classList));  //文件操作
-                            setState(() { });
-                          }
+                      });
+                      if (isExist == true) {
+                        Toast.show("该一级分类已存在", context);
+                      }
+                      else {
+                        if(newCategory1 != category1name) {
+                          isChange = true;
+                          updateCategory1(category1name, newCategory1);  //数据库操作
+                          //print(newCategory1);
+                          var value = category1[category1name];
+                          category1.putIfAbsent(newCategory1, () => value);
+                          category1.remove(category1name);
+                          classList[index] =category1;
+                          //print(classList[index]);
+                          setPicker(fileName, JsonEncoder().convert(classList));  //文件操作
+                          setState(() { });
                         }
                       }
-                    },
-                    child: ListTile(
-                      dense: true,
-                      title: Text(
-                        "$category1name",
-                        style: TextStyle(
-                            color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
-                            //Colors.black45,
-                            fontSize: 20), //一级分类字体颜色和大小
-                      ),
-                      // leading:
-                      //     Icon(
-                      //       Icons.apps,
-                      //       color: Theme.of(context).primaryColor,
-                      //     ),
-                      trailing: Visibility(
-                        visible: classList.length > 1, //
-                        maintainInteractivity: false,
-                        maintainSize: false,
-                        child:IconButton( //删除一级分类按钮
-                          icon: Icon(
-                            Icons.delete_outline,  //删除按钮
-                            color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
-                          ),
-                          onPressed: () async {
-                            bool isDelete = await deleteConfirm();
-                            if(isDelete) {
-                              isChange = true;
-                              removeCategory1(category1name);
-                              classList.removeAt(index);
-                              setPicker(fileName, JsonEncoder().convert(classList));
-                              setState(() { });
-                            }
-
-                          },
+                    }
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.category,color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,),
+                    dense: true,
+                    title: Text(
+                      "$category1name",
+                      style: TextStyle(
+                          color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
+                          //Colors.black45,
+                          fontSize: 20), //一级分类字体颜色和大小
+                    ),
+                    // leading:
+                    //     Icon(
+                    //       Icons.apps,
+                    //       color: Theme.of(context).primaryColor,
+                    //     ),
+                    trailing: Visibility(
+                      visible: classList.length > 1, //
+                      maintainInteractivity: false,
+                      maintainSize: false,
+                      child:IconButton( //删除一级分类按钮
+                        icon: Icon(
+                          Icons.delete_outline,  //删除按钮
+                          color: (10 - index % 20).abs() < 6 ? Colors.white : Colors.black45,
                         ),
+                        onPressed: () async {
+                          bool isDelete = await deleteConfirm();
+                          if(isDelete) {
+                            isChange = true;
+                            removeCategory1(category1name);
+                            classList.removeAt(index);
+                            setPicker(fileName, JsonEncoder().convert(classList));
+                            setState(() { });
+                          }
 
+                        },
                       ),
-                ),
 
-              ),
+                    ),
+                  ),
+
+                ),
               ),
 
               initiallyExpanded: false,
@@ -197,12 +198,16 @@ class _editClassPicker extends State<editClassPicker> {
                           }
                         },
                         child: ListTile(
-                          title: Text("${category2[index]}"),
-                          leading: Icon(
-                            //Icons.arrow_forward_ios,
-                            Icons.remove,
-                            color: Theme.of(context).primaryColor,
-                          ),
+                            title: Text("${category2[index]}"),
+                            leading: Padding(
+                              padding: const EdgeInsetsDirectional.only(start: 64.0),
+                              child: Icon(
+                                //Icons.arrow_forward_ios,
+                                Icons.remove,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
+
                             trailing: Visibility(
                               visible: !(classList.length==1 && category2.length==1),
                               maintainInteractivity: false,
@@ -249,7 +254,7 @@ class _editClassPicker extends State<editClassPicker> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0)), //圆角矩形
                         label: Text("添加二级分类",
-                            style: TextStyle(color: Colors.black45, fontSize: 15),
+                          style: TextStyle(color: Colors.black45, fontSize: 15),
                         ),
                         onPressed: () async {
                           String newCategory2 = await inputNewCategory("二");
@@ -293,7 +298,7 @@ class _editClassPicker extends State<editClassPicker> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-          //添加一级分类
+        //添加一级分类
           child: Icon(Icons.add),
           backgroundColor: Theme.of(context).primaryColor,
           onPressed: () async {
@@ -335,10 +340,10 @@ class _editClassPicker extends State<editClassPicker> {
               autofocus: true,
               maxLines: 1, //最大行数
               decoration: InputDecoration(
-                  labelText: "$text级分类", //输入框标题
-                  prefixIcon: Icon(Icons.add_box), //输入框图标样式
-                  hintText: "不大于6个字符",
-                  ),
+                labelText: "$text级分类", //输入框标题
+                prefixIcon: Icon(Icons.add_box), //输入框图标样式
+                hintText: "不大于6个字符",
+              ),
               keyboardType: TextInputType.name,
               onChanged: (val) {
                 input = val;
@@ -384,10 +389,10 @@ class _editClassPicker extends State<editClassPicker> {
                 autofocus: true,
                 maxLines: 1, //最大行数
                 decoration: InputDecoration(
-                    labelText: "一级分类", //输入框标题
-                    prefixIcon: Icon(Icons.add_box),  //输入框图标样式
-                    hintText: "不大于6个字符",
-                    ),
+                  labelText: "一级分类", //输入框标题
+                  prefixIcon: Icon(Icons.add_box),  //输入框图标样式
+                  hintText: "不大于6个字符",
+                ),
                 keyboardType: TextInputType.name,
                 onChanged: (val) {
                   input1 = val;
@@ -398,10 +403,10 @@ class _editClassPicker extends State<editClassPicker> {
                 autofocus: false,
                 maxLines: 1, //最大行数
                 decoration: InputDecoration(
-                    labelText: "二级分类", //输入框标题
-                    prefixIcon: Icon(Icons.add_box), //输入框图标样式
-                    hintText: "不大于6个字符",
-                    ),
+                  labelText: "二级分类", //输入框标题
+                  prefixIcon: Icon(Icons.add_box), //输入框图标样式
+                  hintText: "不大于6个字符",
+                ),
                 keyboardType: TextInputType.name,
                 onChanged: (val) {
                   input2 = val;
@@ -440,29 +445,29 @@ class _editClassPicker extends State<editClassPicker> {
 
   Future<bool> deleteConfirm() {  //删除确认框
     return showDialog<bool>(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("提示"),
-            content:Text(
-              "删除分类会删除其下的流水，且删除后将无法恢复，您确定删除所选分类？",
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 20,
-              ),
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("提示"),
+          content:Text(
+            "删除分类会删除其下的流水，且删除后将无法恢复，您确定删除所选分类？",
+            style: TextStyle(
+              color: Colors.black87,
+              fontSize: 20,
             ),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("取消"),
-                onPressed: () => Navigator.of(context).pop(false),
-              ),
-              FlatButton(
-                child: Text("确认"),
-                onPressed: () => Navigator.of(context).pop(true),
-              ),
-            ],
-          );
-        },
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("取消"),
+              onPressed: () => Navigator.of(context).pop(false),
+            ),
+            FlatButton(
+              child: Text("确认"),
+              onPressed: () => Navigator.of(context).pop(true),
+            ),
+          ],
+        );
+      },
     );
   }
   //从数据库中删除一级分类相关的流水

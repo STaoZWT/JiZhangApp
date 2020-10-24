@@ -64,7 +64,7 @@ class _CardAddBill extends State<CardAddBill>
     super.initState();
     isInit = false;
 
-    moneyInput = 0;
+    //moneyInput = 0;
     dateSelect = DateTime.now();
     classSelect = [0, 0];
     accountSelectOut = [0];
@@ -79,19 +79,21 @@ class _CardAddBill extends State<CardAddBill>
     type = 0;
     //tempMoney = 0.00;
     //this.moneyController.text = ("0.00");
-        currentbill = BillsModel(
-          value100: 0,
-      title: "",
-      date: DateTime.now(),
-      type: 0,
-      accountIn: "未选择",
-      accountOut: "未选择",
-      category1: "未选择",
-      category2: "未选择",
-      member: "无成员"
+    currentbill = BillsModel(
+        value100: 0,
+        title: "",
+        date: DateTime.now(),
+        type: 0,
+        accountIn: "未选择",
+        accountOut: "未选择",
+        category1: "未选择",
+        category2: "未选择",
+        member: "无成员"
     );
-      draftToCurrentBill();
+    draftToCurrentBill();
   }
+
+  FocusNode blankNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -100,358 +102,396 @@ class _CardAddBill extends State<CardAddBill>
         child: Text("加载中"),
       );
     }
-    else {return WillPopScope(
-      onWillPop: () async => showDialog(
-          context: context,
-          builder: (context) =>
-              AlertDialog(title: Text('是否保存草稿？'), actions: <Widget>[
-                RaisedButton(
-                  child: Text('是'),
-                  onPressed: () {
-                    currentbill.title = remark;
-                    currentbill.date = dateSelect;
-                    currentbill.type = type;
-                    currentbill.accountIn = (type==2)?accountInSelectText:"未选择"; //保存草稿时，支出和收入类型时，此项无保存必要
-                    currentbill.accountOut = accountOutSelectText;
-                    currentbill.category1 = (type==2)?"其他":(type==0)?classInSelectText.split(",")[0]:classOutSelectText.split(",")[0]; //转账时无分类，因此赋默认值
-                    currentbill.category2 = (type==2)?"转账":(type==0)?classInSelectText.split(",")[1]:classOutSelectText.split(",")[1];
-                    currentbill.member = memberSelectText;
-                    currentbill.value100 = moneyInput;
-                    setDraft(currentbill);
-                    Navigator.of(context).pop(true);
-                  },
-                ),
-                RaisedButton(
-                  child: Text('否'),
-                  onPressed: () {
-                    removeDraft();
-                    Navigator.of(context).pop(true);
-                  },
-                )
-              ])),
-      child: Scaffold(
-        // floatingActionButton: FloatingActionButton.extended(
-        //   backgroundColor: Theme.of(context).primaryColor,
-        //   onPressed: () {
-        //     billConfirm();
-        //   },
-        //   icon: Icon(
-        //     Icons.check,
-        //     size: 30,
-        //   ),
-        //   label: Text("  完成 "),
-        // ),
-        // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Text("新建记账",style: TextStyle(color: Theme.of(context).primaryColor),),
-          actions: <Widget>[
-            IconButton(
-                icon: FaIcon(FontAwesomeIcons.alipay, color: Theme.of(context).primaryColor,),
-                onPressed: () async {
-                  // List<BillsModel> allBills = await BillsDatabaseService.db.getBillsFromDB();
-                  // allBills.forEach((element) {
-                  //   print(element.toMap().toString());
-                  // });
-                  // int test = await BillsDatabaseService.db.getAccountNetAsset('现金账户');
-                  // print("test: $test");
-                  BillsDatabaseService.db.billsCountThisMonth();
-                  BillsDatabaseService.db.assetInThisMonth();
-                  BillsDatabaseService.db.assetOutThisMonth();
-                  BillsDatabaseService.db.LatestBill();
-                  // Navigator.push(context, MaterialPageRoute(
-                  //   builder: (context) => AccountCardPage()
-                  // ));
-                }),
-            AnimatedContainer(
-              margin: EdgeInsets.fromLTRB(10, 6, 0, 6),
-              //EdgeInsets.only(left: 10),
-              duration: Duration(milliseconds: 200),
-              width: 1==1 ? 100 : 0,
-              height: 42,
-              curve: Curves.decelerate,
-              child: RaisedButton.icon(
-                color: Theme.of(context).accentColor,
-                textColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(100),
-                        bottomLeft: Radius.circular(100))),
-                icon: Icon(Icons.done),
-                label: Text(
-                  '完成',
-                  style: TextStyle(letterSpacing: 1),
-                ),
-                onPressed: (){billConfirm();},
-              ),
-            )
-          ],
-          bottom: TabBar(
-            labelColor: Theme.of(context).primaryColor,
-            labelStyle: TextStyle(fontWeight: FontWeight.bold),
-            unselectedLabelColor: Colors.grey,
-            unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
-            controller: _tabController,
-            tabs: tabs,
-          ),
-        ),
-        body: TabBarView(
-            controller: _tabController,
-            children: tabs.map((Tab tab) {
-              //final String tabType = tab.text.toString();
-              String accountTitle = accountTitleController(tab.text);
-              //type = (tab.text=="收入")?0:(tab.text=="支出")?1:2;  //1:收入 2：支出 3：转账
-              _tabController.addListener(() {
-
-                if (!_tabController.indexIsChanging) {
-                  setState(() {
-                    var index = _tabController.index;
-                    //print("index : $index");
-                    currentbill.type = index;
-                    //print("cu.type: ${currentbill.type}");
-                    type = index;
-                    //print("type: $type");
-                  });
-                }
-              });
-              return AnimatedContainer(
-                  duration: Duration(milliseconds: 200),
-                  child: ListView(
-                    physics: BouncingScrollPhysics(),
-                    children: <Widget>[
-                      SizedBox(
-                        height: 8,
-                      ),
-                      //以下输入金钱
-                      Card(
-                        margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
-                        elevation: 2.0,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(8.0))),
-                        child: TextField(
-                          controller: moneyController,
-                          autofocus: false,
-                          decoration: InputDecoration(
-
-                            border: InputBorder.none,
-                            // labelText: "金额",
-                            // labelStyle: TextStyle(
-                            //   fontWeight: FontWeight.w300
-                            // ),
-                            hintText: "请输入金额 ",
-                            hintStyle:
-                            TextStyle(color: Colors.black12, fontSize: 24.0),
-                            //prefixIcon: Icon(Icons.attach_money),
-                            suffixText: " 元   ",
-                            suffixStyle: TextStyle(
-                                color: Colors.black45,
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold),
-                            prefixIcon: Padding(
-                              padding: const EdgeInsetsDirectional.only(start: 16.0),
-                              child: FaIcon(
-                                FontAwesomeIcons.yenSign,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                          ),
-                          style: TextStyle(
-                            fontSize: 42.0,
-                            fontWeight: FontWeight.w400,
-                            color: Theme.of(context).primaryColor.withOpacity(0.7),
-                            //wordSpacing: 1.5,
-                            height: 1.5,
-                          ),
-                          maxLines: 1,
-                          keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.done,
-                          inputFormatters: [
-                            MoneyInputFormatter(),
-                            LengthLimitingTextInputFormatter(11)
-                            //WhitelistingTextInputFormatter(),
-                            //FilteringTextInputFormatter.allow(RegExp("\^(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?\$"))
-                          ],
-                          onChanged: (money) {
-                            print("$money");
-                            moneyInput = (double.parse(money) * 100).round();
-                            setState(() {
-                            });
+    else {
+      return GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(blankNode);
+        },
+        child: WillPopScope(
+          onWillPop: () async =>
+              showDialog(
+                  context: context,
+                  builder: (context) =>
+                      AlertDialog(title: Text('是否保存草稿？'), actions: <Widget>[
+                        RaisedButton(
+                          child: Text('是'),
+                          onPressed: () {
+                            currentbill.title = remark;
+                            currentbill.date = dateSelect;
+                            currentbill.type = type;
+                            currentbill.accountIn = (type == 2)
+                                ? accountInSelectText
+                                : "未选择"; //保存草稿时，支出和收入类型时，此项无保存必要
+                            currentbill.accountOut = accountOutSelectText;
+                            currentbill.category1 =
+                            (type == 2) ? "其他" : (type == 0) ? classInSelectText
+                                .split(",")[0] : classOutSelectText.split(
+                                ",")[0]; //转账时无分类，因此赋默认值
+                            currentbill.category2 =
+                            (type == 2) ? "转账" : (type == 0) ? classInSelectText
+                                .split(",")[1] : classOutSelectText.split(
+                                ",")[1];
+                            currentbill.member = memberSelectText;
+                            currentbill.value100 = moneyInput;
+                            setDraft(currentbill);
+                            Navigator.of(context).pop(true);
                           },
-                          textAlign: TextAlign.right,
                         ),
-                      ),
-                      //以下选择时间
-                      Card(
-                          margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
-                          elevation: 2.0,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(8.0))),
-                          child: InkWell(
-                            onTap: () {
-                              DatePicker.showDateTimePicker(context,
-                                  showTitleActions: true,
-                                  minTime: DateTime(2020, 5, 5, 20, 50),
-                                  maxTime: DateTime.now(), onChanged: (date) {
-                                    print('change $date in time zone ' +
-                                        date.timeZoneOffset.inHours.toString());
-                                  }, onConfirm: (date) {
-                                    setState(() {
-                                      dateSelect = date;
-                                    });
-                                    print('confirm $date');
-                                  }, locale: LocaleType.zh);
-                            },
-                            child: ListTile(
-                              title: Text(
-                                "日期",
-                                style: TextStyle(color: Colors.black45),
-                              ),
-                              subtitle: Text(
-                                formatDate(dateSelect,
-                                    [yyyy, "年", m, "月", d, "日  ", H, ":", nn]),
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  fontSize: 20,
+                        RaisedButton(
+                          child: Text('否'),
+                          onPressed: () {
+                            removeDraft();
+                            Navigator.of(context).pop(true);
+                          },
+                        )
+                      ])),
+          child: Scaffold(
+            // floatingActionButton: FloatingActionButton.extended(
+            //   backgroundColor: Theme.of(context).primaryColor,
+            //   onPressed: () {
+            //     billConfirm();
+            //   },
+            //   icon: Icon(
+            //     Icons.check,
+            //     size: 30,
+            //   ),
+            //   label: Text("  完成 "),
+            // ),
+            // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              centerTitle: true,
+              title: Text("新建记账", style: TextStyle(color: Theme
+                  .of(context)
+                  .primaryColor),),
+              actions: <Widget>[
+                IconButton(
+                    icon: FaIcon(FontAwesomeIcons.alipay, color: Theme
+                        .of(context)
+                        .primaryColor,),
+                    onPressed: () async {
+                      // List<BillsModel> allBills = await BillsDatabaseService.db.getBillsFromDB();
+                      // allBills.forEach((element) {
+                      //   print(element.toMap().toString());
+                      // });
+                      // int test = await BillsDatabaseService.db.getAccountNetAsset('现金账户');
+                      // print("test: $test");
+                      BillsDatabaseService.db.billsCountThisMonth();
+                      BillsDatabaseService.db.assetInThisMonth();
+                      BillsDatabaseService.db.assetOutThisMonth();
+                      BillsDatabaseService.db.LatestBill();
+                      // Navigator.push(context, MaterialPageRoute(
+                      //   builder: (context) => AccountCardPage()
+                      // ));
+                    }),
+                AnimatedContainer(
+                  margin: EdgeInsets.fromLTRB(10, 6, 0, 6),
+                  //EdgeInsets.only(left: 10),
+                  duration: Duration(milliseconds: 200),
+                  width: 1 == 1 ? 100 : 0,
+                  height: 42,
+                  curve: Curves.decelerate,
+                  child: RaisedButton.icon(
+                    color: Theme
+                        .of(context)
+                        .accentColor,
+                    textColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(100),
+                            bottomLeft: Radius.circular(100))),
+                    icon: Icon(Icons.done),
+                    label: Text(
+                      '完成',
+                      style: TextStyle(letterSpacing: 1),
+                    ),
+                    onPressed: () {
+                      billConfirm();
+                    },
+                  ),
+                )
+              ],
+              bottom: TabBar(
+                labelColor: Theme
+                    .of(context)
+                    .primaryColor,
+                labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                unselectedLabelColor: Colors.grey,
+                unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+                controller: _tabController,
+                tabs: tabs,
+              ),
+            ),
+            body: TabBarView(
+                controller: _tabController,
+                children: tabs.map((Tab tab) {
+                  //final String tabType = tab.text.toString();
+                  String accountTitle = accountTitleController(tab.text);
+                  //type = (tab.text=="收入")?0:(tab.text=="支出")?1:2;  //1:收入 2：支出 3：转账
+                  _tabController.addListener(() {
+                    if (!_tabController.indexIsChanging) {
+                      setState(() {
+                        var index = _tabController.index;
+                        //print("index : $index");
+                        currentbill.type = index;
+                        //print("cu.type: ${currentbill.type}");
+                        type = index;
+                        //print("type: $type");
+                      });
+                    }
+                  });
+                  return AnimatedContainer(
+                      duration: Duration(milliseconds: 200),
+                      child: ListView(
+                        physics: BouncingScrollPhysics(),
+                        children: <Widget>[
+                          SizedBox(
+                            height: 8,
+                          ),
+                          //以下输入金钱
+                          Card(
+                            margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                            elevation: 2.0,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(8.0))),
+                            child: TextField(
+                              controller: moneyController,
+                              autofocus: false,
+                              decoration: InputDecoration(
+
+                                border: InputBorder.none,
+                                // labelText: "金额",
+                                // labelStyle: TextStyle(
+                                //   fontWeight: FontWeight.w300
+                                // ),
+                                hintText: "请输入金额 ",
+                                hintStyle:
+                                TextStyle(
+                                    color: Colors.black12, fontSize: 24.0),
+                                //prefixIcon: Icon(Icons.attach_money),
+                                suffixText: " 元   ",
+                                suffixStyle: TextStyle(
+                                    color: Colors.black45,
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.bold),
+                                prefixIcon: Padding(
+                                  padding: const EdgeInsetsDirectional.only(
+                                      start: 16.0),
+                                  child: FaIcon(
+                                    FontAwesomeIcons.yenSign,
+                                    color: Theme
+                                        .of(context)
+                                        .primaryColor,
+                                  ),
                                 ),
-                                textAlign: TextAlign.left,
                               ),
-                              leading: Icon(
-                                Icons.date_range,
-                                color: Theme.of(context).primaryColor,
+                              style: TextStyle(
+                                fontSize: 42.0,
+                                fontWeight: FontWeight.w400,
+                                color: Theme
+                                    .of(context)
+                                    .primaryColor
+                                    .withOpacity(0.7),
+                                //wordSpacing: 1.5,
+                                height: 1.5,
                               ),
+                              maxLines: 1,
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.done,
+                              inputFormatters: [
+                                MoneyInputFormatter(),
+                                LengthLimitingTextInputFormatter(11)
+                                //WhitelistingTextInputFormatter(),
+                                //FilteringTextInputFormatter.allow(RegExp("\^(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?\$"))
+                              ],
+                              onChanged: (money) {
+                                print("$money");
+                                moneyInput =
+                                    (double.parse(money) * 100).round();
+                                setState(() {});
+                              },
+                              textAlign: TextAlign.right,
                             ),
-                          )),
-                      //以下选择分类，账户，成员
-                      Card(
-                        margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
-                        elevation: 2.0,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(8.0))),
-                        child: Column(
-                          children: <Widget>[
-                            //以下选择分类
-                            Visibility(
-                              visible: (tab.text == "收入" || tab.text == "支出"), //只有选择“收入”“支出”才会显示
-                              maintainInteractivity: false,
-                              maintainSize: false,
-                              child: Column(
-                                children: <Widget>[
-                                  InkWell(
-                                    onTap: () async {  //点击弹出picker
-                                      classPickerData = (tab.text=="支出")?
-                                      await getPicker("mOutClassPicker"):await getPicker("mInClassPicker");
-                                      if (classPickerData == null) { //首次打开picker，需要载入picker初始值
-                                        if(tab.text=="支出") {
-                                          await setPicker(
-                                              "mOutClassPicker", OutClassPickerData); //载入支出的分类
-                                          classPickerData =
-                                          await getPicker("mOutClassPicker");
-                                        }
-                                        else if(tab.text=="收入") {
-                                          await setPicker(
-                                              "mInClassPicker", InClassPickerData); //载入收入的分类
-                                          classPickerData =
-                                          await getPicker("mInClassPicker");
-                                        }
-                                      }
-                                      classPicker(context,type);
-                                      setState(() {
-                                      });
-                                    },
-                                    child: ListTile(
-                                      title: Text(
-                                        "分类",
-                                        style: TextStyle(color: Colors.black45),
-                                      ),
-                                      subtitle: Text(
-                                        (type==0)?"$classInSelectText":"$classOutSelectText",  //显示已选择的分类
-                                        style: TextStyle(
-                                          color: Colors.black87,
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      leading: Icon(
-                                        Icons.apps,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                      trailing: IconButton(
-                                        icon: Icon(
-                                          Icons.dehaze,
-                                        ),
-                                        onPressed: () async {  //点击编辑按钮跳转到自定义界面
-                                          classPickerData = (tab.text=="支出")?
-                                          await getPicker("mOutClassPicker"):await getPicker("mInClassPicker");
-                                          if (classPickerData == null) {
-                                            if(tab.text=="支出") {
+                          ),
+                          //以下选择时间
+                          Card(
+                              margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                              elevation: 2.0,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0))),
+                              child: InkWell(
+                                onTap: () {
+                                  FocusScope.of(context).requestFocus(blankNode);
+                                  DatePicker.showDateTimePicker(context,
+                                      showTitleActions: true,
+                                      minTime: DateTime(2020, 5, 5, 20, 50),
+                                      maxTime: DateTime.now(),
+                                      onChanged: (date) {
+                                        print('change $date in time zone ' +
+                                            date.timeZoneOffset.inHours
+                                                .toString());
+                                      },
+                                      onConfirm: (date) {
+                                        setState(() {
+                                          dateSelect = date;
+                                        });
+                                        print('confirm $date');
+                                      },
+                                      locale: LocaleType.zh);
+                                },
+                                child: ListTile(
+                                  title: Text(
+                                    "日期",
+                                    style: TextStyle(color: Colors.black45),
+                                  ),
+                                  subtitle: Text(
+                                    formatDate(dateSelect,
+                                        [
+                                          yyyy,
+                                          "年",
+                                          m,
+                                          "月",
+                                          d,
+                                          "日  ",
+                                          H,
+                                          ":",
+                                          nn
+                                        ]),
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 20,
+                                    ),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  leading: Icon(
+                                    Icons.date_range,
+                                    color: Theme
+                                        .of(context)
+                                        .primaryColor,
+                                  ),
+                                ),
+                              )),
+                          //以下选择分类，账户，成员
+                          Card(
+                            margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                            elevation: 2.0,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(8.0))),
+                            child: Column(
+                              children: <Widget>[
+                                //以下选择分类
+                                Visibility(
+                                  visible: (tab.text == "收入" ||
+                                      tab.text == "支出"), //只有选择“收入”“支出”才会显示
+                                  maintainInteractivity: false,
+                                  maintainSize: false,
+                                  child: Column(
+                                    children: <Widget>[
+                                      InkWell(
+                                        onTap: () async { //点击弹出picker
+                                          FocusScope.of(context).requestFocus(blankNode);
+                                          classPickerData = (tab.text == "支出")
+                                              ?
+                                          await getPicker("mOutClassPicker")
+                                              : await getPicker(
+                                              "mInClassPicker");
+                                          if (classPickerData ==
+                                              null) { //首次打开picker，需要载入picker初始值
+                                            if (tab.text == "支出") {
                                               await setPicker(
-                                                  "mOutClassPicker", OutClassPickerData);
+                                                  "mOutClassPicker",
+                                                  OutClassPickerData); //载入支出的分类
                                               classPickerData =
-                                              await getPicker("mOutClassPicker");
+                                              await getPicker(
+                                                  "mOutClassPicker");
                                             }
-                                            else if(tab.text=="收入") {
+                                            else if (tab.text == "收入") {
                                               await setPicker(
-                                                  "mInClassPicker", InClassPickerData);
+                                                  "mInClassPicker",
+                                                  InClassPickerData); //载入收入的分类
                                               classPickerData =
                                               await getPicker("mInClassPicker");
                                             }
                                           }
-                                          Navigator.pushNamed(
-                                              context, "/editClassPicker",
-                                              arguments: editClassPickerArguments(
-                                                  classPickerData, tab.text));
+                                          classPicker(context, type);
+                                          setState(() {});
                                         },
+                                        child: ListTile(
+                                          title: Text(
+                                            "分类",
+                                            style: TextStyle(
+                                                color: Colors.black45),
+                                          ),
+                                          subtitle: Text(
+                                            (type == 0)
+                                                ? "$classInSelectText"
+                                                : "$classOutSelectText",
+                                            //显示已选择的分类
+                                            style: TextStyle(
+                                              color: Colors.black87,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                          leading: Icon(
+                                            Icons.apps,
+                                            color: Theme
+                                                .of(context)
+                                                .primaryColor,
+                                          ),
+                                          trailing: IconButton(
+                                            icon: Icon(
+                                              Icons.dehaze,
+                                            ),
+                                            onPressed: () async { //点击编辑按钮跳转到自定义界面
+                                              FocusScope.of(context).requestFocus(blankNode);
+                                              classPickerData =
+                                              (tab.text == "支出")
+                                                  ?
+                                              await getPicker("mOutClassPicker")
+                                                  : await getPicker(
+                                                  "mInClassPicker");
+                                              if (classPickerData == null) {
+                                                if (tab.text == "支出") {
+                                                  await setPicker(
+                                                      "mOutClassPicker",
+                                                      OutClassPickerData);
+                                                  classPickerData =
+                                                  await getPicker(
+                                                      "mOutClassPicker");
+                                                }
+                                                else if (tab.text == "收入") {
+                                                  await setPicker(
+                                                      "mInClassPicker",
+                                                      InClassPickerData);
+                                                  classPickerData =
+                                                  await getPicker(
+                                                      "mInClassPicker");
+                                                }
+                                              }
+                                              Navigator.pushNamed(
+                                                  context, "/editClassPicker",
+                                                  arguments: editClassPickerArguments(
+                                                      classPickerData,
+                                                      tab.text));
+                                            },
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      Divider(
+                                        color: Colors.black26,
+                                      ),
+                                    ],
                                   ),
-                                  Divider(
-                                    color: Colors.black26,
-                                  ),
-                                ],
-                              ),
 
-                            ),
+                                ),
 
-                            //以下选择账户(转出账户)
-                            InkWell(
-                              onTap: () async {
-                                accountPickerData =
-                                await getPicker("maccountPicker");
-                                if (accountPickerData == null) {
-                                  await setPicker(
-                                      "maccountPicker", AccountPickerData);
-                                  accountPickerData =
-                                  await getPicker("maccountPicker");
-                                }
-                                accountPickerOut(context); //点击按钮弹出滚动选择框
-                                setState(() {
-                                });
-                              },
-                              child: ListTile(
-                                title: Text(
-                                  accountTitle,
-                                  style: TextStyle(color: Colors.black45),
-                                ),
-                                subtitle: Text(
-                                  "$accountOutSelectText",
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                leading: Icon(
-                                  Icons.account_balance_wallet,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                trailing: IconButton(
-                                  //这是对account picker进行编辑的按钮
-                                  icon: Icon(
-                                    Icons.dehaze,
-                                  ),
-                                  onPressed: () async {
+                                //以下选择账户(转出账户)
+                                InkWell(
+                                  onTap: () async {
+                                    FocusScope.of(context).requestFocus(blankNode);
                                     accountPickerData =
                                     await getPicker("maccountPicker");
                                     if (accountPickerData == null) {
@@ -460,90 +500,99 @@ class _CardAddBill extends State<CardAddBill>
                                       accountPickerData =
                                       await getPicker("maccountPicker");
                                     }
-                                    Navigator.pushNamed(
-                                        context, "/editAccountPicker",
-                                        arguments: editAccountPickerArguments(
-                                            accountPickerData));
+                                    accountPickerOut(context); //点击按钮弹出滚动选择框
+                                    setState(() {});
                                   },
-                                ),
-                              ),
-                            ),
-                            //以下选择转入账户
-                            Visibility(
-                              visible: (tab.text == "转账"), //只有选择“转账”才会显示
-                              maintainInteractivity: false,
-                              maintainSize: false,
-                              child: InkWell(
-                                onTap: () async {
-                                  accountPickerData =
-                                  await getPicker("maccountPicker");
-                                  if (accountPickerData == null) {
-                                    await setPicker(
-                                        "maccountPicker", AccountPickerData);
-                                    accountPickerData =
-                                    await getPicker("maccountPicker");
-                                  }
-                                  accountPickerIn(context); //点击按钮弹出滚动选择框
-                                  setState(() {
-                                  });
-                                },
-                                child: ListTile(
-                                  title: Text(
-                                    "转入账户",
-                                    style: TextStyle(color: Colors.black45),
-                                  ),
-                                  subtitle: Text(
-                                    "$accountInSelectText",
-                                    style: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 20,
+                                  child: ListTile(
+                                    title: Text(
+                                      accountTitle,
+                                      style: TextStyle(color: Colors.black45),
+                                    ),
+                                    subtitle: Text(
+                                      "$accountOutSelectText",
+                                      style: TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    leading: Icon(
+                                      Icons.account_balance_wallet,
+                                      color: Theme
+                                          .of(context)
+                                          .primaryColor,
+                                    ),
+                                    trailing: IconButton(
+                                      //这是对account picker进行编辑的按钮
+                                      icon: Icon(
+                                        Icons.dehaze,
+                                      ),
+                                      onPressed: () async {
+                                        FocusScope.of(context).requestFocus(blankNode);
+                                        accountPickerData =
+                                        await getPicker("maccountPicker");
+                                        if (accountPickerData == null) {
+                                          await setPicker(
+                                              "maccountPicker",
+                                              AccountPickerData);
+                                          accountPickerData =
+                                          await getPicker("maccountPicker");
+                                        }
+                                        Navigator.pushNamed(
+                                            context, "/editAccountPicker",
+                                            arguments: editAccountPickerArguments(
+                                                accountPickerData));
+                                      },
                                     ),
                                   ),
-                                  leading: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Theme.of(context).primaryColor,
+                                ),
+                                //以下选择转入账户
+                                Visibility(
+                                  visible: (tab.text == "转账"), //只有选择“转账”才会显示
+                                  maintainInteractivity: false,
+                                  maintainSize: false,
+                                  child: InkWell(
+                                    onTap: () async {
+                                      FocusScope.of(context).requestFocus(blankNode);
+                                      accountPickerData =
+                                      await getPicker("maccountPicker");
+                                      if (accountPickerData == null) {
+                                        await setPicker(
+                                            "maccountPicker",
+                                            AccountPickerData);
+                                        accountPickerData =
+                                        await getPicker("maccountPicker");
+                                      }
+                                      accountPickerIn(context); //点击按钮弹出滚动选择框
+                                      setState(() {});
+                                    },
+                                    child: ListTile(
+                                      title: Text(
+                                        "转入账户",
+                                        style: TextStyle(color: Colors.black45),
+                                      ),
+                                      subtitle: Text(
+                                        "$accountInSelectText",
+                                        style: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      leading: Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: Theme
+                                            .of(context)
+                                            .primaryColor,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ),
-                            Divider(
-                              color: Colors.black26,
-                            ),
-                            //以下选择成员
-                            InkWell(
-                              onTap: () async {
-                                memberPickerData =
-                                await getPicker("mmemberPicker");
-                                if (memberPickerData == null) {
-                                  await setPicker(
-                                      "mmemberPicker", MemberPickerData);
-                                  memberPickerData =
-                                  await getPicker("mmemberPicker");
-                                }
-                                memberPicker(context);
-                              },
-                              child: ListTile(
-                                title: Text(
-                                  "成员",
-                                  style: TextStyle(color: Colors.black45),
+                                Divider(
+                                  color: Colors.black26,
                                 ),
-                                subtitle: Text(
-                                  "$memberSelectText",
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                leading: Icon(
-                                  Icons.account_circle,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                trailing: IconButton(
-                                  //这是对account picker进行编辑的按钮
-                                  icon: Icon(
-                                    Icons.dehaze,
-                                  ),
-                                  onPressed: () async {
+                                //以下选择成员
+                                InkWell(
+                                  onTap: () async {
+                                    FocusScope.of(context).requestFocus(blankNode);
                                     memberPickerData =
                                     await getPicker("mmemberPicker");
                                     if (memberPickerData == null) {
@@ -552,70 +601,122 @@ class _CardAddBill extends State<CardAddBill>
                                       memberPickerData =
                                       await getPicker("mmemberPicker");
                                     }
-                                    Navigator.pushNamed(
-                                        context, "/editMemberPicker",
-                                        arguments: editMemberPickerArguments(
-                                            memberPickerData));
+                                    memberPicker(context);
                                   },
+                                  child: ListTile(
+                                    title: Text(
+                                      "成员",
+                                      style: TextStyle(color: Colors.black45),
+                                    ),
+                                    subtitle: Text(
+                                      "$memberSelectText",
+                                      style: TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    leading: Icon(
+                                      Icons.account_circle,
+                                      color: Theme
+                                          .of(context)
+                                          .primaryColor,
+                                    ),
+                                    trailing: IconButton(
+                                      //这是对account picker进行编辑的按钮
+                                      icon: Icon(
+                                        Icons.dehaze,
+                                      ),
+                                      onPressed: () async {
+                                        FocusScope.of(context).requestFocus(blankNode);
+                                        memberPickerData =
+                                        await getPicker("mmemberPicker");
+                                        if (memberPickerData == null) {
+                                          await setPicker(
+                                              "mmemberPicker",
+                                              MemberPickerData);
+                                          memberPickerData =
+                                          await getPicker("mmemberPicker");
+                                        }
+                                        Navigator.pushNamed(
+                                            context, "/editMemberPicker",
+                                            arguments: editMemberPickerArguments(
+                                                memberPickerData));
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          //以下输入备注
+                          Card(
+                            margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                            elevation: 2.0,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(8.0))),
+                            child: TextField(
+                              autofocus: false,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                labelText: "备注",
+                                labelStyle: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 16,
+                                ),
+                                hintText: "请输入备注 ",
+                                hintStyle:
+                                TextStyle(
+                                    color: Colors.black12, fontSize: 15.0),
+                                //prefixIcon: Icon(Icons.attach_money),
+                                //suffixText: " 元   ",
+                                suffixStyle: TextStyle(
+                                    color: Colors.black45,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                                // prefixIcon: Icon(
+                                //   Icons.border_color,
+                                //   color: Theme.of(context).primaryColor,
+                                // ),
+                                prefixIcon: Padding(
+                                  padding: const EdgeInsetsDirectional.only(
+                                      start: 16, end: 32),
+                                  child: Icon(
+                                    //Icons.arrow_forward_ios,
+                                    Icons.border_color,
+                                    color: Theme
+                                        .of(context)
+                                        .primaryColor,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      //以下输入备注
-                      Card(
-                        margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
-                        elevation: 2.0,
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(8.0))),
-                        child: TextField(
-                          autofocus: false,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            labelText: "      备注",
-                            labelStyle: TextStyle(
-                              fontWeight: FontWeight.w300,
-                              fontSize: 16,
-                            ),
-                            hintText: "请输入备注 ",
-                            hintStyle:
-                            TextStyle(color: Colors.black12, fontSize: 15.0),
-                            //prefixIcon: Icon(Icons.attach_money),
-                            //suffixText: " 元   ",
-                            suffixStyle: TextStyle(
-                                color: Colors.black45,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                            prefixIcon: Icon(
-                              Icons.border_color,
-                              color: Theme.of(context).primaryColor,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black54,
+                                //wordSpacing: 1.5,
+                                height: 1.5,
+                              ),
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(99)
+                              ],
+                              maxLines: 3,
+                              keyboardType: TextInputType.name,
+                              textInputAction: TextInputAction.done,
+                              onChanged: (input) {
+                                //print("$money");
+                                remark = input;
+                              },
+                              textAlign: TextAlign.left,
                             ),
                           ),
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black54,
-                            //wordSpacing: 1.5,
-                            height: 1.5,
-                          ),
-                          maxLines: 2,
-                          keyboardType: TextInputType.name,
-                          textInputAction: TextInputAction.done,
-                          onChanged: (input) {
-                            //print("$money");
-                            remark = input;
-                          },
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ],
-                  ));
-            }).toList()),
-      ),
-    );}
-    // TODO: implement build
+                        ],
+                      ));
+                }).toList()),
+          ),
+        ),
+      );
+    };
 
 
   }
@@ -624,7 +725,7 @@ class _CardAddBill extends State<CardAddBill>
     Picker(
         adapter: PickerDataAdapter<String>(
             pickerdata:
-                JsonDecoder().convert(classPickerData)), //json:string to list
+            JsonDecoder().convert(classPickerData)), //json:string to list
         changeToFirst: true,
         hideHeader: false,
         selectedTextStyle: TextStyle(color: Theme.of(context).primaryColor),
@@ -772,10 +873,10 @@ class _CardAddBill extends State<CardAddBill>
       moneyInput = currentbill.value100;
       dateSelect = currentbill.date;
       String toInsert =(currentbill.value100 > 99)?
-          currentbill.value100.toString().substring(0, currentbill.value100.toString().length-2)
+      currentbill.value100.toString().substring(0, currentbill.value100.toString().length-2)
           + '.'
           + currentbill.value100.toString().substring(currentbill.value100.toString().length-2, currentbill.value100.toString().length):
-          (currentbill.value100 > 9) ? '0.' + currentbill.value100.toString() :'0.0' + currentbill.value100.toString();
+      (currentbill.value100 > 9) ? '0.' + currentbill.value100.toString() :'0.0' + currentbill.value100.toString();
       moneyController = new TextEditingController(text: toInsert);
     } else {
       moneyController = new TextEditingController();
@@ -799,13 +900,13 @@ class _CardAddBill extends State<CardAddBill>
 //限制金额只能输入符合规格的格式
 class MoneyInputFormatter extends TextInputFormatter {
   static final RegExp regExp =
-    RegExp("\^(([1-9]\\d{0,5})|([0]))(\\.(\\d){0,2})?\$");
+  RegExp("\^(([1-9]\\d{0,5})|([0]))(\\.(\\d){0,2})?\$");
   @override
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
     // TODO: implement formatEditUpdate
     return oldValue.text.length > newValue.text.length ||
-            regExp.hasMatch(newValue.text.toString())
+        regExp.hasMatch(newValue.text.toString())
         ? newValue
         : oldValue;
     //
