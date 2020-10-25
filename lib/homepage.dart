@@ -1322,7 +1322,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
       Navigator.of(context).pushNamed('password_confirm');  //跳转到修改密码
     }
     else if (drawerIndexdata == DrawerIndex.FeedBack) {
-      print('去修改手势密码');
+      print('去设置手势密码');
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) => GraphicalPasswordRegisterPage()));
     }
@@ -1335,6 +1335,9 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
       print('去初始化');
       Navigator.of(context).push(MaterialPageRoute(
           builder: (BuildContext context) => RemoveUserDataPage()));
+    }else if(drawerIndexdata == DrawerIndex.About){
+      print('帮助');
+      Navigator.of(context).pushNamed('intro');
     }
   }
 
