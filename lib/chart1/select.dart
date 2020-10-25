@@ -76,57 +76,24 @@ class _SelectPageState extends State<SelectPage> {
           title: Text(
               '分类选择',
               textAlign: TextAlign.left,
-              style: TextStyle(
-                fontFamily: JizhangAppTheme.fontName,
-                fontWeight: FontWeight.w700,
-                fontSize: 20 + 6 - 6 * topBarOpacity,
-                letterSpacing: 1.2,
-                color: Theme.of(context).primaryColor,
-              ),
+              style: TextStyle(fontSize: 20.0, color: Theme.of(context).primaryColor),
           ),
           leading: Builder(builder: (context){
             return IconButton(
-              icon: Icon(Icons.arrow_back,color: Theme.of(context).primaryColor,size: 30,),
+              icon: Icon(Icons.arrow_back,color: Theme.of(context).primaryColor,size: 28,),
               onPressed: (){
                 Navigator.of(context).pop();
-                Navigator.push(
+                /*Navigator.push(
                     context,
                     //transition: TransitionType.inFromBottom,
                     CupertinoPageRoute(
                         builder: (context) => ChartPage(
                             typeSelect: typeSelect,
                             type: type,
-                            picked: picked)));
+                            picked: picked)));*/
               },
             );
           }),
-          /*actions: <Widget>[
-            IconButton(
-              icon: new Icon(Icons.arrow_left),
-              iconSize: 50.0,
-              alignment: Alignment(0.0, 0.0),//Alignment.center,//
-              color: Colors.grey[500],
-              onPressed:(){
-                Navigator.of(context).pop();
-                Navigator.push(
-                    context,
-                    //transition: TransitionType.inFromBottom,
-                    CupertinoPageRoute(
-                        builder: (context) => ChartPage(
-                            typeSelect: typeSelect,
-                            type: type,
-                            picked: picked)));
-              },
-            ),
-          ]*/
-        /*actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.select_all),
-            onPressed: (){
-              Navigator.pushNamed(context, '/tabs');
-            },
-          ),
-        ],*/
       ),
       body: ListView(
         children: [
@@ -151,71 +118,82 @@ class _SelectPageState extends State<SelectPage> {
                       Expanded(
                         flex: 3,
                         child: Text("支出图表",
-                          style: TextStyle(backgroundColor:Colors.white,inherit:true,color:Colors.black87,fontSize:17),
+                          style: TextStyle(backgroundColor:Colors.white,inherit:true,color:Colors.blueGrey,fontSize:17),
                         ),
                       ),
                       Expanded(
                         flex: 7,
                         child: Container(
                           color: Colors.white12,
-                          child: Column(
-                            mainAxisAlignment:
-                            MainAxisAlignment.center,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.end,
-                            children: <Widget>[
-                              SizedBox(
-                                width: double.infinity,
-                                height: 28,
-                                child: IconButton(  ///选择时间
-                                  icon: new Icon(Icons.looks_one),
-                                  iconSize: 25.0,
-                                  color: Theme.of(context).primaryColor,
-                                  onPressed: () {
-                                    selected = "分类支出";
-                                    typeSelect = '一级分类';
-                                    type = 1;
-                                    print(selected);
-                                    Navigator.of(context).pop();
-                                    //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) => ChartPage(
-                                                typeSelect: typeSelect,
-                                                type: type,
-                                                picked: picked)));
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                const EdgeInsets.only(
-                                    top: 4),
-                                child: Text(
-                                  '分类支出  ', ///终止时间 年
-                                  //textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily:
-                                    JizhangAppTheme
-                                        .fontName,
-                                    fontWeight:
-                                    FontWeight.w600,
-                                    fontSize: 15,
-                                    color: JizhangAppTheme
-                                        .grey,
+                          child: Card(
+                            margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                            elevation: 2.0,
+                            color: Colors.white,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(2.0))),
+                            child: Column(
+                              mainAxisAlignment:
+                              MainAxisAlignment.center,
+                              crossAxisAlignment:
+                              CrossAxisAlignment.end,
+                              children: <Widget>[
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 28,
+                                  child: IconButton(  ///选择时间
+                                    icon: new Icon(Icons.looks_one),
+                                    iconSize: 28.0,
+                                    color: Theme.of(context).primaryColor,
+                                    onPressed: () {
+                                      selected = "分类支出";
+                                      typeSelect = '一级分类';
+                                      type = 1;
+                                      print(selected);
+                                      Navigator.of(context).pop();
+                                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                          builder: (BuildContext context) => ChartPage(
+                                              typeSelect: typeSelect,
+                                              type: type,
+                                              picked: picked)));
+                                    },
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(
+                                      top: 4),
+                                  child: Text(
+                                    '分类支出  ', ///终止时间 年
+                                    //textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily:
+                                      JizhangAppTheme
+                                          .fontName,
+                                      fontWeight:
+                                      FontWeight.w600,
+                                      fontSize: 15,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                        )
                         )
                       ),
                       Expanded(
                         flex: 7,
                         child: Container(
                           color: Colors.white12,
-                          child: Column(
+                          child: Card(
+                            margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                            elevation: 2.0,
+                            color: Colors.white,
+                            shape: const RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(2.0))),
+                            child: Column(
                             mainAxisAlignment:
                             MainAxisAlignment.center,
                             crossAxisAlignment:
@@ -226,7 +204,7 @@ class _SelectPageState extends State<SelectPage> {
                                 height: 28,
                                 child: IconButton(  ///选择时间
                                   icon: new Icon(Icons.category),
-                                  iconSize: 25.0,
+                                  iconSize: 28.0,
                                   color: Theme.of(context).primaryColor,
                                   onPressed: () {
                                     selected = "二级支出";
@@ -234,14 +212,11 @@ class _SelectPageState extends State<SelectPage> {
                                     type = 1;
                                     print(selected);
                                     Navigator.of(context).pop();
-                                    //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) => ChartPage(
-                                                typeSelect: typeSelect,
-                                                type: type,
-                                                picked: picked)));
+                                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                        builder: (BuildContext context) => ChartPage(
+                                            typeSelect: typeSelect,
+                                            type: type,
+                                            picked: picked)));
                                   },
                                 ),
                               ),
@@ -259,20 +234,26 @@ class _SelectPageState extends State<SelectPage> {
                                     fontWeight:
                                     FontWeight.w600,
                                     fontSize: 15,
-                                    color: JizhangAppTheme
-                                        .grey,
+                                    color: Colors.grey,
                                   ),
                                 ),
                               ),
                             ],
-                          ),
+                          ),)
                         )
                       ),
                       Expanded(
                         flex: 7,
                           child: Container(
                             color: Colors.white12,
-                            child: Column(
+                            child:Card(
+                              margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                              elevation: 2.0,
+                              color: Colors.white,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(2.0))),
+                              child: Column(
                               mainAxisAlignment:
                               MainAxisAlignment.center,
                               crossAxisAlignment:
@@ -283,7 +264,7 @@ class _SelectPageState extends State<SelectPage> {
                                   height: 28,
                                   child: IconButton(  ///选择时间
                                     icon: new Icon(Icons.account_box),
-                                    iconSize: 25.0,
+                                    iconSize: 28.0,
                                     color: Theme.of(context).primaryColor,
                                     onPressed: () {
                                       selected = "账户支出";
@@ -291,14 +272,11 @@ class _SelectPageState extends State<SelectPage> {
                                       type = 1;
                                       print(selected);
                                       Navigator.of(context).pop();
-                                      //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) => ChartPage(
-                                                  typeSelect: typeSelect,
-                                                  type: type,
-                                                  picked: picked)));
+                                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                          builder: (BuildContext context) => ChartPage(
+                                              typeSelect: typeSelect,
+                                              type: type,
+                                              picked: picked)));
                                     },
                                   ),
                                 ),
@@ -316,20 +294,27 @@ class _SelectPageState extends State<SelectPage> {
                                       fontWeight:
                                       FontWeight.w600,
                                       fontSize: 15,
-                                      color: JizhangAppTheme
-                                          .grey,
+                                      color: Colors.grey,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
+                            )
                           )
                       ),
                       Expanded(
                         flex: 7,
                           child: Container(
                             color: Colors.white12,
-                            child: Column(
+                            child: Card(
+                              margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 6),
+                              elevation: 2.0,
+                              color: Colors.white,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(2.0))),
+                              child: Column(
                               mainAxisAlignment:
                               MainAxisAlignment.center,
                               crossAxisAlignment:
@@ -340,7 +325,7 @@ class _SelectPageState extends State<SelectPage> {
                                   height: 28,
                                   child: IconButton(  ///选择时间
                                     icon: new Icon(Icons.people),
-                                    iconSize: 25.0,
+                                    iconSize: 28.0,
                                     color: Theme.of(context).primaryColor,
                                     onPressed: () {
                                       selected = "成员支出";
@@ -348,14 +333,11 @@ class _SelectPageState extends State<SelectPage> {
                                       type = 1;
                                       print(selected);
                                       Navigator.of(context).pop();
-                                      //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) => ChartPage(
-                                                  typeSelect: typeSelect,
-                                                  type: type,
-                                                  picked: picked)));
+                                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                          builder: (BuildContext context) => ChartPage(
+                                              typeSelect: typeSelect,
+                                              type: type,
+                                              picked: picked)));
                                     },
                                   ),
                                 ),
@@ -373,13 +355,13 @@ class _SelectPageState extends State<SelectPage> {
                                       fontWeight:
                                       FontWeight.w600,
                                       fontSize: 15,
-                                      color: JizhangAppTheme
-                                          .grey,
+                                      color: Colors.grey,
                                     ),
                                   ),
                                 ),
                               ],
                             ),
+                            )
                           )
                       ),
                     ],
@@ -404,14 +386,21 @@ class _SelectPageState extends State<SelectPage> {
                   Expanded(
                     flex: 3,
                     child: Text("收入图表",
-                      style: TextStyle(backgroundColor:Colors.white,inherit:true,color:Colors.black87,fontSize:17),
+                      style: TextStyle(backgroundColor:Colors.white,inherit:true,color:Colors.blueGrey,fontSize:17),
                     ),
                   ),
                   Expanded(
                     flex: 7,
                       child: Container(
                         color: Colors.white12,
-                        child: Column(
+                        child: Card(
+                          margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                          elevation: 2.0,
+                          color: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(2.0))),
+                          child: Column(
                           mainAxisAlignment:
                           MainAxisAlignment.center,
                           crossAxisAlignment:
@@ -422,7 +411,7 @@ class _SelectPageState extends State<SelectPage> {
                               height: 28,
                               child: IconButton(  ///选择时间
                                 icon: new Icon(Icons.repeat_one),
-                                iconSize: 25.0,
+                                iconSize: 28.0,
                                 color: Theme.of(context).primaryColor,
                                 onPressed: () {
                                   selected = "一级收入";
@@ -430,14 +419,11 @@ class _SelectPageState extends State<SelectPage> {
                                   type = 0;
                                   print(selected);
                                   Navigator.of(context).pop();
-                                  //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => ChartPage(
-                                              typeSelect: typeSelect,
-                                              type: type,
-                                              picked: picked)));
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                      builder: (BuildContext context) => ChartPage(
+                                          typeSelect: typeSelect,
+                                          type: type,
+                                          picked: picked)));
                                 },
                               ),
                             ),
@@ -455,20 +441,27 @@ class _SelectPageState extends State<SelectPage> {
                                   fontWeight:
                                   FontWeight.w600,
                                   fontSize: 15,
-                                  color: JizhangAppTheme
-                                      .grey,
+                                  color: Colors.grey,
                                 ),
                               ),
                             ),
                           ],
                         ),
                       )
+                      )
                   ),
                   Expanded(
                     flex: 7,
                       child: Container(
                         color: Colors.white12,
-                        child: Column(
+                        child: Card(
+                          margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                          elevation: 2.0,
+                          color: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(2.0))),
+                          child: Column(
                           mainAxisAlignment:
                           MainAxisAlignment.center,
                           crossAxisAlignment:
@@ -479,7 +472,7 @@ class _SelectPageState extends State<SelectPage> {
                               height: 28,
                               child: IconButton(  ///选择时间
                                 icon: new Icon(Icons.looks_two),
-                                iconSize: 25.0,
+                                iconSize: 28.0,
                                 color: Theme.of(context).primaryColor,
                                 onPressed: () {
                                   selected = "二级收入";
@@ -487,14 +480,11 @@ class _SelectPageState extends State<SelectPage> {
                                   type = 0;
                                   print(selected);
                                   Navigator.of(context).pop();
-                                  //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => ChartPage(
-                                              typeSelect: typeSelect,
-                                              type: type,
-                                              picked: picked)));
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                      builder: (BuildContext context) => ChartPage(
+                                          typeSelect: typeSelect,
+                                          type: type,
+                                          picked: picked)));
                                 },
                               ),
                             ),
@@ -512,20 +502,27 @@ class _SelectPageState extends State<SelectPage> {
                                   fontWeight:
                                   FontWeight.w600,
                                   fontSize: 15,
-                                  color: JizhangAppTheme
-                                      .grey,
+                                  color: Colors.grey,
                                 ),
                               ),
                             ),
                           ],
                         ),
+                        )
                       )
                   ),
                   Expanded(
                     flex: 7,
                       child: Container(
                         color: Colors.white12,
-                        child: Column(
+                        child: Card(
+                          margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                          elevation: 2.0,
+                          color: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(2.0))),
+                          child: Column(
                           mainAxisAlignment:
                           MainAxisAlignment.center,
                           crossAxisAlignment:
@@ -536,7 +533,7 @@ class _SelectPageState extends State<SelectPage> {
                               height: 28,
                               child: IconButton(  ///选择时间
                                 icon: new Icon(Icons.account_circle),
-                                iconSize: 25.0,
+                                iconSize: 28.0,
                                 color: Theme.of(context).primaryColor,
                                 onPressed: () {
                                   selected = "账户收入";
@@ -544,14 +541,11 @@ class _SelectPageState extends State<SelectPage> {
                                   type = 0;
                                   print(selected);
                                   Navigator.of(context).pop();
-                                  //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => ChartPage(
-                                              typeSelect: typeSelect,
-                                              type: type,
-                                              picked: picked)));
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                      builder: (BuildContext context) => ChartPage(
+                                          typeSelect: typeSelect,
+                                          type: type,
+                                          picked: picked)));
                                 },
                               ),
                             ),
@@ -569,20 +563,27 @@ class _SelectPageState extends State<SelectPage> {
                                   fontWeight:
                                   FontWeight.w600,
                                   fontSize: 15,
-                                  color: JizhangAppTheme
-                                      .grey,
+                                  color: Colors.grey,
                                 ),
                               ),
                             ),
                           ],
                         ),
+                        )
                       )
                   ),
                   Expanded(
                     flex: 7,
                       child: Container(
                         color: Colors.white12,
-                        child: Column(
+                        child: Card(
+                          margin: EdgeInsets.only(top: 1,bottom: 4,left: 1,right: 6),
+                          elevation: 2.0,
+                          color: Colors.white,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(2.0))),
+                          child: Column(
                           mainAxisAlignment:
                           MainAxisAlignment.center,
                           crossAxisAlignment:
@@ -593,7 +594,7 @@ class _SelectPageState extends State<SelectPage> {
                               height: 28,
                               child: IconButton(  ///选择时间
                                 icon: new Icon(Icons.people_outline),
-                                iconSize: 25.0,
+                                iconSize: 28.0,
                                 color: Theme.of(context).primaryColor,
                                 onPressed: () {
                                   selected = "成员收入";
@@ -601,14 +602,11 @@ class _SelectPageState extends State<SelectPage> {
                                   type = 0;
                                   print(selected);
                                   Navigator.of(context).pop();
-                                  //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => ChartPage(
-                                              typeSelect: typeSelect,
-                                              type: type,
-                                              picked: picked)));
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                      builder: (BuildContext context) => ChartPage(
+                                          typeSelect: typeSelect,
+                                          type: type,
+                                          picked: picked)));
                                 },
                               ),
                             ),
@@ -626,13 +624,13 @@ class _SelectPageState extends State<SelectPage> {
                                   fontWeight:
                                   FontWeight.w600,
                                   fontSize: 15,
-                                  color: JizhangAppTheme
-                                      .grey,
+                                  color: Colors.grey,
                                 ),
                               ),
                             ),
                           ],
                         ),
+                        )
                       )
                   ),
                 ],

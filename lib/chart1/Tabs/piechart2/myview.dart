@@ -32,8 +32,10 @@ class MyView extends CustomPainter{
   List<PieData> mData;
   PieData pieData;
 
+  BuildContext context;
+
   // 构造函数，接受需要的参数值
-  MyView(this.mData,this.pieData,this.currentSelect,this.isChange);
+  MyView(this.mData,this.pieData,this.currentSelect,this.isChange,this.context);
 
   /**
    * 重写 paint方法，在其中写绘制饼状图的逻辑
@@ -54,12 +56,12 @@ class MyView extends CustomPainter{
     );
 
     // 文字画笔 风格定义
-    TextPainter _newVerticalAxisTextPainter(String text) {
+    TextPainter _newVerticalAxisTextPainter(String text, BuildContext context) {
       return textPainter
         ..text = TextSpan(
           text: text,
           style: new TextStyle(
-            color: Colors.black,
+            color: Theme.of(context).primaryColor,
             fontSize: 24.0,
           ),
         );
@@ -100,9 +102,9 @@ class MyView extends CustomPainter{
 
       // NULL
       var texts1 ='NULL';
-      var tp1 = _newVerticalAxisTextPainter(texts1)..layout();
+      var tp1 = _newVerticalAxisTextPainter(texts1, context)..layout();
       // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
-      tp1.paint(canvas,  Offset(-(75 - tp1.width / 2), -12.0));
+      tp1.paint(canvas,  Offset(-(60 - tp1.width / 2), -12.0));
     }
     else{ //有数据
       ///绘制逻辑与Android差不多
@@ -157,7 +159,7 @@ class MyView extends CustomPainter{
 
       // 百分比
       var texts2 ='$percentage%';
-      var tp2 = _newVerticalAxisTextPainter(texts2)..layout();
+      var tp2 = _newVerticalAxisTextPainter(texts2, context)..layout();
       // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
       tp2.paint(canvas, Offset(-(75 - tp2.width / 2), -12.0));
 

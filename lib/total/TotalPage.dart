@@ -1,11 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../data/model.dart';
+import '../homepage.dart';
 import '../total/cardInkwell.dart';
 import 'TimePage.dart';
 import '../service/database.dart';
+import '../service/shared_pref.dart';
+import 'dart:convert';
 
 int index_current;
 int accountNumber1;
+List addList;
+List addList0;
 int acountChange() {
   accountNumber1 = index_current;
   return accountNumber1;
@@ -22,7 +28,21 @@ class _TotalPageState extends State<TotalPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('分账户统计')),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back,
+                color: Theme.of(context).primaryColor, size: 28),
+            onPressed: () {
+              Navigator.of(context).pop();
+              /*Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => NavigationHomeScreen()));*/
+            }),
+        title: Text('分账户统计',
+            style: TextStyle(
+                fontSize: 20.0, color: Theme.of(context).primaryColor)),
+      ),
       body: TotalPageContent(),
     );
   }
@@ -61,6 +81,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
   List accountName = ['现金'];
   int maxAcCount() {
     accountName.clear();
+
     for (var i = 0; i < billsList.length; i++) {
       accountName.add(billsList[i].accountIn);
       accountName.add(billsList[i].accountOut);
@@ -73,7 +94,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
         accountName.remove('未选择');
       }
     }
-    accountName.add('净资产');
+    accountName.insert(0, '净资产');
     ///////////////////////////////////////////确定账户个数
     ///////////////////////////////////////////账户1，账户2......
     return accountName.length;
@@ -105,34 +126,31 @@ class _TotalPageContentState extends State<TotalPageContent> {
 //计算
     for (var i = 0; i < billsList.length; i++) {
       if (billsList[i].type == 0) {
-        for (var j = 0; j < maxAc - 1; j++) {
+        for (var j = 1; j < maxAc; j++) {
           if (billsList[i].accountOut == totalList[j]['账户']) {
             totalList[j]['金额100'] += billsList[i].value100;
-            totalList[maxAc - 1]['金额100'] += billsList[i].value100;
+            totalList[0]['金额100'] += billsList[i].value100;
           }
         }
       } else if (billsList[i].type == 1) {
-        for (var j = 0; j < maxAc - 1; j++) {
+        for (var j = 1; j < maxAc; j++) {
           if (billsList[i].accountOut == totalList[j]['账户']) {
             totalList[j]['金额100'] -= billsList[i].value100;
-            totalList[maxAc - 1]['金额100'] -= billsList[i].value100;
+            totalList[0]['金额100'] -= billsList[i].value100;
           }
         }
       } else if (billsList[i].type == 2) {
-        for (var j = 0; j < maxAc - 1; j++) {
+        for (var j = 1; j < maxAc; j++) {
           if (billsList[i].accountOut == totalList[j]['账户']) {
             totalList[j]['金额100'] -= billsList[i].value100;
-            totalList[maxAc - 1]['金额100'] -= billsList[i].value100;
+            totalList[0]['金额100'] -= billsList[i].value100;
           }
           if (billsList[i].accountIn == totalList[j]['账户']) {
             totalList[j]['金额100'] += billsList[i].value100;
-            totalList[maxAc - 1]['金额100'] += billsList[i].value100;
+            totalList[0]['金额100'] += billsList[i].value100;
           }
         }
       }
-
-      ///////////////////////////////////////////////////////////////
-      //print(totalList);
     }
     for (var j = 0; j < maxAc; j++) {
       String temp;
@@ -158,105 +176,100 @@ class _TotalPageContentState extends State<TotalPageContent> {
   }
 
   initall() async {
-    print(
-        '///////////////////////////////////////////开始异步///////////////////////////////////////////');
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
-    // addBill();
     await setBillsFromDB();
-    print(
-        '///////////////////////////////////////////异步结束///////////////////////////////////////////');
-    print(
-        '///////////////////////////////////////////billsList长度///////////////////////////////////////////');
-    print(billsList.length);
-    print(billsList);
+    String addString = await getPicker("maccountPicker");
+    addList = JsonDecoder().convert(addString);
+    //print(addList);
     billsList.sort((a, b) => (b.date).compareTo(a.date));
-    print(
-        '///////////////////////////////////////////maxAc值///////////////////////////////////////////');
     maxAc = maxAcCount();
     print(maxAc);
     totalList = inittotalList();
-    print(
-        '///////////////////////////////////////////新建totalList///////////////////////////////////////////');
-    print(totalList);
     totalList = countT();
-    print(
-        '///////////////////////////////////////////赋值totalList///////////////////////////////////////////');
-    print(totalList);
+    addList0 = getDiffrent1(addList, accountName);
+    print(addList0);
+    if (addList0 != null) {
+      for (var i = 0; i < addList0.length; i++) {
+        totalList.add({'账户': addList0[i], '金额100': 0, '金额': '0.00'});
+      }
+    }
   }
 
+  List getDiffrent1(List list1, List list2) {
+    // diff 存放不同的元素
+    List diff = new List();
+    list1.forEach((element) {
+      if (!list2.contains(element.toString())) {
+        diff.add(element.toString());
+      }
+    });
+    //print(diff);
+    return diff;
+  }
+
+  bool isInit = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     initall();
+    isInit = true;
   }
 
+//
 ////////////////////////////////////////////////////////////////////////////////配置Card
   List<Widget> _totalListData() {
     // print('///////////////////////////////////////////////////////');
     // print(totalList);
     var tempList = totalList.map((value) {
       return Card(
-        elevation: 15.0, //设置阴影
+        elevation: 2.0, //设置阴影
+        margin: const EdgeInsets.only(top: 20.0, left: 10, right: 10),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(14.0))), //设置圆角
         child: new Column(
           // card只能有一个widget，但这个widget内容可以包含其他的widget
           children: [
             SizedBox(
-              height: 80,
+              height: 70,
               child: MaterialTapWidget(
-                //backgroundColor: Colors.blue[100],
-                // onLongTap: () {
-                //   Text('查看账户详情', style: TextStyle(fontSize: 30));
-                // },
                 onTap: () {
                   setState(() {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => TimePage()));
-                    index_current = accountName.length - 1;
-                    for (var i = 0; i < accountName.length - 1; i++) {
-                      if (accountName[i] == value['账户']) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => TimePage(index: 0))).then((value) => initall());
+                    index_current = totalList.length - 1;
+                    for (var i = 0; i < totalList.length - 1; i++) {
+                      if (totalList[i]['账户'] == value['账户']) {
                         index_current = i;
+                        print(
+                            '//////////////////////////////////////////////////////////');
+                        print(i);
                       }
                     }
-                    print(
-                        '///////////////////////////////////////////////////////////////////////index_current');
-                    print(index_current);
                   });
                 },
-
                 child: Stack(children: <Widget>[
                   Align(
-                    alignment: Alignment(-0.7, -0.6),
-                    child: Text('账户:' + value['账户'],
-                        style: TextStyle(fontSize: 25)),
+                    //alignment: Alignment(-0.7, -0.6),
+                    alignment: Alignment(-0.7, 0.0),
+                    child: Text('  ' + value['账户'],
+                        style: TextStyle(fontSize: 23, color: Colors.blueGrey)),
                   ),
                   Align(
                     alignment: Alignment(0.6, 0),
-                    child: Text(value['金额'], style: TextStyle(fontSize: 35)),
-                  ),
-                  Align(
-                    alignment: Alignment(-0.7, 0.6),
-                    child: Text('统计', style: TextStyle(fontSize: 18)),
+                    child: Text(value['金额'] + '元',
+                        style: TextStyle(
+                            fontSize: 22,
+                            color: Theme.of(context).primaryColor)),
                   ),
                   Align(
                     alignment: Alignment(-0.95, 0),
                     child: Icon(Icons.account_balance_wallet,
-                        color: Colors.blue[200], size: 30),
+                        color: Theme.of(context).primaryColor, size: 22),
                   ),
                   Align(
                     alignment: Alignment(0.9, 0),
                     child: Icon(Icons.arrow_forward_ios,
-                        color: Colors.grey[300], size: 30),
+                        color: Colors.grey[300], size: 25),
                   ),
                 ]),
               ),
@@ -268,44 +281,62 @@ class _TotalPageContentState extends State<TotalPageContent> {
     return tempList.toList();
   }
 
-// Widget _buildCard(Card name) {
-//     return SizedBox(
-//       height: 200.0,
-//       key: ObjectKey(name),
-//       child: Card(
-//         color: Colors.red.withOpacity(0.5),
-//         child: Center(
-//           child: Text(
-//             '$name',
-//             style: TextStyle(
-//               fontSize: 35.0,
-//               color: Colors.white,
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
+  FocusNode blankNode = FocusNode();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 800,
-      width: 600,
-      color: Colors.white,
-      child: ListView(
-        //ReorderableListView(
-        children: this._totalListData(),
-        //children: totalList.map(_buildCard).toList(),
-        //onReorder: _onReorder,
-      ),
-    );
+    print(isInit);
+    if(isInit == false) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    else {
+      return GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(blankNode);
+        },
+        child: WillPopScope(
+            onWillPop: () async =>
+                showDialog(
+                    context: context,
+                    builder: (context) =>
+                        AlertDialog(
+                            content: Text('是否退出账户流水查询？'),
+                            title: Text('提示'), actions: <Widget>[
+                          RaisedButton(
+                            child: Text('是'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                  builder: (BuildContext context) => NavigationHomeScreen()));
+                            },
+                          ),
+                          RaisedButton(
+                            child: Text('否'),
+                            onPressed: () {
+                              print('仍为饼状图');
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          RaisedButton(
+                            child: Text('取消'),
+                            onPressed: () {
+                              print('仍为饼状图');
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ])),
+            child: Container(
+              height: 800,
+              width: 600,
+              color: Colors.white,
+              child: ListView(
+                children: this._totalListData(),
+              ),
+            )
+        ),
+      );
+    }
   }
-
-  // void _onReorder(int oldIndex, newIndex) {
-  //   if (oldIndex < newIndex) newIndex = newIndex - 1;
-  //   var name = totalList.removeAt(oldIndex);
-  //   totalList.insert(newIndex, name);
-  //   setState(() {});
-  // }
 }

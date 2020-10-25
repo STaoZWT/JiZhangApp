@@ -9,6 +9,7 @@ import 'package:flutter_jizhangapp/chart1/select.dart';
 import 'package:flutter_jizhangapp/data/model.dart';
 import 'package:flutter_jizhangapp/service/database.dart';
 
+import '../../../homepage.dart';
 import '../../chartpage.dart';
 
 
@@ -143,13 +144,12 @@ class _PiechartPageState extends State<PiechartPage> {
     return Scaffold(
       body: ListView(
         physics: BouncingScrollPhysics(),
-        //padding: const EdgeInsets.only(top: 40),
         children: <Widget>[
           Container(
             height: 20.0,
           ),
           Container(  ///卡片
-            margin: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(16.0),
             decoration: BoxDecoration(
                 color: Colors.white,//JizhangAppTheme.nearlyBlue,
                 borderRadius: BorderRadius.only(
@@ -159,9 +159,9 @@ class _PiechartPageState extends State<PiechartPage> {
                     topRight: Radius.circular(68.0)),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                      color: JizhangAppTheme.grey.withOpacity(0.2),
-                      offset: Offset(1.1, 1.1),
-                      blurRadius: 10.0),
+                      color: JizhangAppTheme.grey.withOpacity(0.3),
+                      offset: Offset(4, 3),
+                      blurRadius: 8.0),
                 ],
               ),
               width: double.infinity,
@@ -175,11 +175,11 @@ class _PiechartPageState extends State<PiechartPage> {
                       child: Column(
                         children: [
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Container(),
                           ),
                           Expanded(  ///起始时间
-                            flex: 2,
+                            flex: 4,
                             child: Container(
                               //color: Colors.yellowAccent,
                               child: Column(
@@ -192,16 +192,15 @@ class _PiechartPageState extends State<PiechartPage> {
                                     padding: const EdgeInsets.only(
                                         left: 6, bottom: 1),
                                     child: Text(
-                                      'begin',
+                                      'Begin',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily:
                                         JizhangAppTheme.fontName,
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 16,
+                                        fontSize: 18,
                                         letterSpacing: -0.1,
-                                        color: JizhangAppTheme.grey
-                                            .withOpacity(0.5),
+                                        color: Colors.black54,
                                       ),
                                     ),
                                   ),
@@ -212,8 +211,8 @@ class _PiechartPageState extends State<PiechartPage> {
                                     CrossAxisAlignment.end,
                                     children: <Widget>[
                                       SizedBox(
-                                        width: 28,
-                                        height: 28,
+                                        width: 30,
+                                        height: 34,
                                         child: IconButton(  ///选择时间
                                           icon: new Icon(Icons.access_time),
                                           iconSize: 25.0,
@@ -231,14 +230,11 @@ class _PiechartPageState extends State<PiechartPage> {
                                             );
                                             if (picked != null && picked.length == 2) {
                                               print(picked);
-                                              Navigator.of(context).pop();
-                                              Navigator.push(  ///选择完时间，跳转图表界面
-                                                  context,
-                                                  CupertinoPageRoute(
-                                                      builder: (context) => ChartPage(
-                                                          typeSelect: typeSelect,
-                                                          type: type,
-                                                          picked: picked)));
+                                              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                                  builder: (BuildContext context) => ChartPage(
+                                                      typeSelect: typeSelect,
+                                                      type: type,
+                                                      picked: picked)));
                                             }else{
                                               picked = [
                                                 new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1),
@@ -253,7 +249,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                       Padding(
                                         padding:
                                         const EdgeInsets.only(
-                                            left: 6, bottom: 0),
+                                            left: 6, bottom: 2),
                                         child: Text(
                                           '${picked[0].year}',  ///起始时间 年
                                           textAlign: TextAlign.center,
@@ -264,15 +260,14 @@ class _PiechartPageState extends State<PiechartPage> {
                                             fontWeight:
                                             FontWeight.w600,
                                             fontSize: 16,
-                                            color: JizhangAppTheme
-                                                .darkerText,
+                                            color: Colors.blueGrey
                                           ),
                                         ),
                                       ),
                                       Padding(
                                         padding:
                                         const EdgeInsets.only(
-                                            left: 3, bottom: 1),
+                                            left: 2, bottom: 3),
                                         child: Text(
                                           '${picked[0].month}.'+'${picked[0].day}',  ///月 日
                                           textAlign: TextAlign.center,
@@ -296,8 +291,9 @@ class _PiechartPageState extends State<PiechartPage> {
                               ),
                             ),
                           ),
+
                           Expanded(  ///终止时间
-                            flex: 2,
+                            flex: 7,
                             child: Container(
                               //color: Colors.yellowAccent,
                               child: Column(
@@ -310,16 +306,15 @@ class _PiechartPageState extends State<PiechartPage> {
                                     padding: const EdgeInsets.only(
                                         left: 6, bottom: 1),
                                     child: Text(
-                                      'end',
+                                      'End',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily:
                                         JizhangAppTheme.fontName,
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 16,
+                                        fontSize: 18,
                                         letterSpacing: -0.1,
-                                        color: JizhangAppTheme.grey
-                                            .withOpacity(0.5),
+                                        color: Colors.black54,
                                       ),
                                     ),
                                   ),
@@ -330,8 +325,8 @@ class _PiechartPageState extends State<PiechartPage> {
                                     CrossAxisAlignment.end,
                                     children: <Widget>[
                                       SizedBox(
-                                        width: 28,
-                                        height: 28,
+                                        width: 30,
+                                        height: 34,
                                         child: IconButton(  ///选择时间
                                           icon: new Icon(Icons.access_time),
                                           iconSize: 25.0,
@@ -349,14 +344,11 @@ class _PiechartPageState extends State<PiechartPage> {
                                             );
                                             if (picked != null && picked.length == 2) {
                                               print(picked);
-                                              Navigator.of(context).pop();
-                                              Navigator.push(  ///选择完时间，跳转图表界面
-                                                  context,
-                                                  CupertinoPageRoute(
-                                                      builder: (context) => ChartPage(
-                                                          typeSelect: typeSelect,
-                                                          type: type,
-                                                          picked: picked)));
+                                              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                                  builder: (BuildContext context) => ChartPage(
+                                                      typeSelect: typeSelect,
+                                                      type: type,
+                                                      picked: picked)));
                                             }else{
                                               picked = [
                                                 new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1),
@@ -371,7 +363,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                       Padding(
                                         padding:
                                         const EdgeInsets.only(
-                                            left: 6, bottom: 0),
+                                            left: 6, bottom: 2),
                                         child: Text(
                                           '${picked[1].year}', ///终止时间 年
                                           textAlign: TextAlign.center,
@@ -382,15 +374,14 @@ class _PiechartPageState extends State<PiechartPage> {
                                             fontWeight:
                                             FontWeight.w600,
                                             fontSize: 16,
-                                            color: JizhangAppTheme
-                                                .darkerText,
+                                            color: Colors.blueGrey
                                           ),
                                         ),
                                       ),
                                       Padding(
                                         padding:
                                         const EdgeInsets.only(
-                                            left: 3, bottom: 1),
+                                            left: 2, bottom: 3),
                                         child: Text(
                                           '${picked[1].month}.'+'${picked[1].day}', ///月 日
                                           textAlign: TextAlign.center,
@@ -415,7 +406,7 @@ class _PiechartPageState extends State<PiechartPage> {
                             ),
                           ),
                           Expanded(
-                            flex: 1,
+                            flex: 2,
                             child: Container(),
                           ),
                         ],
@@ -458,7 +449,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                   //color: Colors.deepOrangeAccent,
                                     padding: const EdgeInsets.only(bottom: 20),
                                     onPressed: (){
-                                      Navigator.of(context).pop();
+                                      //Navigator.of(context).pop();
                                       String checked = mData[subscript].name; ///类别
                                       List<LiushuiData> liuData = getLiuData(data, checked, widget.typeSelect, widget.type);
                                       Navigator.push(
@@ -468,14 +459,15 @@ class _PiechartPageState extends State<PiechartPage> {
                                                   typeSelect: widget.typeSelect,
                                                   type: widget.type,
                                                   picked: widget.picked,
-                                                  liuData: liuData)));
+                                                  liuData: liuData,
+                                                  color: mData[subscript].color,))).then((value) => setDataFromDB());
                                     },
                                     child: Center(
                                         child: Text(mData[currentSelect].name,
                                           style: TextStyle( //backgroundColor:Colors.white,
                                               inherit: true,
-                                              color: Theme.of(context).primaryColor,
-                                              fontSize: 25),)
+                                              color: Colors.blueGrey,
+                                              fontSize: 24),)
                                     )
                                 ),
                               )
@@ -485,7 +477,7 @@ class _PiechartPageState extends State<PiechartPage> {
                     ),
                   ),
                   Expanded(  //右侧
-                    flex: 3,
+                    flex: 2,
                     child: Column(
                       children: [
                         Expanded(
@@ -494,7 +486,7 @@ class _PiechartPageState extends State<PiechartPage> {
                               //color: Color(0xFF0000FF),
                               padding: const EdgeInsets.only(top: 20.0),
                               child: IconButton(
-                                //padding: const EdgeInsets.only(right: 40),
+                                padding: const EdgeInsets.only(right: 9),
                                 icon: new Icon(Icons.arrow_right),
                                 iconSize: 40.0,
                                 color: Theme.of(context).primaryColor,
@@ -520,7 +512,7 @@ class _PiechartPageState extends State<PiechartPage> {
             height: 10.0,
           ),
           Card(  // 类别
-              margin: EdgeInsets.all(10.0),
+              margin: EdgeInsets.all(16.0),
               elevation: 2.0,
               shape: const RoundedRectangleBorder(
                   borderRadius:
@@ -532,41 +524,56 @@ class _PiechartPageState extends State<PiechartPage> {
                     children: [
                       Expanded(
                           flex: 4,
-                          child: Container(
+                          child: Card(
+                              //margin: EdgeInsets.all(8.0),
+                              elevation: 2.0,
+                              color: Colors.white,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(7.0))),
+                              child:
+                              Container(
                             child: Row(
                               children: [
                                 Expanded(
                                     flex: 11,
                                     child: Container(
                                       padding: const EdgeInsets.only(left: 38.0, bottom: 5.0),
-                                      child: Text('类别', style: TextStyle(fontSize: 20.0)),
+                                      child: Text('类别', style: TextStyle(fontSize: 20.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(context).primaryColor)),
                                     )
                                 ),
                                 Expanded(
                                     flex: 6,
                                     child: Container(
                                       padding: const EdgeInsets.only(left: 0.0, bottom: 5.0),
-                                      child: Text('比例', style: TextStyle(fontSize: 20.0)),
+                                      child: Text(' 比例', style: TextStyle(fontSize: 18.0,
+                                          fontWeight: FontWeight.w500,
+                                          color: Theme.of(context).primaryColor)),
                                     )
                                 ),
                                 Expanded(
-                                    flex: 4,
+                                    flex: 2,
                                     child: Container()
                                 ),
                                 Expanded(
-                                    flex: 7,
+                                    flex: 9,
                                     child: Container(
                                       padding: const EdgeInsets.only(bottom: 5.0),
-                                      child: Text('金额/元', style: TextStyle(fontSize: 18.0)),
+                                      child: Text('金额/元', style: TextStyle(fontSize: 18.0,
+                                          fontWeight: FontWeight.w500,
+                                          color: Theme.of(context).primaryColor)),
                                     )
                                 ),
                               ],
                             ),
-                            decoration: new BoxDecoration(
+                            /*decoration: new BoxDecoration(
                                 border: new Border(
                                   bottom: BorderSide(color: Colors.black, width: 2.0), //信息的分割线
                                 )
-                            ),
+                            ),*/
+                          )
                           )
                       ),
                       Expanded(  //类别图例
@@ -577,69 +584,82 @@ class _PiechartPageState extends State<PiechartPage> {
                               itemBuilder: (context, index) {
                                 final item = mData[index];
                                 return new GestureDetector(
-                                    child: new Container(
-                                        height: 55, //每一条信息的高度
-                                        //padding: const EdgeInsets.only(left: 20.0), //每条信息左边距
-                                        decoration: (index==(mData.length)-1)?BoxDecoration():  ///最后一条信息下面没有线
-                                          new BoxDecoration(
-                                              border: new Border(
-                                                bottom: BorderSide(color: Colors.black, width: 1.0), //信息的分割线
-                                              )
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                                flex: 3,
-                                                child: IconButton(
-                                                  icon: new Icon(Icons.arrow_right),
-                                                  iconSize: 40.0,
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
-                                                  color: mData[index].color,
-                                                  onPressed: (){
-                                                    String checked = mData[index].name; ///类别
-                                                    List<LiushuiData> liuData = getLiuData(data, checked, widget.typeSelect, widget.type);
-                                                    Navigator.of(context).pop();
-                                                    Navigator.push(
-                                                        context,
-                                                        CupertinoPageRoute(
-                                                            builder: (context) => Dismissshow(
-                                                                typeSelect: widget.typeSelect,
-                                                                type: widget.type,
-                                                                picked: widget.picked,
-                                                                liuData: liuData)));
-                                                  },
-                                                )
-                                            ),
-                                            Expanded(
-                                                flex: 8,
-                                                child: Container(
-                                                  //color: Colors.blue,
-                                                  padding: const EdgeInsets.only(bottom: 5.0),
-                                                  child: Text(mData[index].name, style: TextStyle(fontSize: 15.0)),
-                                                )
-                                            ),
-                                            Expanded(
-                                                flex: 6,
-                                                child: Container(
-                                                  padding: const EdgeInsets.only(left: 0.0, bottom: 5.0),
-                                                  child: Text('${formatNum((mData[index].percentage)*100, 2)==0?
-                                                      formatNum((mData[index].percentage)*100, 3):
-                                                      formatNum((mData[index].percentage)*100, 2)}%'
-                                                      , style: TextStyle(fontSize: 17.0)),
-                                                )
-                                            ),
-                                            Expanded(
-                                                flex: 4,
-                                                child: Container()
-                                            ),
-                                            Expanded(
-                                                flex: 7,
-                                                child: Container(
-                                                  padding: const EdgeInsets.only(bottom: 5.0), //'${formatNum(mData[index].price, 4)}'
-                                                  child: Text('${mData[index].price}', style: TextStyle(fontSize: 17.0)),
-                                                )
-                                            ),
-                                          ],
+                                    child: new Card(
+                                      //margin: EdgeInsets.all(8.0),
+                                      elevation: 0.5,
+                                      color: Colors.white,
+                                      /*shape: const RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.all(Radius.circular(7.0))),*/
+                                      child: Container(
+                                            height: 55, //每一条信息的高度
+                                            //padding: const EdgeInsets.only(left: 20.0), //每条信息左边距
+                                            /*decoration: (index==(mData.length)-1)?BoxDecoration():  ///最后一条信息下面没有线
+                                              new BoxDecoration(
+                                                  border: new Border(
+                                                    bottom: BorderSide(color: Colors.black, width: 1.0), //信息的分割线
+                                                  )
+                                            ),*/
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                    flex: 3,
+                                                    child: IconButton(
+                                                      icon: new Icon(Icons.arrow_right),
+                                                      iconSize: 40.0,
+                                                      padding: const EdgeInsets.only(bottom: 5.0),
+                                                      color: mData[index].color,
+                                                      onPressed: (){
+                                                        String checked = mData[index].name; ///类别
+                                                        List<LiushuiData> liuData = getLiuData(data, checked, widget.typeSelect, widget.type);
+                                                        //Navigator.of(context).pop();
+                                                        Navigator.push(
+                                                            context,
+                                                            CupertinoPageRoute(
+                                                                builder: (context) => Dismissshow(
+                                                                    typeSelect: widget.typeSelect,
+                                                                    type: widget.type,
+                                                                    picked: widget.picked,
+                                                                    liuData: liuData,
+                                                                    color: mData[index].color,))).then((value) => setDataFromDB());
+                                                      },
+                                                    )
+                                                ),
+                                                Expanded(
+                                                    flex: 8,
+                                                    child: Container(
+                                                      //color: Colors.blue,
+                                                      padding: const EdgeInsets.only(bottom: 5.0),
+                                                      child: Text(mData[index].name, style: TextStyle(fontSize: 15.0,
+                                                                fontWeight: FontWeight.w500,
+                                                                color: Colors.blueGrey,)),
+                                                    )
+                                                ),
+                                                Expanded(
+                                                    flex: 6,
+                                                    child: Container(
+                                                      padding: const EdgeInsets.only(left: 0.0, bottom: 5.0),
+                                                      child: Text(' ${formatNum((mData[index].percentage)*100, 2)==0?
+                                                          formatNum((mData[index].percentage)*100, 3):
+                                                          formatNum((mData[index].percentage)*100, 2)}%'
+                                                          , style: TextStyle(fontSize: 17.0,
+                                                              color: Colors.grey)),
+                                                    )
+                                                ),
+                                                Expanded(
+                                                    flex: 2,
+                                                    child: Container()
+                                                ),
+                                                Expanded(
+                                                    flex: 9,
+                                                    child: Container(
+                                                      padding: const EdgeInsets.only(bottom: 5.0), //'${formatNum(mData[index].price, 4)}'
+                                                      child: Text('${mData[index].price}', style: TextStyle(fontSize: 17.0,
+                                                                    color: mData[index].color)),
+                                                    )
+                                                ),
+                                              ],
+                                            )
                                         )
                                     )
                                 );
@@ -656,61 +676,6 @@ class _PiechartPageState extends State<PiechartPage> {
   }
 }
 
-/*
-Container(
-            width: double.infinity,
-            height: 60.0,
-            ///副标题
-            child: Row(
-              children: [
-                Expanded(  ///副标题
-                  flex: 6,
-                  child: title(typeSelect, type)
-                ),
-                Expanded(  ///选择分类
-                  flex: 2,
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(left: 1),
-                        child: IconButton(
-                          icon: new Icon(Icons.select_all, color: JizhangAppTheme.grey, size: 18, ),
-                          onPressed:(){
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                                context,
-                                //transition: TransitionType.inFromBottom,
-                                CupertinoPageRoute(
-                                    builder: (context) => SelectPage(
-                                        typeSelect: typeSelect,
-                                        type: type,
-                                        picked: picked)));
-                          },
-                        )
-                        /*Icon(
-                          Icons.select_all,
-                          color: JizhangAppTheme.grey,
-                          size: 18,
-                        ),*/
-                      ),
-                      Text(
-                        '分类',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontFamily: JizhangAppTheme.fontName,
-                          fontWeight: FontWeight.normal,
-                          fontSize: 16,
-                          letterSpacing: -0.2,
-                          color: JizhangAppTheme.darkerText,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
- */
 
 
 

@@ -1,8 +1,10 @@
 // flutter_speed_dial: ^1.2.4
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../data/model.dart';
 import 'NianPage.dart';
 import 'JiPage.dart';
+import 'TotalPage.dart';
 import 'YuePage.dart';
 import 'RiPage.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -11,7 +13,8 @@ int accountNumber;
 List totalList;
 
 class TimePage extends StatefulWidget {
-  TimePage({Key key}) : super(key: key);
+  int index;
+  TimePage({Key key, this.index = 0}) : super(key: key);
 
   @override
   _TimePageState createState() => _TimePageState();
@@ -22,10 +25,45 @@ class _TimePageState extends State<TimePage> {
   List _pageList = [NianPage(), JiPage(), YuePage(), RiPage()];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    _currentIndex = ((widget.index) == 0) ? 0 : (widget.index);
+    super.initState();
+    //totalList = countT();
+  }
+
+  title(int index) {
+    if (index == 0) {
+      return '年';
+    } else if (index == 1) {
+      return '季度';
+    } else if (index == 2) {
+      return '月';
+    } else if (index == 3) {
+      return '日';
+    }
+    return '年';
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('账户按时间统计')),
-      body: this._pageList[this._currentIndex],
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: Text('账户按' + title(_currentIndex) + '统计',
+            style: TextStyle(
+                fontSize: 20.0, color: Theme.of(context).primaryColor)),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back,
+                color: Theme.of(context).primaryColor, size: 28),
+            onPressed: () {
+              Navigator.of(context).pop();
+              /*Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => TotalPage()));*/
+            }),
+      ),
+      body: this._pageList[_currentIndex],
       floatingActionButton: SpeedDial(
           child: Icon(Icons.add),
           marginRight: 25, //右边距
@@ -36,14 +74,16 @@ class _TimePageState extends State<TimePage> {
           overlayColor: Colors.black, //遮罩层颜色
           overlayOpacity: 0.5, //遮罩层透明度
           tooltip: '统计时间选择', //长按提示文字
-          backgroundColor: Colors.blue, //按钮背景色
+          backgroundColor: Theme.of(context).primaryColor, //按钮背景色
           foregroundColor: Colors.white, //按钮前景色/文字色
-          elevation: 8.0, //阴影
+          elevation: 4.0, //阴影
           shape: CircleBorder(), //shape修饰
           children: [
             SpeedDialChild(
               child: Icon(Icons.accessibility),
-              backgroundColor: Colors.red,
+              backgroundColor: Theme.of(context)
+                  .primaryColor
+                  .withAlpha(300 - 12 * (10 - 3 % 20).abs()),
               label: '日',
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () {
@@ -54,7 +94,9 @@ class _TimePageState extends State<TimePage> {
             ),
             SpeedDialChild(
               child: Icon(Icons.brush),
-              backgroundColor: Colors.orange,
+              backgroundColor: Theme.of(context)
+                  .primaryColor
+                  .withAlpha(300 - 12 * (10 - 2 % 20).abs()),
               label: '月',
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () {
@@ -65,7 +107,9 @@ class _TimePageState extends State<TimePage> {
             ),
             SpeedDialChild(
               child: Icon(Icons.keyboard_voice),
-              backgroundColor: Colors.green,
+              backgroundColor: Theme.of(context)
+                  .primaryColor
+                  .withAlpha(300 - 12 * (10 - 1 % 20).abs()),
               label: '季',
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () {
@@ -76,7 +120,9 @@ class _TimePageState extends State<TimePage> {
             ),
             SpeedDialChild(
               child: Icon(Icons.keyboard_voice),
-              backgroundColor: Colors.green,
+              backgroundColor: Theme.of(context)
+                  .primaryColor
+                  .withAlpha(300 - 12 * (10 - 0 % 20).abs()),
               label: '年',
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () {
@@ -87,44 +133,5 @@ class _TimePageState extends State<TimePage> {
             ),
           ]),
     );
-  }
-}
-
-class TimePageContent extends StatefulWidget {
-  TimePageContent({Key key}) : super(key: key);
-
-  @override
-  _TimePageContentState createState() => _TimePageContentState();
-}
-
-class _TimePageContentState extends State<TimePageContent> {
-  //List totalList;
-  List<BillsModel> billsList;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    //totalList = countT();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(children: <Widget>[
-      Container(
-        child: Stack(children: <Widget>[
-          Align(
-              alignment: Alignment(-1, -1),
-              child: Container(
-                height: 800,
-                width: 600,
-                color: Colors.blue[50],
-                // child: ListView(
-                //   children: this._totalListData(),
-                // ),
-              )),
-        ]),
-      ),
-    ]);
   }
 }
