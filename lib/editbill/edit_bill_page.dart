@@ -178,7 +178,7 @@ class _CardAddBill extends State<CardAddBill>
               centerTitle: true,
               title: Text("新建记账", style: TextStyle(color: Theme
                   .of(context)
-                  .primaryColor, fontSize: 20.0)),
+                  .primaryColor),),
               actions: <Widget>[
                 IconButton(
                     icon: FaIcon(FontAwesomeIcons.alipay, color: Theme

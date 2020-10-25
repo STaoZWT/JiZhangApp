@@ -53,14 +53,15 @@ class _TimePageState extends State<TimePage> {
         centerTitle: true,
         title: Text('账户按' + title(_currentIndex) + '统计',
             style: TextStyle(
-                fontSize: 20.0, color: Theme.of(context).primaryColor)),
+                fontSize: 23.0, color: Theme.of(context).primaryColor)),
         leading: IconButton(
             icon: Icon(Icons.arrow_back,
                 color: Theme.of(context).primaryColor, size: 28),
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => TotalPage()));
+              Navigator.of(context).pop();
+              Navigator.push(context,
+                  CupertinoPageRoute(builder: (context) => TotalPage()));
             }),
       ),
       body: this._pageList[_currentIndex],
