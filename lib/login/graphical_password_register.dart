@@ -43,7 +43,7 @@ class _GraphicalPasswordRegisterPageState extends State<GraphicalPasswordRegiste
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("image/tupian.jpg"),
+              image: AssetImage("image/cat.jpg"),
               fit: BoxFit.fill,
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.darken))),
@@ -83,6 +83,24 @@ class _GraphicalPasswordRegisterPageState extends State<GraphicalPasswordRegiste
                         setGraphicalPw(items);
                       });
                     },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        IconButton(
+                          iconSize: 50,
+                          onPressed: (){
+                            Navigator.of(context).pop();
+                          },
+                          icon: Icon(
+                            Icons.keyboard_backspace,
+                            color: Colors.lightBlueAccent,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

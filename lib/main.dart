@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_jizhangapp/const/common_color.dart';
+import 'package:flutter_jizhangapp/login/introduction_screen.dart';
 import 'package:flutter_jizhangapp/login/splash.dart';
 import 'package:flutter_jizhangapp/routes.dart';
 import 'package:flutter_jizhangapp/service/app_info.dart';

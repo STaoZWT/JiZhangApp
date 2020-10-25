@@ -37,7 +37,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
       ),
       DrawerList(
         index: DrawerIndex.FeedBack,
-        labelName: '修改图形密码',
+        labelName: '重置图形密码',
         icon: Icon(Icons.widgets),
       ),
       DrawerList(
@@ -50,6 +50,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
         labelName: '清空数据',
         icon: Icon(Icons.warning),
       ),
+      DrawerList(
+          index: DrawerIndex.About,
+          labelName: '帮助',
+          icon: Icon(Icons.warning),
+      )
       // DrawerList(
       //   index: DrawerIndex.About,
       //   labelName: 'About Us',

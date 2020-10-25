@@ -142,6 +142,7 @@
 //version 2
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_jizhangapp/login/introduction_screen.dart';
 import 'package:flutter_jizhangapp/login/login.dart';
 import 'package:flutter_jizhangapp/routes.dart';
 import 'package:flutter_jizhangapp/service/shared_pref.dart';
@@ -173,7 +174,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("image/tupian.jpg"),
+              image: AssetImage("image/cat.jpg"),
               fit: BoxFit.fill,
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.darken))),
@@ -320,7 +321,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   // return LoginPage(
                                   //   userNameGet: registerUserNameController.value.text.toString(),
                                   // );
-                                  return NavigationHomeScreen();
+                                  return IntroductionScreenPage();
                                 }));
                               }else if(!isUserName(registerUserNameController.value.text.toString())&&
                                   isLoginPassword(registerPassWordController.value.text.toString())){
@@ -360,7 +361,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Padding(padding: EdgeInsets.only(top: 290),
                   child: CircleAvatar(
                     //child: Image.asset("image/tupian.jpg"),
-                    backgroundImage: AssetImage("image/tupian.jpg"),
+                    backgroundImage: AssetImage("assets/cat_picture.png"),
                     radius: 60,
                     backgroundColor: Colors.transparent,
                   ),
