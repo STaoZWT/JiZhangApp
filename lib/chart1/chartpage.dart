@@ -70,10 +70,10 @@ class _ChartPageState extends State<ChartPage> {
   title(String typeSelect, int type) {
     if(type==0){
       return Text("$typeSelect"+"收入",
-          style: TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor));
+          style: TextStyle(fontSize: 20.0, color: Theme.of(context).primaryColor));
     }else if(type==1){
       return Text("$typeSelect"+"支出",
-          style: TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor));
+          style: TextStyle(fontSize: 20.0, color: Theme.of(context).primaryColor));
     }
   }
 
@@ -88,14 +88,46 @@ class _ChartPageState extends State<ChartPage> {
               icon: Icon(Icons.arrow_back, color: Theme.of(context).primaryColor,size: 28),
               onPressed: () {
                 Navigator.of(context).pop();
-                /*Navigator.push(
-                    context,
-                    CupertinoPageRoute(
-                        builder: (context) => HomePage()));*/
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => NavigationHomeScreen()));
               }),
           title: title(typeSelect, type),
           actions: <Widget>[
-            RaisedButton.icon(
+            AnimatedContainer(
+              margin: EdgeInsets.fromLTRB(10, 6, 0, 6),
+              //EdgeInsets.only(left: 10),
+              duration: Duration(milliseconds: 200),
+              width: 1 == 1 ? 100 : 0,
+              height: 42,
+              curve: Curves.decelerate,
+              child: RaisedButton.icon(
+                color: Theme
+                    .of(context)
+                    .accentColor,
+                textColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(100),
+                        bottomLeft: Radius.circular(100))),
+                icon: Icon(Icons.select_all),
+                label: Text(
+                  '分类',
+                  style: TextStyle(letterSpacing: 1),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.push(
+                      context,
+                      //transition: TransitionType.inFromBottom,
+                      CupertinoPageRoute(
+                          builder: (context) => SelectPage(
+                              typeSelect: typeSelect,
+                              type: type,
+                              picked: picked)));
+                },
+              ),
+            )
+            /*RaisedButton.icon(
               color: Theme.of(context).accentColor,
               textColor: Colors.white,
               shape: RoundedRectangleBorder(
@@ -118,7 +150,7 @@ class _ChartPageState extends State<ChartPage> {
                             type: type,
                             picked: picked)));
               },
-            ),
+            ),*/
           ]
         /*actions: <Widget>[
           IconButton(
