@@ -41,6 +41,7 @@ class _editAccountPicker extends State<editAccountPicker> {
         : accountList; //判断
     //print(accountList as Map);
     accountListCard = [];
+
     for(var index = 0;index < accountList.length;index++) {
       accountListCard.add(
             Card(
