@@ -65,8 +65,11 @@ class _HomePageState extends State<HomePage> {
 
   //以下为设置账户初始值
   void initAccount() async {
-    await setPicker(
-        "maccountPicker", AccountPickerData);
+    String tmp = await getPicker('maccountPicker');
+    if(tmp == null) {
+      await setPicker(
+          "maccountPicker", AccountPickerData);
+    }
   }
 
 
