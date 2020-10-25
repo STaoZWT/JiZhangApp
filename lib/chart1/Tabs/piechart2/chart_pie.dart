@@ -143,7 +143,6 @@ class _PiechartPageState extends State<PiechartPage> {
     return Scaffold(
       body: ListView(
         physics: BouncingScrollPhysics(),
-        //padding: const EdgeInsets.only(top: 40),
         children: <Widget>[
           Container(
             height: 20.0,
@@ -159,9 +158,9 @@ class _PiechartPageState extends State<PiechartPage> {
                     topRight: Radius.circular(68.0)),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
-                      color: JizhangAppTheme.grey.withOpacity(0.2),
-                      offset: Offset(1.1, 3),
-                      blurRadius: 10.0),
+                      color: JizhangAppTheme.grey.withOpacity(0.3),
+                      offset: Offset(4, 3),
+                      blurRadius: 8.0),
                 ],
               ),
               width: double.infinity,

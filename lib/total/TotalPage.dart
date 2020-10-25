@@ -36,10 +36,12 @@ class _TotalPageState extends State<TotalPage> {
                 color: Theme.of(context).primaryColor, size: 28),
             onPressed: () {
               Navigator.of(context).pop();
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => NavigationHomeScreen()));
             }),
         title: Text('分账户统计',
             style: TextStyle(
-                fontSize: 23.0, color: Theme.of(context).primaryColor)),
+                fontSize: 20.0, color: Theme.of(context).primaryColor)),
       ),
       body: TotalPageContent(),
     );
