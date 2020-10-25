@@ -19,7 +19,7 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("image/tupian.jpg"),
+              image: AssetImage("image/cat.jpg"),
               fit: BoxFit.fill,
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.darken))),
@@ -109,6 +109,16 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
+                        IconButton(
+                          iconSize: 50,
+                          onPressed: (){
+                            Navigator.of(context).pop();
+                          },
+                          icon: Icon(
+                            Icons.arrow_back,
+                            color: Colors.lightBlueAccent,
+                          ),
+                        ),
                         SizedBox(
                           height: 56,
                           width: 120,
@@ -136,16 +146,6 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
                                 borderRadius: BorderRadius.circular(8)),
                           ),
                         ),
-                        IconButton(
-                          iconSize: 50,
-                          onPressed: (){
-                            Navigator.of(context).pop();
-                          },
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: Colors.lightBlueAccent,
-                          ),
-                        ),
                       ],
                     ),
                   )
@@ -155,7 +155,7 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
                 child: Padding(padding: EdgeInsets.only(top: 290),
                   child: CircleAvatar(
                     //child: Image.asset("image/tupian.jpg"),
-                    backgroundImage: AssetImage("image/tupian.jpg"),
+                    backgroundImage: AssetImage("assets/cat_picture.png"),
                     radius: 60,
                     backgroundColor: Colors.transparent,
                   ),

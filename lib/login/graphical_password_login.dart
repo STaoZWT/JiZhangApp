@@ -35,7 +35,7 @@ class _GraphicalPasswordLoginPageState extends State<GraphicalPasswordLoginPage>
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("image/tupian.jpg"),
+              image: AssetImage("image/cat.jpg"),
               fit: BoxFit.fill,
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.darken))),

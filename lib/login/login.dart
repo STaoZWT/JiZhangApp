@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("image/tupian.jpg"),
+              image: AssetImage("image/cat.jpg"),
               fit: BoxFit.fill,
               colorFilter: ColorFilter.mode(
                   Colors.black.withOpacity(0.4), BlendMode.darken))),
@@ -247,7 +247,7 @@ class _LoginPageState extends State<LoginPage> {
               Center(
                 child: Padding(padding: EdgeInsets.only(top: 290),
                   child: CircleAvatar(
-                    backgroundImage: AssetImage("image/tupian.jpg"),
+                    backgroundImage: AssetImage("assets/cat_picture.png"),
                     radius: 60,
                     backgroundColor: Colors.transparent,
                   ),
