@@ -618,7 +618,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                                       onPressed: (){
                                                         String checked = mData[index].name; ///类别
                                                         List<LiushuiData> liuData = getLiuData(data, checked, widget.typeSelect, widget.type);
-                                                        Navigator.of(context).pop();
+                                                        //Navigator.of(context).pop();
                                                         Navigator.push(
                                                             context,
                                                             CupertinoPageRoute(
@@ -627,7 +627,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                                                     type: widget.type,
                                                                     picked: widget.picked,
                                                                     liuData: liuData,
-                                                                    color: mData[index].color,)));
+                                                                    color: mData[index].color,))).then((value) => setDataFromDB());
                                                       },
                                                     )
                                                 ),

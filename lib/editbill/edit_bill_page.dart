@@ -138,8 +138,9 @@ class _CardAddBill extends State<CardAddBill>
                             currentbill.value100 = moneyInput;
                             setDraft(currentbill);
                             Navigator.of(context).pop();
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (BuildContext context) => NavigationHomeScreen()));
+                            Navigator.of(context).pop();
+                            // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            //     builder: (BuildContext context) => NavigationHomeScreen()));
                           },
                         ),
                         RaisedButton(
@@ -147,8 +148,9 @@ class _CardAddBill extends State<CardAddBill>
                           onPressed: () {
                             removeDraft();
                             Navigator.of(context).pop();
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (BuildContext context) => NavigationHomeScreen()));
+                            Navigator.of(context).pop();
+                            // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            //     builder: (BuildContext context) => NavigationHomeScreen()));
                           },
                         ),
                         RaisedButton(
@@ -179,6 +181,63 @@ class _CardAddBill extends State<CardAddBill>
               title: Text("新建记账", style: TextStyle(color: Theme
                   .of(context)
                   .primaryColor),),
+              leading: IconButton(
+                onPressed: () async =>
+                    showDialog(
+                        context: context,
+                        builder: (context) =>
+                            AlertDialog(
+                                content: Text('是否保存草稿？'),
+                                title: Text('提示'), actions: <Widget>[
+                              RaisedButton(
+                                child: Text('是'),
+                                onPressed: () {
+                                  currentbill.title = remark;
+                                  currentbill.date = dateSelect;
+                                  currentbill.type = type;
+                                  currentbill.accountIn = (type == 2)
+                                      ? accountInSelectText
+                                      : "未选择"; //保存草稿时，支出和收入类型时，此项无保存必要
+                                  currentbill.accountOut = accountOutSelectText;
+                                  currentbill.category1 =
+                                  (type == 2) ? "其他" : (type == 0) ? classInSelectText
+                                      .split(",")[0] : classOutSelectText.split(
+                                      ",")[0]; //转账时无分类，因此赋默认值
+                                  currentbill.category2 =
+                                  (type == 2) ? "转账" : (type == 0) ? classInSelectText
+                                      .split(",")[1] : classOutSelectText.split(
+                                      ",")[1];
+                                  currentbill.member = memberSelectText;
+                                  currentbill.value100 = moneyInput;
+                                  setDraft(currentbill);
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop();
+                                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                  //     builder: (BuildContext context) => NavigationHomeScreen()));
+                                },
+                              ),
+                              RaisedButton(
+                                child: Text('否'),
+                                onPressed: () {
+                                  removeDraft();
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop();
+                                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                  //     builder: (BuildContext context) => NavigationHomeScreen()));
+                                },
+                              ),
+                              RaisedButton(
+                                child: Text('取消'),
+                                onPressed: () {
+                                  removeDraft();
+                                  Navigator.of(context).pop();
+
+                                },
+                              )
+                            ])),
+                icon: Icon(Icons.arrow_back),
+                color: Theme.of(context).primaryColor,
+              ),
               actions: <Widget>[
                 IconButton(
                     icon: FaIcon(FontAwesomeIcons.alipay, color: Theme
@@ -842,9 +901,9 @@ class _CardAddBill extends State<CardAddBill>
       Toast.show("记账成功", context);
       //var bill =
       await BillsDatabaseService.db.addBillInDB(currentbill);
-      //Navigator.of(context).pop();  //记账成功后退出记账界面
-       Navigator.of(context).pushReplacement(
-           MaterialPageRoute(builder: (BuildContext context) => NavigationHomeScreen()));
+      Navigator.of(context).pop();  //记账成功后退出记账界面
+      //  Navigator.of(context).pushReplacement(
+      //      MaterialPageRoute(builder: (BuildContext context) => NavigationHomeScreen()));
     } else {
       if(currentbill.value100 < 1) {Toast.show("请输入金额", context);}
       else if (!(type==2 || currentbill.category1!="未选择")) {Toast.show("请选择分类", context);}
@@ -901,6 +960,59 @@ class _CardAddBill extends State<CardAddBill>
     isInit = true;
     print("tag4");
     setState(() { });
+  }
+
+  //退出时询问是否保存草稿
+  Widget isSaveDraft () {
+    return AlertDialog(
+        content: Text('是否保存草稿？'),
+        title: Text('提示'), actions: <Widget>[
+      RaisedButton(
+        child: Text('是'),
+        onPressed: () {
+          currentbill.title = remark;
+          currentbill.date = dateSelect;
+          currentbill.type = type;
+          currentbill.accountIn = (type == 2)
+              ? accountInSelectText
+              : "未选择"; //保存草稿时，支出和收入类型时，此项无保存必要
+          currentbill.accountOut = accountOutSelectText;
+          currentbill.category1 =
+          (type == 2) ? "其他" : (type == 0) ? classInSelectText
+              .split(",")[0] : classOutSelectText.split(
+              ",")[0]; //转账时无分类，因此赋默认值
+          currentbill.category2 =
+          (type == 2) ? "转账" : (type == 0) ? classInSelectText
+              .split(",")[1] : classOutSelectText.split(
+              ",")[1];
+          currentbill.member = memberSelectText;
+          currentbill.value100 = moneyInput;
+          setDraft(currentbill);
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+          // Navigator.of(context).pushReplacement(MaterialPageRoute(
+          //     builder: (BuildContext context) => NavigationHomeScreen()));
+        },
+      ),
+      RaisedButton(
+        child: Text('否'),
+        onPressed: () {
+          removeDraft();
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+          // Navigator.of(context).pushReplacement(MaterialPageRoute(
+          //     builder: (BuildContext context) => NavigationHomeScreen()));
+        },
+      ),
+      RaisedButton(
+        child: Text('取消'),
+        onPressed: () {
+          removeDraft();
+          Navigator.of(context).pop();
+
+        },
+      )
+    ]);
   }
 
 
