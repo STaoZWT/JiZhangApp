@@ -49,7 +49,9 @@ class BillsDatabaseService {
       'category2',
       'member',
       'value100'
-    ]);
+    ],
+      orderBy: 'date DESC',
+    );
     if (maps.length > 0) {
       maps.forEach((map) {
         billsList.add(BillsModel.fromMap(map));
@@ -102,6 +104,7 @@ class BillsDatabaseService {
           'value100'
         ],
         where: 'date >= ? AND date <= ?',
+        orderBy: 'date DESC',
         whereArgs: [
           dateStart.millisecondsSinceEpoch,
           dateEnd.millisecondsSinceEpoch

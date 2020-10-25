@@ -198,7 +198,7 @@ class _RiPageContentState extends State<RiPageContent>
   initall() async {
     await setBillsFromDB();
     //totalList = countT();
-    billsList.sort((a, b) => (b.date).compareTo(a.date));
+    //billsList.sort((a, b) => (b.date).compareTo(a.date));
     maxAc = maxAcCount();
     //print(maxAc);
     totalList = inittotalList();
@@ -339,7 +339,7 @@ class _RiPageContentState extends State<RiPageContent>
                   billsList[j].value100 < 100) {
                 detailtemp = "0." + detailtemp100.substring(0, 2);
               } else {
-                detailtemp =
+                detailtemp ='-'+
                     detailtemp100.substring(0, detailtemp100.length - 2) +
                         "." +
                         detailtemp100.substring(
@@ -495,7 +495,7 @@ class _RiPageContentState extends State<RiPageContent>
                     billsList[j].value100 < 100) {
                   detailtemp = "0." + detailtemp100.substring(0, 2);
                 } else {
-                  detailtemp =
+                  detailtemp ='-'+
                       detailtemp100.substring(0, detailtemp100.length - 2) +
                           "." +
                           detailtemp100.substring(
@@ -563,7 +563,7 @@ class _RiPageContentState extends State<RiPageContent>
                     billsList[j].value100 < 100) {
                   detailtemp = "0." + detailtemp100.substring(0, 2);
                 } else {
-                  detailtemp =
+                  detailtemp ='-'+
                       detailtemp100.substring(0, detailtemp100.length - 2) +
                           "." +
                           detailtemp100.substring(

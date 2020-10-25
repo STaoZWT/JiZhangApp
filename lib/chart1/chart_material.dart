@@ -100,26 +100,26 @@ List getLiuData(List<BillsModel> data, String checked, String typeSelect, int ty
 }
 
   List<Color> colorListPie = [
-    Colors.blueAccent,
-    Colors.green,
-    Colors.pink,
-    Colors.orangeAccent,
-    Colors.black38,///5
-    Colors.cyanAccent,
-    Colors.deepPurpleAccent,
-    Colors.deepOrangeAccent,
-    Colors.yellowAccent,
-    Colors.redAccent,///10
-    Colors.cyan,
-    Colors.purple,
-    Colors.brown,
-    Colors.lightGreenAccent,
-    Colors.indigo,///15
-    Colors.deepPurple,
-    Colors.deepOrange,
-    Colors.yellow,
+    Color(0xffffcdd2),
+    Color(0xffbbdefb),
+    Color(0xffcb9ca1),
+    Color(0xff80cbc4),
+    Color(0xff4f9a94),///5
+    Color(0xff8aacc8),
+    Color(0xff009faf),
+    Color(0xffdce775),
+    Color(0xff7c8500),
+    Color(0xffa7c0cd),///10
+    Color(0xff8d6e63),
+    Color(0xffe57373),
+    Color(0xffe2f1f8),
+    Color(0xffffd0b0),
+    Color(0xffffa06d),///15
+    Color(0xffffecb3),
+    Color(0xffc5e1a5),
+    Color(0xff4ba3c7),
     Colors.blueGrey,
-    Colors.indigo,///20
+    Color(0xffa7c0ff),///20
   ];
 
 double formatNum(double num,int postion){

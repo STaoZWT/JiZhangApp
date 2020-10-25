@@ -295,38 +295,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
         onTap: () {
           FocusScope.of(context).requestFocus(blankNode);
         },
-        child: WillPopScope(
-            onWillPop: () async =>
-                showDialog(
-                    context: context,
-                    builder: (context) =>
-                        AlertDialog(
-                            content: Text('是否退出账户流水查询？'),
-                            title: Text('提示'), actions: <Widget>[
-                          RaisedButton(
-                            child: Text('是'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                  builder: (BuildContext context) => NavigationHomeScreen()));
-                            },
-                          ),
-                          RaisedButton(
-                            child: Text('否'),
-                            onPressed: () {
-                              print('仍为饼状图');
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          RaisedButton(
-                            child: Text('取消'),
-                            onPressed: () {
-                              print('仍为饼状图');
-                              Navigator.of(context).pop();
-                            },
-                          )
-                        ])),
+
             child: Container(
               height: 800,
               width: 600,
@@ -335,7 +304,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
                 children: this._totalListData(),
               ),
             )
-        ),
+
       );
     }
   }
