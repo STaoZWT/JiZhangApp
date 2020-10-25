@@ -149,7 +149,7 @@ class _PiechartPageState extends State<PiechartPage> {
             height: 20.0,
           ),
           Container(  ///卡片
-            margin: EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(16.0),
             decoration: BoxDecoration(
                 color: Colors.white,//JizhangAppTheme.nearlyBlue,
                 borderRadius: BorderRadius.only(
@@ -160,7 +160,7 @@ class _PiechartPageState extends State<PiechartPage> {
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                       color: JizhangAppTheme.grey.withOpacity(0.2),
-                      offset: Offset(1.1, 1.1),
+                      offset: Offset(1.1, 3),
                       blurRadius: 10.0),
                 ],
               ),
@@ -211,8 +211,8 @@ class _PiechartPageState extends State<PiechartPage> {
                                     CrossAxisAlignment.end,
                                     children: <Widget>[
                                       SizedBox(
-                                        width: 28,
-                                        height: 28,
+                                        width: 30,
+                                        height: 34,
                                         child: IconButton(  ///选择时间
                                           icon: new Icon(Icons.access_time),
                                           iconSize: 25.0,
@@ -252,7 +252,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                       Padding(
                                         padding:
                                         const EdgeInsets.only(
-                                            left: 6, bottom: 0),
+                                            left: 6, bottom: 2),
                                         child: Text(
                                           '${picked[0].year}',  ///起始时间 年
                                           textAlign: TextAlign.center,
@@ -270,7 +270,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                       Padding(
                                         padding:
                                         const EdgeInsets.only(
-                                            left: 3, bottom: 1),
+                                            left: 2, bottom: 3),
                                         child: Text(
                                           '${picked[0].month}.'+'${picked[0].day}',  ///月 日
                                           textAlign: TextAlign.center,
@@ -328,8 +328,8 @@ class _PiechartPageState extends State<PiechartPage> {
                                     CrossAxisAlignment.end,
                                     children: <Widget>[
                                       SizedBox(
-                                        width: 28,
-                                        height: 28,
+                                        width: 30,
+                                        height: 34,
                                         child: IconButton(  ///选择时间
                                           icon: new Icon(Icons.access_time),
                                           iconSize: 25.0,
@@ -369,7 +369,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                       Padding(
                                         padding:
                                         const EdgeInsets.only(
-                                            left: 6, bottom: 0),
+                                            left: 6, bottom: 2),
                                         child: Text(
                                           '${picked[1].year}', ///终止时间 年
                                           textAlign: TextAlign.center,
@@ -387,7 +387,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                       Padding(
                                         padding:
                                         const EdgeInsets.only(
-                                            left: 3, bottom: 1),
+                                            left: 2, bottom: 3),
                                         child: Text(
                                           '${picked[1].month}.'+'${picked[1].day}', ///月 日
                                           textAlign: TextAlign.center,
@@ -483,7 +483,7 @@ class _PiechartPageState extends State<PiechartPage> {
                     ),
                   ),
                   Expanded(  //右侧
-                    flex: 3,
+                    flex: 2,
                     child: Column(
                       children: [
                         Expanded(
@@ -492,7 +492,7 @@ class _PiechartPageState extends State<PiechartPage> {
                               //color: Color(0xFF0000FF),
                               padding: const EdgeInsets.only(top: 20.0),
                               child: IconButton(
-                                //padding: const EdgeInsets.only(right: 40),
+                                padding: const EdgeInsets.only(right: 9),
                                 icon: new Icon(Icons.arrow_right),
                                 iconSize: 40.0,
                                 color: Theme.of(context).primaryColor,
@@ -518,7 +518,7 @@ class _PiechartPageState extends State<PiechartPage> {
             height: 10.0,
           ),
           Card(  // 类别
-              margin: EdgeInsets.all(10.0),
+              margin: EdgeInsets.all(16.0),
               elevation: 2.0,
               shape: const RoundedRectangleBorder(
                   borderRadius:
@@ -554,7 +554,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                     flex: 6,
                                     child: Container(
                                       padding: const EdgeInsets.only(left: 0.0, bottom: 5.0),
-                                      child: Text('比例', style: TextStyle(fontSize: 18.0,
+                                      child: Text(' 比例', style: TextStyle(fontSize: 18.0,
                                           fontWeight: FontWeight.w500,
                                           color: Theme.of(context).primaryColor)),
                                     )
@@ -645,7 +645,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                                     flex: 6,
                                                     child: Container(
                                                       padding: const EdgeInsets.only(left: 0.0, bottom: 5.0),
-                                                      child: Text('${formatNum((mData[index].percentage)*100, 2)==0?
+                                                      child: Text(' ${formatNum((mData[index].percentage)*100, 2)==0?
                                                           formatNum((mData[index].percentage)*100, 3):
                                                           formatNum((mData[index].percentage)*100, 2)}%'
                                                           , style: TextStyle(fontSize: 17.0,
