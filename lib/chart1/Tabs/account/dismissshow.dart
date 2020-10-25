@@ -58,11 +58,11 @@ class _Dismissshow extends State<Dismissshow> {
     if (widget.type == 0) {
       return Text("$checked" + " 收入",
           style:
-              TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor));
+              TextStyle(fontSize: 21.0, color: Theme.of(context).primaryColor));
     } else if (widget.type == 1) {
       return Text("$checked" + " 支出",
           style:
-              TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor));
+              TextStyle(fontSize: 21.0, color: Theme.of(context).primaryColor));
     }
   }
 
@@ -119,13 +119,13 @@ class _Dismissshow extends State<Dismissshow> {
                   color: Theme.of(context).primaryColor, size: 28),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.push(
+                /*Navigator.push(
                     context,
                     CupertinoPageRoute(
                         builder: (context) => ChartPage(
                             typeSelect: widget.typeSelect,
                             type: widget.type,
-                            picked: widget.picked)));
+                            picked: widget.picked)));*/
               }),
           centerTitle: true,
           title: title(context) //界面标题内容
@@ -179,7 +179,7 @@ class _Dismissshow extends State<Dismissshow> {
                                         flex: 3,
                                         child: Text('${(item.date).year}',
                                             style: TextStyle(
-                                                fontSize: 24.0,
+                                                fontSize: 22.0,
                                                 color: Theme.of(context)
                                                     .primaryColor)),
                                       ),
@@ -188,7 +188,7 @@ class _Dismissshow extends State<Dismissshow> {
                                         child: Text(
                                             '${(item.date).month}.${(item.date).day}',
                                             style: TextStyle(
-                                                fontSize: 22.0,
+                                                fontSize: 21.0,
                                                 color: Theme.of(context)
                                                     .primaryColor)),
                                       ),
@@ -197,7 +197,7 @@ class _Dismissshow extends State<Dismissshow> {
                                         child: Text(
                                             '周' + weekday((item.date).weekday),
                                             style: TextStyle(
-                                                fontSize: 21.0,
+                                                fontSize: 20.0,
                                                 color: Theme.of(context)
                                                     .primaryColor)),
                                       ),

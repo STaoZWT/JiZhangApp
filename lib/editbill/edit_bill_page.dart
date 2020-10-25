@@ -790,7 +790,7 @@ class _CardAddBill extends State<CardAddBill>
           ),
         ),
       );
-    };
+    }
 
 
   }

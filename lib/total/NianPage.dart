@@ -301,7 +301,7 @@ class _NianPageContentState extends State<NianPageContent>
               nianList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': '收入',
+                'type': tempcardName2+'收入',
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -335,7 +335,7 @@ class _NianPageContentState extends State<NianPageContent>
               nianList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': '支出',
+                'type': tempcardName1+'支出',
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -445,7 +445,7 @@ class _NianPageContentState extends State<NianPageContent>
                 detailList.add({
                   'id': billsList[j].id,
                   'date': billsList[j].date,
-                  'type': '收入',
+                  'type': tempcardName2+'收入',
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
                   'category2': billsList[j].category2,
@@ -479,7 +479,7 @@ class _NianPageContentState extends State<NianPageContent>
                 detailList.add({
                   'id': billsList[j].id,
                   'date': billsList[j].date,
-                  'type': '支出',
+                  'type': tempcardName1+'支出',
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
                   'category2': billsList[j].category2,
@@ -488,7 +488,7 @@ class _NianPageContentState extends State<NianPageContent>
                   '金额': detailtemp,
                 });
               }
-            } else if (billsList[j].type == 3) {
+            } else if (billsList[j].type == 2) {
               if (billsList[j].accountOut == tempaccountName) {
                 nianList[i]['金额100'] -= billsList[j].value100;
                 String detailtemp;
@@ -595,6 +595,7 @@ class _NianPageContentState extends State<NianPageContent>
     await BillsDatabaseService.db.deleteBillIdInDB(id);
   }
 
+  int flag=0;
   List<Widget> _yearListData() {
     var tempList = yearList1.map((value) {
       return Card(
@@ -686,10 +687,10 @@ class _NianPageContentState extends State<NianPageContent>
                                           '分'
                                               // '  ' +
                                               // value['明细'][index]['title'] +
-                                              '  ' +
+                                              '\n' +
                                           value['明细'][index]['type'] +
                                           '  ' +
-                                          value['明细'][index]['member']),
+                                          value['明细'][index]['member'],style: TextStyle(fontSize: 12.0)),
                                       onTap: () => print("$index被点击了"),
                                       onLongPress: () => print("$index被长按了"),
                                     ),
@@ -719,6 +720,7 @@ class _NianPageContentState extends State<NianPageContent>
                                               value['明细'][index]['id']);
                                           (value['明细']).removeAt(
                                               index); //删除某条信息!!!!!!!!!
+                                          //initState();
                                           Navigator.of(context).pop();
                                           Navigator.of(context).push(
                                               MaterialPageRoute(

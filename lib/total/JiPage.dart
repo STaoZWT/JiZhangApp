@@ -758,10 +758,10 @@ class _JiPageContentState extends State<JiPageContent>
                                               '分'
                                                   // '  ' +
                                                   // value['明细'][index]['title'] +
-                                                  '  ' +
+                                                  '\n' +
                                               value['明细'][index]['type'] +
                                               '  ' +
-                                              value['明细'][index]['member']),
+                                              value['明细'][index]['member'],style: TextStyle(fontSize: 12.0)),
                                           onTap: () => print("$index被点击了"),
                                           onLongPress: () =>
                                               print("$index被长按了"),
@@ -792,6 +792,7 @@ class _JiPageContentState extends State<JiPageContent>
                                                   value['明细'][index]['id']);
                                               (value['明细']).removeAt(
                                                   index); //删除某条信息!!!!!!!!!
+                                              Navigator.of(context).pop();
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>
