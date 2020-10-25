@@ -59,8 +59,8 @@ class _TimePageState extends State<TimePage> {
                 color: Theme.of(context).primaryColor, size: 28),
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => TotalPage()));
+              /*Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => TotalPage()));*/
             }),
       ),
       body: this._pageList[_currentIndex],

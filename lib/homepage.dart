@@ -54,6 +54,11 @@ class _HomePageState extends State<HomePage> {
     print('homepage init!');
     //drawerIndex = DrawerIndex.HOME;
     flag = false;
+    handle();
+
+  }
+
+  handle(){
     getHomePageData();
     initAccount();
   }
@@ -1117,16 +1122,16 @@ class _HomePageState extends State<HomePage> {
                   //setPassWord(null);
                   //Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => ChartPage()));
+                      builder: (BuildContext context) => ChartPage())).then((value) => handle());
                 } else if (_currentIndex == 1) {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => CardAddBill()));
+                      builder: (BuildContext context) => CardAddBill())).then((value) => handle());
                   //builder: (BuildContext context) => UnknownPage()));
                 } else if (_currentIndex == 2) {
                   //Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
                     //builder: (BuildContext context) => UnknownPage()));
-                      builder: (BuildContext context) => TotalPage()));
+                      builder: (BuildContext context) => TotalPage())).then((value) => handle());
                 }
                 ;
               });

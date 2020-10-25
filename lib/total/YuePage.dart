@@ -734,9 +734,9 @@ class _YuePageContentState extends State<YuePageContent>
                                               style: TextStyle(
                                                   color: Colors.blueGrey)),
                                           subtitle: new Text(value['明细'][index]
-                                                      ['date']
-                                                  .month
-                                                  .toString() +
+                                          ['date']
+                                              .month
+                                              .toString() +
                                               '月' +
                                               value['明细'][index]['date']
                                                   .day
@@ -750,12 +750,12 @@ class _YuePageContentState extends State<YuePageContent>
                                                   .minute
                                                   .toString() +
                                               '分'
-                                                  // '  ' +
-                                                  // value['明细'][index]['title'] +
-                                                  '  ' +
+                                              // '  ' +
+                                              // value['明细'][index]['title'] +
+                                                  '\n' +
                                               value['明细'][index]['type'] +
                                               '  ' +
-                                              value['明细'][index]['member']),
+                                              value['明细'][index]['member'],style: TextStyle(fontSize: 12.0)),
                                           onTap: () => print("$index被点击了"),
                                           onLongPress: () =>
                                               print("$index被长按了"),
@@ -786,6 +786,7 @@ class _YuePageContentState extends State<YuePageContent>
                                                   value['明细'][index]['id']);
                                               (value['明细']).removeAt(
                                                   index); //删除某条信息!!!!!!!!!
+                                              Navigator.of(context).pop();
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>

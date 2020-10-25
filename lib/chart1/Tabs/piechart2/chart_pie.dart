@@ -9,6 +9,7 @@ import 'package:flutter_jizhangapp/chart1/select.dart';
 import 'package:flutter_jizhangapp/data/model.dart';
 import 'package:flutter_jizhangapp/service/database.dart';
 
+import '../../../homepage.dart';
 import '../../chartpage.dart';
 
 
@@ -229,14 +230,11 @@ class _PiechartPageState extends State<PiechartPage> {
                                             );
                                             if (picked != null && picked.length == 2) {
                                               print(picked);
-                                              Navigator.of(context).pop();
-                                              Navigator.push(  ///选择完时间，跳转图表界面
-                                                  context,
-                                                  CupertinoPageRoute(
-                                                      builder: (context) => ChartPage(
-                                                          typeSelect: typeSelect,
-                                                          type: type,
-                                                          picked: picked)));
+                                              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                                  builder: (BuildContext context) => ChartPage(
+                                                      typeSelect: typeSelect,
+                                                      type: type,
+                                                      picked: picked)));
                                             }else{
                                               picked = [
                                                 new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1),
@@ -346,14 +344,11 @@ class _PiechartPageState extends State<PiechartPage> {
                                             );
                                             if (picked != null && picked.length == 2) {
                                               print(picked);
-                                              Navigator.of(context).pop();
-                                              Navigator.push(  ///选择完时间，跳转图表界面
-                                                  context,
-                                                  CupertinoPageRoute(
-                                                      builder: (context) => ChartPage(
-                                                          typeSelect: typeSelect,
-                                                          type: type,
-                                                          picked: picked)));
+                                              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                                  builder: (BuildContext context) => ChartPage(
+                                                      typeSelect: typeSelect,
+                                                      type: type,
+                                                      picked: picked)));
                                             }else{
                                               picked = [
                                                 new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1),
@@ -454,7 +449,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                   //color: Colors.deepOrangeAccent,
                                     padding: const EdgeInsets.only(bottom: 20),
                                     onPressed: (){
-                                      Navigator.of(context).pop();
+                                      //Navigator.of(context).pop();
                                       String checked = mData[subscript].name; ///类别
                                       List<LiushuiData> liuData = getLiuData(data, checked, widget.typeSelect, widget.type);
                                       Navigator.push(
@@ -465,7 +460,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                                   type: widget.type,
                                                   picked: widget.picked,
                                                   liuData: liuData,
-                                                  color: mData[subscript].color,)));
+                                                  color: mData[subscript].color,))).then((value) => setDataFromDB());
                                     },
                                     child: Center(
                                         child: Text(mData[currentSelect].name,
@@ -617,7 +612,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                                       onPressed: (){
                                                         String checked = mData[index].name; ///类别
                                                         List<LiushuiData> liuData = getLiuData(data, checked, widget.typeSelect, widget.type);
-                                                        Navigator.of(context).pop();
+                                                        //Navigator.of(context).pop();
                                                         Navigator.push(
                                                             context,
                                                             CupertinoPageRoute(
@@ -626,7 +621,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                                                     type: widget.type,
                                                                     picked: widget.picked,
                                                                     liuData: liuData,
-                                                                    color: mData[index].color,)));
+                                                                    color: mData[index].color,))).then((value) => setDataFromDB());
                                                       },
                                                     )
                                                 ),

@@ -76,21 +76,21 @@ class _SelectPageState extends State<SelectPage> {
           title: Text(
               '分类选择',
               textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 23.0, color: Theme.of(context).primaryColor),
+              style: TextStyle(fontSize: 20.0, color: Theme.of(context).primaryColor),
           ),
           leading: Builder(builder: (context){
             return IconButton(
               icon: Icon(Icons.arrow_back,color: Theme.of(context).primaryColor,size: 28,),
               onPressed: (){
                 Navigator.of(context).pop();
-                Navigator.push(
+                /*Navigator.push(
                     context,
                     //transition: TransitionType.inFromBottom,
                     CupertinoPageRoute(
                         builder: (context) => ChartPage(
                             typeSelect: typeSelect,
                             type: type,
-                            picked: picked)));
+                            picked: picked)));*/
               },
             );
           }),
@@ -151,14 +151,11 @@ class _SelectPageState extends State<SelectPage> {
                                       type = 1;
                                       print(selected);
                                       Navigator.of(context).pop();
-                                      //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) => ChartPage(
-                                                  typeSelect: typeSelect,
-                                                  type: type,
-                                                  picked: picked)));
+                                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                          builder: (BuildContext context) => ChartPage(
+                                              typeSelect: typeSelect,
+                                              type: type,
+                                              picked: picked)));
                                     },
                                   ),
                                 ),
@@ -215,14 +212,11 @@ class _SelectPageState extends State<SelectPage> {
                                     type = 1;
                                     print(selected);
                                     Navigator.of(context).pop();
-                                    //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                    Navigator.push(
-                                        context,
-                                        CupertinoPageRoute(
-                                            builder: (context) => ChartPage(
-                                                typeSelect: typeSelect,
-                                                type: type,
-                                                picked: picked)));
+                                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                        builder: (BuildContext context) => ChartPage(
+                                            typeSelect: typeSelect,
+                                            type: type,
+                                            picked: picked)));
                                   },
                                 ),
                               ),
@@ -278,14 +272,11 @@ class _SelectPageState extends State<SelectPage> {
                                       type = 1;
                                       print(selected);
                                       Navigator.of(context).pop();
-                                      //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) => ChartPage(
-                                                  typeSelect: typeSelect,
-                                                  type: type,
-                                                  picked: picked)));
+                                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                          builder: (BuildContext context) => ChartPage(
+                                              typeSelect: typeSelect,
+                                              type: type,
+                                              picked: picked)));
                                     },
                                   ),
                                 ),
@@ -342,14 +333,11 @@ class _SelectPageState extends State<SelectPage> {
                                       type = 1;
                                       print(selected);
                                       Navigator.of(context).pop();
-                                      //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                      Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (context) => ChartPage(
-                                                  typeSelect: typeSelect,
-                                                  type: type,
-                                                  picked: picked)));
+                                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                          builder: (BuildContext context) => ChartPage(
+                                              typeSelect: typeSelect,
+                                              type: type,
+                                              picked: picked)));
                                     },
                                   ),
                                 ),
@@ -431,14 +419,11 @@ class _SelectPageState extends State<SelectPage> {
                                   type = 0;
                                   print(selected);
                                   Navigator.of(context).pop();
-                                  //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => ChartPage(
-                                              typeSelect: typeSelect,
-                                              type: type,
-                                              picked: picked)));
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                      builder: (BuildContext context) => ChartPage(
+                                          typeSelect: typeSelect,
+                                          type: type,
+                                          picked: picked)));
                                 },
                               ),
                             ),
@@ -495,14 +480,11 @@ class _SelectPageState extends State<SelectPage> {
                                   type = 0;
                                   print(selected);
                                   Navigator.of(context).pop();
-                                  //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => ChartPage(
-                                              typeSelect: typeSelect,
-                                              type: type,
-                                              picked: picked)));
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                      builder: (BuildContext context) => ChartPage(
+                                          typeSelect: typeSelect,
+                                          type: type,
+                                          picked: picked)));
                                 },
                               ),
                             ),
@@ -559,14 +541,11 @@ class _SelectPageState extends State<SelectPage> {
                                   type = 0;
                                   print(selected);
                                   Navigator.of(context).pop();
-                                  //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => ChartPage(
-                                              typeSelect: typeSelect,
-                                              type: type,
-                                              picked: picked)));
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                      builder: (BuildContext context) => ChartPage(
+                                          typeSelect: typeSelect,
+                                          type: type,
+                                          picked: picked)));
                                 },
                               ),
                             ),
@@ -623,14 +602,11 @@ class _SelectPageState extends State<SelectPage> {
                                   type = 0;
                                   print(selected);
                                   Navigator.of(context).pop();
-                                  //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                                  Navigator.push(
-                                      context,
-                                      CupertinoPageRoute(
-                                          builder: (context) => ChartPage(
-                                              typeSelect: typeSelect,
-                                              type: type,
-                                              picked: picked)));
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                      builder: (BuildContext context) => ChartPage(
+                                          typeSelect: typeSelect,
+                                          type: type,
+                                          picked: picked)));
                                 },
                               ),
                             ),

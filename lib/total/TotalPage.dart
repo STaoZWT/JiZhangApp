@@ -36,8 +36,8 @@ class _TotalPageState extends State<TotalPage> {
                 color: Theme.of(context).primaryColor, size: 28),
             onPressed: () {
               Navigator.of(context).pop();
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (BuildContext context) => NavigationHomeScreen()));
+              /*Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => NavigationHomeScreen()));*/
             }),
         title: Text('分账户统计',
             style: TextStyle(
@@ -206,11 +206,13 @@ class _TotalPageContentState extends State<TotalPageContent> {
     return diff;
   }
 
+  bool isInit = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     initall();
+    isInit = true;
   }
 
 //
@@ -233,7 +235,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
                 onTap: () {
                   setState(() {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => TimePage(index: 0)));
+                        builder: (context) => TimePage(index: 0))).then((value) => initall());
                     index_current = totalList.length - 1;
                     for (var i = 0; i < totalList.length - 1; i++) {
                       if (totalList[i]['账户'] == value['账户']) {
@@ -259,10 +261,6 @@ class _TotalPageContentState extends State<TotalPageContent> {
                             fontSize: 22,
                             color: Theme.of(context).primaryColor)),
                   ),
-                  /*Align(
-                    alignment: Alignment(-0.7, 0.6),
-                    child: Text('统计', style: TextStyle(fontSize: 18)),
-                  ),*/
                   Align(
                     alignment: Alignment(-0.95, 0),
                     child: Icon(Icons.account_balance_wallet,
@@ -283,45 +281,62 @@ class _TotalPageContentState extends State<TotalPageContent> {
     return tempList.toList();
   }
 
-// Widget _buildCard(Card name) {
-//     return SizedBox(
-//       height: 200.0,
-//       key: ObjectKey(name),
-//       child: Card(
-//         color: Colors.red.withOpacity(0.5),
-//         child: Center(
-//           child: Text(
-//             '$name',
-//             style: TextStyle(
-//               fontSize: 35.0,
-//               color: Colors.white,
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
+  FocusNode blankNode = FocusNode();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 800,
-      width: 600,
-      color: Colors.white,
-      child: ListView(
-        //ReorderableListView(
-        children: this._totalListData(),
-        //children: totalList.map(_buildCard).toList(),
-        //onReorder: _onReorder,
-      ),
-    );
+    print(isInit);
+    if(isInit == false) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    else {
+      return GestureDetector(
+        onTap: () {
+          FocusScope.of(context).requestFocus(blankNode);
+        },
+        child: WillPopScope(
+            onWillPop: () async =>
+                showDialog(
+                    context: context,
+                    builder: (context) =>
+                        AlertDialog(
+                            content: Text('是否退出账户流水查询？'),
+                            title: Text('提示'), actions: <Widget>[
+                          RaisedButton(
+                            child: Text('是'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pop();
+                              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                  builder: (BuildContext context) => NavigationHomeScreen()));
+                            },
+                          ),
+                          RaisedButton(
+                            child: Text('否'),
+                            onPressed: () {
+                              print('仍为饼状图');
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          RaisedButton(
+                            child: Text('取消'),
+                            onPressed: () {
+                              print('仍为饼状图');
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ])),
+            child: Container(
+              height: 800,
+              width: 600,
+              color: Colors.white,
+              child: ListView(
+                children: this._totalListData(),
+              ),
+            )
+        ),
+      );
+    }
   }
-  //
-
-  // void _onReorder(int oldIndex, newIndex) {
-  //   if (oldIndex < newIndex) newIndex = newIndex - 1;
-  //   var name = totalList.removeAt(oldIndex);
-  //   totalList.insert(newIndex, name);
-  //   setState(() {});
-  // }
 }
