@@ -221,9 +221,9 @@ class _PiechartPageState extends State<PiechartPage> {
                                             picked = await DateRagePicker
                                                 .showDatePicker(
                                                 context: context,
-                                                initialFirstDate: new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1,0,0,0,0,0),
+                                                initialFirstDate: picked[0],
                                                 //初始--起始日期
-                                                initialLastDate: new DateTime.now(),
+                                                initialLastDate: picked[1],
                                                 //初始--截止日期
                                                 firstDate: new DateTime((DateTime.fromMicrosecondsSinceEpoch(0)).year),
                                                 lastDate: new DateTime(((DateTime.now()).year)+1)
@@ -335,9 +335,9 @@ class _PiechartPageState extends State<PiechartPage> {
                                             picked = await DateRagePicker
                                                 .showDatePicker(
                                                 context: context,
-                                                initialFirstDate: new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1,0,0,0,0,0),
+                                                initialFirstDate: picked[0],
                                                 //初始--起始日期
-                                                initialLastDate: new DateTime.now(),
+                                                initialLastDate: picked[1],
                                                 //初始--截止日期
                                                 firstDate: new DateTime((DateTime.fromMicrosecondsSinceEpoch(0)).year),
                                                 lastDate: new DateTime(((DateTime.now()).year)+1)

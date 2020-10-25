@@ -1,5 +1,6 @@
 //import 'app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_jizhangapp/service/shared_pref.dart';
 
 class HomeDrawer extends StatefulWidget {
   const HomeDrawer({Key key, this.screenIndex, this.iconAnimationController, this.callBackIndex}) : super(key: key);
@@ -14,14 +15,27 @@ class HomeDrawer extends StatefulWidget {
 
 class _HomeDrawerState extends State<HomeDrawer> {
   List<DrawerList> drawerList;
+  String userName = 'User';
+  
+  int userProfileIndex;
+
   @override
   void initState() {
+    userProfileIndex = 0;
     setDrawerListArray();
     super.initState();
   }
 
   //以下是侧边栏的选项卡内容
-  void setDrawerListArray() {
+  void setDrawerListArray() async {
+    print('1');
+    userName = await getUserName();
+    print('2');
+    String tmp = await getPicker('mprofileIndex');
+    if (tmp != null) {
+      userProfileIndex = int.parse(tmp);
+    }
+    print('3');
     drawerList = <DrawerList>[
       DrawerList(
         index: DrawerIndex.HOME,
@@ -100,11 +114,21 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                 BoxShadow(color: Colors.grey.withOpacity(0.6), offset: const Offset(2.0, 4.0), blurRadius: 8),
                               ],
                             ),
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(60.0)),
-                              child: Image.asset('assets/cat_picture.png'),  //用户头像
-                              //child: ,
+                            child: InkWell(
+                              onTap: () async {
+                                userProfileIndex = (userProfileIndex + 1) % 2;
+                                setPicker('mprofileIndex', userProfileIndex.toString());
+                                setState(() {
+
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(60.0)),
+                                child: userProfile[userProfileIndex],  //用户头像
+                                //child: ,
+                              ),
                             ),
+
                           ),
                         ),
                       );
@@ -113,7 +137,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8, left: 4),
                     child: Text(
-                      'User',  //填入用户名
+                      '你好！$userName',  //填入用户名
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: Colors.grey,
@@ -293,3 +317,8 @@ class DrawerList {
   String imageName;
   DrawerIndex index;
 }
+
+List<Widget> userProfile = [
+  Image.asset('assets/cat_user.png'),
+  Image.asset('assets/cat_user1.png'),
+];

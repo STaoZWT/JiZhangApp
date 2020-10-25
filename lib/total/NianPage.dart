@@ -324,7 +324,7 @@ class _NianPageContentState extends State<NianPageContent>
                   billsList[j].value100 < 100) {
                 detailtemp = "0." + detailtemp100.substring(0, 2);
               } else {
-                detailtemp =
+                detailtemp ='-'+
                     detailtemp100.substring(0, detailtemp100.length - 2) +
                         "." +
                         detailtemp100.substring(
@@ -335,7 +335,7 @@ class _NianPageContentState extends State<NianPageContent>
               nianList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName1+'支出',
+                'type': tempcardName1,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -356,7 +356,7 @@ class _NianPageContentState extends State<NianPageContent>
                   billsList[j].value100 < 100) {
                 detailtemp = "0." + detailtemp100.substring(0, 2);
               } else {
-                detailtemp = '-' +
+                detailtemp =
                     detailtemp100.substring(0, detailtemp100.length - 2) +
                     "." +
                     detailtemp100.substring(
@@ -468,7 +468,7 @@ class _NianPageContentState extends State<NianPageContent>
                     billsList[j].value100 < 100) {
                   detailtemp = "0." + detailtemp100.substring(0, 2);
                 } else {
-                  detailtemp =
+                  detailtemp ='-'+
                       detailtemp100.substring(0, detailtemp100.length - 2) +
                           "." +
                           detailtemp100.substring(
@@ -479,7 +479,7 @@ class _NianPageContentState extends State<NianPageContent>
                 detailList.add({
                   'id': billsList[j].id,
                   'date': billsList[j].date,
-                  'type': tempcardName1+'支出',
+                  'type': tempcardName1,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
                   'category2': billsList[j].category2,
@@ -536,7 +536,7 @@ class _NianPageContentState extends State<NianPageContent>
                     billsList[j].value100 < 100) {
                   detailtemp = "0." + detailtemp100.substring(0, 2);
                 } else {
-                  detailtemp = '-' +
+                  detailtemp = 
                       detailtemp100.substring(0, detailtemp100.length - 2) +
                       "." +
                       detailtemp100.substring(
