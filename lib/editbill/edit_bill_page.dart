@@ -76,14 +76,14 @@ class _CardAddBill extends State<CardAddBill>
     accountOutSelectText = "未选择";
     memberSelectText = "无成员";
     remark = " ";
-    type = 0;
+    type = 1;
     //tempMoney = 0.00;
     //this.moneyController.text = ("0.00");
     currentbill = BillsModel(
         value100: 0,
         title: "",
         date: DateTime.now(),
-        type: 0,
+        type: 1,
         accountIn: "未选择",
         accountOut: "未选择",
         category1: "未选择",
@@ -952,11 +952,13 @@ class _CardAddBill extends State<CardAddBill>
           + currentbill.value100.toString().substring(currentbill.value100.toString().length-2, currentbill.value100.toString().length):
       (currentbill.value100 > 9) ? '0.' + currentbill.value100.toString() :'0.0' + currentbill.value100.toString();
       moneyController = new TextEditingController(text: toInsert);
+      _tabController = TabController(length: tabs.length, vsync: this, initialIndex: currentbill.type);
     } else {
       moneyController = new TextEditingController();
+      _tabController = TabController(length: tabs.length, vsync: this, initialIndex: 1);
     }
     print("tag3");
-    _tabController = TabController(length: tabs.length, vsync: this, initialIndex: currentbill.type);
+
     isInit = true;
     print("tag4");
     setState(() { });
