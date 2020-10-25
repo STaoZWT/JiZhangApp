@@ -1273,12 +1273,6 @@ class NavigationHomeScreen extends StatefulWidget {
 class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
   Widget screenView;
 
-
-  //test
-
-
-
-
   @override
   void initState() {
     screenView = HomePage();
