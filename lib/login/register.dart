@@ -191,10 +191,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     height: 40,
                   ),
                   Text(
-                    "欢迎使用记账APP!",
+                    "欢迎使用喵喵记",
                     style: TextStyle(
                         fontFamily: "SFUIText",
-                        fontSize: 24,
+                        fontSize: 26,
                         fontWeight: FontWeight.w600,
                         color: Colors.white
                     ),
