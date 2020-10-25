@@ -902,6 +902,7 @@ class _CardAddBill extends State<CardAddBill>
     currentbill.category2 = (type==2)?"转账":(type==0)?classInSelectText.split(",")[1].substring(1):classOutSelectText.split(",")[1].substring(1);
     currentbill.member = memberSelectText;
     currentbill.value100 = moneyInput;
+    print("modify current bill as: ${currentbill.toMap()}");
   }
 
   draftToCurrentBill() async {
@@ -912,8 +913,8 @@ class _CardAddBill extends State<CardAddBill>
     if (isUpdate) {
       print("get billId: $_billId");
       currentbill = await BillsDatabaseService.db.getBillById(_billId);
-      if(currentbill.type==0) {classInSelectText = "${currentbill.category1},${currentbill.category2}";}
-      else if(currentbill.type==1) {classOutSelectText = "${currentbill.category1},${currentbill.category2}";}
+      if(currentbill.type==0) {classInSelectText = "${currentbill.category1}, ${currentbill.category2}";}
+      else if(currentbill.type==1) {classOutSelectText = "${currentbill.category1}, ${currentbill.category2}";}
       accountInSelectText = "${currentbill.accountIn}";
       accountOutSelectText = "${currentbill.accountOut}";
       memberSelectText = "${currentbill.member}";
@@ -925,6 +926,8 @@ class _CardAddBill extends State<CardAddBill>
           + '.'
           + currentbill.value100.toString().substring(currentbill.value100.toString().length-2, currentbill.value100.toString().length):
       (currentbill.value100 > 9) ? '0.' + currentbill.value100.toString() :'0.0' + currentbill.value100.toString();
+      //currentbill.category2 = " " + currentbill.category2;
+      print("get current bill: ${currentbill.toMap()}");
       moneyController = new TextEditingController(text: toInsert);
     } else if (isDraft) {
       currentbill = await getDraft();
