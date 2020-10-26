@@ -58,8 +58,6 @@ class _ChartPageState extends State<ChartPage> {
 
   pagechoose(int _currentIndex){
     if(_currentIndex == 0) { // 饼状图
-      print('测试');
-      print(widget.typeSelect);
       return PiechartPage(
           typeSelect: (widget.typeSelect)==null?typeSelect:(widget.typeSelect),
           type: (widget.type)==null?type:(widget.type),

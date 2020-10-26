@@ -615,7 +615,7 @@ class _NianPageContentState extends State<NianPageContent>
                   value['日期'].toString() +
                       '年\n' +
                       accountName[accountNumber] +
-                      '\n' +
+                      '   ' +
                       value['金额'] +
                       '元',
                   style: new TextStyle(
