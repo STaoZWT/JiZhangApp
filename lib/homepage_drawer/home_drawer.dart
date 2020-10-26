@@ -1,6 +1,8 @@
 //import 'app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_jizhangapp/service/shared_pref.dart';
+import 'package:toast/toast.dart';
 
 class HomeDrawer extends StatefulWidget {
   const HomeDrawer({Key key, this.screenIndex, this.iconAnimationController, this.callBackIndex}) : super(key: key);
@@ -136,12 +138,65 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8, left: 4),
-                    child: Text(
-                      '你好！$userName',  //填入用户名
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey,
-                        fontSize: 18,
+                    child: InkWell(
+                      onTap: () {
+                        String newName;
+                        print("username: $userName");
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('更改用户名'),
+                                content: Card(
+                                  elevation: 0.0,
+                                  child: TextField(
+                                    autofocus: false,
+                                    decoration: InputDecoration(
+                                      hintText: '请输入新用户名(10个字以内)',
+                                      prefixIcon: Icon(Icons.keyboard),
+                                    ),
+                                    maxLines: 1,
+                                    textInputAction: TextInputAction.done,
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(10)
+                                    ],
+                                    onChanged: (inputName) {
+                                      newName = inputName;
+                                    },
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('取消'),
+                                  ),
+                                  FlatButton(
+                                    onPressed: ()  async {
+                                      if (newName != null && newName.length != 0) {
+                                        Toast.show("用户名修改成功！", context);
+                                        userName = newName;
+                                        await setUserName(newName);
+                                        setState(() {});
+                                        Navigator.pop(context);
+                                      } else {
+                                        Toast.show("新用户名不能为空！", context);
+                                      }
+                                    },
+                                    child: Text('确定'),
+                                  ),
+                                ],
+                              );
+                            });
+                      },
+                      child: Text(
+                        '你好！$userName',  //填入用户名
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
