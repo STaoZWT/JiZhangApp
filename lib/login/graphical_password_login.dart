@@ -88,7 +88,7 @@ class _GraphicalPasswordLoginPageState extends State<GraphicalPasswordLoginPage>
                           },
                           icon: Icon(
                             Icons.keyboard_backspace,
-                            color: Colors.lightBlueAccent,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ],

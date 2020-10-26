@@ -360,7 +360,7 @@ class BillsDatabaseService {
   //添加一条数据
   Future<BillsModel> addBillInDB(BillsModel newBill) async {
     final db = await database;
-    if (newBill.title.trim().isEmpty) newBill.title = 'Untitled Bill';
+    if (newBill.title.trim().isEmpty) newBill.title = ' ';
     int id = await db.transaction((transaction) {
       transaction.rawInsert(
           'INSERT into Bills(title, date, type, accountIn, accountOut, category1, category2, member, value100) VALUES ("${newBill.title}", "${newBill.date.millisecondsSinceEpoch}", "${newBill.type}", "${newBill.accountIn}", "${newBill.accountOut}", "${newBill.category1}", "${newBill.category2}", "${newBill.member}", "${newBill.value100}");');
