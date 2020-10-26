@@ -7,13 +7,6 @@ import 'package:flutter_jizhangapp/data/model.dart';
 
 ///处理后的数据
 ///按类别（账户、二级类别、成员）（收入、支出）查询
-class BarData {
-  String category; //类别（账户、二级类别、成员）（收入、支出）
-  int sales; //对应金额
-  charts.Color color; //对应颜色
-
-  BarData(this.category, this.sales, this.color);
-}
 
 class PieData{
   String name;// 名称
@@ -133,18 +126,6 @@ double formatNum(double num,int postion){
   }
 }
 
-  /*List<String> colorListBar = ['0xFF00FF00','0xFFFF7F00','0xFFFFFF00','0xFFD26699','0xFF7F7F7F',
-    '0xFF0000FF','0xffCD00CD'];*/
-
-  /*List colorListBar = [
-      Color(0xFF00FF00),
-      Color(0xFFFF7F00),
-      Color(0xFFFFFF00),
-      Color(0xFFD26699),
-      Color(0xFF7F7F7F),
-      Color(0xFF0000FF),
-      Color(0xffCD00CD)
-  ];*/
 
   //按一级分类统计
     //收入
@@ -256,135 +237,3 @@ double formatNum(double num,int postion){
     return dataPieFull; // 总数据
   }
 
-  //条形图
-  ///bug如果sales整数？？？？？
-  List<BarData> statisticsBar(List<BillsModel> data, String typeSelect, int type){ //条形图
-    var dataBar = new List<BarData>();
-    var dataBarFull = new List<BarData>();
-    BarData datanow;
-    int flag = 0; //是否已经记录
-    if(data.length<=0 || data.length==null){ //总的数据集为空
-      return null;
-    }
-    print('data');
-    print(data);
-    for(int i=0;i<data.length;i++){
-      if(type==data[i].type){
-        if(typeSelect=='一级分类'){ //category1
-          for(int j=0;j<dataBar.length;j++){ //遍历
-            if(dataBar[j].category==data[i].category1){ //已经添加该名字
-              dataBar[j].sales = dataBar[j].sales + data[i].value100;
-              flag = 1;
-              break;
-            }
-          }
-          if(flag==0){//不存在
-            datanow = new BarData(data[i].category1, data[i].value100, charts.ColorUtil.fromDartColor(colorListPie[i]));
-            dataBar.add(datanow);
-            flag = 0;
-          }
-          //allPrice = allPrice + data[i].value100;
-        }else if(typeSelect=='二级分类'){ //category2: 1~n
-          for(int j=0;j<dataBar.length;j++){ //遍历
-            if(dataBar[j].category==data[i].category2){ //已经添加该名字
-              dataBar[j].sales = dataBar[j].sales + data[i].value100;
-              flag = 1;
-              break;
-            }
-          }
-          if(flag==0){//不存在
-            datanow = new BarData(data[i].category2, data[i].value100, charts.ColorUtil.fromDartColor(colorListPie[i]));
-            dataBar.add(datanow);
-            flag = 0;
-          }
-          //allPrice = allPrice + data[i].value100;
-        }else if(typeSelect=='成员分类'){ //member: 1~n
-          for(int j=0;j<dataBar.length;j++){ //遍历
-            if(dataBar[j].category==data[i].member){ //已经添加该名字
-              dataBar[j].sales = dataBar[j].sales + data[i].value100;
-              flag = 1;
-              break;
-            }
-          }
-          if(flag==0){//不存在
-            datanow = new BarData(data[i].member, data[i].value100, charts.ColorUtil.fromDartColor(colorListPie[i]));
-            dataBar.add(datanow);
-            flag = 0;
-          }
-          //allPrice = allPrice + data[i].value100;
-        }else if(typeSelect=='账户分类'){ //账户
-          for(int j=0;j<dataBar.length;j++){ //遍历
-            if(dataBar[j].category==data[i].accountOut){ //已经添加该名字
-              dataBar[j].sales = dataBar[j].sales + data[i].value100;
-              flag = 1;
-              break;
-            }
-          }
-          if(flag==0){//不存在
-            datanow = new BarData(data[i].accountOut, data[i].value100, charts.ColorUtil.fromDartColor(colorListPie[i]));
-            dataBar.add(datanow);
-            flag = 0;
-          }
-          //allPrice = allPrice + data[i].value100;
-        }
-      }
-    }
-    if(dataBar.length<=0 || dataBar.length==null){
-      return null;
-    }
-    for(int i=0;i<dataBar.length;i++){
-      dataBar[i].sales = ((dataBar[i].sales)/100).round(); ///只能整数
-      if(dataBar[i].sales!=0){
-        dataBarFull.add(dataBar[i]);
-      }
-    }
-    print("结果为：");
-    print(dataBarFull);
-    return dataBarFull;
-  }
-
-
-
-/*
-PieData p3 = new PieData();
-    p3.name = 'C';
-    p3.price = 'c';
-    p3.percentage = 0.1132;
-    p3.color = Color(0xffCD00CD);
-    mData.add(p3);
-
-    PieData p4 = new PieData();
-    p4.name = 'D';
-    p4.price = 'd';
-    p4.percentage = 0.0868;
-    p4.color = Color(0xffFFA500);
-    mData.add(p4);
-
-    PieData p5 = new PieData();
-    p5.name = 'E';
-    p5.price = 'e';
-    p5.percentage = 0.18023;
-    p5.color = Color(0xff40E0D0);
-    mData.add(p5);
-
-    PieData p6 = new PieData();
-    p6.name = 'F';
-    p6.price = 'f';
-    p6.percentage = 0.12888;
-    p6.color = Color(0xffFFFF00);
-    mData.add(p6);
-
-    PieData p7 = new PieData();
-    p7.name = 'G';
-    p7.price = 'g';
-    p7.percentage = 0.0888;
-    p7.color = Color(0xff00ff66);
-    mData.add(p7);
-
-    PieData p8 = new PieData();
-    p8.name = 'H';
-    p8.price = 'h';
-    p8.percentage = 0.06;
-    p8.color = Color(0xffD9D9D9);
-    mData.add(p8);
- */

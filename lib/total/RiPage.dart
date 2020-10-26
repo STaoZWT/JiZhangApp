@@ -698,10 +698,7 @@ class _RiPageContentState extends State<RiPageContent>
                                               value['明细'][index]['date']
                                                   .minute
                                                   .toString() +
-                                              '分'
-                                                  // '  ' +
-                                                  // value['明细'][index]['title'] +
-                                                  '  ' +
+                                              '分'+'  ' +
                                               value['明细'][index]['type'] +
                                               '  ' +
                                               value['明细'][index]['member'],style: TextStyle(fontSize: 12.0)),
