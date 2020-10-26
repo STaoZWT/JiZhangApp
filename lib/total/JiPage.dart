@@ -347,7 +347,7 @@ class _JiPageContentState extends State<JiPageContent>
               duList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName2 + '收入',
+                'type': tempcardName2 ,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -379,7 +379,7 @@ class _JiPageContentState extends State<JiPageContent>
               duList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName1 + '支出',
+                'type': tempcardName1 ,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -513,7 +513,7 @@ class _JiPageContentState extends State<JiPageContent>
                 duList[i]['存在'] = 1;
                 detailList.add({
                   'id': billsList[j].id,
-                  'type': tempcardName2 + '收入',
+                  'type': tempcardName2 ,
                   'date': billsList[j].date,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
@@ -547,7 +547,7 @@ class _JiPageContentState extends State<JiPageContent>
                 duList[i]['存在'] = 1;
                 detailList.add({
                   'id': billsList[j].id,
-                  'type': tempcardName1 + '支出',
+                  'type': tempcardName1 ,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
                   'date': billsList[j].date,

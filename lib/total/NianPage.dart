@@ -301,7 +301,7 @@ class _NianPageContentState extends State<NianPageContent>
               nianList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName2+'收入',
+                'type': tempcardName2,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -445,7 +445,7 @@ class _NianPageContentState extends State<NianPageContent>
                 detailList.add({
                   'id': billsList[j].id,
                   'date': billsList[j].date,
-                  'type': tempcardName2+'收入',
+                  'type': tempcardName2,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
                   'category2': billsList[j].category2,
@@ -536,7 +536,7 @@ class _NianPageContentState extends State<NianPageContent>
                     billsList[j].value100 < 100) {
                   detailtemp = "0." + detailtemp100.substring(0, 2);
                 } else {
-                  detailtemp = 
+                  detailtemp =
                       detailtemp100.substring(0, detailtemp100.length - 2) +
                       "." +
                       detailtemp100.substring(
@@ -615,7 +615,7 @@ class _NianPageContentState extends State<NianPageContent>
                   value['日期'].toString() +
                       '年\n' +
                       accountName[accountNumber] +
-                      '                                        ' +
+                      '\n' +
                       value['金额'] +
                       '元',
                   style: new TextStyle(
