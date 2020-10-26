@@ -677,12 +677,12 @@ class _YuePageContentState extends State<YuePageContent>
                           value['月份'].toString() +
                           '月\n' +
                           accountName[accountNumber] +
-                          '   ' +
+                          ' ' +
                           value['金额'] +
                           '元',
                       style: new TextStyle(
                         color: Colors.blueGrey,
-                        fontSize: 20,
+                        fontSize: 19,
                       ),
                     ),
                     trailing: RotationTransition(
@@ -760,12 +760,12 @@ class _YuePageContentState extends State<YuePageContent>
                                       ]),
                                       secondaryActions: <Widget>[
                                         //右侧按钮列表
-                                        IconSlideAction(
+                                        /*IconSlideAction(
                                           caption: '编辑',
                                           color: Colors.black45,
                                           icon: Icons.more_horiz,
                                           //onTap: () => _showSnackBar('More'),
-                                        ),
+                                        ),*/
                                         IconSlideAction(
                                           caption: '删除',
                                           color: Colors.red,

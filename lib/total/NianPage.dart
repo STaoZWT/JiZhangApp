@@ -615,12 +615,12 @@ class _NianPageContentState extends State<NianPageContent>
                   value['日期'].toString() +
                       '年\n' +
                       accountName[accountNumber] +
-                      '   ' +
+                      ' ' +
                       value['金额'] +
                       '元',
                   style: new TextStyle(
                     color: Colors.blueGrey,
-                    fontSize: 20,
+                    fontSize: 19,
                   ),
                 ),
                 trailing: RotationTransition(
@@ -694,12 +694,12 @@ class _NianPageContentState extends State<NianPageContent>
                                   ]),
                                   secondaryActions: <Widget>[
                                     //右侧按钮列表
-                                    IconSlideAction(
+                                    /*IconSlideAction(
                                       caption: '编辑',
                                       color: Colors.black45,
                                       icon: Icons.more_horiz,
                                       //onTap: () => _showSnackBar('More'),
-                                    ),
+                                    ),*/
                                     IconSlideAction(
                                       caption: '删除',
                                       color: Colors.red,
