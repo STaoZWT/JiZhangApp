@@ -677,12 +677,12 @@ class _YuePageContentState extends State<YuePageContent>
                           value['月份'].toString() +
                           '月\n' +
                           accountName[accountNumber] +
-                          '   ' +
+                          ' ' +
                           value['金额'] +
                           '元',
                       style: new TextStyle(
                         color: Colors.blueGrey,
-                        fontSize: 20,
+                        fontSize: 19,
                       ),
                     ),
                     trailing: RotationTransition(

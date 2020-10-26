@@ -13,7 +13,6 @@ class PieData{
   Color color;// 颜色
   num percentage;//百分比
   double price;//成交额
-
   PieData(this.color,this.percentage,this.name,this.price);
 }
 
@@ -32,7 +31,6 @@ class LsdataTime{
   DateTime time;
   List<LiushuiData> data;
   String c1c2mc;//类别
-
   LsdataTime(this.time, this.data, this.c1c2mc);
 }
 

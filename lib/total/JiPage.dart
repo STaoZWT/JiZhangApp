@@ -683,12 +683,12 @@ class _JiPageContentState extends State<JiPageContent>
                           value['季度'].toString() +
                           '季度\n' +
                           accountName[accountNumber] +
-                          '   ' +
+                          ' ' +
                           value['金额'] +
                           '元',
                       style: new TextStyle(
                         color: Colors.blueGrey,
-                        fontSize: 20,
+                        fontSize: 19,
                       ),
                     ),
                     trailing: RotationTransition(

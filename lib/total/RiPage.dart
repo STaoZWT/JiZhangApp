@@ -634,12 +634,12 @@ class _RiPageContentState extends State<RiPageContent>
                           value['日期'].day.toString() +
                           '日\n' +
                           accountName[accountNumber] +
-                          '   ' +
+                          ' ' +
                           value['金额'] +
                           '元',
                       style: new TextStyle(
                         color: Colors.blueGrey,
-                        fontSize: 20,
+                        fontSize: 19,
                       ),
                     ),
                     trailing: RotationTransition(

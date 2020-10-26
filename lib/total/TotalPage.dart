@@ -252,13 +252,13 @@ class _TotalPageContentState extends State<TotalPageContent> {
                     //alignment: Alignment(-0.7, -0.6),
                     alignment: Alignment(-0.7, 0.0),
                     child: Text('  ' + value['账户'],
-                        style: TextStyle(fontSize: 23, color: Colors.blueGrey)),
+                        style: TextStyle(fontSize: 19, color: Colors.blueGrey)),
                   ),
                   Align(
                     alignment: Alignment(0.6, 0),
                     child: Text(value['金额'] + '元',
                         style: TextStyle(
-                            fontSize: 22,
+                            fontSize: 20,
                             color: Theme.of(context).primaryColor)),
                   ),
                   Align(
