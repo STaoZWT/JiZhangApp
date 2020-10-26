@@ -482,7 +482,7 @@ class _PiechartPageState extends State<PiechartPage> {
                             child: Container(
                               //color: Color(0xFF0000FF),
                               //alignment: Alignment.centerLeft,
-                              //padding: const EdgeInsets.only(top: 20.0),
+                              padding: const EdgeInsets.only(top: 5.0),
                               child: Card(
                                 elevation: 0,
                                 margin: const EdgeInsets.only(right: 9, top:25),
