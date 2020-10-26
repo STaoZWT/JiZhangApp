@@ -766,12 +766,12 @@ class _JiPageContentState extends State<JiPageContent>
                                       ]),
                                       secondaryActions: <Widget>[
                                         //右侧按钮列表
-                                        IconSlideAction(
+                                        /*IconSlideAction(
                                           caption: '编辑',
                                           color: Colors.black45,
                                           icon: Icons.more_horiz,
                                           //onTap: () => _showSnackBar('More'),
-                                        ),
+                                        ),*/
                                         IconSlideAction(
                                           caption: '删除',
                                           color: Colors.red,
