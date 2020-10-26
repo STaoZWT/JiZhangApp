@@ -10,7 +10,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="喵喵记"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_jizhangapp">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
