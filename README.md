@@ -1,4 +1,4 @@
-# JiZhangApp [![MIT license](https://img.shields.io/github/license/STaoZWT/JiZhangApp?style=plastic)](https://github.com/STaoZWT/JiZhangApp/blob/master/LICENSE)    [![GitHub Contributors](https://img.shields.io/github/contributors/STaoZWT/JiZhangApp?style=plastic)](https://github.com/STaoZWT/JiZhangApp/graphs/contributors)    [![GitHub issues](https://img.shields.io/github/issues/STaoZWT/JiZhangApp?style=plastic)](https://GitHub.com/STaoZWT/JiZhangApp/issues/)    [![GitHub pull-requests](https://img.shields.io/github/issues-pr/STaoZWT/JiZhangApp?style=plastic)](https://GitHub.com/STaoZWT/JiZhangApp/pull/) ![Flutter CI](https://github.com/STaoZWT/JiZhangApp/workflows/Flutter%20CI/badge.svg)
+# JiZhangApp（喵喵记） [![MIT license](https://img.shields.io/github/license/STaoZWT/JiZhangApp?style=plastic)](https://github.com/STaoZWT/JiZhangApp/blob/master/LICENSE)    [![GitHub Contributors](https://img.shields.io/github/contributors/STaoZWT/JiZhangApp?style=plastic)](https://github.com/STaoZWT/JiZhangApp/graphs/contributors)    [![GitHub issues](https://img.shields.io/github/issues/STaoZWT/JiZhangApp?style=plastic)](https://GitHub.com/STaoZWT/JiZhangApp/issues/)    [![GitHub pull-requests](https://img.shields.io/github/issues-pr/STaoZWT/JiZhangApp?style=plastic)](https://GitHub.com/STaoZWT/JiZhangApp/pull/) ![Flutter CI](https://github.com/STaoZWT/JiZhangApp/workflows/Flutter%20CI/badge.svg)
 
 *HITSZ CS Software Engineering (Fall 2020) Project*
 
@@ -24,27 +24,31 @@
 
 - [x] 合并”图表“功能页面
 
-- [ ] 功能测试、修复bug
+- [x] 功能测试、修复bug
 
-- [ ] 发布0.1 Release版本
+- [x] 发布0.1 Release版本
 
 ### Version 0.2 To-Do List
 
-- [ ] 添加删除分类、账户、成员功能
+- [x] 添加删除分类、账户、成员功能
 
-- [ ] 添加清空数据（初始化）功能
+- [x] 添加清空数据（初始化）功能
 
-- [ ] 完善生物识别（指纹等）功能
+- [x] 完善生物识别（指纹等）功能
 
-- [ ] 重新设计主页
+- [x] 重新设计主页
 
-- [ ] 界面美化，统一为Material风格
+- [x] 界面美化，统一为Material风格
 
-- [ ] 重写路由表、优化路由跳转传值逻辑
+- [x] 重写路由表、优化路由跳转传值逻辑
 
-- [ ] 添加更换主题、深色模式功能
+- [x] 添加更换主题--、深色模式--功能
 
-- [ ] 添加保存记账草稿、修改记账内容功能
+- [x] 添加保存记账草稿--、修改记账内容--功能
+
+- [x] 添加用户指引页面
+
+- [x] 增加用户名设置与修改、用户头像选择功能
 
 - [ ] 待补充......
 
