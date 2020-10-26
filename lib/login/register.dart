@@ -169,208 +169,233 @@ class _RegisterPageState extends State<RegisterPage> {
     return mobile.hasMatch(input);
   }
 
+  FocusNode blankNode = FocusNode();
+  FocusNode _passwordFocusNode = new FocusNode();
+  FocusNode _userNameFocusNode = new FocusNode();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("image/cat.jpg"),
-              fit: BoxFit.fill,
-              colorFilter: ColorFilter.mode(
-                  Colors.black.withOpacity(0.4), BlendMode.darken))),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Stack(
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Text(
-                    "欢迎使用喵喵记",
-                    style: TextStyle(
-                        fontFamily: "SFUIText",
-                        fontSize: 26,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white
+    return GestureDetector(
+        onTap: () {
+          print('tap here!');
+          FocusScope.of(context).requestFocus(blankNode);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("image/cat.jpg"),
+                fit: BoxFit.fill,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.4), BlendMode.darken))),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Stack(
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 40,
                     ),
-                  ),
-                  SizedBox(
-                    height: 275,
-                  ),
-                  Card(
-                    elevation: 10,
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Form(
-                      //key: _formkey,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          children: <Widget>[
-                            SizedBox(
-                              height: 70,
-                            ),
-                            TextFormField(
-                              //keyboardType: TextInputType.name,
-                              //obscureText: true,
-                              controller: registerUserNameController,
-                              decoration: InputDecoration(
-                                  icon: Icon(Icons.account_circle),
-                                  fillColor: Color(0xfff5f9f6),
-                                  filled: true,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                    BorderSide(color: Colors.transparent),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                    BorderSide(color: Colors.transparent),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                    BorderSide(color: Colors.transparent),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                    BorderSide(color: Colors.transparent),
-                                  ),
-                                  hintText: "设置你的用户名(10字以内)",
-                                  hintStyle: TextStyle(
-                                    fontFamily: "SFUIText",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black26,
-                                  )),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            TextFormField(
-                              controller: registerPassWordController,
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                  icon: Icon(Icons.lock),
-                                  fillColor: Color(0xfff5f9f6),
-                                  filled: true,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                    BorderSide(color: Colors.transparent),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                    BorderSide(color: Colors.transparent),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                    BorderSide(color: Colors.transparent),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                    BorderSide(color: Colors.transparent),
-                                  ),
-                                  hintText: "设置你的密码(8~18位数字、字母的组合)",
-                                  hintStyle: TextStyle(
-                                    fontFamily: "SFUIText",
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black26,
-                                  )),
-                            ),
-                            SizedBox(
-                              height: 33,
-                            ),
-                          ],
+                    Text(
+                      "欢迎使用喵喵记",
+                      style: TextStyle(
+                          fontFamily: "SFUIText",
+                          fontSize: 26,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white
+                      ),
+                    ),
+                    SizedBox(
+                      height: 275,
+                    ),
+                    Card(
+                      elevation: 10,
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Form(
+                        //key: _formkey,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 70,
+                              ),
+                              TextFormField(
+                                //keyboardType: TextInputType.name,
+                                //obscureText: true,
+                                autofocus: true,
+                                keyboardType: TextInputType.name,
+                                textInputAction: TextInputAction.next,
+                                focusNode: _userNameFocusNode,
+                                onEditingComplete: () {
+                                  print('finish input 1');
+                                  FocusScope.of(context).requestFocus(_passwordFocusNode);
+                                  },
+                                controller: registerUserNameController,
+                                decoration: InputDecoration(
+                                    icon: Icon(Icons.account_circle),
+                                    fillColor: Color(0xfff5f9f6),
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                    ),
+                                    hintText: "设置你的用户名(10字以内)",
+                                    hintStyle: TextStyle(
+                                      fontFamily: "SFUIText",
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black26,
+                                    )),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              TextFormField(
+                                controller: registerPassWordController,
+                                obscureText: true,
+                                keyboardType: TextInputType.name,
+                                textInputAction: TextInputAction.next,
+                                focusNode: _passwordFocusNode,
+                                onEditingComplete: () {
+                                  FocusScope.of(context).requestFocus(blankNode);
+                                },
+                                decoration: InputDecoration(
+                                    icon: Icon(Icons.lock),
+                                    fillColor: Color(0xfff5f9f6),
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide:
+                                      BorderSide(color: Colors.transparent),
+                                    ),
+                                    hintText: "设置你的密码(8~18位数字、字母的组合)",
+                                    hintStyle: TextStyle(
+                                      fontFamily: "SFUIText",
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black26,
+                                    )),
+                              ),
+                              SizedBox(
+                                height: 33,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 56,
-                          width: 120,
-                          child: RaisedButton(
-                            onPressed: () async{
-                              if(isLoginPassword(registerPassWordController.value.text.toString())&&
-                                  isUserName(registerUserNameController.value.text.toString())){
-                                //密码和用户名符合格式
-                                print('login correct');
-                                await setEncryptedPassword(registerPassWordController.value.text.toString());
-                                await setUserName(registerUserNameController.value.text.toString());
-                                Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context){
-                                  // return LoginPage(
-                                  //   userNameGet: registerUserNameController.value.text.toString(),
-                                  // );
-                                  return IntroductionScreenPage();
-                                }));
-                              }else if(!isUserName(registerUserNameController.value.text.toString())&&
-                                  isLoginPassword(registerPassWordController.value.text.toString())){
-                                //用户名不符合格式
-                                print('username error');
-                                CommonDialog.show(context, Text('用户名不合法！\n用户名长度必须在1-10位之间'));
-                              }else if(!isLoginPassword(registerPassWordController.value.text.toString())&&
-                                  isUserName(registerUserNameController.value.text.toString())){
-                                //密码不符合格式
-                                print('loginpw error');
-                                CommonDialog.show(context, Text('注册密码不合法！\n密码必须由8-18位的数字或者字母组成'));
-                              }else{
-                                //用户名和密码都不合法
-                                CommonDialog.show(context, Text('密码和用户名不合法！\n用户名长度必须在1-10位之间\n密码必须由8-18位的数字或者字母组成'));
-                              }
-                            },
-                            child: Text(
-                              "注册",
-                              style: TextStyle(
-                                fontFamily: "SFUIText",
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            color: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                          ),
-                        ),
-                      ],
+                    SizedBox(
+                      height: 15,
                     ),
-                  )
-                ],
-              ),
-              Center(
-                child: Padding(padding: EdgeInsets.only(top: 290),
-                  child: CircleAvatar(
-                    //child: Image.asset("image/tupian.jpg"),
-                    backgroundImage: AssetImage("assets/cat_picture.png"),
-                    radius: 60,
-                    backgroundColor: Colors.transparent,
-                  ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 56,
+                            width: 120,
+                            child: RaisedButton(
+                              onPressed: () async{
+                                if(isLoginPassword(registerPassWordController.value.text.toString())&&
+                                    isUserName(registerUserNameController.value.text.toString())){
+                                  //密码和用户名符合格式
+                                  print('login correct');
+                                  await setEncryptedPassword(registerPassWordController.value.text.toString());
+                                  await setUserName(registerUserNameController.value.text.toString());
+                                  Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context){
+                                    // return LoginPage(
+                                    //   userNameGet: registerUserNameController.value.text.toString(),
+                                    // );
+                                    return IntroductionScreenPage();
+                                  }));
+                                }else if(!isUserName(registerUserNameController.value.text.toString())&&
+                                    isLoginPassword(registerPassWordController.value.text.toString())){
+                                  //用户名不符合格式
+                                  print('username error');
+                                  CommonDialog.show(context, Text('用户名不合法！\n用户名长度必须在1-10位之间'));
+                                }else if(!isLoginPassword(registerPassWordController.value.text.toString())&&
+                                    isUserName(registerUserNameController.value.text.toString())){
+                                  //密码不符合格式
+                                  print('loginpw error');
+                                  CommonDialog.show(context, Text('注册密码不合法！\n密码必须由8-18位的数字或者字母组成'));
+                                }else{
+                                  //用户名和密码都不合法
+                                  CommonDialog.show(context, Text('密码和用户名不合法！\n用户名长度必须在1-10位之间\n密码必须由8-18位的数字或者字母组成'));
+                                }
+                              },
+                              child: Text(
+                                "注册",
+                                style: TextStyle(
+                                  fontFamily: "SFUIText",
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              color: Theme.of(context).primaryColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-              )
-            ],
+                Center(
+                  child: Padding(padding: EdgeInsets.only(top: 290),
+                    child: CircleAvatar(
+                      //child: Image.asset("image/tupian.jpg"),
+                      backgroundImage: AssetImage("assets/cat_picture.png"),
+                      radius: 60,
+                      backgroundColor: Colors.transparent,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
+
   }
 }
