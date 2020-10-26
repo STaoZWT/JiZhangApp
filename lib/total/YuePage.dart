@@ -331,7 +331,7 @@ class _YuePageContentState extends State<YuePageContent>
               yueList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName2 + '收入',
+                'type': tempcardName2 ,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -363,7 +363,7 @@ class _YuePageContentState extends State<YuePageContent>
               yueList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName1 + '支出',
+                'type': tempcardName1 ,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -505,7 +505,7 @@ class _YuePageContentState extends State<YuePageContent>
                 detailList.add({
                   'id': billsList[j].id,
                   'date': billsList[j].date,
-                  'type': tempcardName2 + '收入',
+                  'type': tempcardName2 ,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
                   'category2': billsList[j].category2,
@@ -539,7 +539,7 @@ class _YuePageContentState extends State<YuePageContent>
                 detailList.add({
                   'id': billsList[j].id,
                   'date': billsList[j].date,
-                  'type': tempcardName1 + '支出',
+                  'type': tempcardName1 ,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
                   'category2': billsList[j].category2,

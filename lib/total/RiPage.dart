@@ -110,7 +110,7 @@ class _RiPageContentState extends State<RiPageContent>
       var s = new Set();
       s.addAll(accountName);
       accountName = s.toList();
-      accountName.add('净资产');
+      accountName.insert(0,'净资产');
       ///////////////////////////////////////////确定账户个数
       ///////////////////////////////////////////账户1，账户2......
       flag = 1;
@@ -317,7 +317,7 @@ class _RiPageContentState extends State<RiPageContent>
               riList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName2 + '收入',
+                'type': tempcardName2 ,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -349,7 +349,7 @@ class _RiPageContentState extends State<RiPageContent>
               riList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName1 + '支出',
+                'type': tempcardName1,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -414,6 +414,7 @@ class _RiPageContentState extends State<RiPageContent>
         for (Map s in detailList) riList[i]['明细'].add(s);
       }
     } else {
+      print('要查找的账户是： $tempaccountName');
       for (var i = 0; i < billsList.length; i++) {
         if (billsList[i].accountIn == tempaccountName ||
             billsList[i].accountOut == tempaccountName) {
@@ -425,8 +426,8 @@ class _RiPageContentState extends State<RiPageContent>
           }
         }
       }
-      print(lastTime);
-      print(firstTime);
+      //print(lastTime);
+      //print(firstTime);
       var dl = new DateTime(lastTime.year, lastTime.month, lastTime.day);
       var df = new DateTime(firstTime.year, firstTime.month, firstTime.day);
       int daydifference = df.difference(dl).inDays;
@@ -471,7 +472,7 @@ class _RiPageContentState extends State<RiPageContent>
                 riList[i]['存在'] = 1;
                 detailList.add({
                   'id': billsList[j].id,
-                  'type': tempcardName2 + '收入',
+                  'type': tempcardName2 ,
                   'title': billsList[j].title,
                   'date': billsList[j].date,
                   'category1': billsList[j].category1,
@@ -505,7 +506,7 @@ class _RiPageContentState extends State<RiPageContent>
                 riList[i]['存在'] = 1;
                 detailList.add({
                   'id': billsList[j].id,
-                  'type': tempcardName1 + '支出',
+                  'type': tempcardName1,
                   'date': billsList[j].date,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
