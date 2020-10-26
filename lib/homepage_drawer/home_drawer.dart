@@ -69,7 +69,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
       DrawerList(
           index: DrawerIndex.About,
           labelName: '帮助',
-          icon: Icon(Icons.warning),
+          icon: Icon(Icons.help),
       )
       // DrawerList(
       //   index: DrawerIndex.About,
