@@ -193,7 +193,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                       padding: const EdgeInsets.only(
                                           left: 6, bottom: 1),
                                       child: Text(
-                                        'Begin',
+                                        '开始日期',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontFamily:
@@ -241,7 +241,9 @@ class _PiechartPageState extends State<PiechartPage> {
                                           const EdgeInsets.only(
                                               left: 2, bottom: 9),
                                           child: Text(
-                                            '${picked[0].month}.'+'${picked[0].day}',  ///月 日
+                                            // '${picked[0].month}.'+'${picked[0].day}',  ///月 日
+                                            (picked[0].month as int < 10 ? '0${picked[0].month}' : '${picked[0].month}') + '.' +
+                                            (picked[0].day as int < 10 ? '0${picked[0].day}' : '${picked[0].day}'),
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily:
@@ -305,7 +307,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                       padding: const EdgeInsets.only(
                                           left: 6, bottom: 1),
                                       child: Text(
-                                        'End',
+                                        '结束日期',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontFamily:
@@ -353,7 +355,8 @@ class _PiechartPageState extends State<PiechartPage> {
                                           const EdgeInsets.only(
                                               left: 2, bottom: 9),
                                           child: Text(
-                                            '${picked[1].month}.'+'${picked[1].day}', ///月 日
+                                            (picked[1].month as int < 10 ? '0${picked[1].month}' : '${picked[1].month}') + '.' +
+                                                (picked[1].day as int < 10 ? '0${picked[1].day}' : '${picked[1].day}'),
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily:
@@ -437,10 +440,12 @@ class _PiechartPageState extends State<PiechartPage> {
                               flex: 1,
                               child: Center(
                                 child: data_empty(mData)?
-                                Text('Nothing!', style: TextStyle( //backgroundColor:Colors.white,
+                                Text('快去新建一笔记账吧！', style: TextStyle( //backgroundColor:Colors.white,
                                     inherit: true,
                                     color: Theme.of(context).primaryColor,
-                                    fontSize: 25),):
+                                    fontSize: 16),
+                                  textAlign: TextAlign.center,
+                                ):
                                 MaterialButton(  ///类别按钮
                                   //color: Colors.deepOrangeAccent,
                                     padding: const EdgeInsets.only(bottom: 20),
@@ -525,7 +530,8 @@ class _PiechartPageState extends State<PiechartPage> {
                           flex: 4,
                           child: Card(
                               //margin: EdgeInsets.all(8.0),
-                              elevation: 2.0,
+                              elevation: 0.0,
+                              margin: EdgeInsets.only(bottom: 1.0),
                               color: Colors.white,
                               shape: const RoundedRectangleBorder(
                                   borderRadius:
@@ -538,7 +544,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                     flex: 11,
                                     child: Container(
                                       padding: const EdgeInsets.only(left: 38.0, bottom: 5.0),
-                                      child: Text('类别', style: TextStyle(fontSize: 20.0,
+                                      child: Text('类别', style: TextStyle(fontSize: 18.0,
                                           fontWeight: FontWeight.w600,
                                           color: Theme.of(context).primaryColor)),
                                     )
@@ -560,7 +566,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                     flex: 9,
                                     child: Container(
                                       padding: const EdgeInsets.only(bottom: 5.0),
-                                      child: Text('金额/元', style: TextStyle(fontSize: 18.0,
+                                      child: Text('金额', style: TextStyle(fontSize: 18.0,
                                           fontWeight: FontWeight.w500,
                                           color: Theme.of(context).primaryColor)),
                                     )
