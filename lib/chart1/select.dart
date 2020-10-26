@@ -128,7 +128,7 @@ class _SelectPageState extends State<SelectPage> {
                               color: Colors.white12,
                               child: Card(
                                 margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                                elevation: 2.0,
+                                elevation: 0.0,
                                 color: Colors.white,
                                 shape: const RoundedRectangleBorder(
                                     borderRadius:
@@ -188,7 +188,7 @@ class _SelectPageState extends State<SelectPage> {
                               color: Colors.white12,
                               child: Card(
                                 margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                                elevation: 2.0,
+                                elevation: 0.0,
                                 color: Colors.white,
                                 shape: const RoundedRectangleBorder(
                                     borderRadius:
@@ -247,7 +247,7 @@ class _SelectPageState extends State<SelectPage> {
                                 color: Colors.white12,
                                 child:Card(
                                   margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                                  elevation: 2.0,
+                                  elevation: 0.0,
                                   color: Colors.white,
                                   shape: const RoundedRectangleBorder(
                                       borderRadius:
@@ -307,7 +307,7 @@ class _SelectPageState extends State<SelectPage> {
                                 color: Colors.white12,
                                 child: Card(
                                   margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 6),
-                                  elevation: 2.0,
+                                  elevation: 0.0,
                                   color: Colors.white,
                                   shape: const RoundedRectangleBorder(
                                       borderRadius:
@@ -392,7 +392,7 @@ class _SelectPageState extends State<SelectPage> {
                             color: Colors.white12,
                             child: Card(
                               margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                              elevation: 2.0,
+                              elevation: 0.0,
                               color: Colors.white,
                               shape: const RoundedRectangleBorder(
                                   borderRadius:
@@ -452,7 +452,7 @@ class _SelectPageState extends State<SelectPage> {
                             color: Colors.white12,
                             child: Card(
                               margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                              elevation: 2.0,
+                              elevation: 0.0,
                               color: Colors.white,
                               shape: const RoundedRectangleBorder(
                                   borderRadius:
@@ -512,7 +512,7 @@ class _SelectPageState extends State<SelectPage> {
                             color: Colors.white12,
                             child: Card(
                               margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                              elevation: 2.0,
+                              elevation: 0.0,
                               color: Colors.white,
                               shape: const RoundedRectangleBorder(
                                   borderRadius:
@@ -572,7 +572,7 @@ class _SelectPageState extends State<SelectPage> {
                             color: Colors.white12,
                             child: Card(
                               margin: EdgeInsets.only(top: 1,bottom: 4,left: 1,right: 6),
-                              elevation: 2.0,
+                              elevation: 0.0,
                               color: Colors.white,
                               shape: const RoundedRectangleBorder(
                                   borderRadius:
