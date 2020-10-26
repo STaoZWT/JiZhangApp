@@ -400,7 +400,7 @@ class _CardAddBill extends State<CardAddBill>
                                   FocusScope.of(context).requestFocus(blankNode);
                                   DatePicker.showDateTimePicker(context,
                                       showTitleActions: true,
-                                      minTime: DateTime(2020, 5, 5, 20, 50),
+                                      minTime: DateTime(2018, 1, 1, 00, 00),
                                       maxTime: DateTime.now(),
                                       onChanged: (date) {
                                         print('change $date in time zone ' +
@@ -837,8 +837,6 @@ class _CardAddBill extends State<CardAddBill>
             accountSelectOut = value;
             accountOutSelectText = removeBrackets(picker.adapter.text) ;//用户选中的账户
           });
-          print(value.toString());
-          print(picker.adapter.text);
         }).showModal(this.context); //_scaffoldKey.currentState);
   }
 
