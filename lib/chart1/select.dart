@@ -227,8 +227,8 @@ class _SelectPageState extends State<SelectPage> {
                                 ),)
                           ),
                           onTap: (){
-                            selected = "分类支出";
-                            typeSelect = '一级分类';
+                            selected = "二级支出";
+                            typeSelect = '二级分类';
                             type = 1;
                             print(selected);
                             Navigator.of(context).pop();
@@ -287,8 +287,8 @@ class _SelectPageState extends State<SelectPage> {
                                 )
                             ),
                             onTap: (){
-                              selected = "分类支出";
-                              typeSelect = '一级分类';
+                              selected = "账户支出";
+                              typeSelect = '账户分类';
                               type = 1;
                               print(selected);
                               Navigator.of(context).pop();
@@ -347,8 +347,8 @@ class _SelectPageState extends State<SelectPage> {
                                 )
                             ),
                             onTap: (){
-                              selected = "分类支出";
-                              typeSelect = '一级分类';
+                              selected = "成员支出";
+                              typeSelect = '成员分类';
                               type = 1;
                               print(selected);
                               Navigator.of(context).pop();
@@ -432,9 +432,9 @@ class _SelectPageState extends State<SelectPage> {
                             )
                         ),
                         onTap: (){
-                          selected = "分类支出";
+                          selected = "分类收入";
                           typeSelect = '一级分类';
-                          type = 1;
+                          type = 0;
                           print(selected);
                           Navigator.of(context).pop();
                           Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -492,9 +492,9 @@ class _SelectPageState extends State<SelectPage> {
                             )
                         ),
                         onTap: (){
-                          selected = "分类支出";
-                          typeSelect = '一级分类';
-                          type = 1;
+                          selected = "二级收入";
+                          typeSelect = '二级分类';
+                          type = 0;
                           print(selected);
                           Navigator.of(context).pop();
                           Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -552,9 +552,9 @@ class _SelectPageState extends State<SelectPage> {
                             )
                         ),
                         onTap: (){
-                          selected = "分类支出";
-                          typeSelect = '一级分类';
-                          type = 1;
+                          selected = "账户收入";
+                          typeSelect = '账户分类';
+                          type = 0;
                           print(selected);
                           Navigator.of(context).pop();
                           Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -612,9 +612,9 @@ class _SelectPageState extends State<SelectPage> {
                             )
                         ),
                         onTap: (){
-                          selected = "分类支出";
-                          typeSelect = '一级分类';
-                          type = 1;
+                          selected = "成员收入";
+                          typeSelect = '成员分类';
+                          type = 0;
                           print(selected);
                           Navigator.of(context).pop();
                           Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -634,105 +634,4 @@ class _SelectPageState extends State<SelectPage> {
 
     );
   }
-
-/*GridView.count(
-  crossAxisCount: 5,
-    RaisedButton(
-      child: Text("增加数据",
-          style: TextStyle(color:Colors.black,fontSize:17)
-      ),
-      onPressed: (){
-        addData();//增加数据
-        Toast.show("已经增加8条随机数据",context);
-      },
-    ),
-    RaisedButton(
-      child: Text("清空数据",
-          style: TextStyle(color:Colors.black,fontSize:17)
-      ),
-      onPressed: (){
-        clearData();//增加数据
-        /*Scaffold.of(context).showSnackBar(  //底部弹出信息
-        new SnackBar(content: new Text('已经清空数据')));*/
-        Toast.show("已经清空数据",context);
-      },
-    ),
-),*/
-
-
-  ///调试--增加数据
-  addData() async{
-    /*for(int i=1;i<=8;i++){
-      BillsModel oneBillData = BillsModel.random();
-      BillsDatabaseService.db.addBillInDB(oneBillData);
-    }*/
-    BillsModel oneBillData = new BillsModel();
-    oneBillData.title ='1';
-    oneBillData.member = '本人';
-    oneBillData.accountOut = '银行卡';
-    oneBillData.category1 = '旅游';
-    oneBillData.type = 0;
-    oneBillData.category2 = '吃饭';
-    oneBillData.accountIn = null;
-    oneBillData.id = 1;
-    oneBillData.value100 = 1003;
-    oneBillData.date = DateTime.now();
-    BillsDatabaseService.db.addBillInDB(oneBillData);
-
-    BillsModel oneBillData1 = new BillsModel();
-    oneBillData1.title ='1';
-    oneBillData1.member = '本人';
-    oneBillData1.accountOut = '银行卡';
-    oneBillData1.category1 = '游戏';
-    oneBillData1.type = 1;
-    oneBillData1.category2 = '吃饭';
-    oneBillData1.accountIn = null;
-    oneBillData1.id = 1;
-    oneBillData1.value100 = 1003;
-    oneBillData1.date = DateTime.now();
-    BillsDatabaseService.db.addBillInDB(oneBillData1);
-
-    BillsModel oneBillData2 = new BillsModel();
-    oneBillData2.title ='1';
-    oneBillData2.member = 'ss';
-    oneBillData2.accountOut = '水卡';
-    oneBillData2.category1 = '旅游';
-    oneBillData2.type = 1;
-    oneBillData2.category2 = '喝水';
-    oneBillData2.accountIn = null;
-    oneBillData2.id = 1;
-    oneBillData2.value100 = 1003;
-    oneBillData2.date = DateTime.now();
-    BillsDatabaseService.db.addBillInDB(oneBillData2);
-  }
 }
-
-
-
-/*Expanded(
-                        flex: 7,
-                        child: Container(
-                          height: double.infinity,
-                          //width: double.infinity,
-                          child: RaisedButton(
-                            child: Text("分类支出",
-                                style: TextStyle(color:Colors.black,fontSize:17)
-                            ),
-                            onPressed: (){
-                              selected = "分类支出";
-                              typeSelect = '一级分类';
-                              type = 1;
-                              print(selected);
-                              Navigator.of(context).pop();
-                              //List<PieData> dataPieEd = dataProcessPie(typeSelect, type); //获取数据
-                              Navigator.push(
-                                  context,
-                                  CupertinoPageRoute(
-                                      builder: (context) => ChartPage(
-                                          typeSelect: typeSelect,
-                                          type: type,
-                                          picked: picked)));
-                            },
-                          ),
-                        ),
-                      ),*/

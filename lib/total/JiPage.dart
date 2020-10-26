@@ -755,10 +755,7 @@ class _JiPageContentState extends State<JiPageContent>
                                               value['明细'][index]['date']
                                                   .minute
                                                   .toString() +
-                                              '分'
-                                                  // '  ' +
-                                                  // value['明细'][index]['title'] +
-                                                  '\n' +
+                                              '分'+'\n' +
                                               value['明细'][index]['type'] +
                                               '  ' +
                                               value['明细'][index]['member'],style: TextStyle(fontSize: 12.0)),
