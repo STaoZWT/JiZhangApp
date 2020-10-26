@@ -178,35 +178,6 @@ class _ChartPageState extends State<ChartPage> {
                     ],*/
                     ),
                     body: pagechoose(_currentIndex),
-                    /*bottomNavigationBar: BottomNavigationBar( //界面下方按钮
-                      fixedColor: Colors.blue, //点击后是什么颜色
-                      iconSize: 20.0,//icon的大小
-                      currentIndex: this._currentIndex, //配置对应的索引值选中
-                      type: BottomNavigationBarType.fixed, //配置底部Tabs可以有多个按钮
-                      onTap: (int index){ //点击改变界面
-                        setState(() {
-                          this._currentIndex = index;
-                          print(_currentIndex);
-                          if(_currentIndex == 1) {  // 首页
-                            Navigator.of(context).pop();
-                            //Navigator.of(context).push(MaterialPageRoute(
-                                //builder: (BuildContext context) => HomePage()));
-                          }
-                        });
-                      },
-                      items: [ //按钮定义
-                        BottomNavigationBarItem(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            icon: Icon(Icons.pie_chart, color: Theme.of(context).primaryColor),
-                            title: Text("饼状图", style: TextStyle(color: Colors.black54),)
-                        ),
-                        BottomNavigationBarItem(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            icon: Icon(Icons.home, color: Theme.of(context).primaryColor),
-                            title: Text("首页", style: TextStyle(color: Colors.black54),)
-                        ),
-                      ]
-                  ),*/
                   )
         ),
       );
