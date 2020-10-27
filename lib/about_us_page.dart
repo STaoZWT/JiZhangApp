@@ -10,7 +10,6 @@ class aboutUsPage extends StatefulWidget {
   }
 }
 
-
 class _aboutUsPage extends State<aboutUsPage> {
   @override
   Widget build(BuildContext context) {
