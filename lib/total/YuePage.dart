@@ -678,8 +678,7 @@ class _YuePageContentState extends State<YuePageContent>
                           '月\n' +
                           accountName[accountNumber] +
                           ' ' +
-                          value['金额'] +
-                          '元',
+                          maxString(value['金额']),
                       style: new TextStyle(
                         color: Colors.blueGrey,
                         fontSize: 19,
@@ -826,6 +825,22 @@ class _YuePageContentState extends State<YuePageContent>
               ],
             );
           });
+    }
+  }
+
+  maxString(String money){
+    if(money==null){
+      return money+'元';
+    }
+    //+-99999999.99
+    if(money.length>12){
+      if(money.substring(0,1)=='-'){
+        return '挥金如土';
+      }else{
+        return '腰缠万贯';
+      }
+    }else if(0<money.length && money.length<=12){
+      return money+'元';
     }
   }
 

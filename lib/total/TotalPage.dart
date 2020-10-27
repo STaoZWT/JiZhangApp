@@ -256,7 +256,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
                   ),
                   Align(
                     alignment: Alignment(0.6, 0),
-                    child: Text(value['金额'] + '元',
+                    child: Text(maxString(value['金额']),
                         style: TextStyle(
                             fontSize: 20,
                             color: Theme.of(context).primaryColor)),
@@ -279,6 +279,22 @@ class _TotalPageContentState extends State<TotalPageContent> {
       );
     });
     return tempList.toList();
+  }
+
+  maxString(String money){
+    if(money==null){
+      return money+'元';
+    }
+    //+-99999999.99
+    if(money.length>12){
+      if(money.substring(0,1)=='-'){
+        return '挥金如土';
+      }else{
+        return '腰缠万贯';
+      }
+    }else if(0<money.length && money.length<=12){
+      return money+'元';
+    }
   }
 
   FocusNode blankNode = FocusNode();

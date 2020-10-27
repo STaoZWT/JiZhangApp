@@ -138,6 +138,14 @@ class _PiechartPageState extends State<PiechartPage> {
     }
   }
 
+  maxString(int type){
+    if(type==0){
+      return '腰缠万贯';
+    }else if(type==1){
+      return '挥金如土';
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -634,8 +642,11 @@ class _PiechartPageState extends State<PiechartPage> {
                                                     flex: 9,
                                                     child: Container(
                                                       padding: const EdgeInsets.only(bottom: 5.0), //'${formatNum(mData[index].price, 4)}'
-                                                      child: Text('${mData[index].price}', style: TextStyle(fontSize: 17.0,
-                                                                    color: mData[index].color)),
+                                                      child: mData[index].price>99999999.99?
+                                                        Text(maxString(type), style: TextStyle(fontSize: 17.0,
+                                                            color: mData[index].color)):
+                                                        Text('${mData[index].price}', style: TextStyle(fontSize: 17.0,
+                                                                      color: mData[index].color)),
                                                     )
                                                 ),
                                               ],
