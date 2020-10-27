@@ -19,6 +19,7 @@ import './service/database.dart';
 import './data/model.dart';
 import 'dart:math' as math;
 import './const/picker_data.dart';
+import 'about_us_page.dart';
 
 
 
@@ -1272,11 +1273,13 @@ class NavigationHomeScreen extends StatefulWidget {
 
 class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
   Widget screenView;
+  DrawerIndex drawerIndex;
 
   @override
   void initState() {
     screenView = HomePage();
     super.initState();
+    drawerIndex = DrawerIndex.HOME;
     print('NavigationHome init!');
   }
 
@@ -1290,7 +1293,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         child: Scaffold(
           backgroundColor: AppTheme.nearlyWhite,
           body: DrawerUserController(
-            screenIndex: DrawerIndex.HOME,  //侧边栏高亮的项目，保持为主页常亮
+            screenIndex: drawerIndex,  //侧边栏高亮的项目，保持为主页常亮
             drawerWidth: MediaQuery.of(context).size.width * 0.75,
             onDrawerCall: (DrawerIndex drawerIndexdata) {
               changeIndex(drawerIndexdata);
@@ -1307,9 +1310,11 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
   void changeIndex(DrawerIndex drawerIndexdata) {
     print(drawerIndexdata);
     if (drawerIndexdata == DrawerIndex.HOME) {
+      drawerIndex = drawerIndexdata;
       print('去主页');
       //setState(() {
         screenView = const HomePage();
+        setState(() { });
       //});
     } else if (drawerIndexdata == DrawerIndex.Help) {
       print('去修改文字密码');
@@ -1332,6 +1337,12 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
     }else if(drawerIndexdata == DrawerIndex.About){
       print('帮助');
       Navigator.of(context).pushNamed('intro');
+    }
+    else if(drawerIndexdata == DrawerIndex.Testing){
+      drawerIndex = drawerIndexdata;
+      print('关于我们');
+      screenView = const aboutUsPage();
+      setState(() { });
     }
   }
 
