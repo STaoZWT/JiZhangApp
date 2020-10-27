@@ -82,6 +82,13 @@ flutter:
     - image/tupian.jpg
     - assets/cat_picture.png
     - image/cat.jpg
+    - image/homepage1.jpg
+    - image/jizhang2.jpg
+    - image/tongji3.jpg
+    - image/tubiao4.jpg
+    - image/login5.jpg
+    - image/theme6.jpg
+    - image/qingkong7.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
