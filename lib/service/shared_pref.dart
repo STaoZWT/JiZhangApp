@@ -147,3 +147,42 @@ bool isLoginPassword(String input) {
   RegExp mobile = new RegExp(r"[A-Za-z0-9]{8,18}$");
   return mobile.hasMatch(input);
 }
+
+Future<String> getUserPhoto() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  String photoString = sharedPref.getString('photoString');
+  print(photoString);
+  return photoString;
+}
+
+Future<Null> setUserPhoto(String value) async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  sharedPref.setString('photoString', value);
+}
+
+Future<bool> checkBackupStatus() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  bool Status = await sharedPref.containsKey('backupTime');
+  if (!Status) {
+    return false;
+  } else {
+    DateTime lastBackup = DateTime.tryParse(await sharedPref.getString('backupTime'));
+    if (DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day)
+        .compareTo(DateTime(lastBackup.year, lastBackup.month, lastBackup.day)) > 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+}
+
+Future<DateTime> getLastBackupTime() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  String backupTime = await sharedPref.getString('backupTime');
+  return DateTime.tryParse(backupTime);
+}
+
+Future<Null> setBackupTime() async {
+  SharedPreferences sharedPref = await SharedPreferences.getInstance();
+  await sharedPref.setString('backupTime', DateTime.now().toIso8601String());
+}

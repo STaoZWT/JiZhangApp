@@ -72,7 +72,8 @@ class _LoginPageState extends State<LoginPage> {
       child: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("image/cat.jpg"),
+                // image: AssetImage("image/cat.jpg"),
+              image: AssetImage("assets/cat_user1.png"),
                 fit: BoxFit.fill,
                 colorFilter: ColorFilter.mode(
                     Colors.black.withOpacity(0.4), BlendMode.darken))),

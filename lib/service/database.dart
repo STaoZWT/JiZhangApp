@@ -2,6 +2,12 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '../data/model.dart';
 
+
+class BackupDatabaseService {
+
+}
+
+
 //账单数据库服务
 class BillsDatabaseService {
   String path;

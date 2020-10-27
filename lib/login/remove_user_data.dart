@@ -131,6 +131,18 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
             shape: const RoundedRectangleBorder(
                 borderRadius:
                 BorderRadius.all(Radius.circular(14.0))),
+            child: Column(
+              children: <Widget>[
+
+              ],
+            ),
+          ),
+          Card(
+            margin: EdgeInsets.all(8.0),
+            elevation: 2.0,
+            shape: const RoundedRectangleBorder(
+                borderRadius:
+                BorderRadius.all(Radius.circular(14.0))),
             child: Container(
               margin: EdgeInsets.all(15),
               child: RichText(

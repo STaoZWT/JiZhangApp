@@ -16,6 +16,7 @@ import 'package:toast/toast.dart';
 import '../homepage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../total/account_card.dart';
+import '../service/external_storege_backup.dart';
 
 class CardAddBill extends StatefulWidget {
   @override
@@ -250,13 +251,16 @@ class _CardAddBill extends State<CardAddBill>
                       // });
                       // int test = await BillsDatabaseService.db.getAccountNetAsset('现金账户');
                       // print("test: $test");
-                      BillsDatabaseService.db.billsCountThisMonth();
-                      BillsDatabaseService.db.assetInThisMonth();
-                      BillsDatabaseService.db.assetOutThisMonth();
-                      BillsDatabaseService.db.LatestBill();
+                      // BillsDatabaseService.db.billsCountThisMonth();
+                      // BillsDatabaseService.db.assetInThisMonth();
+                      // BillsDatabaseService.db.assetOutThisMonth();
+                      // BillsDatabaseService.db.LatestBill();
                       // Navigator.push(context, MaterialPageRoute(
                       //   builder: (context) => AccountCardPage()
                       // ));
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => BackupToFile()
+                      ));
                     }),
                 AnimatedContainer(
                   margin: EdgeInsets.fromLTRB(10, 6, 0, 6),
