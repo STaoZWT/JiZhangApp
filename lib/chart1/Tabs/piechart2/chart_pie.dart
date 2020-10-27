@@ -8,7 +8,7 @@ import 'package:flutter_jizhangapp/chart1/chart_material.dart';
 import 'package:flutter_jizhangapp/chart1/select.dart';
 import 'package:flutter_jizhangapp/data/model.dart';
 import 'package:flutter_jizhangapp/service/database.dart';
-
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import '../../../homepage.dart';
 import '../../chartpage.dart';
 
@@ -199,7 +199,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                   children: <Widget>[
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 6, bottom: 1),
+                                          left: 16, bottom: 1),
                                       child: Text(
                                         '开始日期',
                                         textAlign: TextAlign.center,
@@ -273,29 +273,31 @@ class _PiechartPageState extends State<PiechartPage> {
                                 ),
                               ),
                               onTap: () async { //初始日期要修改  //picked储存选择的时间期限
-                                picked = await DateRagePicker
-                                    .showDatePicker(
-                                    context: context,
-                                    initialFirstDate: picked[0],
-                                    //初始--起始日期
-                                    initialLastDate: picked[1],
-                                    //初始--截止日期
-                                    firstDate: new DateTime((DateTime.fromMicrosecondsSinceEpoch(0)).year),
-                                    lastDate: new DateTime(((DateTime.now()).year)+1)
-                                );
-                                if (picked != null && picked.length == 2) {
-                                  print(picked);
-                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                      builder: (BuildContext context) => ChartPage(
-                                          typeSelect: typeSelect,
-                                          type: type,
-                                          picked: picked)));
-                                }else{
-                                  picked = [
-                                    new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1),
-                                    new DateTime.now()
-                                  ];
-                                }
+                                await DatePicker.showDatePicker(context,
+                                    showTitleActions: true,
+                                    minTime: DateTime(2018, 1, 1, 00, 00),
+                                    maxTime: picked[1],
+                                    currentTime:picked[0],
+                                    onChanged: (date) {
+                                      print('change $date in time zone ' +
+                                          date.timeZoneOffset.inHours
+                                              .toString());
+                                    },
+                                    onConfirm: (date) {
+                                      setState(() {
+                                        picked[0] = date;
+                                        if (picked[0]==picked[1]) {
+                                          picked[1] = DateTime(picked[1].year,picked[1].month,picked[1].day,23,59);
+                                        }
+                                      });
+                                      print('confirm $date');
+                                    },
+                                    locale: LocaleType.zh);
+                                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                          builder: (BuildContext context) => ChartPage(
+                                              typeSelect: typeSelect,
+                                              type: type,
+                                              picked: picked)));
                               },
                             ),
                           ),
@@ -313,7 +315,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                   children: <Widget>[
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                          left: 6, bottom: 1),
+                                          left: 16, bottom: 1),
                                       child: Text(
                                         '结束日期',
                                         textAlign: TextAlign.center,
@@ -386,29 +388,31 @@ class _PiechartPageState extends State<PiechartPage> {
                                 ),
                               ),
                               onTap: () async { //初始日期要修改  //picked储存选择的时间期限
-                                picked = await DateRagePicker
-                                    .showDatePicker(
-                                    context: context,
-                                    initialFirstDate: picked[0],
-                                    //初始--起始日期
-                                    initialLastDate: picked[1],
-                                    //初始--截止日期
-                                    firstDate: new DateTime((DateTime.fromMicrosecondsSinceEpoch(0)).year),
-                                    lastDate: new DateTime(((DateTime.now()).year)+1)
-                                );
-                                if (picked != null && picked.length == 2) {
-                                  print(picked);
-                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                      builder: (BuildContext context) => ChartPage(
-                                          typeSelect: typeSelect,
-                                          type: type,
-                                          picked: picked)));
-                                }else{
-                                  picked = [
-                                    new DateTime.utc((DateTime.now()).year,(DateTime.now().month),1),
-                                    new DateTime.now()
-                                  ];
-                                }
+                                await DatePicker.showDatePicker(context,
+                                    showTitleActions: true,
+                                    minTime: picked[0],
+                                    maxTime: DateTime.now(),
+                                    currentTime:picked[1],
+                                    onChanged: (date) {
+                                      print('change $date in time zone ' +
+                                          date.timeZoneOffset.inHours
+                                              .toString());
+                                    },
+                                    onConfirm: (date) {
+                                      setState(() {
+                                        picked[1] = date;
+                                        if (picked[0]==picked[1]) {
+                                          picked[1] = DateTime(picked[1].year,picked[1].month,picked[1].day,23,59);
+                                        }
+                                      });
+                                      print('confirm $date');
+                                    },
+                                    locale: LocaleType.zh);
+                                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                          builder: (BuildContext context) => ChartPage(
+                                              typeSelect: typeSelect,
+                                              type: type,
+                                              picked: picked)));
                               },
                             ),
                           ),
