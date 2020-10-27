@@ -407,6 +407,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                       });
                                       print('confirm $date');
                                     },
+
                                     locale: LocaleType.zh);
                                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                                           builder: (BuildContext context) => ChartPage(
