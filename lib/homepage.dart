@@ -19,6 +19,7 @@ import './service/database.dart';
 import './data/model.dart';
 import 'dart:math' as math;
 import './const/picker_data.dart';
+import 'about_us_page.dart';
 
 
 
@@ -65,12 +66,12 @@ class _HomePageState extends State<HomePage> {
 
   //以下为设置账户初始值
   void initAccount() async {
-    await setPicker(
-        "maccountPicker", AccountPickerData);
+    String tmp = await getPicker('maccountPicker');
+    if(tmp == null) {
+      await setPicker(
+          "maccountPicker", AccountPickerData);
+    }
   }
-
-
-
 
 
   @override
@@ -1070,8 +1071,8 @@ class _HomePageState extends State<HomePage> {
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: (){
 
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (BuildContext context) => CardAddBill()));
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => CardAddBill())).then((value) => getHomePageData());
               },
             ),
           ),
@@ -1122,16 +1123,16 @@ class _HomePageState extends State<HomePage> {
                   //setPassWord(null);
                   //Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => ChartPage())).then((value) => handle());
+                      builder: (BuildContext context) => ChartPage())).then((value) => getHomePageData());
                 } else if (_currentIndex == 1) {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => CardAddBill())).then((value) => handle());
+                      builder: (BuildContext context) => CardAddBill())).then((value) => getHomePageData());
                   //builder: (BuildContext context) => UnknownPage()));
                 } else if (_currentIndex == 2) {
                   //Navigator.of(context).pop();
                   Navigator.of(context).push(MaterialPageRoute(
                     //builder: (BuildContext context) => UnknownPage()));
-                      builder: (BuildContext context) => TotalPage())).then((value) => handle());
+                      builder: (BuildContext context) => TotalPage())).then((value) => getHomePageData());
                 }
                 ;
               });
@@ -1272,17 +1273,13 @@ class NavigationHomeScreen extends StatefulWidget {
 
 class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
   Widget screenView;
-
-
-  //test
-
-
-
+  DrawerIndex drawerIndex;
 
   @override
   void initState() {
     screenView = HomePage();
     super.initState();
+    drawerIndex = DrawerIndex.HOME;
     print('NavigationHome init!');
   }
 
@@ -1296,7 +1293,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         child: Scaffold(
           backgroundColor: AppTheme.nearlyWhite,
           body: DrawerUserController(
-            screenIndex: DrawerIndex.HOME,  //侧边栏高亮的项目，保持为主页常亮
+            screenIndex: drawerIndex,  //侧边栏高亮的项目，保持为主页常亮
             drawerWidth: MediaQuery.of(context).size.width * 0.75,
             onDrawerCall: (DrawerIndex drawerIndexdata) {
               changeIndex(drawerIndexdata);
@@ -1313,9 +1310,11 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
   void changeIndex(DrawerIndex drawerIndexdata) {
     print(drawerIndexdata);
     if (drawerIndexdata == DrawerIndex.HOME) {
+      drawerIndex = drawerIndexdata;
       print('去主页');
       //setState(() {
         screenView = const HomePage();
+        setState(() { });
       //});
     } else if (drawerIndexdata == DrawerIndex.Help) {
       print('去修改文字密码');
@@ -1338,6 +1337,12 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
     }else if(drawerIndexdata == DrawerIndex.About){
       print('帮助');
       Navigator.of(context).pushNamed('intro');
+    }
+    else if(drawerIndexdata == DrawerIndex.Testing){
+      drawerIndex = drawerIndexdata;
+      print('关于我们');
+      screenView = const aboutUsPage();
+      setState(() { });
     }
   }
 

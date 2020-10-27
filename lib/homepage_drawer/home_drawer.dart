@@ -1,5 +1,8 @@
 //import 'app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_jizhangapp/service/shared_pref.dart';
+import 'package:toast/toast.dart';
 
 class HomeDrawer extends StatefulWidget {
   const HomeDrawer({Key key, this.screenIndex, this.iconAnimationController, this.callBackIndex}) : super(key: key);
@@ -14,14 +17,29 @@ class HomeDrawer extends StatefulWidget {
 
 class _HomeDrawerState extends State<HomeDrawer> {
   List<DrawerList> drawerList;
+  String userName = 'User';
+  
+  int userProfileIndex;
+  bool flag;
+
   @override
   void initState() {
+    flag = false;
+    userProfileIndex = 0;
     setDrawerListArray();
     super.initState();
   }
 
   //以下是侧边栏的选项卡内容
-  void setDrawerListArray() {
+  void setDrawerListArray() async {
+    print('1');
+    userName = await getUserName();
+    print('2');
+    String tmp = await getPicker('mprofileIndex');
+    if (tmp != null) {
+      userProfileIndex = int.parse(tmp);
+    }
+    print('3');
     drawerList = <DrawerList>[
       DrawerList(
         index: DrawerIndex.HOME,
@@ -54,18 +72,28 @@ class _HomeDrawerState extends State<HomeDrawer> {
           index: DrawerIndex.About,
           labelName: '帮助',
           icon: Icon(Icons.help),
-      )
-      // DrawerList(
-      //   index: DrawerIndex.About,
-      //   labelName: 'About Us',
-      //   icon: Icon(Icons.info),
-      // ),
+      ),
+      DrawerList(
+        index:  DrawerIndex.Testing,
+        labelName: '关于我们',
+        icon: Icon(Icons.message),
+      ),
     ];
+
+    flag = true;
+    setState(() {
+
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    if (flag == false) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    else return Scaffold(
       backgroundColor: Theme.of(context).primaryColor.withOpacity(0.2),
       //AppTheme.notWhite.withOpacity(0.5),
       body: Column(
@@ -100,11 +128,21 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                 BoxShadow(color: Colors.grey.withOpacity(0.6), offset: const Offset(2.0, 4.0), blurRadius: 8),
                               ],
                             ),
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(Radius.circular(60.0)),
-                              child: Image.asset('assets/cat_picture.png'),  //用户头像
-                              //child: ,
+                            child: InkWell(
+                              onTap: () async {
+                                userProfileIndex = (userProfileIndex + 1) % 2;
+                                setPicker('mprofileIndex', userProfileIndex.toString());
+                                setState(() {
+
+                                });
+                              },
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(60.0)),
+                                child: userProfile[userProfileIndex],  //用户头像
+                                //child: ,
+                              ),
                             ),
+
                           ),
                         ),
                       );
@@ -112,12 +150,65 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8, left: 4),
-                    child: Text(
-                      'User',  //填入用户名
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey,
-                        fontSize: 18,
+                    child: InkWell(
+                      onTap: () {
+                        String newName;
+                        print("username: $userName");
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text('更改用户名'),
+                                content: Card(
+                                  elevation: 0.0,
+                                  child: TextField(
+                                    autofocus: false,
+                                    decoration: InputDecoration(
+                                      hintText: '请输入新用户名(10个字以内)',
+                                      prefixIcon: Icon(Icons.keyboard),
+                                    ),
+                                    maxLines: 1,
+                                    textInputAction: TextInputAction.done,
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(10)
+                                    ],
+                                    onChanged: (inputName) {
+                                      newName = inputName;
+                                    },
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('取消'),
+                                  ),
+                                  FlatButton(
+                                    onPressed: ()  async {
+                                      if (newName != null && newName.length != 0) {
+                                        Toast.show("用户名修改成功！", context);
+                                        userName = newName;
+                                        await setUserName(newName);
+                                        setState(() {});
+                                        Navigator.pop(context);
+                                      } else {
+                                        Toast.show("新用户名不能为空！", context);
+                                      }
+                                    },
+                                    child: Text('确定'),
+                                  ),
+                                ],
+                              );
+                            });
+                      },
+                      child: Text(
+                        '你好！$userName',  //填入用户名
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -293,3 +384,8 @@ class DrawerList {
   String imageName;
   DrawerIndex index;
 }
+
+List<Widget> userProfile = [
+  Image.asset('assets/cat_user.png'),
+  Image.asset('assets/cat_user1.png'),
+];

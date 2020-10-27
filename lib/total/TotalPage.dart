@@ -252,13 +252,13 @@ class _TotalPageContentState extends State<TotalPageContent> {
                     //alignment: Alignment(-0.7, -0.6),
                     alignment: Alignment(-0.7, 0.0),
                     child: Text('  ' + value['账户'],
-                        style: TextStyle(fontSize: 23, color: Colors.blueGrey)),
+                        style: TextStyle(fontSize: 19, color: Colors.blueGrey)),
                   ),
                   Align(
                     alignment: Alignment(0.6, 0),
-                    child: Text(value['金额'] + '元',
+                    child: Text(maxString(value['金额']),
                         style: TextStyle(
-                            fontSize: 22,
+                            fontSize: 20,
                             color: Theme.of(context).primaryColor)),
                   ),
                   Align(
@@ -281,6 +281,22 @@ class _TotalPageContentState extends State<TotalPageContent> {
     return tempList.toList();
   }
 
+  maxString(String money){
+    if(money==null){
+      return money+'元';
+    }
+    //+-99999999.99
+    if(money.length>12){
+      if(money.substring(0,1)=='-'){
+        return '挥金如土';
+      }else{
+        return '腰缠万贯';
+      }
+    }else if(0<money.length && money.length<=12){
+      return money+'元';
+    }
+  }
+
   FocusNode blankNode = FocusNode();
   @override
   Widget build(BuildContext context) {
@@ -295,38 +311,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
         onTap: () {
           FocusScope.of(context).requestFocus(blankNode);
         },
-        child: WillPopScope(
-            onWillPop: () async =>
-                showDialog(
-                    context: context,
-                    builder: (context) =>
-                        AlertDialog(
-                            content: Text('是否退出账户流水查询？'),
-                            title: Text('提示'), actions: <Widget>[
-                          RaisedButton(
-                            child: Text('是'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                  builder: (BuildContext context) => NavigationHomeScreen()));
-                            },
-                          ),
-                          RaisedButton(
-                            child: Text('否'),
-                            onPressed: () {
-                              print('仍为饼状图');
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          RaisedButton(
-                            child: Text('取消'),
-                            onPressed: () {
-                              print('仍为饼状图');
-                              Navigator.of(context).pop();
-                            },
-                          )
-                        ])),
+
             child: Container(
               height: 800,
               width: 600,
@@ -335,7 +320,7 @@ class _TotalPageContentState extends State<TotalPageContent> {
                 children: this._totalListData(),
               ),
             )
-        ),
+
       );
     }
   }

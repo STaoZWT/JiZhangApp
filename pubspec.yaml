@@ -89,6 +89,8 @@ flutter:
     - image/login5.jpg
     - image/theme6.jpg
     - image/qingkong7.jpg
+    - assets/cat_user.png
+    - assets/cat_user1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

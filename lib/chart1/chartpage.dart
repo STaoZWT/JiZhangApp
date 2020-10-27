@@ -58,8 +58,6 @@ class _ChartPageState extends State<ChartPage> {
 
   pagechoose(int _currentIndex){
     if(_currentIndex == 0) { // 饼状图
-      print('测试');
-      print(widget.typeSelect);
       return PiechartPage(
           typeSelect: (widget.typeSelect)==null?typeSelect:(widget.typeSelect),
           type: (widget.type)==null?type:(widget.type),
@@ -96,37 +94,11 @@ class _ChartPageState extends State<ChartPage> {
           FocusScope.of(context).requestFocus(blankNode);
         },
         child: WillPopScope(
-          onWillPop: () async =>
-              showDialog(
-                  context: context,
-                  builder: (context) =>
-                      AlertDialog(
-                          content: Text('是否退出图表查询？'),
-                          title: Text('提示'), actions: <Widget>[
-                        RaisedButton(
-                          child: Text('是'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (BuildContext context) => NavigationHomeScreen()));
-                          },
-                        ),
-                        RaisedButton(
-                          child: Text('否'),
-                          onPressed: () {
-                            print('仍为饼状图');
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                        RaisedButton(
-                          child: Text('取消'),
-                          onPressed: () {
-                            print('仍为饼状图');
-                            Navigator.of(context).pop();
-                          },
-                        )
-                      ])),
+          onWillPop: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (BuildContext context) => NavigationHomeScreen()));
+          },
           child: Scaffold(
                     appBar: AppBar(
                     backgroundColor: Colors.white,
@@ -206,35 +178,6 @@ class _ChartPageState extends State<ChartPage> {
                     ],*/
                     ),
                     body: pagechoose(_currentIndex),
-                    /*bottomNavigationBar: BottomNavigationBar( //界面下方按钮
-                      fixedColor: Colors.blue, //点击后是什么颜色
-                      iconSize: 20.0,//icon的大小
-                      currentIndex: this._currentIndex, //配置对应的索引值选中
-                      type: BottomNavigationBarType.fixed, //配置底部Tabs可以有多个按钮
-                      onTap: (int index){ //点击改变界面
-                        setState(() {
-                          this._currentIndex = index;
-                          print(_currentIndex);
-                          if(_currentIndex == 1) {  // 首页
-                            Navigator.of(context).pop();
-                            //Navigator.of(context).push(MaterialPageRoute(
-                                //builder: (BuildContext context) => HomePage()));
-                          }
-                        });
-                      },
-                      items: [ //按钮定义
-                        BottomNavigationBarItem(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            icon: Icon(Icons.pie_chart, color: Theme.of(context).primaryColor),
-                            title: Text("饼状图", style: TextStyle(color: Colors.black54),)
-                        ),
-                        BottomNavigationBarItem(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            icon: Icon(Icons.home, color: Theme.of(context).primaryColor),
-                            title: Text("首页", style: TextStyle(color: Colors.black54),)
-                        ),
-                      ]
-                  ),*/
                   )
         ),
       );

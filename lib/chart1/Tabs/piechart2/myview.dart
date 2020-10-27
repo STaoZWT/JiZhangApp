@@ -101,10 +101,10 @@ class MyView extends CustomPainter{
       canvas.restore();
 
       // NULL
-      var texts1 ='NULL';
+      var texts1 ='无';
       var tp1 = _newVerticalAxisTextPainter(texts1, context)..layout();
       // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
-      tp1.paint(canvas,  Offset(-(60 - tp1.width / 2), -12.0));
+      tp1.paint(canvas,  Offset(-tp1.width / 2, -16.0));
     }
     else{ //有数据
       ///绘制逻辑与Android差不多
@@ -161,7 +161,7 @@ class MyView extends CustomPainter{
       var texts2 ='$percentage%';
       var tp2 = _newVerticalAxisTextPainter(texts2, context)..layout();
       // Text的绘制起始点 = 可用宽度 - 文字宽度 - 左边距
-      tp2.paint(canvas, Offset(-(75 - tp2.width / 2), -12.0));
+      tp2.paint(canvas, Offset( - tp2.width / 2, -10.0));
 
     }
   }

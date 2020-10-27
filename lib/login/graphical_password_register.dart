@@ -96,7 +96,7 @@ class _GraphicalPasswordRegisterPageState extends State<GraphicalPasswordRegiste
                           },
                           icon: Icon(
                             Icons.keyboard_backspace,
-                            color: Colors.lightBlueAccent,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       ],

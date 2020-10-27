@@ -110,7 +110,7 @@ class _RiPageContentState extends State<RiPageContent>
       var s = new Set();
       s.addAll(accountName);
       accountName = s.toList();
-      accountName.add('净资产');
+      accountName.insert(0,'净资产');
       ///////////////////////////////////////////确定账户个数
       ///////////////////////////////////////////账户1，账户2......
       flag = 1;
@@ -198,7 +198,7 @@ class _RiPageContentState extends State<RiPageContent>
   initall() async {
     await setBillsFromDB();
     //totalList = countT();
-    billsList.sort((a, b) => (b.date).compareTo(a.date));
+    //billsList.sort((a, b) => (b.date).compareTo(a.date));
     maxAc = maxAcCount();
     //print(maxAc);
     totalList = inittotalList();
@@ -317,7 +317,7 @@ class _RiPageContentState extends State<RiPageContent>
               riList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName2 + '收入',
+                'type': tempcardName2 ,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -339,7 +339,7 @@ class _RiPageContentState extends State<RiPageContent>
                   billsList[j].value100 < 100) {
                 detailtemp = "0." + detailtemp100.substring(0, 2);
               } else {
-                detailtemp =
+                detailtemp ='-'+
                     detailtemp100.substring(0, detailtemp100.length - 2) +
                         "." +
                         detailtemp100.substring(
@@ -349,7 +349,7 @@ class _RiPageContentState extends State<RiPageContent>
               riList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName1 + '支出',
+                'type': tempcardName1,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -414,6 +414,7 @@ class _RiPageContentState extends State<RiPageContent>
         for (Map s in detailList) riList[i]['明细'].add(s);
       }
     } else {
+      print('要查找的账户是： $tempaccountName');
       for (var i = 0; i < billsList.length; i++) {
         if (billsList[i].accountIn == tempaccountName ||
             billsList[i].accountOut == tempaccountName) {
@@ -425,8 +426,8 @@ class _RiPageContentState extends State<RiPageContent>
           }
         }
       }
-      print(lastTime);
-      print(firstTime);
+      //print(lastTime);
+      //print(firstTime);
       var dl = new DateTime(lastTime.year, lastTime.month, lastTime.day);
       var df = new DateTime(firstTime.year, firstTime.month, firstTime.day);
       int daydifference = df.difference(dl).inDays;
@@ -471,7 +472,7 @@ class _RiPageContentState extends State<RiPageContent>
                 riList[i]['存在'] = 1;
                 detailList.add({
                   'id': billsList[j].id,
-                  'type': tempcardName2 + '收入',
+                  'type': tempcardName2 ,
                   'title': billsList[j].title,
                   'date': billsList[j].date,
                   'category1': billsList[j].category1,
@@ -495,7 +496,7 @@ class _RiPageContentState extends State<RiPageContent>
                     billsList[j].value100 < 100) {
                   detailtemp = "0." + detailtemp100.substring(0, 2);
                 } else {
-                  detailtemp =
+                  detailtemp ='-'+
                       detailtemp100.substring(0, detailtemp100.length - 2) +
                           "." +
                           detailtemp100.substring(
@@ -505,7 +506,7 @@ class _RiPageContentState extends State<RiPageContent>
                 riList[i]['存在'] = 1;
                 detailList.add({
                   'id': billsList[j].id,
-                  'type': tempcardName1 + '支出',
+                  'type': tempcardName1,
                   'date': billsList[j].date,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
@@ -563,7 +564,7 @@ class _RiPageContentState extends State<RiPageContent>
                     billsList[j].value100 < 100) {
                   detailtemp = "0." + detailtemp100.substring(0, 2);
                 } else {
-                  detailtemp =
+                  detailtemp ='-'+
                       detailtemp100.substring(0, detailtemp100.length - 2) +
                           "." +
                           detailtemp100.substring(
@@ -633,12 +634,11 @@ class _RiPageContentState extends State<RiPageContent>
                           value['日期'].day.toString() +
                           '日\n' +
                           accountName[accountNumber] +
-                          '   ' +
-                          value['金额'] +
-                          '元',
+                          ' ' +
+                          maxString(value['金额']),
                       style: new TextStyle(
                         color: Colors.blueGrey,
-                        fontSize: 20,
+                        fontSize: 19,
                       ),
                     ),
                     trailing: RotationTransition(
@@ -697,10 +697,7 @@ class _RiPageContentState extends State<RiPageContent>
                                               value['明细'][index]['date']
                                                   .minute
                                                   .toString() +
-                                              '分'
-                                                  // '  ' +
-                                                  // value['明细'][index]['title'] +
-                                                  '  ' +
+                                              '分'+'  ' +
                                               value['明细'][index]['type'] +
                                               '  ' +
                                               value['明细'][index]['member'],style: TextStyle(fontSize: 12.0)),
@@ -711,12 +708,12 @@ class _RiPageContentState extends State<RiPageContent>
                                       ]),
                                       secondaryActions: <Widget>[
                                         //右侧按钮列表
-                                        IconSlideAction(
+                                        /*IconSlideAction(
                                           caption: '编辑',
                                           color: Colors.black45,
                                           icon: Icons.more_horiz,
                                           //onTap: () => _showSnackBar('More'),
-                                        ),
+                                        ),*/
                                         IconSlideAction(
                                           caption: '删除',
                                           color: Colors.red,
@@ -777,6 +774,22 @@ class _RiPageContentState extends State<RiPageContent>
               ],
             );
           });
+    }
+  }
+
+  maxString(String money){
+    if(money==null){
+      return money+'元';
+    }
+    //+-99999999.99
+    if(money.length>12){
+      if(money.substring(0,1)=='-'){
+        return '挥金如土';
+      }else{
+        return '腰缠万贯';
+      }
+    }else if(0<money.length && money.length<=12){
+      return money+'元';
     }
   }
 

@@ -116,7 +116,7 @@ class _PasswordResetPage extends State<PasswordResetPage> {
                           },
                           icon: Icon(
                             Icons.arrow_back,
-                            color: Colors.lightBlueAccent,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                         SizedBox(
@@ -140,7 +140,7 @@ class _PasswordResetPage extends State<PasswordResetPage> {
                                 color: Colors.white,
                               ),
                             ),
-                            color: Colors.lightBlueAccent,
+                            color: Theme.of(context).primaryColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                           ),

@@ -301,7 +301,7 @@ class _NianPageContentState extends State<NianPageContent>
               nianList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName2+'收入',
+                'type': tempcardName2,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -324,7 +324,7 @@ class _NianPageContentState extends State<NianPageContent>
                   billsList[j].value100 < 100) {
                 detailtemp = "0." + detailtemp100.substring(0, 2);
               } else {
-                detailtemp =
+                detailtemp ='-'+
                     detailtemp100.substring(0, detailtemp100.length - 2) +
                         "." +
                         detailtemp100.substring(
@@ -335,7 +335,7 @@ class _NianPageContentState extends State<NianPageContent>
               nianList[i]['存在'] = 1;
               detailList.add({
                 'id': billsList[j].id,
-                'type': tempcardName1+'支出',
+                'type': tempcardName1,
                 'date': billsList[j].date,
                 'title': billsList[j].title,
                 'category1': billsList[j].category1,
@@ -356,7 +356,7 @@ class _NianPageContentState extends State<NianPageContent>
                   billsList[j].value100 < 100) {
                 detailtemp = "0." + detailtemp100.substring(0, 2);
               } else {
-                detailtemp = '-' +
+                detailtemp =
                     detailtemp100.substring(0, detailtemp100.length - 2) +
                     "." +
                     detailtemp100.substring(
@@ -445,7 +445,7 @@ class _NianPageContentState extends State<NianPageContent>
                 detailList.add({
                   'id': billsList[j].id,
                   'date': billsList[j].date,
-                  'type': tempcardName2+'收入',
+                  'type': tempcardName2,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
                   'category2': billsList[j].category2,
@@ -468,7 +468,7 @@ class _NianPageContentState extends State<NianPageContent>
                     billsList[j].value100 < 100) {
                   detailtemp = "0." + detailtemp100.substring(0, 2);
                 } else {
-                  detailtemp =
+                  detailtemp ='-'+
                       detailtemp100.substring(0, detailtemp100.length - 2) +
                           "." +
                           detailtemp100.substring(
@@ -479,7 +479,7 @@ class _NianPageContentState extends State<NianPageContent>
                 detailList.add({
                   'id': billsList[j].id,
                   'date': billsList[j].date,
-                  'type': tempcardName1+'支出',
+                  'type': tempcardName1,
                   'title': billsList[j].title,
                   'category1': billsList[j].category1,
                   'category2': billsList[j].category2,
@@ -536,7 +536,7 @@ class _NianPageContentState extends State<NianPageContent>
                     billsList[j].value100 < 100) {
                   detailtemp = "0." + detailtemp100.substring(0, 2);
                 } else {
-                  detailtemp = '-' +
+                  detailtemp =
                       detailtemp100.substring(0, detailtemp100.length - 2) +
                       "." +
                       detailtemp100.substring(
@@ -615,12 +615,11 @@ class _NianPageContentState extends State<NianPageContent>
                   value['日期'].toString() +
                       '年\n' +
                       accountName[accountNumber] +
-                      '                                        ' +
-                      value['金额'] +
-                      '元',
+                      ' ' +
+                      maxString(value['金额']),
                   style: new TextStyle(
                     color: Colors.blueGrey,
-                    fontSize: 20,
+                    fontSize: 19,
                   ),
                 ),
                 trailing: RotationTransition(
@@ -684,10 +683,7 @@ class _NianPageContentState extends State<NianPageContent>
                                           value['明细'][index]['date']
                                               .minute
                                               .toString() +
-                                          '分'
-                                              // '  ' +
-                                              // value['明细'][index]['title'] +
-                                              '\n' +
+                                          '分'+ '\n' +
                                           value['明细'][index]['type'] +
                                           '  ' +
                                           value['明细'][index]['member'],style: TextStyle(fontSize: 12.0)),
@@ -697,12 +693,12 @@ class _NianPageContentState extends State<NianPageContent>
                                   ]),
                                   secondaryActions: <Widget>[
                                     //右侧按钮列表
-                                    IconSlideAction(
+                                    /*IconSlideAction(
                                       caption: '编辑',
                                       color: Colors.black45,
                                       icon: Icons.more_horiz,
                                       //onTap: () => _showSnackBar('More'),
-                                    ),
+                                    ),*/
                                     IconSlideAction(
                                       caption: '删除',
                                       color: Colors.red,
@@ -777,6 +773,22 @@ class _NianPageContentState extends State<NianPageContent>
               ],
             );
           });
+    }
+  }
+
+  maxString(String money){
+    if(money==null){
+      return money+'元';
+    }
+    //+-99999999.99
+    if(money.length>12){
+      if(money.substring(0,1)=='-'){
+        return '挥金如土';
+      }else{
+        return '腰缠万贯';
+      }
+    }else if(0<money.length && money.length<=12){
+      return money+'元';
     }
   }
 

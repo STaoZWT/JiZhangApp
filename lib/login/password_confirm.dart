@@ -116,7 +116,7 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
                           },
                           icon: Icon(
                             Icons.arrow_back,
-                            color: Colors.lightBlueAccent,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                         SizedBox(
@@ -141,7 +141,7 @@ class _PasswordConfirmPage extends State<PasswordConfirmPage> {
                                 color: Colors.white,
                               ),
                             ),
-                            color: Colors.lightBlueAccent,
+                            color: Theme.of(context).primaryColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                           ),
