@@ -20,9 +20,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
   String userName = 'User';
   
   int userProfileIndex;
+  bool flag;
 
   @override
   void initState() {
+    flag = false;
     userProfileIndex = 0;
     setDrawerListArray();
     super.initState();
@@ -70,18 +72,28 @@ class _HomeDrawerState extends State<HomeDrawer> {
           index: DrawerIndex.About,
           labelName: '帮助',
           icon: Icon(Icons.help),
-      )
-      // DrawerList(
-      //   index: DrawerIndex.About,
-      //   labelName: 'About Us',
-      //   icon: Icon(Icons.info),
-      // ),
+      ),
+      DrawerList(
+        index:  DrawerIndex.Testing,
+        labelName: '关于我们',
+        icon: Icon(Icons.message),
+      ),
     ];
+
+    flag = true;
+    setState(() {
+
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    if (flag == false) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    else return Scaffold(
       backgroundColor: Theme.of(context).primaryColor.withOpacity(0.2),
       //AppTheme.notWhite.withOpacity(0.5),
       body: Column(
