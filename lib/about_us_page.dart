@@ -71,7 +71,6 @@ class _aboutUsPage extends State<aboutUsPage> {
                               color: Theme.of(context).accentColor),
                         ),
                       ),
-
                       Column(
                         crossAxisAlignment:CrossAxisAlignment.start,
                         children: <Widget>[
