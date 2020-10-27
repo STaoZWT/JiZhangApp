@@ -163,18 +163,6 @@ class _CardAddBill extends State<CardAddBill>
                         )
                       ])),
           child: Scaffold(
-            // floatingActionButton: FloatingActionButton.extended(
-            //   backgroundColor: Theme.of(context).primaryColor,
-            //   onPressed: () {
-            //     billConfirm();
-            //   },
-            //   icon: Icon(
-            //     Icons.check,
-            //     size: 30,
-            //   ),
-            //   label: Text("  完成 "),
-            // ),
-            // floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
             appBar: AppBar(
               backgroundColor: Colors.white,
               centerTitle: true,
@@ -239,25 +227,6 @@ class _CardAddBill extends State<CardAddBill>
                 color: Theme.of(context).primaryColor,
               ),
               actions: <Widget>[
-                IconButton(
-                    icon: FaIcon(FontAwesomeIcons.alipay, color: Theme
-                        .of(context)
-                        .primaryColor,),
-                    onPressed: () async {
-                      // List<BillsModel> allBills = await BillsDatabaseService.db.getBillsFromDB();
-                      // allBills.forEach((element) {
-                      //   print(element.toMap().toString());
-                      // });
-                      // int test = await BillsDatabaseService.db.getAccountNetAsset('现金账户');
-                      // print("test: $test");
-                      BillsDatabaseService.db.billsCountThisMonth();
-                      BillsDatabaseService.db.assetInThisMonth();
-                      BillsDatabaseService.db.assetOutThisMonth();
-                      BillsDatabaseService.db.LatestBill();
-                      // Navigator.push(context, MaterialPageRoute(
-                      //   builder: (context) => AccountCardPage()
-                      // ));
-                    }),
                 AnimatedContainer(
                   margin: EdgeInsets.fromLTRB(10, 6, 0, 6),
                   //EdgeInsets.only(left: 10),

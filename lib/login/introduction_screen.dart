@@ -33,7 +33,7 @@ class _IntroductionScreenPageState extends State<IntroductionScreenPage> {
       titleTextStyle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
       descriptionPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-      pageColor: Colors.lightBlueAccent,
+      pageColor: Colors.transparent,
       imagePadding: EdgeInsets.fromLTRB(5.0, 30.0, 5.0, 30.0),
       imageFlex: 5,
       bodyFlex: 2
