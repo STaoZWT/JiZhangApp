@@ -28,65 +28,63 @@ class _IntroductionScreenPageState extends State<IntroductionScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    const bodyStyle = TextStyle(fontSize: 19.0);
+    const bodyStyle = TextStyle(fontSize: 12.0);
     const pageDecoration = const PageDecoration(
-      titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+      titleTextStyle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
       descriptionPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
       pageColor: Colors.lightBlueAccent,
-      imagePadding: EdgeInsets.fromLTRB(16.0, 30.0, 16.0, 30.0),
-      imageFlex: 2,
+      imagePadding: EdgeInsets.fromLTRB(5.0, 30.0, 5.0, 30.0),
+      imageFlex: 5,
+      bodyFlex: 2
     );
 
     return IntroductionScreen(
       key: introKey,
       pages: [
         PageViewModel(
-          title: "引导页1",
+          title: "主页面",
           body:
-          "引导内容1",
-          image: _buildImage('cat'),
+          "在主页中可以查看本月记账情况和最近记账",
+          image: _buildImage('homepage1'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "引导页2",
+          title: "记账页面",
           body:
-          "引导内容2",
-          image: _buildImage('cat'),
+          "在记账页面中可以分账户、记账类型、记账类别、记账成员进行个性化记账，还可以自定义记账类别。方便快捷",
+          image: _buildImage('jizhang2'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "引导页3",
+          title: "统计页面",
           body:
-          "引导内容3",
-          image: _buildImage('cat'),
+          "在统计页面可以查看账户的具体信息，按年、月、季度查看统计信息。并且可以方便地查看流水",
+          image: _buildImage('tongji3'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          title: "引导页4",
+          title: "图表分析界面",
           body:
-          "引导内容4",
-          image: _buildImage('cat'),
+          "在图表分析页面可以查看不同类别的图标可视化统计信息",
+          image: _buildImage('tubiao4'),
           decoration: pageDecoration,
         ),
         PageViewModel(
-          // title: "Title of last page",
-          // bodyWidget: Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: const [
-          //     Text("Click on ", style: bodyStyle),
-          //     Icon(Icons.edit),
-          //     Text(" to edit a post", style: bodyStyle),
-          //   ],
-          // ),
-          // image: _buildImage('tupian'),
-          // decoration: pageDecoration,
-          title: "引导页1",
+          title: "修改主题页面",
           body:
-          "引导内容",
-          image: _buildImage('tupian'),
+          "在修改主题页面可以选择喜欢的主题",
+          image: _buildImage('theme6'),
           decoration: pageDecoration,
         ),
+        PageViewModel(
+          title: "清空数据页面",
+          body:
+          "在清空数据页面可以清空本地所有的数据，并且重启。使用这个功能需要谨慎哦！",
+          image: _buildImage('qingkong7'),
+          decoration: pageDecoration,
+        ),
+
       ],
       onDone: () => _onIntroEnd(context),
       onSkip: () => _onIntroEnd(context), // You can override onSkip callback
