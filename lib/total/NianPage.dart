@@ -989,8 +989,6 @@ class _NianPageContentState extends State<NianPageContent>
                                                                             Theme.of(context).primaryColor.withOpacity(0.4),
                                                                           ),
                                                                         ),
-
-
                                                             ),
                                                           ],
                                                         ),
