@@ -755,11 +755,7 @@ class _HomePageState extends State<HomePage> {
                                     color:
                                     Theme.of(context).primaryColor.withOpacity(0.4),
                                   ),
-                                ),
-
-
-
-
+                                )
                               ],
                             ),
 
@@ -870,7 +866,6 @@ class _HomePageState extends State<HomePage> {
                                                           '元',
                                                           textAlign: TextAlign.center,
                                                           style: TextStyle(
-
                                                             fontWeight:
                                                             FontWeight.w600,
                                                             fontSize: 12,
@@ -1020,14 +1015,12 @@ class _HomePageState extends State<HomePage> {
                                                   '${countBalance (income, outcome)}',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
-
                                                     fontWeight: FontWeight.normal,
                                                     fontSize: 12,
                                                     letterSpacing: 0.0,
                                                     color: Theme.of(context).primaryColor,
                                                   ),
                                                 ),
-
                                               ],
                                             ),
                                           ),
@@ -1072,12 +1065,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 )
-
-
-
               ],
             ),
-
           ),
           floatingActionButton: Container(
             height: 60,
@@ -1092,7 +1081,6 @@ class _HomePageState extends State<HomePage> {
               child: Icon(Icons.add),
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: (){
-
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => CardAddBill())).then((value) => getHomePageData());
               },
