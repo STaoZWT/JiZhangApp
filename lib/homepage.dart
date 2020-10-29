@@ -750,7 +750,6 @@ class _HomePageState extends State<HomePage> {
                                   '备注：${latestBill.title}',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-
                                     fontWeight: FontWeight.w600,
                                     fontSize: 12,
                                     color:
