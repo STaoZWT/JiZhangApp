@@ -996,7 +996,6 @@ class _NianPageContentState extends State<NianPageContent>
                                                     ),
                                               );
                                             },
-
                                         );
                                       },
                                     ),
