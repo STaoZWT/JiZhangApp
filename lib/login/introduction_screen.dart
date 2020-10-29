@@ -29,7 +29,7 @@ class _IntroductionScreenPageState extends State<IntroductionScreenPage> {
   @override
   Widget build(BuildContext context) {
     const bodyStyle = TextStyle(fontSize: 12.0);
-    const pageDecoration = const PageDecoration(
+    const pageDecoration =const PageDecoration(
       titleTextStyle: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700),
       bodyTextStyle: bodyStyle,
       descriptionPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
