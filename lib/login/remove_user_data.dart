@@ -6,6 +6,7 @@ import '../service/app_info.dart';
 import 'package:provider/provider.dart';
 
 class RemoveUserDataPage extends StatefulWidget {
+  const RemoveUserDataPage({Key key}) : super(key:key);
   @override
   _RemoveUserDataPageState createState() => _RemoveUserDataPageState();
 }
@@ -103,24 +104,27 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
           label:
             Text(
                 "确认清空数据",
-              style: TextStyle(
-                fontSize: 20
-              ),
+              // style: TextStyle(
+              //   fontSize: 20
+              // ),
             ),
             icon: Icon(
               Icons.warning,
-              size: 30,
+              //size: 30,
             ),
-            backgroundColor: Colors.red,
+            backgroundColor: Theme.of(context).primaryColor,
           ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       appBar: AppBar(
         title: Text(
           "清空所有数据确认页面",
+          style: TextStyle(color: Theme.of(context).primaryColor),
         ),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.white,
+        centerTitle:true,
       ),
-      body: Column(
+      body:
+      ListView(
         children: <Widget>[
           SizedBox(
             height: 10,
@@ -141,7 +145,7 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black87,
+                            color:Theme.of(context).primaryColor,
                             height: 1.8,
                         ),
                       ),
@@ -149,7 +153,7 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
                         text: '''本操作将删除您的''',
                         style: TextStyle(
                           fontSize: 20,
-                          color: Colors.black87,
+                          color: Theme.of(context).primaryColor,
                           height: 1.8,
                         ),
                       ),
@@ -158,7 +162,7 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                          color: Theme.of(context).primaryColor,
                           height: 1.8,
                         ),
                       ),
@@ -166,7 +170,7 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
                         text: '''数据，包括所有记账记录和登录密码等，并使应用初始化。如果您确认进行此操作，请在下方输入您的登录密码，并点击''',
                         style: TextStyle(
                           fontSize: 20,
-                          color: Colors.black87,
+                          color: Theme.of(context).primaryColor,
                           height: 1.8,
                         ),
                       ),
@@ -175,7 +179,7 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                          color: Theme.of(context).primaryColor,
                           height: 1.8,
                         ),
                       ),
@@ -184,7 +188,7 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
 ''',
                         style: TextStyle(
                           fontSize: 20,
-                          color: Colors.black87,
+                          color: Theme.of(context).primaryColor,
                           height: 1.8,
                         ),
                       ),
@@ -222,8 +226,9 @@ class _RemoveUserDataPageState extends State<RemoveUserDataPage> {
                 //prefixIcon: Icon(Icons.attach_money),
                 prefixIcon: Icon(
                   Icons.warning,
-                  color: Colors.red,
+                  color: Theme.of(context).primaryColor,
                 ),
+
               ),
               style: TextStyle(
                 fontSize: 20,

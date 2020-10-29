@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                                         padding: const EdgeInsets.only(
                                             left: 4, bottom: 3),
                                         child: Text(
-                                          '$billsCount',    //本月记账笔数
+                                          (billsCount>9999)?'很多':'$billsCount',    //本月记账笔数
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             //fontFamily: FitnessAppTheme.fontName,
@@ -334,7 +334,7 @@ class _HomePageState extends State<HomePage> {
                                                         const EdgeInsets.only(
                                                             left: 4, bottom: 3),
                                                         child: Text(
-                                                          income,
+                                                          (double.parse(income)>9999999.99)?'家财万贯':income,
                                                           textAlign: TextAlign.center,
                                                           style: TextStyle(
 
@@ -421,7 +421,7 @@ class _HomePageState extends State<HomePage> {
                                                         const EdgeInsets.only(
                                                             left: 4, bottom: 3),
                                                         child: Text(
-                                                          outcome,
+                                                          (double.parse(outcome)>9999999.99)?'挥金如土':outcome,
                                                           textAlign: TextAlign.center,
                                                           style: TextStyle(
                                                             fontWeight:
@@ -735,9 +735,27 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
-
-
-
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 24, right: 24, top: 8, bottom: 8),
+                                  child: Container(
+                                    height: 1,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  '备注：${latestBill.title}',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                    color:
+                                    Theme.of(context).primaryColor.withOpacity(0.4),
+                                  ),
+                                )
                               ],
                             ),
 
@@ -848,7 +866,6 @@ class _HomePageState extends State<HomePage> {
                                                           '元',
                                                           textAlign: TextAlign.center,
                                                           style: TextStyle(
-
                                                             fontWeight:
                                                             FontWeight.w600,
                                                             fontSize: 12,
@@ -998,14 +1015,12 @@ class _HomePageState extends State<HomePage> {
                                                   '${countBalance (income, outcome)}',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
-
                                                     fontWeight: FontWeight.normal,
                                                     fontSize: 12,
                                                     letterSpacing: 0.0,
                                                     color: Theme.of(context).primaryColor,
                                                   ),
                                                 ),
-
                                               ],
                                             ),
                                           ),
@@ -1050,12 +1065,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 )
-
-
-
               ],
             ),
-
           ),
           floatingActionButton: Container(
             height: 60,
@@ -1070,7 +1081,6 @@ class _HomePageState extends State<HomePage> {
               child: Icon(Icons.add),
               backgroundColor: Theme.of(context).primaryColor,
               onPressed: (){
-
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (BuildContext context) => CardAddBill())).then((value) => getHomePageData());
               },
@@ -1082,7 +1092,7 @@ class _HomePageState extends State<HomePage> {
             centerTitle:true,
             automaticallyImplyLeading:false,
             title: Text(
-              "喵喵记",
+              "喵喵记(>^ω^<)",
               style: TextStyle(color: Theme.of(context).primaryColor),
             ),
             iconTheme: IconThemeData(color: Colors.white),

@@ -20,7 +20,7 @@ class _aboutUsPage extends State<aboutUsPage> {
         centerTitle:true,
         automaticallyImplyLeading:false,
         title: Text(
-          "喵喵记",
+          "喵喵记(>^ω^<)",
           style: TextStyle(color: Theme.of(context).primaryColor),
         ),
         iconTheme: IconThemeData(color: Colors.white),
@@ -92,7 +92,7 @@ class _aboutUsPage extends State<aboutUsPage> {
                             const EdgeInsets.only(top: 16, left: 16, right: 24),
                             child:Text(
                               '项目组成员：\n'
-                                  'STao: 数据库，记账功能\n'
+                                  'STao: 数据库，记账功能，更换主题\n'
                                   '柴犬球: 记账功能，主页\n'
                                   'kangkang: 登录页，注册页，主页，新手指引\n'
                                   'Keyi Han: 图表统计，账户统计\n'
@@ -111,12 +111,8 @@ class _aboutUsPage extends State<aboutUsPage> {
                             padding:
                             const EdgeInsets.only(top: 16, left: 16, right: 24),
                             child:Text(
-                              '项目组联系方式：\n'
-                                  '2210757546@qq.com\n'
-                                  '1215477947@qq.com\n'
-                                  '3381862149@qq.com\n'
-                                  '1317191334@qq.com\n'
-                                  '1315122620@qq.com\n'
+                              '如果您有任何宝贵意见，可通过github反馈给我们\n'
+                              '如果您喜欢我们的项目，请点亮star支持我们，非常感谢\n'
                               ,
                               textAlign: TextAlign.start,
                               style: TextStyle(

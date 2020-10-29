@@ -687,8 +687,10 @@ class _NianPageContentState extends State<NianPageContent>
                                           value['明细'][index]['type'] +
                                           '  ' +
                                           value['明细'][index]['member'],style: TextStyle(fontSize: 12.0)),
-                                      onTap: () => print("$index被点击了"),
-                                      onLongPress: () => print("$index被长按了"),
+                                      onTap: () {
+
+
+                                        },
                                     ),
                                   ]),
                                   secondaryActions: <Widget>[
@@ -814,4 +816,7 @@ class _NianPageContentState extends State<NianPageContent>
       );
     }
   }
+
+
+
 }
