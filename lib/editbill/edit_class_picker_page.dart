@@ -90,7 +90,6 @@ class _editClassPicker extends State<editClassPicker> {
                     if (newCategory1 != null) {
                       bool isExist = false;
                       classList.forEach((element) {
-                        //print("${newCategory1.keys}   ${(element as Map).keys}");
                         if (removeBrackets((element as Map).keys.toString()) == newCategory1) {
                           isExist = true; //判断修改的一级分类是否重复
                         }

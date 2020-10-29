@@ -735,6 +735,29 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ],
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 24, right: 24, top: 8, bottom: 8),
+                                  child: Container(
+                                    height: 1,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  '备注：${latestBill.title}',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                    color:
+                                    Theme.of(context).primaryColor.withOpacity(0.4),
+                                  ),
+                                ),
+
 
 
 

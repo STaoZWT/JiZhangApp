@@ -519,6 +519,9 @@ class _CardAddBill extends State<CardAddBill>
                                                   arguments: editClassPickerArguments(
                                                       classPickerData,
                                                       tab.text));
+                                              classInSelectText = '未选择,未选择';
+                                              classOutSelectText = '未选择,未选择';
+                                              setState(() { });
                                             },
                                           ),
                                         ),
@@ -584,6 +587,9 @@ class _CardAddBill extends State<CardAddBill>
                                             context, "/editAccountPicker",
                                             arguments: editAccountPickerArguments(
                                                 accountPickerData));
+                                        accountInSelectText = '未选择';
+                                        accountOutSelectText = '未选择';
+                                        setState(() { });
                                       },
                                     ),
                                   ),
@@ -683,7 +689,9 @@ class _CardAddBill extends State<CardAddBill>
                                         Navigator.pushNamed(
                                             context, "/editMemberPicker",
                                             arguments: editMemberPickerArguments(
-                                                memberPickerData));
+                                                memberPickerData)).then((value) => null);
+                                        memberSelectText = '未选择';
+                                        setState(() { });
                                       },
                                     ),
                                   ),
