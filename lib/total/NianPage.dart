@@ -1015,7 +1015,6 @@ class _NianPageContentState extends State<NianPageContent>
                                               value['明细'][index]['id']);
                                           (value['明细']).removeAt(
                                               index); //删除某条信息!!!!!!!!!
-                                          //initState();
                                           Navigator.of(context).pop();
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
