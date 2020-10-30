@@ -447,6 +447,36 @@ class BillsDatabaseService {
     return null;
   }
 
+  Future<BillsModel> getBillById(int id) async {
+    final db = await database;
+    List<BillsModel> billsList = [];
+    List<Map> maps = await db.query('Bills', columns: [
+      '_id',
+      'title',
+      'date',
+      'type',
+      'accountIn',
+      'accountOut',
+      'category1',
+      'category2',
+      'member',
+      'value100'
+    ],
+        where: '_id = ?',
+        whereArgs: [id],
+        orderBy: 'date DESC',
+        limit: 1
+    );
+    if (maps.length > 0) {
+      maps.forEach((map) {
+        billsList.add(BillsModel.fromMap(map));
+      });
+    }
+    if (billsList.length != 0)
+      return billsList[0];
+    return null;
+  }
+
 
 
 
