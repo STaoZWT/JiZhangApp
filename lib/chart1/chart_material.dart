@@ -175,9 +175,7 @@ double formatNum(double num,int postion){
           }
           if(flag==0){//不存在
             datanow = new PieData(colorListPie[i], 0.00, data[i].category2, data[i].value100 /100);
-            print(data[i].category2);
             dataPie.add(datanow);
-            flag = 0;
           }
           flag = 0;
           allPrice = allPrice + (data[i].value100)/100;
@@ -194,7 +192,6 @@ double formatNum(double num,int postion){
           if(flag==0){//不存在
             datanow = new PieData(colorListPie[i], 0.00, data[i].member, data[i].value100 /100);
             dataPie.add(datanow);
-            flag = 0;
           }
           flag = 0;
           allPrice = allPrice + (data[i].value100)/100;
@@ -211,14 +208,12 @@ double formatNum(double num,int postion){
           if(flag==0){//不存在
             datanow = new PieData(colorListPie[i], 0.00, data[i].accountOut, data[i].value100 /100);
             dataPie.add(datanow);
-            flag = 0;
           }
           flag = 0;
           allPrice = allPrice + (data[i].value100)/100;
         }
       }
     }
-    print(allPrice);
     if(allPrice!=0){ //不能除0
       for(int i=0;i<dataPie.length;i++)
       {
@@ -230,8 +225,6 @@ double formatNum(double num,int postion){
         }
       }
     }
-    print(dataPieFull);
-    //print(n);
     return dataPieFull; // 总数据
   }
 

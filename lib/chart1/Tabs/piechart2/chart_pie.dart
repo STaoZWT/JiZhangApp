@@ -649,7 +649,7 @@ class _PiechartPageState extends State<PiechartPage> {
                                                       child: mData[index].price>99999999.99?
                                                         Text(maxString(type), style: TextStyle(fontSize: 17.0,
                                                             color: mData[index].color)):
-                                                        Text('${mData[index].price}', style: TextStyle(fontSize: 17.0,
+                                                        Text('${formatNum(mData[index].price, 2)}', style: TextStyle(fontSize: 17.0,
                                                                       color: mData[index].color)),
                                                     )
                                                 ),
