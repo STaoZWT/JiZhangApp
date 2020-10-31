@@ -1045,6 +1045,7 @@ class _JiPageContentState extends State<JiPageContent>
                                                           ),
                                                           //备注
                                                           Expanded(
+                                                            flex: 3,
                                                             child:Text(
                                                               '${bill.title}',
                                                               textAlign: TextAlign.start,
