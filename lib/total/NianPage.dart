@@ -2,6 +2,7 @@
 //flutter_slidable: ^0.5.4
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:toast/toast.dart';
 import '../total/TotalPage.dart';
 import '../data/model.dart';
@@ -643,7 +644,7 @@ class _NianPageContentState extends State<NianPageContent>
                       itemCount: value['明细'].length,
                       itemBuilder: (context, index) {
                         return new Container(
-                            height: 65,
+                            height: 72,
                             child: Card(
                                 margin: EdgeInsets.all(1.0),
                                 elevation: 2.0,
@@ -710,7 +711,7 @@ class _NianPageContentState extends State<NianPageContent>
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                title: Text('详情'),
+                                                title: Text('流水详情'),
                                                 content:
                                                     SizedBox(
                                                       width: 150,
@@ -725,12 +726,14 @@ class _NianPageContentState extends State<NianPageContent>
                                                             Expanded(
                                                               child: Row(
                                                                 mainAxisAlignment: MainAxisAlignment.center,
-                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                crossAxisAlignment: CrossAxisAlignment.center,
                                                                 children: <Widget>[
                                                                   Expanded(
                                                                     child: Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                      crossAxisAlignment: CrossAxisAlignment.center,
                                                                       children: <Widget>[
-                                                                        Icon(Icons.access_time),
+                                                                        Icon(Icons.date_range),
                                                                         Text(
                                                                           ' 时间',
                                                                           textAlign: TextAlign.center,
@@ -747,20 +750,17 @@ class _NianPageContentState extends State<NianPageContent>
 
                                                                   ),
                                                                   Expanded(
-                                                                    child: Padding(
-                                                                      padding: const EdgeInsets.only(top: 6),
                                                                       child: Text(
                                                                         '${bill.date.month}月${bill.date.day}日',
                                                                         textAlign: TextAlign.center,
                                                                         style: TextStyle(
-
-                                                                          fontWeight: FontWeight.w600,
-                                                                          fontSize: 12,
+                                                                          fontWeight: FontWeight.w400,
+                                                                          fontSize: 16,
                                                                           color:
-                                                                          Theme.of(context).primaryColor.withOpacity(0.5),
+                                                                          Colors.black.withOpacity(0.7),
                                                                         ),
                                                                       ),
-                                                                    ),
+
                                                                   ),
                                                                 ],
                                                               ),
@@ -769,14 +769,16 @@ class _NianPageContentState extends State<NianPageContent>
                                                             Expanded(
                                                                   child: Row(
                                                                     mainAxisAlignment: MainAxisAlignment.center,
-                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
                                                                     children: <Widget>[
                                                                       Expanded(
                                                                         child: Row(
+                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                          crossAxisAlignment: CrossAxisAlignment.center,
                                                                           children: <Widget>[
-                                                                            Icon(Icons.attach_money),
+                                                                            FaIcon(FontAwesomeIcons.yenSign),
                                                                             Text(
-                                                                              ' 金额',
+                                                                              '  金额',
                                                                               textAlign: TextAlign.center,
                                                                               style: TextStyle(
 
@@ -790,19 +792,17 @@ class _NianPageContentState extends State<NianPageContent>
                                                                         ),
                                                                       ),
                                                                       Expanded(
-                                                                        child: Padding(
-                                                                          padding: const EdgeInsets.only(top: 6),
                                                                           child: Text(
                                                                             '${value100ConvertToText (bill.value100)} 元',
                                                                             textAlign: TextAlign.center,
                                                                             style: TextStyle(
-                                                                              fontWeight: FontWeight.w600,
-                                                                              fontSize: 12,
-                                                                              color: Theme.of(context).primaryColor
-                                                                                  .withOpacity(0.5),
+                                                                              fontWeight: FontWeight.w400,
+                                                                              fontSize: 16,
+                                                                              color:
+                                                                              Colors.black.withOpacity(0.7),
                                                                             ),
                                                                           ),
-                                                                        ),
+
                                                                       ),
                                                                     ],
                                                                   ),
@@ -811,12 +811,14 @@ class _NianPageContentState extends State<NianPageContent>
                                                             Expanded(
                                                               child: Row(
                                                                 mainAxisAlignment: MainAxisAlignment.center,
-                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                crossAxisAlignment: CrossAxisAlignment.center,
                                                                 children: <Widget>[
                                                                   Expanded(
                                                                     child: Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                      crossAxisAlignment: CrossAxisAlignment.center,
                                                                       children: <Widget>[
-                                                                        Icon(Icons.attach_file),
+                                                                        Icon(Icons.arrow_forward_ios,),
                                                                         Text(
                                                                           (bill.type==2)?' 转出':' 分类1',
                                                                           style: TextStyle(
@@ -830,19 +832,17 @@ class _NianPageContentState extends State<NianPageContent>
                                                                     ),
                                                                   ),
                                                                   Expanded(
-                                                                    child: Padding(
-                                                                      padding: const EdgeInsets.only(top: 6),
                                                                       child: Text(
                                                                         (bill.type==2)?'${bill.accountOut}':'${bill.category1}',
                                                                         textAlign: TextAlign.center,
                                                                         style: TextStyle(
-                                                                          fontWeight: FontWeight.w600,
-                                                                          fontSize: 12,
-                                                                          color: Theme.of(context).primaryColor
-                                                                              .withOpacity(0.5),
+                                                                          fontWeight: FontWeight.w400,
+                                                                          fontSize: 16,
+                                                                          color:
+                                                                          Colors.black.withOpacity(0.7),
                                                                         ),
                                                                       ),
-                                                                    ),
+
                                                                   ),
 
                                                                 ],
@@ -853,12 +853,14 @@ class _NianPageContentState extends State<NianPageContent>
                                                             Expanded(
                                                               child: Row(
                                                                     mainAxisAlignment: MainAxisAlignment.center,
-                                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
                                                                     children: <Widget>[
                                                                       Expanded(
                                                                         child: Row(
+                                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                                          crossAxisAlignment: CrossAxisAlignment.center,
                                                                           children: <Widget>[
-                                                                            Icon(Icons.attach_file),
+                                                                            Icon(Icons.arrow_forward_ios,),
                                                                             Text(
                                                                               (bill.type==2)?' 转入':' 分类2',
                                                                               style: TextStyle(
@@ -872,19 +874,17 @@ class _NianPageContentState extends State<NianPageContent>
                                                                         ),
                                                                       ),
                                                                       Expanded(
-                                                                        child: Padding(
-                                                                          padding: const EdgeInsets.only(top: 6),
                                                                           child: Text(
                                                                             (bill.type==2)?'${bill.accountIn}':'${bill.category2}',
                                                                             textAlign: TextAlign.center,
                                                                             style: TextStyle(
-                                                                              fontWeight: FontWeight.w600,
-                                                                              fontSize: 12,
-                                                                              color: Theme.of(context).primaryColor
-                                                                                  .withOpacity(0.5),
+                                                                              fontWeight: FontWeight.w400,
+                                                                              fontSize: 16,
+                                                                              color:
+                                                                              Colors.black.withOpacity(0.7),
                                                                             ),
                                                                           ),
-                                                                        ),
+
                                                                       ),
                                                                     ],
                                                                   ),
@@ -895,14 +895,16 @@ class _NianPageContentState extends State<NianPageContent>
                                                               child: Expanded(
                                                                 child: Row(
                                                                   mainAxisAlignment: MainAxisAlignment.center,
-                                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  crossAxisAlignment: CrossAxisAlignment.center,
                                                                   children: <Widget>[
                                                                     Expanded(
                                                                       child: Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                                        crossAxisAlignment: CrossAxisAlignment.center,
                                                                         children: <Widget>[
                                                                           Icon(Icons.account_balance_wallet),
                                                                           Text(
-                                                                            '账户',
+                                                                            ' 账户',
                                                                             style: TextStyle(
                                                                               fontWeight: FontWeight.w500,
                                                                               fontSize: 16,
@@ -914,19 +916,17 @@ class _NianPageContentState extends State<NianPageContent>
                                                                       ),
                                                                     ),
                                                                     Expanded(
-                                                                      child: Padding(
-                                                                        padding: const EdgeInsets.only(top: 6),
                                                                         child: Text(
                                                                           '${bill.accountOut}',
                                                                           textAlign: TextAlign.center,
                                                                           style: TextStyle(
-                                                                            fontWeight: FontWeight.w600,
-                                                                            fontSize: 12,
-                                                                            color: Theme.of(context).primaryColor
-                                                                                .withOpacity(0.5),
+                                                                            fontWeight: FontWeight.w400,
+                                                                            fontSize: 16,
+                                                                            color:
+                                                                            Colors.black.withOpacity(0.7),
                                                                           ),
                                                                         ),
-                                                                      ),
+
                                                                     ),
                                                                   ],
                                                                 ),
@@ -936,14 +936,16 @@ class _NianPageContentState extends State<NianPageContent>
                                                             Expanded(
                                                               child: Row(
                                                                 mainAxisAlignment: MainAxisAlignment.center,
-                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                crossAxisAlignment: CrossAxisAlignment.center,
                                                                 children: <Widget>[
                                                                   Expanded(
                                                                     child: Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                      crossAxisAlignment: CrossAxisAlignment.center,
                                                                       children: <Widget>[
                                                                         Icon(Icons.supervisor_account),
                                                                         Text(
-                                                                          '成员',
+                                                                          ' 成员',
                                                                           style: TextStyle(
                                                                             fontWeight: FontWeight.w500,
                                                                             fontSize: 16,
@@ -955,19 +957,17 @@ class _NianPageContentState extends State<NianPageContent>
                                                                     ),
                                                                   ),
                                                                   Expanded(
-                                                                    child: Padding(
-                                                                      padding: const EdgeInsets.only(top: 6),
                                                                       child: Text(
                                                                         '${bill.member}',
                                                                         textAlign: TextAlign.center,
                                                                         style: TextStyle(
-                                                                          fontWeight: FontWeight.w600,
-                                                                          fontSize: 12,
-                                                                          color: Theme.of(context).primaryColor
-                                                                              .withOpacity(0.5),
+                                                                          fontWeight: FontWeight.w400,
+                                                                          fontSize: 16,
+                                                                          color:
+                                                                          Colors.black.withOpacity(0.7),
                                                                         ),
                                                                       ),
-                                                                    ),
+
                                                                   ),
                                                                 ],
                                                               ),
@@ -986,7 +986,7 @@ class _NianPageContentState extends State<NianPageContent>
                                                                             fontWeight: FontWeight.w600,
                                                                             fontSize: 12,
                                                                             color:
-                                                                            Theme.of(context).primaryColor.withOpacity(0.4),
+                                                                            Colors.black.withOpacity(0.4),
                                                                           ),
                                                                         ),
                                                             ),
