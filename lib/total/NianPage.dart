@@ -979,6 +979,7 @@ class _NianPageContentState extends State<NianPageContent>
                                                             ),
                                                             //备注
                                                             Expanded(
+                                                              flex: 3,
                                                                         child:Text(
                                                                           '${bill.title}',
                                                                           textAlign: TextAlign.start,

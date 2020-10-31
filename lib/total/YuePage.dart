@@ -1038,6 +1038,7 @@ class _YuePageContentState extends State<YuePageContent>
                                                           ),
                                                           //备注
                                                           Expanded(
+                                                            flex: 3,
                                                             child:Text(
                                                               '${bill.title}',
                                                               textAlign: TextAlign.start,

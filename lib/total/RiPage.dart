@@ -987,6 +987,7 @@ class _RiPageContentState extends State<RiPageContent>
                                                           ),
                                                           //备注
                                                           Expanded(
+                                                            flex: 3,
                                                             child:Text(
                                                               '${bill.title}',
                                                               textAlign: TextAlign.start,

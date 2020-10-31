@@ -884,6 +884,7 @@ class _CardAddBill extends State<CardAddBill>
       else if (!(type==2 || currentbill.category1!="未选择")) {Toast.show("请选择分类", context);}
       else if (currentbill.accountOut=="未选择") {Toast.show("请选择账户", context);}
       else if (!(type!=2 || currentbill.accountIn!="未选择")) {Toast.show("请选择账户", context);}
+      else if (currentbill.value100 > 99999999) {Toast.show("金额过大", context);}
       //Toast.show("不合法！", context);
     }
   }
@@ -892,7 +893,9 @@ class _CardAddBill extends State<CardAddBill>
     return currentbill.value100 > 0 //金额
         && (type==2 || currentbill.category1!="未选择")  //收入支出时要填分类
         && currentbill.accountOut!="未选择"  //必填账户
-        && (type!=2 || currentbill.accountIn!="未选择");  //转账时必填转入账户
+        && (type!=2 || currentbill.accountIn!="未选择")
+        && currentbill.value100 <= 99999999
+    ;  //转账时必填转入账户
   }
 
   writeCurrentBill () {
