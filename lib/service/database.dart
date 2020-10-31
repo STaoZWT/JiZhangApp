@@ -418,6 +418,33 @@ class BillsDatabaseService {
     return sum;
   }
 
+  Future<String> assetThisMonth() async {
+    final db = await database;
+    DateTime to = DateTime.now();
+    DateTime from = DateTime(to.year, to.month, 1);
+    List<Map<String, dynamic>> resultIn = await db.rawQuery('SELECT sum(value100) FROM Bills WHERE date >= ? AND date <= ? AND type = 0', [from.millisecondsSinceEpoch, to.millisecondsSinceEpoch]);
+    int value100In = resultIn[0]['sum(value100)'] == null ? 0 : resultIn[0]['sum(value100)'];
+    List<Map<String, dynamic>> resultOut = await db.rawQuery('SELECT sum(value100) FROM Bills WHERE date >= ? AND date <= ? AND type = 1', [from.millisecondsSinceEpoch, to.millisecondsSinceEpoch]);
+    int value100Out = resultOut[0]['sum(value100)'] == null ? 0 : resultOut[0]['sum(value100)'];
+    int value100 = value100In - value100Out;
+    bool isNegative = false;
+    if (value100 < 0) {
+      isNegative = true;
+      value100 = -value100;
+    }
+    String sum = (value100 == null) ? '0.00' :
+    (value100 > 99)?
+    value100.toString().substring(0, value100.toString().length-2)
+        + '.'
+        + value100.toString().substring(value100.toString().length-2, value100.toString().length):
+    (value100 > 9) ? '0.' + value100.toString() :'0.0' + value100.toString();
+    print(sum);
+    if (isNegative) {
+      sum = '-' + sum;
+    }
+    return sum;
+  }
+
   //返回最近一笔记账
   Future<BillsModel> LatestBill() async {
     final db = await database;
