@@ -660,7 +660,7 @@ class _RiPageContentState extends State<RiPageContent>
                             return new Container(
                                 height: 65,
                                 child: Card(
-                                    margin: EdgeInsets.all(5.0),
+                                    margin: EdgeInsets.all(1.0),
                                     elevation: 2.0,
                                     color: Colors.white,
                                     shape: const RoundedRectangleBorder(
