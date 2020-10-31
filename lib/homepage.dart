@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
   int billsCount;
   String income;
   String outcome;
+  String netAsset;
   BillsModel latestBill;
   //String messageCount;
 
@@ -340,7 +341,7 @@ class _HomePageState extends State<HomePage> {
 
                                                             fontWeight:
                                                             FontWeight.w600,
-                                                            fontSize: 24,
+                                                            fontSize: 22,
                                                             color: Theme.of(context).primaryColor,
                                                           ),
                                                         ),
@@ -426,7 +427,7 @@ class _HomePageState extends State<HomePage> {
                                                           style: TextStyle(
                                                             fontWeight:
                                                             FontWeight.w600,
-                                                            fontSize: 24,
+                                                            fontSize: 22,
                                                             color: Theme.of(context).primaryColor,
                                                           ),
                                                         ),
@@ -500,7 +501,8 @@ class _HomePageState extends State<HomePage> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  '${countBalance (income, outcome)}',
+                                                  //'${countBalance (income, outcome)}',
+                                                  '$netAsset',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
 
@@ -853,7 +855,7 @@ class _HomePageState extends State<HomePage> {
 
                                                             fontWeight:
                                                             FontWeight.w600,
-                                                            fontSize: 24,
+                                                            fontSize: 20,
                                                             color: Theme.of(context).primaryColor,
                                                           ),
                                                         ),
@@ -938,7 +940,7 @@ class _HomePageState extends State<HomePage> {
                                                           style: TextStyle(
                                                             fontWeight:
                                                             FontWeight.w600,
-                                                            fontSize: 24,
+                                                            fontSize: 20,
                                                             color: Theme.of(context).primaryColor,
                                                           ),
                                                         ),
@@ -1012,7 +1014,8 @@ class _HomePageState extends State<HomePage> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  '${countBalance (income, outcome)}',
+                                                  //'${countBalance (income, outcome)}',
+                                                  '$netAsset',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     fontWeight: FontWeight.normal,
@@ -1196,6 +1199,7 @@ class _HomePageState extends State<HomePage> {
     print(billsCount);
     income = await BillsDatabaseService.db.assetInThisMonth();
     outcome = await BillsDatabaseService.db.assetOutThisMonth();
+    netAsset = await BillsDatabaseService.db.assetThisMonth();
     latestBill = await BillsDatabaseService.db.LatestBill();
     //String outcomePlan = await getOutcomePlan();
     if (latestBill == null) {
@@ -1255,11 +1259,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   //以下计算结余
-  double countBalance (String income, String outcome) {
-    double val1 = double.parse(income);
-    double val2 = double.parse(outcome);
-    return val1 - val2;
-  }
+  // double countBalance (String income, String outcome) {
+  //   double val1 = int.parse(income.substring(0,income.length-3));
+  //   double val2 = int.parse(outcome.substring(0,outcome.length-3));
+  //   return val1 - val2;
+  // }
 
 
 

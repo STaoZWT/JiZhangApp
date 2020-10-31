@@ -7,6 +7,7 @@ import '../total/TotalPage.dart';
 import '../data/model.dart';
 import '../service/database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'TimePage.dart';
 
@@ -701,7 +702,7 @@ class _YuePageContentState extends State<YuePageContent>
                           itemCount: value['明细'].length,
                           itemBuilder: (context, index) {
                             return new Container(
-                                height: 65,
+                                height: 72,
                                 child: Card(
                                     margin: EdgeInsets.all(1.0),
                                     elevation: 2.0,
@@ -759,19 +760,311 @@ class _YuePageContentState extends State<YuePageContent>
                                       ]),
                                       secondaryActions: <Widget>[
                                         //右侧按钮列表
-                                        /*IconSlideAction(
-                                          caption: '编辑',
+                                        IconSlideAction(
+                                          caption: '详情',
                                           color: Colors.black45,
                                           icon: Icons.more_horiz,
-                                          //onTap: () => _showSnackBar('More'),
-                                        ),*/
+                                          onTap: () async {
+                                            BillsModel bill = await getDataFromDB(value['明细'][index]['id']);
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: Text('流水详情'),
+                                                  content:
+                                                  SizedBox(
+                                                    width: 150,
+                                                    height: 400,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(
+                                                          left: 4, right: 4, top: 8, bottom: 16),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: <Widget>[
+                                                          //时间
+                                                          Expanded(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: <Widget>[
+                                                                Expanded(
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: <Widget>[
+                                                                      Icon(Icons.date_range),
+                                                                      Text(
+                                                                        ' 时间',
+                                                                        textAlign: TextAlign.center,
+                                                                        style: TextStyle(
+
+                                                                          fontWeight: FontWeight.w500,
+                                                                          fontSize: 16,
+                                                                          letterSpacing: -0.2,
+                                                                          color: Theme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    '${bill.date.month}月${bill.date.day}日',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 16,
+                                                                      color:
+                                                                      Colors.black.withOpacity(0.7),
+                                                                    ),
+                                                                  ),
+
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          //金额
+                                                          Expanded(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: <Widget>[
+                                                                Expanded(
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: <Widget>[
+                                                                      FaIcon(FontAwesomeIcons.yenSign),
+                                                                      Text(
+                                                                        '  金额',
+                                                                        textAlign: TextAlign.center,
+                                                                        style: TextStyle(
+
+                                                                          fontWeight: FontWeight.w500,
+                                                                          fontSize: 16,
+                                                                          letterSpacing: -0.2,
+                                                                          color: Theme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    '${value100ConvertToText (bill.value100)} 元',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 16,
+                                                                      color:
+                                                                      Colors.black.withOpacity(0.7),
+                                                                    ),
+                                                                  ),
+
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          //分类1、转出账户
+                                                          Expanded(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: <Widget>[
+                                                                Expanded(
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: <Widget>[
+                                                                      Icon(Icons.arrow_forward_ios,),
+                                                                      Text(
+                                                                        (bill.type==2)?' 转出':' 分类1',
+                                                                        style: TextStyle(
+                                                                          fontWeight: FontWeight.w500,
+                                                                          fontSize: 16,
+                                                                          letterSpacing: -0.2,
+                                                                          color: Theme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    (bill.type==2)?'${bill.accountOut}':'${bill.category1}',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 16,
+                                                                      color:
+                                                                      Colors.black.withOpacity(0.7),
+                                                                    ),
+                                                                  ),
+
+                                                                ),
+
+                                                              ],
+                                                            ),
+
+                                                          ),
+                                                          //分类2、转入账户
+                                                          Expanded(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: <Widget>[
+                                                                Expanded(
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: <Widget>[
+                                                                      Icon(Icons.arrow_forward_ios,),
+                                                                      Text(
+                                                                        (bill.type==2)?' 转入':' 分类2',
+                                                                        style: TextStyle(
+                                                                          fontWeight: FontWeight.w500,
+                                                                          fontSize: 16,
+                                                                          letterSpacing: -0.2,
+                                                                          color: Theme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    (bill.type==2)?'${bill.accountIn}':'${bill.category2}',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 16,
+                                                                      color:
+                                                                      Colors.black.withOpacity(0.7),
+                                                                    ),
+                                                                  ),
+
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          //账户
+                                                          Visibility(
+                                                            visible: bill.type != 2,
+                                                            child: Expanded(
+                                                              child: Row(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                children: <Widget>[
+                                                                  Expanded(
+                                                                    child: Row(
+                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                                      children: <Widget>[
+                                                                        Icon(Icons.account_balance_wallet),
+                                                                        Text(
+                                                                          ' 账户',
+                                                                          style: TextStyle(
+                                                                            fontWeight: FontWeight.w500,
+                                                                            fontSize: 16,
+                                                                            letterSpacing: -0.2,
+                                                                            color: Theme.of(context).primaryColor,
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      '${bill.accountOut}',
+                                                                      textAlign: TextAlign.center,
+                                                                      style: TextStyle(
+                                                                        fontWeight: FontWeight.w400,
+                                                                        fontSize: 16,
+                                                                        color:
+                                                                        Colors.black.withOpacity(0.7),
+                                                                      ),
+                                                                    ),
+
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          //成员
+                                                          Expanded(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: <Widget>[
+                                                                Expanded(
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: <Widget>[
+                                                                      Icon(Icons.supervisor_account),
+                                                                      Text(
+                                                                        ' 成员',
+                                                                        style: TextStyle(
+                                                                          fontWeight: FontWeight.w500,
+                                                                          fontSize: 16,
+                                                                          letterSpacing: -0.2,
+                                                                          color: Theme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    '${bill.member}',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 16,
+                                                                      color:
+                                                                      Colors.black.withOpacity(0.7),
+                                                                    ),
+                                                                  ),
+
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(
+                                                                left: 24, right: 24, top: 8, bottom: 8),
+                                                            child: Divider(),
+                                                          ),
+                                                          //备注
+                                                          Expanded(
+                                                            flex: 3,
+                                                            child:Text(
+                                                              '${bill.title}',
+                                                              textAlign: TextAlign.start,
+                                                              style: TextStyle(
+                                                                fontWeight: FontWeight.w600,
+                                                                fontSize: 12,
+                                                                color:
+                                                                Colors.black.withOpacity(0.4),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
                                         IconSlideAction(
                                           caption: '删除',
                                           color: Colors.red,
                                           icon: Icons.delete,
                                           closeOnTap: false,
                                           onTap: () {
-                                            //_showSnackBar('Delete');
                                             print('click');
                                             setState(() {
                                               Toast.show(
@@ -787,8 +1080,7 @@ class _YuePageContentState extends State<YuePageContent>
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           TimePage(
-                                                            index: 2,
-                                                          )));
+                                                            index: 2,)));
                                             });
                                           },
                                         ),
@@ -842,6 +1134,20 @@ class _YuePageContentState extends State<YuePageContent>
     }else if(0<money.length && money.length<=12){
       return money+'元';
     }
+  }
+
+  Future<BillsModel> getDataFromDB(int id) async {
+    BillsModel bill = await BillsDatabaseService.db.getBillById(id);
+    return bill;
+  }
+
+  String value100ConvertToText (int value100) {
+    String ans = (value100 > 99)?
+    value100.toString().substring(0, value100.toString().length-2)
+        + '.'
+        + value100.toString().substring(value100.toString().length-2, value100.toString().length):
+    (value100 > 9) ? '0.' + value100.toString() :'0.0' + value100.toString();
+    return ans;
   }
 
   @override
