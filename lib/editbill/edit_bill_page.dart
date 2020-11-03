@@ -1037,8 +1037,8 @@ class _CardAddBill extends State<CardAddBill>
     currentbill.category2 = (type==2)?"转账":(type==0)?classInSelectText.split(",")[1].substring(1):classOutSelectText.split(",")[1].substring(1);
     currentbill.member = memberSelectText;
     currentbill.value100 = moneyInput;
-    currentbill.merchant1 = memberSelectText.split(",")[0];
-    currentbill.merchant2 = memberSelectText.split(",")[1];
+    currentbill.merchant1 = merchantSelectText.split(",")[0];
+    currentbill.merchant2 = merchantSelectText.split(",")[1];
     currentbill.project1 = projectSelectText.split(",")[0];
     currentbill.project2 = projectSelectText.split(",")[1];
   }
@@ -1102,8 +1102,8 @@ class _CardAddBill extends State<CardAddBill>
               ",")[1];
           currentbill.member = memberSelectText;
           currentbill.value100 = moneyInput;
-          currentbill.merchant1 = memberSelectText.split(",")[0];
-          currentbill.merchant2 = memberSelectText.split(",")[1];
+          currentbill.merchant1 = merchantSelectText.split(",")[0];
+          currentbill.merchant2 = merchantSelectText.split(",")[1];
           currentbill.project1 = projectSelectText.split(",")[0];
           currentbill.project2 = projectSelectText.split(",")[1];
           setDraft(currentbill);
