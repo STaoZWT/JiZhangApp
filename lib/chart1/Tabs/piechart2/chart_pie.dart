@@ -104,7 +104,7 @@ class _PiechartPageState extends State<PiechartPage> {
       data = dataAll;
       print(data);
       for(int i=0; i<data.length; i++){
-        print(data[i].type); print(data[i].category2);print(data[i].value100);print(data[i].category1);//print(data[i]);
+        print(data[i].merchant1); print(data[i].merchant2);print(data[i].project1);print(data[i].project2);//print(data[i]);
       }
       typeSelect = (widget.typeSelect)==null?typeSelect:(widget.typeSelect);
       //print(widget.typeSelect);

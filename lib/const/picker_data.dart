@@ -46,6 +46,42 @@ const MemberPickerData = '''
 ]
 ''';
 
+///商家
+const MerchantPickerData = '''
+[
+    {
+        "所有": [
+            "无商家/地点",
+            "其它",
+            "饭堂",
+            "银行",
+            "商场",
+            "超市",
+            "公交"
+        ]
+    }
+]
+    ''';
+
+///项目
+const ProjectPickerData = '''
+[
+    {
+        "所有": [
+            "无项目",
+            "红包",
+            "过年买票",
+            "回家过年",
+            "出差",
+            "公司报销",
+            "装修",
+            "旅游",
+            "腐败"
+        ]
+    }
+]
+''';
+
 const OutClassPickerData = '''
 [
     {

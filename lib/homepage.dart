@@ -338,7 +338,6 @@ class _HomePageState extends State<HomePage> {
                                                           (double.parse(income)>9999999.99)?'家财万贯':income,
                                                           textAlign: TextAlign.center,
                                                           style: TextStyle(
-
                                                             fontWeight:
                                                             FontWeight.w600,
                                                             fontSize: 20,
@@ -1203,6 +1202,10 @@ class _HomePageState extends State<HomePage> {
     //String outcomePlan = await getOutcomePlan();
     if (latestBill == null) {
       latestBill = new BillsModel(id: -1,
+        merchant1: '', ///
+        merchant2: '',
+        project1: '',
+        project2: '', ///
         category1: '',
         category2: '',
         accountIn: '',
@@ -1215,9 +1218,7 @@ class _HomePageState extends State<HomePage> {
       );
     }
     flag = true;
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   //以下将金额int转为***.**字符串

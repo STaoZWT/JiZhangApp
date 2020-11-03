@@ -13,9 +13,7 @@ import 'package:date_format/date_format.dart';
 import '../service/database.dart';
 import '../data/model.dart';
 import 'package:toast/toast.dart';
-import '../homepage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../total/account_card.dart';
 
 class CardAddBill extends StatefulWidget {
   @override
@@ -33,9 +31,9 @@ class _CardAddBill extends State<CardAddBill>
 
   int moneyInput;
   DateTime dateSelect;
+
   String classPickerData; //分类picker的所有选项
   List classSelect; //用户选择的分类
-  //String classSelectText;
   String classInSelectText ;
   String classOutSelectText ;
 
@@ -48,6 +46,15 @@ class _CardAddBill extends State<CardAddBill>
   String memberPickerData; //成员picker的所有选项
   List memberSelect; //用户选择的成员
   String memberSelectText;
+
+  ///新添加
+  String merchantPickerData; //商家picker的所有选项
+  List merchantSelect; //用户选择的商家
+  String merchantSelectText;
+  ///
+  String projectPickerData; //项目picker的所有选项
+  List projectSelect; //用户选择的项目
+  String projectSelectText;
 
   String remark; //备注
   int type;
@@ -70,11 +77,16 @@ class _CardAddBill extends State<CardAddBill>
     accountSelectOut = [0];
     accountSelectIn = [0];
     memberSelect = [0];
+    merchantSelect = [0, 0];///
+    projectSelect = [0, 0];///
     classInSelectText = "未选择,未选择";
     classOutSelectText = "未选择,未选择";
     accountInSelectText = "未选择";
     accountOutSelectText = "未选择";
     memberSelectText = "无成员";
+    merchantSelectText = "所有,无商家/地点"; ///
+    projectSelectText = "所有,无项目";///
+
     remark = " ";
     type = 1;
     //tempMoney = 0.00;
@@ -88,7 +100,11 @@ class _CardAddBill extends State<CardAddBill>
         accountOut: "未选择",
         category1: "未选择",
         category2: "未选择",
-        member: "无成员"
+        member: "无成员",
+        merchant1: "所有", ///
+        merchant2: "无商家/地点",
+        project1: "所有",
+        project2: "无项目", ///
     );
     draftToCurrentBill();
   }
@@ -136,6 +152,14 @@ class _CardAddBill extends State<CardAddBill>
                                 ",")[1];
                             currentbill.member = memberSelectText;
                             currentbill.value100 = moneyInput;
+
+                            ///
+                            currentbill.merchant1 = merchantSelectText.split(",")[0];///
+                            currentbill.merchant2 = merchantSelectText.split(",")[1];
+                            ///
+                            currentbill.project1 = projectSelectText.split(",")[0];///
+                            currentbill.project2 = projectSelectText.split(",")[1];
+
                             setDraft(currentbill);
                             Navigator.of(context).pop();
                             Navigator.of(context).pop();
@@ -197,6 +221,14 @@ class _CardAddBill extends State<CardAddBill>
                                       ",")[1];
                                   currentbill.member = memberSelectText;
                                   currentbill.value100 = moneyInput;
+
+                                  ///
+                                  currentbill.merchant1 = merchantSelectText.split(",")[0];///
+                                  currentbill.merchant2 = merchantSelectText.split(",")[1];
+                                  ///
+                                  currentbill.project1 = projectSelectText.split(",")[0];///
+                                  currentbill.project2 = projectSelectText.split(",")[1];
+
                                   setDraft(currentbill);
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pop();
@@ -696,6 +728,67 @@ class _CardAddBill extends State<CardAddBill>
                                     ),
                                   ),
                                 ),
+
+                                ///商家
+                                Divider(
+                                  color: Colors.black26,
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    FocusScope.of(context).requestFocus(blankNode);
+                                    merchantPicker(context);
+                                  },
+                                  child: ListTile(
+                                    title: Text(
+                                      "商家",
+                                      style: TextStyle(color: Colors.black45),
+                                    ),
+                                    subtitle: Text(
+                                      "$merchantSelectText",
+                                      style: TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    leading: Icon(
+                                      Icons.account_circle,
+                                      color: Theme
+                                          .of(context)
+                                          .primaryColor,
+                                    ),
+                                  ),
+                                ),
+
+                                ///项目
+                                Divider(
+                                  color: Colors.black26,
+                                ),
+                                InkWell(
+                                  onTap: () async {
+                                    FocusScope.of(context).requestFocus(blankNode);
+                                    projectPicker(context);
+                                  },
+                                  child: ListTile(
+                                    title: Text(
+                                      "项目",
+                                      style: TextStyle(color: Colors.black45),
+                                    ),
+                                    subtitle: Text(
+                                      "$projectSelectText",
+                                      style: TextStyle(
+                                        color: Colors.black87,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    leading: Icon(
+                                      Icons.account_circle,
+                                      color: Theme
+                                          .of(context)
+                                          .primaryColor,
+                                    ),
+                                  ),
+                                ),
+
                               ],
                             ),
                           ),
@@ -770,6 +863,42 @@ class _CardAddBill extends State<CardAddBill>
     }
 
 
+  }
+
+  merchantPicker(BuildContext context) {
+    Picker(
+        adapter: PickerDataAdapter<String>(
+            pickerdata: JsonDecoder()
+                .convert(MerchantPickerData)), //传入可选项，json:string to list
+        changeToFirst: true,
+        hideHeader: false,
+        selectedTextStyle: TextStyle(color: Theme.of(context).primaryColor),
+        onConfirm: (Picker picker, List value) {
+          setState(() {
+            merchantSelect = value;
+            merchantSelectText = removeBrackets(picker.adapter.text);//用户选中的成员
+          });
+          print(value.toString());
+          print(picker.adapter.text);
+        }).showModal(this.context);
+  }
+
+  projectPicker(BuildContext context) {
+    Picker(
+        adapter: PickerDataAdapter<String>(
+            pickerdata: JsonDecoder()
+                .convert(ProjectPickerData)), //传入可选项，json:string to list
+        changeToFirst: true,
+        hideHeader: false,
+        selectedTextStyle: TextStyle(color: Theme.of(context).primaryColor),
+        onConfirm: (Picker picker, List value) {
+          setState(() {
+            projectSelect = value;
+            projectSelectText = removeBrackets(picker.adapter.text);//用户选中的成员
+          });
+          print(value.toString());
+          print(picker.adapter.text);
+        }).showModal(this.context);
   }
 
   classPicker(BuildContext context, int type) {
@@ -908,6 +1037,10 @@ class _CardAddBill extends State<CardAddBill>
     currentbill.category2 = (type==2)?"转账":(type==0)?classInSelectText.split(",")[1].substring(1):classOutSelectText.split(",")[1].substring(1);
     currentbill.member = memberSelectText;
     currentbill.value100 = moneyInput;
+    currentbill.merchant1 = memberSelectText.split(",")[0];
+    currentbill.merchant2 = memberSelectText.split(",")[1];
+    currentbill.project1 = projectSelectText.split(",")[0];
+    currentbill.project2 = projectSelectText.split(",")[1];
   }
 
   draftToCurrentBill() async {
@@ -921,6 +1054,8 @@ class _CardAddBill extends State<CardAddBill>
       accountInSelectText = "${currentbill.accountIn}";
       accountOutSelectText = "${currentbill.accountOut}";
       memberSelectText = "${currentbill.member}";
+      merchantSelectText = "${currentbill.merchant1},${currentbill.merchant2}";
+      projectSelectText = "${currentbill.project1},${currentbill.project2}";
       remark = "${currentbill.title}";
       moneyInput = currentbill.value100;
       dateSelect = currentbill.date;
@@ -967,6 +1102,10 @@ class _CardAddBill extends State<CardAddBill>
               ",")[1];
           currentbill.member = memberSelectText;
           currentbill.value100 = moneyInput;
+          currentbill.merchant1 = memberSelectText.split(",")[0];
+          currentbill.merchant2 = memberSelectText.split(",")[1];
+          currentbill.project1 = projectSelectText.split(",")[0];
+          currentbill.project2 = projectSelectText.split(",")[1];
           setDraft(currentbill);
           Navigator.of(context).pop();
           Navigator.of(context).pop();

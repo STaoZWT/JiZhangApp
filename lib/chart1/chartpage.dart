@@ -25,7 +25,7 @@ class _ChartPageState extends State<ChartPage> {
   int _currentIndex = 0;
   int pie_bar = 0; //0--饼状图  1--条形图
 
-  //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户
+  //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户, 5:商家, 6:项目
   //type 1:收入， 2：支出
   //默认为“一级分类支出”
   String typeSelect = '一级分类';
@@ -66,7 +66,7 @@ class _ChartPageState extends State<ChartPage> {
     }
   }
 
-  //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户
+  //typeSelect 1:一级分类，2：二级分类，3：成员，4：账户, 5:商家, 6:项目
   //type 0:收入， 1：支出
   //默认为“一级分类支出”
   title(String typeSelect, int type) {
@@ -143,30 +143,6 @@ class _ChartPageState extends State<ChartPage> {
                               },
                             ),
                           )
-                          /*RaisedButton.icon(
-                          color: Theme.of(context).accentColor,
-                          textColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(100),
-                                  bottomLeft: Radius.circular(100))),
-                          icon: Icon(Icons.select_all),
-                          label: Text(
-                            '分类',
-                            style: TextStyle(letterSpacing: 1),
-                          ),
-                          onPressed: (){
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                                context,
-                                //transition: TransitionType.inFromBottom,
-                                CupertinoPageRoute(
-                                    builder: (context) => SelectPage(
-                                        typeSelect: typeSelect,
-                                        type: type,
-                                        picked: picked)));
-                          },
-                        ),*/
                         ]
                       /*actions: <Widget>[
                       IconButton(
