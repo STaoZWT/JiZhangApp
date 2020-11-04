@@ -980,6 +980,85 @@ class _RiPageContentState extends State<RiPageContent>
                                                               ],
                                                             ),
                                                           ),
+                                                          Expanded(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: <Widget>[
+                                                                Expanded(
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: <Widget>[
+                                                                      Icon(Icons.shop),
+                                                                      Text(
+                                                                        ' 商家',
+                                                                        style: TextStyle(
+                                                                          fontWeight: FontWeight.w500,
+                                                                          fontSize: 16,
+                                                                          letterSpacing: -0.2,
+                                                                          color: Theme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    '${bill.merchant2}',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 16,
+                                                                      color:
+                                                                      Colors.black.withOpacity(0.7),
+                                                                    ),
+                                                                  ),
+
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          //项目
+                                                          Expanded(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: <Widget>[
+                                                                Expanded(
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: <Widget>[
+                                                                      Icon(Icons.looks),
+                                                                      Text(
+                                                                        ' 项目',
+                                                                        style: TextStyle(
+                                                                          fontWeight: FontWeight.w500,
+                                                                          fontSize: 16,
+                                                                          letterSpacing: -0.2,
+                                                                          color: Theme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    '${bill.project2}',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 16,
+                                                                      color:
+                                                                      Colors.black.withOpacity(0.7),
+                                                                    ),
+                                                                  ),
+
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
                                                           Padding(
                                                             padding: const EdgeInsets.only(
                                                                 left: 24, right: 24, top: 8, bottom: 8),

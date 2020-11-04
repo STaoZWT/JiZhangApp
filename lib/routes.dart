@@ -8,7 +8,7 @@ import 'package:flutter_jizhangapp/login/password_confirm.dart';
 import 'package:flutter_jizhangapp/login/password_reset.dart';
 import 'package:flutter_jizhangapp/login/register.dart';
 import 'package:flutter_jizhangapp/login/splash.dart';
-import 'package:flutter_jizhangapp/service/external_storege_backup.dart';
+import 'package:flutter_jizhangapp/service/external_storage_backup.dart';
 import './editbill/edit_account_picker_page.dart';
 import './editbill/edit_class_picker_page.dart';
 import './editbill/edit_member_picker_page.dart';

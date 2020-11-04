@@ -5,7 +5,7 @@ import 'package:flutter_jizhangapp/login/introduction_screen.dart';
 import 'package:flutter_jizhangapp/login/splash.dart';
 import 'package:flutter_jizhangapp/routes.dart';
 import 'package:flutter_jizhangapp/service/app_info.dart';
-import 'package:flutter_jizhangapp/service/external_storege_backup.dart';
+import 'package:flutter_jizhangapp/service/external_storage_backup.dart';
 import 'package:flutter_jizhangapp/service/shared_pref.dart';
 import 'package:provider/provider.dart';
 import 'login/register.dart';

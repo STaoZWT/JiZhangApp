@@ -254,7 +254,7 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: Padding(padding: EdgeInsets.only(top: 290),
                     child: CircleAvatar(
-                      backgroundImage: AssetImage("assets/cat_picture.png"),
+                      backgroundImage: AssetImage("assets/cat_user.png"),
                       radius: 60,
                       backgroundColor: Colors.transparent,
                     ),

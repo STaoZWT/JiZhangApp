@@ -7,7 +7,6 @@ import '../total/TotalPage.dart';
 import '../data/model.dart';
 import '../service/database.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import '../service/database.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'TimePage.dart';
@@ -1025,6 +1024,85 @@ class _JiPageContentState extends State<JiPageContent>
                                                                 Expanded(
                                                                   child: Text(
                                                                     '${bill.member}',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 16,
+                                                                      color:
+                                                                      Colors.black.withOpacity(0.7),
+                                                                    ),
+                                                                  ),
+
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: <Widget>[
+                                                                Expanded(
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: <Widget>[
+                                                                      Icon(Icons.shop),
+                                                                      Text(
+                                                                        ' 商家',
+                                                                        style: TextStyle(
+                                                                          fontWeight: FontWeight.w500,
+                                                                          fontSize: 16,
+                                                                          letterSpacing: -0.2,
+                                                                          color: Theme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    '${bill.merchant2}',
+                                                                    textAlign: TextAlign.center,
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w400,
+                                                                      fontSize: 16,
+                                                                      color:
+                                                                      Colors.black.withOpacity(0.7),
+                                                                    ),
+                                                                  ),
+
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          //项目
+                                                          Expanded(
+                                                            child: Row(
+                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              children: <Widget>[
+                                                                Expanded(
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                    children: <Widget>[
+                                                                      Icon(Icons.looks),
+                                                                      Text(
+                                                                        ' 项目',
+                                                                        style: TextStyle(
+                                                                          fontWeight: FontWeight.w500,
+                                                                          fontSize: 16,
+                                                                          letterSpacing: -0.2,
+                                                                          color: Theme.of(context).primaryColor,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    '${bill.project2}',
                                                                     textAlign: TextAlign.center,
                                                                     style: TextStyle(
                                                                       fontWeight: FontWeight.w400,

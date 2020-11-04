@@ -588,7 +588,7 @@ class _Dismissshow extends State<Dismissshow> {
                                                                   fontWeight: FontWeight.w400,
                                                                   fontSize: 16,
                                                                   color:
-                                                                  Theme.of(context).primaryColor,
+                                                                  Colors.black.withOpacity(0.7),
                                                                 ),
                                                               ),
 
@@ -628,7 +628,7 @@ class _Dismissshow extends State<Dismissshow> {
                                                                   fontWeight: FontWeight.w400,
                                                                   fontSize: 16,
                                                                   color:
-                                                                  Theme.of(context).primaryColor,
+                                                                  Colors.black.withOpacity(0.7),
                                                                 ),
                                                               ),
 
@@ -660,7 +660,6 @@ class _Dismissshow extends State<Dismissshow> {
                                                 ),
                                               ),
                                             );
-                                          ;
 
                                         },
                                       );

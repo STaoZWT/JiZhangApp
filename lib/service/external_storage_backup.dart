@@ -40,7 +40,8 @@ class _BackupToFileState extends State<BackupToFile> {
   }
 
   void writeToFile() async {
-    final fileDirectory = await getApplicationDocumentsDirectory();
+    //final fileDirectory = await getApplicationDocumentsDirectory();
+    final fileDirectory = await getExternalStorageDirectory();
     final filePath = fileDirectory.path;
     //Directory documentsDir = await getExternalStorageDirectory();
     //String documentsPath = documentsDir.path;
@@ -90,7 +91,8 @@ class _BackupToFileState extends State<BackupToFile> {
   }
 
   void getNotesFromCache() async {
-    final fileDirectory = await getApplicationDocumentsDirectory();
+    //final fileDirectory = await getApplicationDocumentsDirectory();
+    final fileDirectory = await getExternalStorageDirectory();
     final filePath = fileDirectory.path;
     // Directory documentsDir = await getExternalStorageDirectory();
     // String documentsPath = documentsDir.path;
@@ -196,7 +198,7 @@ class _BackupToFileState extends State<BackupToFile> {
                         ),
                       ),
                       TextSpan(
-                        text: '''，您可以在本地的文件夹中找到。\n按下还原上次备份按键，系统将把上次备份存储路径中的文件覆盖目前用户的数据信息。并且APP自动重启\n''',
+                        text: '''，您可以将本地的文件夹复制到安全的位置。\n按下还原上次备份按键，系统将把上次备份存储路径中的文件覆盖目前用户的数据信息。并且APP自动重启\n''',
                         style: TextStyle(
                           fontSize: 20,
                           color: Theme.of(context).primaryColor,
