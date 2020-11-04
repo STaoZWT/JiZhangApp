@@ -29,7 +29,8 @@ class BillsDatabaseService {
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
           await db.execute(
-              'CREATE TABLE Bills (_id INTEGER PRIMARY KEY, title TEXT, date INTEGER, type INTEGER, accountIn TEXT, accountOut TEXT, category1 TEXT, category2 TEXT, member TEXT, value100 INTEGER);');
+              'CREATE TABLE Bills (_id INTEGER PRIMARY KEY, title TEXT, date INTEGER, type INTEGER, accountIn TEXT, accountOut TEXT, category1 TEXT, category2 TEXT, member TEXT, '
+                  'value100 INTEGER, merchant1 TEXT, merchant2 TEXT, project1 TEXT, project2 TEXT);');
           print('New table created at $path');
         });
   }
@@ -48,7 +49,11 @@ class BillsDatabaseService {
       'category1',
       'category2',
       'member',
-      'value100'
+      'value100',
+      'merchant1',
+      'merchant2',
+      'project1',
+      'project2',
     ],
       orderBy: 'date DESC',
     );
@@ -74,7 +79,11 @@ class BillsDatabaseService {
       'category1',
       'category2',
       'member',
-      'value100'
+      'value100',
+      'merchant1',
+      'merchant2',
+      'project1',
+      'project2',
       ],
       orderBy: 'date DESC',
     );
@@ -101,7 +110,11 @@ class BillsDatabaseService {
           'category1',
           'category2',
           'member',
-          'value100'
+          'value100',
+          'merchant1',
+          'merchant2',
+          'project1',
+          'project2',
         ],
         where: 'date >= ? AND date <= ?',
         orderBy: 'date DESC',
@@ -132,7 +145,11 @@ class BillsDatabaseService {
           'category1',
           'category2',
           'member',
-          'value100'
+          'value100',
+          'merchant1',
+          'merchant2',
+          'project1',
+          'project2',
         ],
         where: 'date >= ? AND date <= ?',
         whereArgs: [
@@ -165,7 +182,11 @@ class BillsDatabaseService {
           'category1',
           'category2',
           'member',
-          'value100'
+          'value100',
+          'merchant1',
+          'merchant2',
+          'project1',
+          'project2',
         ],
         where: 'accountIn = ? AND accountOut = ?',
         whereArgs: [accountIn, accountOut]);
@@ -192,7 +213,11 @@ class BillsDatabaseService {
           'category1',
           'category2',
           'member',
-          'value100'
+          'value100',
+          'merchant1',
+          'merchant2',
+          'project1',
+          'project2',
         ],
         where: 'category1 = ?',
         whereArgs: [category1]);
@@ -220,7 +245,11 @@ class BillsDatabaseService {
           'category1',
           'category2',
           'member',
-          'value100'
+          'value100',
+          'merchant1',
+          'merchant2',
+          'project1',
+          'project2',
         ],
         where: 'category1 = ? AND category2 = ?',
         whereArgs: [category1, category2]);
@@ -247,7 +276,11 @@ class BillsDatabaseService {
           'category1',
           'category2',
           'member',
-          'value100'
+          'value100',
+          'merchant1',
+          'merchant2',
+          'project1',
+          'project2',
         ],
         where: 'member = ?',
         whereArgs: [member]);
@@ -363,11 +396,11 @@ class BillsDatabaseService {
     if (newBill.title.trim().isEmpty) newBill.title = ' ';
     int id = await db.transaction((transaction) {
       transaction.rawInsert(
-          'INSERT into Bills(title, date, type, accountIn, accountOut, category1, category2, member, value100) VALUES ("${newBill.title}", "${newBill.date.millisecondsSinceEpoch}", "${newBill.type}", "${newBill.accountIn}", "${newBill.accountOut}", "${newBill.category1}", "${newBill.category2}", "${newBill.member}", "${newBill.value100}");');
+          'INSERT into Bills(title, date, type, accountIn, accountOut, category1, category2, member, value100, merchant1, merchant2, project1, project2) VALUES ("${newBill.title}", "${newBill.date.millisecondsSinceEpoch}", "${newBill.type}", "${newBill.accountIn}", "${newBill.accountOut}", "${newBill.category1}", "${newBill.category2}", "${newBill.member}", "${newBill.value100}", "${newBill.merchant1}", "${newBill.merchant2}", "${newBill.project1}", "${newBill.project2}");');
     });
     newBill.id = id;
     print(
-        'Bill added: ${newBill.title} ${newBill.value100} ${newBill.date} type is: ${newBill.type}');
+        'Bill added: ${newBill.title} ${newBill.value100} ${newBill.date} ${newBill.project2} ${newBill.merchant2} type is: ${newBill.type}');
     return newBill;
   }
 
@@ -459,7 +492,11 @@ class BillsDatabaseService {
       'category1',
       'category2',
       'member',
-      'value100'
+      'value100',
+      'merchant1',
+      'merchant2',
+      'project1',
+      'project2',
     ],
       orderBy: 'date DESC',
       limit: 1
@@ -487,7 +524,11 @@ class BillsDatabaseService {
       'category1',
       'category2',
       'member',
-      'value100'
+      'value100',
+      'merchant1',
+      'merchant2',
+      'project1',
+      'project2',
     ],
         where: '_id = ?',
         whereArgs: [id],

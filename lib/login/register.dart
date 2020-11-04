@@ -166,6 +166,8 @@ class _RegisterPageState extends State<RegisterPage> {
   //密码判断（8~18，数字和字符，正则判断式）
   static bool isLoginPassword(String input) {
     RegExp mobile = new RegExp(r"[A-Za-z0-9]{8,18}$");
+    if(input.length>18)
+      return false;
     return mobile.hasMatch(input);
   }
 
@@ -176,9 +178,9 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          print('tap here!');
-          FocusScope.of(context).requestFocus(blankNode);
+      onTap: () {
+        print('tap here!');
+        FocusScope.of(context).requestFocus(blankNode);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -235,7 +237,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 onEditingComplete: () {
                                   print('finish input 1');
                                   FocusScope.of(context).requestFocus(_passwordFocusNode);
-                                  },
+                                },
                                 controller: registerUserNameController,
                                 decoration: InputDecoration(
                                     icon: Icon(Icons.account_circle),
@@ -337,13 +339,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                 if(isLoginPassword(registerPassWordController.value.text.toString())&&
                                     isUserName(registerUserNameController.value.text.toString())){
                                   //密码和用户名符合格式
-                                  print('login correct');
                                   await setEncryptedPassword(registerPassWordController.value.text.toString());
                                   await setUserName(registerUserNameController.value.text.toString());
                                   Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context){
-                                    // return LoginPage(
-                                    //   userNameGet: registerUserNameController.value.text.toString(),
-                                    // );
                                     return IntroductionScreenPage();
                                   }));
                                 }else if(!isUserName(registerUserNameController.value.text.toString())&&
@@ -384,7 +382,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Padding(padding: EdgeInsets.only(top: 290),
                     child: CircleAvatar(
                       //child: Image.asset("image/tupian.jpg"),
-                      backgroundImage: AssetImage("assets/cat_picture.png"),
+                      backgroundImage: AssetImage("assets/cat_user.png"),
                       radius: 60,
                       backgroundColor: Colors.transparent,
                     ),

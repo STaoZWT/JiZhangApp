@@ -13,6 +13,10 @@ class BillsModel {
   //bool hasMember; //是否有成员
   String member; //成员，待改
   int value100; //金额
+  String merchant1; ///商家
+  String merchant2;
+  String project1; ///项目
+  String project2;
 
   BillsModel(
       {this.id,
@@ -24,7 +28,12 @@ class BillsModel {
       this.category1,
       this.category2,
       this.member,
-      this.value100});
+      this.value100,
+      this.merchant1, ///
+      this.merchant2,
+      this.project1, ///
+      this.project2,
+      });
 
   //从Map读入
   BillsModel.fromMap(Map<String, dynamic> map) {
@@ -39,6 +48,10 @@ class BillsModel {
     //this.hasMember = map['hasMember'] == 1 ? true : false;
     this.member = map['member'];
     this.value100 = map['value100'];
+    this.merchant1 = map['merchant1']; ///
+    this.merchant2 = map['merchant2'];
+    this.project1 = map['project1']; ///
+    this.project2 = map['project2'];
   }
 
   //输出为Map
@@ -54,7 +67,11 @@ class BillsModel {
       'category2': this.category2,
       //'hasMember': this.hasMember == true ? 1 : 0,
       'member': this.member,
-      'value100': this.value100
+      'value100': this.value100,
+      'merchant1': this.merchant1, ///
+      'merchant2': this.merchant2,
+      'project1': this.project1,
+      'project2': this.project2 ///
     };
   }
 
@@ -71,5 +88,9 @@ class BillsModel {
     //this.hasMember = Random().nextBool();
     this.member =  'Member ' + (Random().nextInt(3)).toString();
     this.value100 = Random().nextInt(10000);
+    this.merchant1 = 'merchant1 ' + (Random().nextInt(3)).toString(); ///
+    this.merchant2 = 'merchant2 ' + (Random().nextInt(3)).toString();
+    this.project1 = 'project1 ' + (Random().nextInt(3)).toString();
+    this.project2 = 'project2 ' + (Random().nextInt(3)).toString();
   }
 }

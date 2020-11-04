@@ -102,540 +102,741 @@ class _SelectPageState extends State<SelectPage> {
                   fit: BoxFit.fill,
                   colorFilter: ColorFilter.mode(
                       Colors.white.withOpacity(0.8), BlendMode.lighten))),
-        child: ListView(
+        child: GridView(
+          padding: EdgeInsets.only(left: 30.0,right: 30.0,top: 20.0),
+          scrollDirection: Axis.vertical,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 30.0,
+              childAspectRatio: 0.99
+          ),
           children: [
-            SizedBox(
-              height: 20.0,
-            ),
-            Card(
-              margin: EdgeInsets.all(8.0),
-              elevation: 2.0,
-              shape: const RoundedRectangleBorder(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(14.0))),
-              child: Container(
-                width: double.infinity,
-                height: 100.0,
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 1,
-                        child: Container()
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Text("支出图表",
-                        style: TextStyle(backgroundColor:Colors.white,inherit:true,color:Colors.blueGrey,fontSize:17),
-                      ),
-                    ),
-                    Expanded(
-                        flex: 7,
-                        child: GestureDetector(
-                          child: Container(
-                              color: Colors.white12,
-                              child: Card(
-                                margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                                elevation: 0.0,
-                                color: Colors.white,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(2.0))),
-                                child: Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.end,
-                                  children: <Widget>[
-                                    SizedBox(
-                                      width: double.infinity,
-                                      height: 28,
-                                      child: Icon(Icons.looks_one, size: 28.0,
-                                        color: Theme.of(context).primaryColor,),
-                                    ),
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.only(
-                                          top: 4),
-                                      child: Text(
-                                        '分类支出  ', ///终止时间 年
-                                        //textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily:
-                                          JizhangAppTheme
-                                              .fontName,
-                                          fontWeight:
-                                          FontWeight.w600,
-                                          fontSize: 15,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                          ),
-                          onTap: (){
-                            selected = "分类支出";
-                            typeSelect = '一级分类';
-                            type = 1;
-                            print(selected);
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (BuildContext context) => ChartPage(
-                                    typeSelect: typeSelect,
-                                    type: type,
-                                    picked: picked)));
-                          },
-                        )
-                    ),
-                    Expanded(
-                        flex: 7,
-                        child: GestureDetector(
-                          child: Container(
-                              color: Colors.white12,
-                              child: Card(
-                                margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                                elevation: 0.0,
-                                color: Colors.white,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(2.0))),
-                                child: Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.end,
-                                  children: <Widget>[
-                                    SizedBox(
-                                      width: double.infinity,
-                                      height: 28,
-                                      child: Icon(Icons.category, size: 28.0,
-                                        color: Theme.of(context).primaryColor,),
-                                    ),
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.only(
-                                          top: 4),
-                                      child: Text(
-                                        '二级支出  ', ///终止时间 年
-                                        //textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily:
-                                          JizhangAppTheme
-                                              .fontName,
-                                          fontWeight:
-                                          FontWeight.w600,
-                                          fontSize: 15,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),)
-                          ),
-                          onTap: (){
-                            selected = "二级支出";
-                            typeSelect = '二级分类';
-                            type = 1;
-                            print(selected);
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (BuildContext context) => ChartPage(
-                                    typeSelect: typeSelect,
-                                    type: type,
-                                    picked: picked)));
-                          },
-                        )
-                    ),
-                    Expanded(
-                        flex: 7,
-                        child: GestureDetector(
-                          child: Container(
-                              color: Colors.white12,
-                              child:Card(
-                                margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                                elevation: 0.0,
-                                color: Colors.white,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(2.0))),
-                                child: Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.end,
-                                  children: <Widget>[
-                                    SizedBox(
-                                      width: double.infinity,
-                                      height: 28,
-                                      child: Icon(Icons.account_box, size: 28.0,
-                                        color: Theme.of(context).primaryColor,),
-                                    ),
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.only(
-                                          top: 4),
-                                      child: Text(
-                                        '账户支出  ', ///终止时间 年
-                                        //textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily:
-                                          JizhangAppTheme
-                                              .fontName,
-                                          fontWeight:
-                                          FontWeight.w600,
-                                          fontSize: 15,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                          ),
-                          onTap: (){
-                            selected = "账户支出";
-                            typeSelect = '账户分类';
-                            type = 1;
-                            print(selected);
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (BuildContext context) => ChartPage(
-                                    typeSelect: typeSelect,
-                                    type: type,
-                                    picked: picked)));
-                          },
-                        )
-                    ),
-                    Expanded(
-                        flex: 7,
-                        child: GestureDetector(
-                          child: Container(
-                              color: Colors.white12,
-                              child: Card(
-                                margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 6),
-                                elevation: 0.0,
-                                color: Colors.white,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.all(Radius.circular(2.0))),
-                                child: Column(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.end,
-                                  children: <Widget>[
-                                    SizedBox(
-                                      width: double.infinity,
-                                      height: 28,
-                                      child: Icon(Icons.people, size: 28.0,
-                                        color: Theme.of(context).primaryColor,),
-                                    ),
-                                    Padding(
-                                      padding:
-                                      const EdgeInsets.only(
-                                          top: 4),
-                                      child: Text(
-                                        ' 成员支出  ', ///终止时间 年
-                                        //textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily:
-                                          JizhangAppTheme
-                                              .fontName,
-                                          fontWeight:
-                                          FontWeight.w600,
-                                          fontSize: 15,
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                          ),
-                          onTap: (){
-                            selected = "成员支出";
-                            typeSelect = '成员分类';
-                            type = 1;
-                            print(selected);
-                            Navigator.of(context).pop();
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                builder: (BuildContext context) => ChartPage(
-                                    typeSelect: typeSelect,
-                                    type: type,
-                                    picked: picked)));
-                          },
-                        )
-                    ),
-                  ],
-                ),
+            /*Center(
+              child:Text("支出图表",
+                style: TextStyle(backgroundColor:Colors.transparent,inherit:true,color:Colors.blueGrey,fontSize:22),
               ),
             ),
-            Card(
-                margin: EdgeInsets.all(8.0),
-                elevation: 2.0,
-                shape: const RoundedRectangleBorder(
-                    borderRadius:
-                    BorderRadius.all(Radius.circular(14.0))),
-                child: Container(
-                  height: 100.0,
-                  width: double.infinity,
-                  child: Row(
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: Container()
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Text("收入图表",
-                          style: TextStyle(backgroundColor:Colors.white,inherit:true,color:Colors.blueGrey,fontSize:17),
+            Center(
+              child:Text("收入图表",
+                style: TextStyle(backgroundColor:Colors.transparent,inherit:true,color:Colors.blueGrey,fontSize:22),
+              ),
+            ),*/
+            ///一级支出
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.looks_one, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
                         ),
-                      ),
-                      Expanded(
-                          flex: 7,
-                          child: GestureDetector(
-                            child: Container(
-                                color: Colors.white12,
-                                child: Card(
-                                  margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                                  elevation: 0.0,
-                                  color: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(2.0))),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        width: double.infinity,
-                                        height: 28,
-                                        child: Icon(Icons.repeat_one, size: 28.0,
-                                          color: Theme.of(context).primaryColor,),
-                                      ),
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.only(
-                                            top: 4),
-                                        child: Text(
-                                          '一级收入  ', ///终止时间 年
-                                          //textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily:
-                                            JizhangAppTheme
-                                                .fontName,
-                                            fontWeight:
-                                            FontWeight.w600,
-                                            fontSize: 15,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                            ),
-                            onTap: (){
-                              selected = "分类收入";
-                              typeSelect = '一级分类';
-                              type = 0;
-                              print(selected);
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                  builder: (BuildContext context) => ChartPage(
-                                      typeSelect: typeSelect,
-                                      type: type,
-                                      picked: picked)));
-                            },
-                          )
-                      ),
-                      Expanded(
-                          flex: 7,
-                          child: GestureDetector(
-                            child: Container(
-                                color: Colors.white12,
-                                child: Card(
-                                  margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                                  elevation: 0.0,
-                                  color: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(2.0))),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        width: double.infinity,
-                                        height: 28,
-                                        child: Icon(Icons.looks_two, size: 28.0,
-                                          color: Theme.of(context).primaryColor,),
-                                      ),
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.only(
-                                            top: 4),
-                                        child: Text(
-                                          '二级收入  ', ///终止时间 年
-                                          //textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily:
-                                            JizhangAppTheme
-                                                .fontName,
-                                            fontWeight:
-                                            FontWeight.w600,
-                                            fontSize: 15,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                            ),
-                            onTap: (){
-                              selected = "二级收入";
-                              typeSelect = '二级分类';
-                              type = 0;
-                              print(selected);
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                  builder: (BuildContext context) => ChartPage(
-                                      typeSelect: typeSelect,
-                                      type: type,
-                                      picked: picked)));
-                            },
-                          )
-                      ),
-                      Expanded(
-                          flex: 7,
-                          child: GestureDetector(
-                            child: Container(
-                                color: Colors.white12,
-                                child: Card(
-                                  margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
-                                  elevation: 0.0,
-                                  color: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(2.0))),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        width: double.infinity,
-                                        height: 28,
-                                        child: Icon(Icons.account_circle, size: 28.0,
-                                          color: Theme.of(context).primaryColor,),
-                                      ),
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.only(
-                                            top: 4),
-                                        child: Text(
-                                          '账户收入  ', ///终止时间 年
-                                          //textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily:
-                                            JizhangAppTheme
-                                                .fontName,
-                                            fontWeight:
-                                            FontWeight.w600,
-                                            fontSize: 15,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                            ),
-                            onTap: (){
-                              selected = "账户收入";
-                              typeSelect = '账户分类';
-                              type = 0;
-                              print(selected);
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                  builder: (BuildContext context) => ChartPage(
-                                      typeSelect: typeSelect,
-                                      type: type,
-                                      picked: picked)));
-                            },
-                          )
-                      ),
-                      Expanded(
-                          flex: 7,
-                          child: GestureDetector(
-                            child: Container(
-                                color: Colors.white12,
-                                child: Card(
-                                  margin: EdgeInsets.only(top: 1,bottom: 4,left: 1,right: 6),
-                                  elevation: 0.0,
-                                  color: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(2.0))),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        width: double.infinity,
-                                        height: 28,
-                                        child: Icon(Icons.people_outline, size: 28.0,
-                                          color: Theme.of(context).primaryColor,),
-                                      ),
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.only(
-                                            top: 4),
-                                        child: Text(
-                                          ' 成员收入  ', ///终止时间 年
-                                          //textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily:
-                                            JizhangAppTheme
-                                                .fontName,
-                                            fontWeight:
-                                            FontWeight.w600,
-                                            fontSize: 15,
-                                            color: Colors.grey,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                            ),
-                            onTap: (){
-                              selected = "成员收入";
-                              typeSelect = '成员分类';
-                              type = 0;
-                              print(selected);
-                              Navigator.of(context).pop();
-                              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                                  builder: (BuildContext context) => ChartPage(
-                                      typeSelect: typeSelect,
-                                      type: type,
-                                      picked: picked)));
-                            },
-                          )
-                      ),
-                    ],
-                  ),
-                )
-            )
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '分类支出', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              onTap: (){
+                selected = "分类支出";
+                typeSelect = '一级分类';
+                type = 1;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
+            ///一级收入
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.repeat_one, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '一级收入', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              onTap: (){
+                selected = "分类收入";
+                typeSelect = '一级分类';
+                type = 0;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
+            ///二级支出
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.category, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '二级支出', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),)
+              ),
+              onTap: (){
+                selected = "二级支出";
+                typeSelect = '二级分类';
+                type = 1;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
+            ///二级收入
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.looks_two, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '二级收入', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              onTap: (){
+                selected = "二级收入";
+                typeSelect = '二级分类';
+                type = 0;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
+
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child:Card(
+                    margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.account_box, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '账户支出', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              onTap: (){
+                selected = "账户支出";
+                typeSelect = '账户分类';
+                type = 1;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 1),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.account_circle, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '账户收入', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              onTap: (){
+                selected = "账户收入";
+                typeSelect = '账户分类';
+                type = 0;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
+
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 6),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.people, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '成员支出', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              onTap: (){
+                selected = "成员支出";
+                typeSelect = '成员分类';
+                type = 1;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 1,bottom: 4,left: 1,right: 6),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.people_outline, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '成员收入', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              onTap: (){
+                selected = "成员收入";
+                typeSelect = '成员分类';
+                type = 0;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
+
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 6),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.shop, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '商家支出', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              onTap: (){
+                selected = "商家支出";
+                typeSelect = '商家分类';
+                type = 1;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 1,bottom: 4,left: 1,right: 6),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.shop_two, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '商家收入', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              onTap: (){
+                selected = "商家收入";
+                typeSelect = '商家分类';
+                type = 0;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
+
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 4,bottom: 4,left: 1,right: 6),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.pageview, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '项目支出', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              onTap: (){
+                selected = "项目支出";
+                typeSelect = '项目分类';
+                type = 1;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
+            GestureDetector(
+              child: Container(
+                  color: Colors.white12,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 1,bottom: 4,left: 1,right: 6),
+                    elevation: 2.0,
+                    color: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(20.0))),
+                    child: Column(
+                      mainAxisAlignment:
+                      MainAxisAlignment.center,
+                      crossAxisAlignment:
+                      CrossAxisAlignment.end,
+                      children: <Widget>[
+                        SizedBox(
+                          width: double.infinity,
+                          height: 28,
+                          child: Icon(Icons.looks, size: 28.0,
+                            color: Theme.of(context).primaryColor,),
+                        ),
+                        Padding(
+                            padding:
+                            const EdgeInsets.only(
+                                top: 4),
+                            child: Center(
+                              child: Text(
+                                '项目收入', ///终止时间 年
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily:
+                                  JizhangAppTheme
+                                      .fontName,
+                                  fontWeight:
+                                  FontWeight.w600,
+                                  fontSize: 15,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            )
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+              onTap: (){
+                selected = "项目收入";
+                typeSelect = '项目分类';
+                type = 0;
+                print(selected);
+                Navigator.of(context).pop();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => ChartPage(
+                        typeSelect: typeSelect,
+                        type: type,
+                        picked: picked)));
+              },
+            ),
           ],
         ),
       ),

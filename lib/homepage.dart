@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
                                           style: TextStyle(
                                             //fontFamily: FitnessAppTheme.fontName,
                                             fontWeight: FontWeight.w600,
-                                            fontSize: 60,
+                                            fontSize: 50,
                                             color: Theme.of(context).accentColor,
                                           ),
                                         ),
@@ -310,13 +310,13 @@ class _HomePageState extends State<HomePage> {
                                                 children: <Widget>[
                                                   Padding(
                                                     padding: const EdgeInsets.only(
-                                                        left: 4, bottom: 2),
+                                                        left: 0, bottom: 2),
                                                     child: Text(
                                                       '本月收入',
                                                       textAlign: TextAlign.center,
                                                       style: TextStyle(
                                                         fontWeight: FontWeight.w500,
-                                                        fontSize: 16,
+                                                        fontSize: 13,
                                                         letterSpacing: -0.1,
                                                         color: Theme.of(context).primaryColor
                                                             .withOpacity(0.5),
@@ -333,15 +333,14 @@ class _HomePageState extends State<HomePage> {
                                                       Padding(
                                                         padding:
                                                         const EdgeInsets.only(
-                                                            left: 4, bottom: 3),
+                                                            left: 0, bottom: 3),
                                                         child: Text(
                                                           (double.parse(income)>9999999.99)?'家财万贯':income,
                                                           textAlign: TextAlign.center,
                                                           style: TextStyle(
-
                                                             fontWeight:
                                                             FontWeight.w600,
-                                                            fontSize: 22,
+                                                            fontSize: 20,
                                                             color: Theme.of(context).primaryColor,
                                                           ),
                                                         ),
@@ -349,12 +348,11 @@ class _HomePageState extends State<HomePage> {
                                                       Padding(
                                                         padding:
                                                         const EdgeInsets.only(
-                                                            left: 4, bottom: 3),
+                                                            left: 2, bottom: 3),
                                                         child: Text(
                                                           '元',
                                                           textAlign: TextAlign.center,
                                                           style: TextStyle(
-
                                                             fontWeight:
                                                             FontWeight.w600,
                                                             fontSize: 12,
@@ -397,14 +395,14 @@ class _HomePageState extends State<HomePage> {
                                                 children: <Widget>[
                                                   Padding(
                                                     padding: const EdgeInsets.only(
-                                                        left: 4, bottom: 2),
+                                                        left: 0, bottom: 2),
                                                     child: Text(
                                                       '本月支出',
                                                       textAlign: TextAlign.center,
                                                       style: TextStyle(
 
                                                         fontWeight: FontWeight.w500,
-                                                        fontSize: 16,
+                                                        fontSize: 13,
                                                         letterSpacing: -0.1,
                                                         color: Theme.of(context).primaryColor
                                                             .withOpacity(0.5),
@@ -420,14 +418,14 @@ class _HomePageState extends State<HomePage> {
                                                       Padding(
                                                         padding:
                                                         const EdgeInsets.only(
-                                                            left: 4, bottom: 3),
+                                                            left: 0, bottom: 3),
                                                         child: Text(
                                                           (double.parse(outcome)>9999999.99)?'挥金如土':outcome,
                                                           textAlign: TextAlign.center,
                                                           style: TextStyle(
                                                             fontWeight:
                                                             FontWeight.w600,
-                                                            fontSize: 22,
+                                                            fontSize: 20,
                                                             color: Theme.of(context).primaryColor,
                                                           ),
                                                         ),
@@ -435,7 +433,7 @@ class _HomePageState extends State<HomePage> {
                                                       Padding(
                                                         padding:
                                                         const EdgeInsets.only(
-                                                            left: 8, bottom: 3),
+                                                            left: 2, bottom: 3),
                                                         child: Text(
                                                           '元',
                                                           textAlign: TextAlign.center,
@@ -463,7 +461,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 //以下绘制圆圈
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 16),
+                                  padding: const EdgeInsets.only(right: 8),
                                   child: Center(
                                     child: Stack(
                                       overflow: Overflow.visible,
@@ -1204,6 +1202,10 @@ class _HomePageState extends State<HomePage> {
     //String outcomePlan = await getOutcomePlan();
     if (latestBill == null) {
       latestBill = new BillsModel(id: -1,
+        merchant1: '', ///
+        merchant2: '',
+        project1: '',
+        project2: '', ///
         category1: '',
         category2: '',
         accountIn: '',
@@ -1216,9 +1218,7 @@ class _HomePageState extends State<HomePage> {
       );
     }
     flag = true;
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   //以下将金额int转为***.**字符串
@@ -1357,6 +1357,10 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
       print('关于我们');
       screenView = const aboutUsPage();
       setState(() { });
+    }
+    else if(drawerIndexdata == DrawerIndex.Data){
+      print('数据备份与还原');
+      Navigator.of(context).pushNamed('backup');
     }
   }
 

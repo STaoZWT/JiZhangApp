@@ -150,7 +150,7 @@ class _Dismissshow extends State<Dismissshow> {
                   },
                   child: Container(
                     height: timeEqual(time, (widget.liuData)[index].date)
-                        ? 80.0
+                        ? 70.0
                         : 120.0, //每一条信息的高度
                     margin: const EdgeInsets.only(top: 10.0),
                     padding: const EdgeInsets.only(left: 5.0), //每条信息左边距
@@ -163,7 +163,7 @@ class _Dismissshow extends State<Dismissshow> {
                         Expanded(
                           flex: timeEqual(time, (widget.liuData)[index].date)
                               ? 1
-                              : 3,
+                              : 4,
                           child: timeEqual(time, (widget.liuData)[index].date)
                               ? Center(
                                   //间隔线
@@ -173,6 +173,7 @@ class _Dismissshow extends State<Dismissshow> {
                                   //时间
                                   height: 30,
                                   width: double.infinity,
+                                  margin: const EdgeInsets.only(bottom:10),
                                   padding: const EdgeInsets.only(
                                       left: 10.0, top: 10.0), //每条信息左边距
                                   //color: Colors.white54,
@@ -219,8 +220,8 @@ class _Dismissshow extends State<Dismissshow> {
                                 actionPane:
                                     SlidableStrechActionPane(), //滑出选项的面板 动画
                                 actionExtentRatio: 0.25,
-                                  child: Card(
-                                    margin: EdgeInsets.all(8.0),
+                                child: Card(
+                                    margin: EdgeInsets.only(left: 5.0, right: 5.0),
                                     elevation: 2.0,
                                     color: Colors.white,
                                     shape: const RoundedRectangleBorder(
@@ -248,13 +249,7 @@ class _Dismissshow extends State<Dismissshow> {
                                           onLongPress: () => print("$index被长按了"),
                                         ),
                                       ),
-
-
-
-                            ),
-
-
-
+                                ),
                                 secondaryActions: <Widget>[
                                   //右侧按钮列表
                                   IconSlideAction(
@@ -561,6 +556,86 @@ class _Dismissshow extends State<Dismissshow> {
                                                           ],
                                                         ),
                                                       ),
+                                                      //商家
+                                                      Expanded(
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: <Widget>[
+                                                            Expanded(
+                                                              child: Row(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                children: <Widget>[
+                                                                  Icon(Icons.shop),
+                                                                  Text(
+                                                                    ' 商家',
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w500,
+                                                                      fontSize: 16,
+                                                                      letterSpacing: -0.2,
+                                                                      color: Theme.of(context).primaryColor,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Text(
+                                                                '${bill.merchant2}',
+                                                                textAlign: TextAlign.center,
+                                                                style: TextStyle(
+                                                                  fontWeight: FontWeight.w400,
+                                                                  fontSize: 16,
+                                                                  color:
+                                                                  Colors.black.withOpacity(0.7),
+                                                                ),
+                                                              ),
+
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      //项目
+                                                      Expanded(
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: <Widget>[
+                                                            Expanded(
+                                                              child: Row(
+                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                                children: <Widget>[
+                                                                  Icon(Icons.looks),
+                                                                  Text(
+                                                                    ' 项目',
+                                                                    style: TextStyle(
+                                                                      fontWeight: FontWeight.w500,
+                                                                      fontSize: 16,
+                                                                      letterSpacing: -0.2,
+                                                                      color: Theme.of(context).primaryColor,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Text(
+                                                                '${bill.project2}',
+                                                                textAlign: TextAlign.center,
+                                                                style: TextStyle(
+                                                                  fontWeight: FontWeight.w400,
+                                                                  fontSize: 16,
+                                                                  color:
+                                                                  Colors.black.withOpacity(0.7),
+                                                                ),
+                                                              ),
+
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
                                                       Padding(
                                                         padding: const EdgeInsets.only(
                                                             left: 24, right: 24, top: 8, bottom: 8),
@@ -585,7 +660,6 @@ class _Dismissshow extends State<Dismissshow> {
                                                 ),
                                               ),
                                             );
-                                          ;
 
                                         },
                                       );

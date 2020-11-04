@@ -1,4 +1,3 @@
-//import 'app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_jizhangapp/service/shared_pref.dart';
@@ -18,7 +17,7 @@ class HomeDrawer extends StatefulWidget {
 class _HomeDrawerState extends State<HomeDrawer> {
   List<DrawerList> drawerList;
   String userName = 'User';
-  
+
   int userProfileIndex;
   bool flag;
 
@@ -69,15 +68,21 @@ class _HomeDrawerState extends State<HomeDrawer> {
         icon: Icon(Icons.warning),
       ),
       DrawerList(
-          index: DrawerIndex.About,
-          labelName: '帮助',
-          icon: Icon(Icons.help),
+        index: DrawerIndex.About,
+        labelName: '帮助',
+        icon: Icon(Icons.help),
+      ),
+      DrawerList(
+        index: DrawerIndex.Data,
+        labelName: '数据备份与还原',
+        icon: Icon(Icons.data_usage),
       ),
       DrawerList(
         index:  DrawerIndex.Testing,
         labelName: '关于我们',
         icon: Icon(Icons.message),
       ),
+
     ];
 
     flag = true;
@@ -367,6 +372,7 @@ enum DrawerIndex {
   About,
   Invite,
   Testing,
+  Data,
 }
 
 class DrawerList {

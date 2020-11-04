@@ -81,6 +81,18 @@ List getLiuData(List<BillsModel> data, String checked, String typeSelect, int ty
                 data[i].value100, false, data[i].category2);
             liuData.add(dataNow);
           }
+        }else if(typeSelect=='商家分类'){
+          if((checked)==data[i].merchant2){
+            dataNow = new LiushuiData(data[i].id, data[i].merchant2, data[i].date, data[i].type,
+                data[i].value100, false, data[i].category2);
+            liuData.add(dataNow);
+          }
+        }else if(typeSelect=='项目分类'){
+          if((checked)==data[i].project2){
+            dataNow = new LiushuiData(data[i].id, data[i].project2, data[i].date, data[i].type,
+                data[i].value100, false, data[i].category2);
+            liuData.add(dataNow);
+          }
         }
       }
   }
@@ -175,9 +187,7 @@ double formatNum(double num,int postion){
           }
           if(flag==0){//不存在
             datanow = new PieData(colorListPie[i], 0.00, data[i].category2, data[i].value100 /100);
-            print(data[i].category2);
             dataPie.add(datanow);
-            flag = 0;
           }
           flag = 0;
           allPrice = allPrice + (data[i].value100)/100;
@@ -194,7 +204,6 @@ double formatNum(double num,int postion){
           if(flag==0){//不存在
             datanow = new PieData(colorListPie[i], 0.00, data[i].member, data[i].value100 /100);
             dataPie.add(datanow);
-            flag = 0;
           }
           flag = 0;
           allPrice = allPrice + (data[i].value100)/100;
@@ -211,14 +220,46 @@ double formatNum(double num,int postion){
           if(flag==0){//不存在
             datanow = new PieData(colorListPie[i], 0.00, data[i].accountOut, data[i].value100 /100);
             dataPie.add(datanow);
-            flag = 0;
+          }
+          flag = 0;
+          allPrice = allPrice + (data[i].value100)/100;
+        }
+      }else if(typeSelect=="商家分类"){
+        if(type==data[i].type){
+          for(int j=0;j<dataPie.length;j++){ //遍历
+            if(dataPie[j].name==data[i].merchant2){ //已经添加该名字
+              print(data[i].merchant2);
+              dataPie[j].price = dataPie[j].price + data[i].value100/100;
+              flag = 1;
+              break;
+            }
+          }
+          if(flag==0){//不存在
+            datanow = new PieData(colorListPie[i], 0.00, data[i].merchant2, data[i].value100 /100);
+            dataPie.add(datanow);
+          }
+          flag = 0;
+          allPrice = allPrice + (data[i].value100)/100;
+        }
+      }
+      else if(typeSelect=="项目分类"){
+        if(type==data[i].type){
+          for(int j=0;j<dataPie.length;j++){ //遍历
+            if(dataPie[j].name==data[i].project2){ //已经添加该名字
+              dataPie[j].price = dataPie[j].price + data[i].value100/100;
+              flag = 1;
+              break;
+            }
+          }
+          if(flag==0){//不存在
+            datanow = new PieData(colorListPie[i], 0.00, data[i].project2, data[i].value100 /100);
+            dataPie.add(datanow);
           }
           flag = 0;
           allPrice = allPrice + (data[i].value100)/100;
         }
       }
     }
-    print(allPrice);
     if(allPrice!=0){ //不能除0
       for(int i=0;i<dataPie.length;i++)
       {
@@ -230,8 +271,6 @@ double formatNum(double num,int postion){
         }
       }
     }
-    print(dataPieFull);
-    //print(n);
     return dataPieFull; // 总数据
   }
 
