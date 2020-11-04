@@ -1358,6 +1358,10 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
       screenView = const aboutUsPage();
       setState(() { });
     }
+    else if(drawerIndexdata == DrawerIndex.Data){
+      print('数据备份与还原');
+      Navigator.of(context).pushNamed('backup');
+    }
   }
 
 }

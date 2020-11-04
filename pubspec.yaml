@@ -57,6 +57,7 @@ dependencies:
 
   #new
   intl: ^0.16.0
+  path_provider: ^1.6.24
 
 
 dev_dependencies:
