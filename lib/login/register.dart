@@ -382,7 +382,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: Padding(padding: EdgeInsets.only(top: 290),
                     child: CircleAvatar(
                       //child: Image.asset("image/tupian.jpg"),
-                      backgroundImage: AssetImage("assets/cat_picture.png"),
+                      backgroundImage: AssetImage("assets/cat_user.png"),
                       radius: 60,
                       backgroundColor: Colors.transparent,
                     ),
